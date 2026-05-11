@@ -1,0 +1,296 @@
+---
+import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = SITE_TITLE,
+  description = SITE_DESCRIPTION,
+} = Astro.props;
+
+const pageTitle = title === SITE_TITLE ? SITE_TITLE : `${title} | ${SITE_TITLE}`;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary" />
+    <title>{pageTitle}</title>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="/" aria-label="emmaizon home">
+        <span class="brand-mark" aria-hidden="true">e</span>
+        <span>emmaizon</span>
+      </a>
+      <nav aria-label="Primary navigation">
+        <a href="/about/">About</a>
+        <a href="/projects/">Projects</a>
+        <a href="/contact/">Contact</a>
+      </nav>
+    </header>
+    <main>
+      <slot />
+    </main>
+    <footer class="site-footer">
+      <p>&copy; {new Date().getFullYear()} emmaizon</p>
+    </footer>
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    color-scheme: light;
+    --color-ink: #191919;
+    --color-muted: #5f6468;
+    --color-line: #ded9cf;
+    --color-paper: #faf9f6;
+    --color-panel: #ffffff;
+    --color-accent: #0f766e;
+    --color-accent-strong: #124e48;
+    --color-warm: #c14b2a;
+    --font-sans:
+      Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+      "Segoe UI", sans-serif;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    min-width: 320px;
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+  }
+
+  body {
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    line-height: 1.6;
+  }
+
+  body::before {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    content: "";
+    background:
+      linear-gradient(120deg, rgb(15 118 110 / 0.08), transparent 35%),
+      linear-gradient(300deg, rgb(193 75 42 / 0.08), transparent 30%);
+  }
+
+  a {
+    color: inherit;
+    text-decoration-color: rgb(15 118 110 / 0.45);
+    text-underline-offset: 0.2em;
+  }
+
+  a:hover {
+    color: var(--color-accent-strong);
+  }
+
+  main {
+    flex: 1;
+  }
+
+  .site-header,
+  .site-footer,
+  .page-section {
+    width: min(100% - 32px, 1080px);
+    margin-inline: auto;
+  }
+
+  .site-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding-block: 22px;
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .brand-mark {
+    display: grid;
+    width: 34px;
+    height: 34px;
+    place-items: center;
+    border: 1px solid var(--color-line);
+    border-radius: 8px;
+    background: var(--color-panel);
+    color: var(--color-accent-strong);
+    font-weight: 800;
+  }
+
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 18px;
+    color: var(--color-muted);
+    font-size: 0.95rem;
+  }
+
+  nav a {
+    text-decoration: none;
+  }
+
+  .hero {
+    min-height: calc(100vh - 220px);
+    display: grid;
+    align-items: center;
+    padding-block: clamp(56px, 12vh, 120px);
+  }
+
+  .hero-inner {
+    max-width: 760px;
+  }
+
+  .eyebrow {
+    margin: 0 0 14px;
+    color: var(--color-warm);
+    font-size: 0.82rem;
+    font-weight: 800;
+    text-transform: uppercase;
+  }
+
+  h1,
+  h2 {
+    line-height: 1.08;
+  }
+
+  h1 {
+    max-width: 12ch;
+    margin: 0;
+    font-size: clamp(3rem, 12vw, 7rem);
+  }
+
+  h2 {
+    margin: 0 0 16px;
+    font-size: clamp(2rem, 5vw, 3.6rem);
+  }
+
+  p {
+    max-width: 68ch;
+  }
+
+  .lede {
+    margin: 24px 0 0;
+    color: var(--color-muted);
+    font-size: clamp(1.12rem, 2.4vw, 1.45rem);
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 34px;
+  }
+
+  .button {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--color-ink);
+    border-radius: 8px;
+    padding: 10px 16px;
+    background: var(--color-ink);
+    color: var(--color-panel);
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .button.secondary {
+    border-color: var(--color-line);
+    background: var(--color-panel);
+    color: var(--color-ink);
+  }
+
+  .page-section {
+    padding-block: clamp(48px, 10vw, 96px);
+  }
+
+  .split {
+    display: grid;
+    grid-template-columns: minmax(0, 0.82fr) minmax(280px, 1fr);
+    gap: clamp(28px, 6vw, 72px);
+    align-items: start;
+  }
+
+  .section-label {
+    margin: 0;
+    color: var(--color-warm);
+    font-size: 0.78rem;
+    font-weight: 800;
+    text-transform: uppercase;
+  }
+
+  .list {
+    display: grid;
+    gap: 18px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .list li {
+    border-top: 1px solid var(--color-line);
+    padding-top: 18px;
+  }
+
+  .list h2,
+  .list h3 {
+    margin: 0 0 6px;
+    font-size: 1.2rem;
+    line-height: 1.25;
+  }
+
+  .list p {
+    margin: 0;
+    color: var(--color-muted);
+  }
+
+  .site-footer {
+    padding-block: 36px;
+    color: var(--color-muted);
+    font-size: 0.9rem;
+  }
+
+  @media (max-width: 720px) {
+    .site-header {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    .hero {
+      min-height: auto;
+    }
+
+    .split {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

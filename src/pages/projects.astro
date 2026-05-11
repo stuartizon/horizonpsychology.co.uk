@@ -1,0 +1,42 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const projects = [
+  {
+    name: "Project one",
+    description: "A short description of a selected project can go here.",
+  },
+  {
+    name: "Project two",
+    description: "Use this space for another piece of work worth highlighting.",
+  },
+  {
+    name: "Project three",
+    description: "Replace these placeholders as the site takes shape.",
+  },
+];
+---
+
+<BaseLayout
+  title="Projects"
+  description="Selected projects and work from emmaizon."
+>
+  <section class="page-section split">
+    <p class="section-label">Projects</p>
+    <div>
+      <h1>Selected work</h1>
+      <p class="lede">
+        A focused index of projects, experiments, and other things worth
+        returning to.
+      </p>
+      <ul class="list" aria-label="Projects">
+        {projects.map((project) => (
+          <li>
+            <h2>{project.name}</h2>
+            <p>{project.description}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+</BaseLayout>
