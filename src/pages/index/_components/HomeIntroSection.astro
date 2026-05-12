@@ -1,0 +1,152 @@
+<section class="home-intro" aria-labelledby="home-intro-heading">
+  <h1 id="home-intro-heading">Dr Emma Izon: clinical psychologist</h1>
+
+  <div class="home-intro__media-row">
+    <div class="home-intro__image-wrap">
+      <img src="/images/emma-portrait.png" alt="Dr Emma Izon" width="208" height="208" />
+    </div>
+    <blockquote>
+      <p>"Lorem ipsum dolor sit amet consectetur adipiscing elit"</p>
+    </blockquote>
+  </div>
+
+  <div class="home-intro__copy">
+    <h2>What I offer</h2>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam nec
+      sapien nec est tincidunt blandit. Orci varius natoque penatibus et magnis
+      dis parturient montes, nascetur ridiculus mus. Nam augue lectus, volutpat
+      vitae turpis a, fringilla tincidunt metus. Donec egestas laoreet massa nec
+      pharetra.
+    </p>
+    <a href="/about/">More about me</a>
+  </div>
+</section>
+
+<style>
+  .home-intro {
+    width: min(100% - 40px, 520px);
+    margin-inline: auto;
+    padding-block: 18px 26px;
+  }
+
+  .home-intro h1 {
+    max-width: none;
+    margin: 0 0 18px;
+    color: var(--color-muted);
+    font-size: 1.45rem;
+    font-weight: 700;
+    line-height: 1.2;
+    text-align: center;
+  }
+
+  .home-intro__media-row {
+    display: grid;
+    grid-template-columns: minmax(0, 208px) minmax(0, 1fr);
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 22px;
+  }
+
+  .home-intro__image-wrap {
+    display: grid;
+    width: 208px;
+    aspect-ratio: 1;
+    place-items: center;
+    overflow: hidden;
+    border-radius: 14px;
+    background:
+      linear-gradient(var(--color-line), var(--color-line)),
+      var(--color-sage-100);
+  }
+
+  .home-intro__image-wrap img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .home-intro blockquote {
+    margin: 0;
+    color: var(--color-muted);
+    font-size: 1.06rem;
+    font-style: italic;
+    line-height: 1.22;
+    text-align: center;
+  }
+
+  .home-intro blockquote p {
+    margin: 0;
+  }
+
+  .home-intro__copy h2 {
+    margin: 0 0 10px;
+    color: var(--color-muted);
+    font-size: 1.1rem;
+    font-weight: 800;
+    line-height: 1.1;
+    text-transform: uppercase;
+  }
+
+  .home-intro__copy p {
+    margin: 0;
+    font-size: 0.92rem;
+    line-height: 1.16;
+  }
+
+  .home-intro__copy a {
+    display: table;
+    min-height: 40px;
+    margin: 20px auto 0;
+    background: var(--color-service-icon);
+    color: var(--color-panel);
+    padding: 11px 12px;
+    font-size: 1rem;
+    font-weight: 800;
+    line-height: 1;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  @media (min-width: 761px) {
+    .home-intro {
+      width: min(100% - 160px, 900px);
+      display: grid;
+      grid-template-columns: 280px minmax(280px, 1fr);
+      column-gap: clamp(28px, 4vw, 48px);
+      padding-block: 56px 18px;
+    }
+
+    .home-intro h1 {
+      grid-column: 1 / -1;
+      margin-bottom: 28px;
+      font-size: clamp(1.8rem, 3vw, 2.8rem);
+    }
+
+    .home-intro__media-row {
+      grid-column: 1 / -1;
+      grid-template-columns: subgrid;
+      gap: 0;
+      margin-bottom: 36px;
+    }
+
+    .home-intro__image-wrap {
+      width: min(100%, 280px);
+    }
+
+    .home-intro blockquote {
+      max-width: 480px;
+      font-size: clamp(1.5rem, 3vw, 2.5rem);
+    }
+
+    .home-intro__copy {
+      grid-column: 1 / -1;
+      max-width: none;
+    }
+
+    .home-intro__copy p {
+      max-width: none;
+    }
+  }
+</style>
