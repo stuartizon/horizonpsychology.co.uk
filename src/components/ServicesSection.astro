@@ -1,0 +1,91 @@
+---
+import ServiceCard from "./ServiceCard.astro";
+
+const services = [
+  {
+    title: "Therapy A",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam nec sapien nec est tincidunt blandit.",
+    href: "/therapy-a/",
+  },
+  {
+    title: "Therapy B",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam nec sapien nec est tincidunt blandit.",
+    href: "/therapy-b/",
+  },
+  {
+    title: "Therapy C",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam nec sapien nec est tincidunt blandit.",
+    href: "/therapy-c/",
+  },
+  {
+    title: "Therapy D",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam nec sapien nec est tincidunt blandit.",
+    href: "/therapy-d/",
+  },
+];
+---
+
+<section class="services-section" aria-labelledby="services-heading">
+  <h2 id="services-heading">Services</h2>
+  <div class="services-section__grid">
+    {
+      services.map((service) => (
+        <ServiceCard
+          title={service.title}
+          description={service.description}
+          href={service.href}
+        />
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .services-section {
+    width: min(100% - 32px, 1260px);
+    margin: 0 auto;
+    padding-block: 42px clamp(56px, 8vw, 96px);
+  }
+
+  .services-section h2 {
+    margin: 0 0 16px;
+    color: var(--color-service-heading);
+    font-size: 1.25rem;
+    font-weight: 800;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .services-section__grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 28px;
+  }
+
+  @media (max-width: 960px) {
+    .services-section__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 760px) {
+    .services-section {
+      width: min(100% - 32px, 520px);
+      padding-block: 28px 64px;
+    }
+
+    .services-section h2 {
+      margin-bottom: 18px;
+      font-size: 1.45rem;
+    }
+
+    .services-section__grid {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+  }
+</style>

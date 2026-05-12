@@ -1,0 +1,180 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  href: string;
+}
+
+const { title, description, href } = Astro.props;
+---
+
+<article class="service-card">
+  <div class="service-card__icon" aria-hidden="true">
+    <svg viewBox="0 0 64 64" focusable="false">
+      <path
+        d="M17.5 40.5c6.2-3.5 12-4.8 18.7-2.5l9.7 3.3c2 .7 3.1 2.5 2.4 4.1-.6 1.5-2.5 2.2-4.5 1.7l-11.9-3.4"
+      />
+      <path d="M13 45.6c8.4-2 17.2.2 26.3 6.5 4.5-1.5 8.8-3.8 12.7-6.8" />
+      <path d="M31.8 35.7c-5.1-4.8-7.2-10.2-6.4-16.2 5.4 2.6 8.7 6.9 9.9 12.9" />
+      <path d="M32.5 35.7c5.1-4.8 7.2-10.2 6.4-16.2-5.4 2.6-8.7 6.9-9.9 12.9" />
+      <path d="M32 33.4c-3.4-5.6-3.4-11.2 0-16.9 3.4 5.7 3.4 11.3 0 16.9Z" />
+      <path d="M23.6 34.9c-5.4-.8-9.3-3.7-11.5-8.7 5.7-.5 10.1 1.4 13.4 5.8" />
+      <path d="M40.4 34.9c5.4-.8 9.3-3.7 11.5-8.7-5.7-.5-10.1 1.4-13.4 5.8" />
+    </svg>
+  </div>
+  <h3>{title}</h3>
+  <p>{description}</p>
+  <a href={href}>Learn more</a>
+</article>
+
+<style>
+  .service-card {
+    display: grid;
+    min-height: 280px;
+    grid-template-rows: auto auto 1fr auto;
+    justify-items: center;
+    border-radius: 8px;
+    background: var(--color-service-surface);
+    padding: 18px 28px 22px;
+    color: var(--color-ink);
+  }
+
+  .service-card__icon {
+    display: grid;
+    width: 88px;
+    height: 88px;
+    place-items: center;
+    align-self: start;
+    margin-top: 16px;
+    border-radius: 999px;
+    background: var(--color-service-icon);
+  }
+
+  .service-card__icon svg {
+    width: 56px;
+    height: 56px;
+    overflow: visible;
+  }
+
+  .service-card__icon path {
+    fill: none;
+    stroke: var(--color-service-icon-mark);
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 4.5;
+  }
+
+  .service-card h3 {
+    order: -1;
+    margin: 0 0 12px;
+    color: var(--color-service-heading);
+    font-size: 1rem;
+    font-weight: 800;
+    line-height: 1.2;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .service-card p {
+    max-width: none;
+    margin: 22px 0 0;
+    font-size: 0.84rem;
+    line-height: 1.18;
+  }
+
+  .service-card a {
+    align-self: end;
+    margin-top: 22px;
+    color: var(--color-ink);
+    font-size: 1rem;
+    font-weight: 800;
+    line-height: 1;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 760px) {
+    .service-card {
+      min-height: 0;
+      grid-template-columns: 54px 1fr auto;
+      grid-template-rows: auto auto;
+      justify-items: stretch;
+      column-gap: 16px;
+      row-gap: 8px;
+      border-radius: 12px;
+      padding: 10px 20px 16px 12px;
+    }
+
+    .service-card__icon {
+      width: 52px;
+      height: 52px;
+      grid-row: 1;
+      grid-column: 1;
+      margin: 0;
+    }
+
+    .service-card__icon svg {
+      width: 34px;
+      height: 34px;
+    }
+
+    .service-card__icon path {
+      stroke-width: 5;
+    }
+
+    .service-card h3 {
+      order: initial;
+      align-self: center;
+      grid-row: 1;
+      grid-column: 2;
+      margin: 0;
+      font-size: 1.35rem;
+      text-align: left;
+    }
+
+    .service-card p {
+      grid-row: 2;
+      grid-column: 1 / -1;
+      margin: 0;
+      font-size: 1rem;
+      line-height: 1.2;
+    }
+
+    .service-card a {
+      align-self: center;
+      grid-row: 1;
+      grid-column: 3;
+      margin: 0;
+      font-size: 1.25rem;
+      white-space: nowrap;
+    }
+  }
+
+  @media (max-width: 430px) {
+    .service-card {
+      grid-template-columns: 44px 1fr;
+      padding: 12px 14px 14px;
+    }
+
+    .service-card__icon {
+      width: 44px;
+      height: 44px;
+    }
+
+    .service-card__icon svg {
+      width: 29px;
+      height: 29px;
+    }
+
+    .service-card h3 {
+      font-size: 1rem;
+    }
+
+    .service-card a {
+      grid-row: 3;
+      grid-column: 1 / -1;
+      margin-top: 4px;
+      font-size: 1rem;
+    }
+  }
+</style>
