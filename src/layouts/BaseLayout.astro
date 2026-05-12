@@ -1,4 +1,5 @@
 ---
+import Navbar from "../components/Navbar.astro";
 import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
 
 interface Props {
@@ -31,17 +32,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <title>{pageTitle}</title>
   </head>
   <body>
-    <header class="site-header">
-      <a class="brand" href="/" aria-label="emmaizon home">
-        <span class="brand-mark" aria-hidden="true">e</span>
-        <span>emmaizon</span>
-      </a>
-      <nav aria-label="Primary navigation">
-        <a href="/about/">About</a>
-        <a href="/projects/">Projects</a>
-        <a href="/contact/">Contact</a>
-      </nav>
-    </header>
+    <Navbar />
     <main>
       <slot />
     </main>
@@ -110,51 +101,10 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     flex: 1;
   }
 
-  .site-header,
   .site-footer,
   .page-section {
     width: min(100% - 32px, 1080px);
     margin-inline: auto;
-  }
-
-  .site-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 24px;
-    padding-block: 22px;
-  }
-
-  .brand {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    font-weight: 700;
-    text-decoration: none;
-  }
-
-  .brand-mark {
-    display: grid;
-    width: 34px;
-    height: 34px;
-    place-items: center;
-    border: 1px solid var(--color-line);
-    border-radius: 8px;
-    background: var(--color-panel);
-    color: var(--color-accent-strong);
-    font-weight: 800;
-  }
-
-  nav {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px 18px;
-    color: var(--color-muted);
-    font-size: 0.95rem;
-  }
-
-  nav a {
-    text-decoration: none;
   }
 
   .hero {
@@ -280,11 +230,6 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
   }
 
   @media (max-width: 720px) {
-    .site-header {
-      align-items: flex-start;
-      flex-direction: column;
-    }
-
     .hero {
       min-height: auto;
     }

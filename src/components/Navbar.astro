@@ -1,0 +1,157 @@
+---
+const navItems = [
+  { label: "About me", href: "/about/" },
+  { label: "Therapy A", href: "/therapy-a/" },
+  { label: "Therapy B", href: "/therapy-b/" },
+  { label: "Therapy C", href: "/therapy-c/" },
+  { label: "Therapy D", href: "/therapy-d/" },
+];
+---
+
+<header class="navbar">
+  <a class="navbar__brand" href="/" aria-label="Emma home">EMMA</a>
+  <nav class="navbar__links" aria-label="Primary navigation">
+    {navItems.map((item) => <a href={item.href}>{item.label}</a>)}
+  </nav>
+  <div class="navbar__actions">
+    <a class="navbar__schedule" href="/schedule/">Schedule</a>
+    <button class="navbar__menu" type="button" aria-label="Open menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</header>
+
+<style>
+  .navbar {
+    display: grid;
+    width: 100%;
+    min-height: 58px;
+    grid-template-columns: minmax(140px, 1fr) auto minmax(140px, 1fr);
+    align-items: center;
+    gap: 24px;
+    margin: 0;
+    border-bottom: 1px solid #9d9d9d;
+    background: #e8e8e8;
+    padding: 12px clamp(18px, 4vw, 46px) 13px;
+  }
+
+  .navbar__brand {
+    color: #202020;
+    font-size: 1.02rem;
+    font-weight: 800;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .navbar__links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(24px, 4vw, 48px);
+    color: #202020;
+    font-size: 0.96rem;
+    font-weight: 800;
+    white-space: nowrap;
+  }
+
+  .navbar__links a {
+    text-decoration: none;
+  }
+
+  .navbar__actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 18px;
+  }
+
+  .navbar__schedule {
+    display: inline-flex;
+    min-height: 38px;
+    align-items: center;
+    justify-content: center;
+    background: #b7b7b7;
+    color: #ffffff;
+    padding: 8px 13px;
+    font-size: 0.95rem;
+    font-weight: 800;
+    line-height: 1;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .navbar__menu {
+    display: none;
+    width: 40px;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 6px;
+    border: 0;
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+  }
+
+  .navbar__menu span {
+    display: block;
+    width: 27px;
+    height: 3px;
+    border-radius: 999px;
+    background: #757575;
+  }
+
+  @media (max-width: 760px) {
+    .navbar {
+      width: 100%;
+      min-height: 94px;
+      grid-template-columns: 1fr auto;
+      gap: 18px;
+      padding: 18px 22px;
+    }
+
+    .navbar__brand {
+      font-size: 1.55rem;
+    }
+
+    .navbar__links {
+      display: none;
+    }
+
+    .navbar__actions {
+      gap: 18px;
+    }
+
+    .navbar__schedule {
+      min-height: 55px;
+      padding-inline: 15px;
+      font-size: 1.5rem;
+    }
+
+    .navbar__menu {
+      display: inline-flex;
+    }
+  }
+
+  @media (max-width: 430px) {
+    .navbar {
+      padding-inline: 16px;
+    }
+
+    .navbar__brand {
+      font-size: 1.25rem;
+    }
+
+    .navbar__actions {
+      gap: 10px;
+    }
+
+    .navbar__schedule {
+      min-height: 46px;
+      font-size: 1.05rem;
+    }
+  }
+</style>
