@@ -1,4 +1,6 @@
 ---
+import Button from "./Button.astro";
+
 const navItems = [
   { label: "About me", href: "/about/" },
   { label: "Psychological Therapy", href: "/psychological-therapy/" },
@@ -14,7 +16,7 @@ const navItems = [
     {navItems.map((item) => <a href={item.href}>{item.label}</a>)}
   </nav>
   <div class="navbar__actions">
-    <a class="navbar__schedule" href="/schedule/">Schedule</a>
+    <Button href="/schedule/" label="Schedule" type="primary" />
     <button class="navbar__menu" type="button" aria-label="Open menu">
       <span></span>
       <span></span>
@@ -67,21 +69,6 @@ const navItems = [
     gap: 18px;
   }
 
-  .navbar__schedule {
-    display: inline-flex;
-    min-height: 38px;
-    align-items: center;
-    justify-content: center;
-    background: var(--color-nav-action);
-    color: var(--color-nav-action-text);
-    padding: 8px 13px;
-    font-size: 0.95rem;
-    font-weight: 800;
-    line-height: 1;
-    text-decoration: none;
-    text-transform: uppercase;
-  }
-
   .navbar__menu {
     display: none;
     width: 40px;
@@ -125,12 +112,6 @@ const navItems = [
       gap: 18px;
     }
 
-    .navbar__schedule {
-      min-height: 55px;
-      padding-inline: 15px;
-      font-size: 1.5rem;
-    }
-
     .navbar__menu {
       display: inline-flex;
     }
@@ -149,9 +130,5 @@ const navItems = [
       gap: 10px;
     }
 
-    .navbar__schedule {
-      min-height: 46px;
-      font-size: 1.05rem;
-    }
   }
 </style>

@@ -1,3 +1,7 @@
+---
+import Button from "../../../components/Button.astro";
+---
+
 <section class="home-intro" aria-labelledby="home-intro-heading">
   <h1 id="home-intro-heading">Dr Emma Izon: clinical psychologist</h1>
 
@@ -19,7 +23,9 @@
       vitae turpis a, fringilla tincidunt metus. Donec egestas laoreet massa nec
       pharetra.
     </p>
-    <a href="/about/">More about me</a>
+    <div class="home-intro__action">
+      <Button href="/about/" label="More about me" />
+    </div>
   </div>
 </section>
 
@@ -95,18 +101,9 @@
     line-height: 1.16;
   }
 
-  .home-intro__copy a {
+  .home-intro__action {
     display: table;
-    min-height: 40px;
     margin: 20px auto 0;
-    background: var(--color-service-icon);
-    color: var(--color-panel);
-    padding: 11px 12px;
-    font-size: 1rem;
-    font-weight: 800;
-    line-height: 1;
-    text-decoration: none;
-    text-transform: uppercase;
   }
 
   @media (min-width: 761px) {

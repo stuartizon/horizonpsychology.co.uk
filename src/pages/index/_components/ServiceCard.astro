@@ -1,4 +1,6 @@
 ---
+import Button from "../../../components/Button.astro";
+
 interface Props {
   title: string;
   description: string;
@@ -24,7 +26,9 @@ const { title, description, href } = Astro.props;
   </div>
   <h3>{title}</h3>
   <p>{description}</p>
-  <a href={href}>Learn more</a>
+  <div class="service-card__action">
+    <Button href={href} label="Learn more" />
+  </div>
 </article>
 
 <style>
@@ -92,20 +96,9 @@ const { title, description, href } = Astro.props;
     line-height: 1.18;
   }
 
-  .service-card a {
+  .service-card__action {
     align-self: end;
     margin-top: 22px;
-    color: var(--color-ink);
-    font-size: 1rem;
-    font-weight: 800;
-    line-height: 1;
-    text-decoration: none;
-    text-transform: uppercase;
-  }
-
-  .service-card a:focus-visible {
-    outline: 2px solid currentColor;
-    outline-offset: 4px;
   }
 
   @media (max-width: 760px) {
@@ -155,12 +148,11 @@ const { title, description, href } = Astro.props;
       line-height: 1.2;
     }
 
-    .service-card a {
+    .service-card__action {
       align-self: center;
       grid-row: 1;
       grid-column: 3;
       margin: 0;
-      font-size: 1.25rem;
       white-space: nowrap;
     }
   }
@@ -185,11 +177,10 @@ const { title, description, href } = Astro.props;
       font-size: 1rem;
     }
 
-    .service-card a {
+    .service-card__action {
       grid-row: 3;
       grid-column: 1 / -1;
-      margin-top: 4px;
-      font-size: 1rem;
+      margin-top: 14px;
     }
   }
 
