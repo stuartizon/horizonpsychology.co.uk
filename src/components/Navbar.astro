@@ -1,5 +1,6 @@
 ---
 import Button from "./Button.astro";
+import burgerIcon from "../icons/burger.svg?raw";
 
 const navItems = [
   { label: "About me", href: "/about/" },
@@ -18,9 +19,7 @@ const navItems = [
   <div class="navbar__actions">
     <Button href="/schedule/" label="Schedule" type="primary" />
     <button class="navbar__menu" type="button" aria-label="Open menu">
-      <span></span>
-      <span></span>
-      <span></span>
+      <span class="navbar__menu-icon" aria-hidden="true" set:html={burgerIcon}></span>
     </button>
   </div>
 </header>
@@ -79,16 +78,21 @@ const navItems = [
     gap: 6px;
     border: 0;
     background: transparent;
+    color: var(--color-nav-menu);
     padding: 0;
     cursor: pointer;
   }
 
-  .navbar__menu span {
+  .navbar__menu-icon {
     display: block;
     width: 27px;
-    height: 3px;
-    border-radius: 999px;
-    background: var(--color-nav-menu);
+    height: auto;
+  }
+
+  .navbar__menu-icon :global(svg) {
+    display: block;
+    width: 100%;
+    height: auto;
   }
 
   @media (max-width: 760px) {
