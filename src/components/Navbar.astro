@@ -1,6 +1,7 @@
 ---
 import Button from "./Button.astro";
 import burgerIcon from "../icons/burger.svg?raw";
+import MobileMenu from "./MobileMenu.astro";
 
 const navItems = [
   { label: "About me", href: "/about/" },
@@ -18,11 +19,19 @@ const navItems = [
   </nav>
   <div class="navbar__actions">
     <Button href="/schedule/" label="Schedule" type="primary" />
-    <button class="navbar__menu" type="button" aria-label="Open menu">
+    <button
+      class="navbar__menu"
+      type="button"
+      aria-label="Open menu"
+      aria-controls="mobile-menu"
+      aria-expanded="false"
+      data-mobile-menu-open
+    >
       <span class="navbar__menu-icon" aria-hidden="true" set:html={burgerIcon}></span>
     </button>
   </div>
 </header>
+<MobileMenu navItems={navItems} />
 
 <style>
   .navbar {
