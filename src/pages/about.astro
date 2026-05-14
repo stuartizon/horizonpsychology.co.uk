@@ -27,25 +27,49 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     <blockquote>
       "Lorem ipsum dolor sit amet consectetur adipiscing elit"
     </blockquote>
+
+    <section class="therapy" aria-labelledby="therapy-heading">
+      <h2 id="therapy-heading">THERAPEUTIC APPROACH</h2>
+      <img
+        class="therapy__image"
+        src="/images/hands-connecting.png"
+        alt="hands connecting"
+      />
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam nec
+        sapien nec est tincidunt blandit. Orci varius natoque penatibus et
+        magnis dis parturient montes, nascetur ridiculus mus. Nam augue lectus,
+        volutpat vitae turpis a, fringilla tincidunt metus. Donec egestas
+        laoreet massa nec pharetra.
+      </p>
+    </section>
   </Container>
 </BaseLayout>
 
 <style>
-  .about {
+  .about, .therapy {
     display: inline-block;
   }
 
-  .about__image {
+  .about__image, .therapy__image {
     width: 320px;
     height: 320px;
     object-fit: cover;
     border-radius: 18px;
+  }
+
+  .about__image {
     float: right;
     margin: 1em 0 0.5em 1em;
   }
 
+  .therapy__image {
+    float: left;
+    margin: 1em 1em 0.5em 0;
+  }
+
   @media (max-width: 640px) {
-    .about__image {
+    .about__image, .therapy__image {
       width: 150px;
       height: 150px;
     }
