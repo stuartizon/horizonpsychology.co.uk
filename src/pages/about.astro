@@ -1,16 +1,18 @@
 ---
+import Container from "@/components/Container.astro";
 import Button from "../components/Button.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
-<BaseLayout
-  title="About"
-  description="About emmaizon and the work collected on this personal website."
->
-  <section class="about-page" aria-labelledby="about-heading">
-    <h1 id="about-heading">About me</h1>
-
-    <div class="about-page__intro">
+<BaseLayout title="About" description="About Emma">
+  <Container>
+    <section class="about" aria-labelledby="about-heading">
+      <h2 id="about-heading">ABOUT ME</h2>
+      <img
+        class="about__image"
+        src="/images/emma-about-me.png"
+        alt="Dr Emma Izon"
+      />
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam nec
         sapien nec est tincidunt blandit. Orci varius natoque penatibus et
@@ -18,115 +20,38 @@ import BaseLayout from "../layouts/BaseLayout.astro";
         volutpat vitae turpis a, fringilla tincidunt metus. Donec egestas
         laoreet massa nec pharetra.
       </p>
-      <div class="about-page__image-wrap">
-        <img src="" alt="" width="160" height="160" />
+      <div class="about__action">
+        <Button href="/schedule/" type="primary" label="Schedule" />
       </div>
-    </div>
-
-    <div class="about-page__action">
-      <Button href="/schedule/" label="Schedule" />
-    </div>
-
+    </section>
     <blockquote>
-      <p>Lorem ipsum dolor sit amet consectetur adipiscing elit</p>
+      "Lorem ipsum dolor sit amet consectetur adipiscing elit"
     </blockquote>
-  </section>
+  </Container>
 </BaseLayout>
 
 <style>
-  .about-page {
-    width: min(100% - 44px, 520px);
-    margin-inline: auto;
-    padding-block: 30px 42px;
+  .about {
+    display: inline-block;
   }
 
-  .about-page h1 {
-    max-width: none;
-    margin: 0 0 22px;
-    color: var(--color-muted);
-    font-size: 1.45rem;
-    font-weight: 800;
-    line-height: 1.1;
-    text-transform: uppercase;
-  }
-
-  .about-page__intro {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) 160px;
-    gap: 20px;
-    align-items: start;
-  }
-
-  .about-page__intro p {
-    margin: 0;
-    font-size: 1.02rem;
-    line-height: 1.23;
-  }
-
-  .about-page__image-wrap {
-    display: grid;
-    width: 160px;
-    aspect-ratio: 1;
-    place-items: center;
-    overflow: hidden;
-    border-radius: 18px;
-    background:
-      linear-gradient(var(--color-line), var(--color-line)),
-      var(--color-sage-100);
-  }
-
-  .about-page__image-wrap::before {
-    width: 44px;
-    height: 44px;
-    content: "";
-    background: var(--color-panel);
-    mask:
-      url("data:image/svg+xml,%3Csvg viewBox='0 0 64 64' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='none' stroke='black' stroke-width='3' stroke-linejoin='round' d='M14 12h36a4 4 0 0 1 4 4v32a4 4 0 0 1-4 4H14a4 4 0 0 1-4-4V16a4 4 0 0 1 4-4Z'/%3E%3Ccircle cx='21' cy='23' r='3' fill='black'/%3E%3Cpath fill='none' stroke='black' stroke-width='3' stroke-linejoin='round' d='m16 44 12-14 9 10 5-6 8 10H16Z'/%3E%3C/svg%3E")
-      center / contain no-repeat;
-  }
-
-  .about-page__image-wrap img {
-    display: none;
-    width: 100%;
-    height: 100%;
+  .about__image {
+    width: 320px;
+    height: 320px;
     object-fit: cover;
+    border-radius: 18px;
+    float: right;
+    margin: 1em 0 0.5em 1em;
   }
 
-  .about-page__action {
-    display: table;
-    margin: 30px auto 0;
+  @media (max-width: 640px) {
+    .about__image {
+      width: 150px;
+      height: 150px;
+    }
   }
 
-  .about-page blockquote {
-    max-width: 330px;
-    margin: 38px auto 0;
-    color: var(--color-muted);
-    font-size: 1.3rem;
-    font-style: italic;
-    line-height: 1.22;
+  .about__action {
     text-align: center;
-  }
-
-  .about-page blockquote p {
-    margin: 0;
-  }
-
-  @media (max-width: 430px) {
-    .about-page {
-      width: min(100% - 32px, 520px);
-    }
-
-    .about-page__intro {
-      grid-template-columns: minmax(0, 1fr) 128px;
-      gap: 14px;
-    }
-
-    .about-page__image-wrap {
-      width: 128px;
-    }
-
-    .about-page__intro p {
-      font-size: 0.94rem;
-    }
   }
 </style>
