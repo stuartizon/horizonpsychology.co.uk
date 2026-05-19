@@ -1,0 +1,113 @@
+---
+import Button from "@/components/Button.astro";
+import Container from "@/components/Container.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Faqs from "@/components/Faqs.astro";
+
+export async function getStaticPaths() {
+    return [
+        {
+            params: { therapyId: "psychological-therapy" },
+            props: { therapyName: "Psychological Therapy" },
+        },
+        {
+            params: { therapyId: "couples-psychotherapy" },
+            props: { therapyName: "Couples Psychotherapy" },
+        },
+        {
+            params: { therapyId: "clinical-supervision" },
+            props: { therapyName: "Clinical Supervision" },
+        },
+
+        {
+            params: { therapyId: "research-supervision" },
+            props: { therapyName: "Research Supervision" },
+        },
+    ];
+}
+
+const { therapyId } = Astro.params;
+const { therapyName } = Astro.props;
+---
+
+<BaseLayout title="About" description="About Emma">
+    <Container>
+        <section aria-labelledby="therapy-heading">
+            <h2 id="therapy-heading" class="therapy__heading">
+                {therapyName}
+            </h2>
+            <div class="therapy__section">
+                <div class="therapy__description">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Aliquam nec sapien nec est tincidunt blandit. Orci varius
+                    natoque penatibus et magnis dis parturient montes, nascetur
+                    ridiculus mus. Nam augue lectus, volutpat vitae turpis a,
+                    fringilla tincidunt metus. Donec egestas laoreet massa nec
+                    pharetra.
+                </div>
+                <div class="therapy__divider"></div>
+                <div class="therapy__details">
+                    <p><u>Format</u></p>
+                    <p>Time</p>
+                    <p>Price</p>
+                </div>
+            </div>
+            <div class="therapy__action">
+                <Button href="/schedule/" type="primary" label="Schedule" />
+            </div>
+        </section>
+        <section aria-labelledby="questions-heading">
+            <h3 id="questions-heading" class="questions__heading">
+                Got questions?
+            </h3>
+            <Faqs
+                faqs={[
+                    {
+                        question:
+                            "What is the difference between therapy and coaching?",
+                        answer: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam nec sapien nec est tincidunt blandit.",
+                    },
+                    {
+                        question: "How do I know if therapy is right for me?",
+                        answer: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam nec sapien nec est tincidunt blandit.",
+                    },
+                ]}
+            />
+        </section>
+    </Container>
+
+    <style>
+        .therapy__heading {
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+        .therapy__section {
+            display: flex;
+            gap: 24px;
+        }
+
+        .therapy__description {
+            flex: 1;
+            background-color: var(--color-sage-100);
+            border-radius: 8px;
+            padding: 16px;
+        }
+        .therapy__divider {
+            border-right: 1px solid var(--color-grey-50);
+            align-self: stretch;
+        }
+        .therapy__details {
+            background-color: var(--color-sage-100);
+            border-radius: 8px;
+            padding: 16px;
+        }
+        .therapy__action {
+            margin-top: 24px;
+            text-align: center;
+        }
+        .questions__heading {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+    </style>
+</BaseLayout>
