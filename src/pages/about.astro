@@ -1,4 +1,5 @@
 ---
+import "@fontsource/lora/400-italic.css";
 import Container from "@/components/Container.astro";
 import Button from "../components/Button.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
@@ -7,18 +8,25 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 <BaseLayout title="About" description="About Emma">
   <Container>
     <section class="about" aria-labelledby="about-heading">
-      <h2 id="about-heading">ABOUT ME</h2>
+      <h2 id="about-heading">MEET EMMA</h2>
+      <p class="about__subheading">
+        Clinical Psychologist (PhD, DclinPsych, MSc, BSc international)
+      </p>
       <img
         class="about__image"
         src="/images/emma-about-me.png"
         alt="Dr Emma Izon"
       />
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam nec
-        sapien nec est tincidunt blandit. Orci varius natoque penatibus et
-        magnis dis parturient montes, nascetur ridiculus mus. Nam augue lectus,
-        volutpat vitae turpis a, fringilla tincidunt metus. Donec egestas
-        laoreet massa nec pharetra.
+        Dr Emma Izon is a Clinical Psychologist, Cognitive Behavioural
+        Psychotherapist, and researcher who offers psychological therapy, as
+        well as clinical and research supervision. Trained at the University
+        of Oxford, she specialises in evidence-based, compassionate care,
+        with particular expertise in psychosis, bipolar disorder,
+        trauma-informed practice, and neurodiversity-affirming therapy. She
+        works collaboratively with people from all walks of life, helping
+        them understand their experiences, make sense of difficult emotions,
+        and develop meaningful, lasting change.
       </p>
       <div class="about__action">
         <Button href="/schedule/" type="primary" label="Schedule" />
@@ -56,6 +64,14 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     height: 320px;
     object-fit: cover;
     border-radius: 18px;
+  }
+
+  .about__subheading {
+    margin: 4px 0 20px;
+    color: var(--color-grey-100);
+    font-family: "Lora", Georgia, "Times New Roman", serif;
+    font-size: 0.95rem;
+    font-style: italic;
   }
 
   .about__image {
