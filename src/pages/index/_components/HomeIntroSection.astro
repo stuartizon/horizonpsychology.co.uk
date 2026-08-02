@@ -24,6 +24,8 @@ import CredentialBadge from "../../../components/CredentialBadge.astro";
     </p>
   </blockquote>
 
+  <h2 class="home-intro__heading">What we offer</h2>
+
   <div class="home-intro__media-row">
     <div class="home-intro__image-wrap">
       <img
@@ -34,7 +36,6 @@ import CredentialBadge from "../../../components/CredentialBadge.astro";
       />
     </div>
     <div class="home-intro__copy">
-      <h2>What we offer</h2>
       <p>
         HorIZON Psychology is led by Dr Emma Izon. She provides evidence-based
         psychological therapy tailored to each person's individual needs and
@@ -133,12 +134,8 @@ import CredentialBadge from "../../../components/CredentialBadge.astro";
     margin: 0;
   }
 
-  .home-intro__copy h2 {
-    margin: 0 0 10px;
-    color: var(--color-grey-600);
-    font-size: 1.1rem;
-    font-weight: 800;
-    line-height: 1.1;
+  .home-intro__heading {
+    margin: 0 0 18px;
     text-transform: uppercase;
   }
 
@@ -178,6 +175,10 @@ import CredentialBadge from "../../../components/CredentialBadge.astro";
       grid-column: 1 / -1;
       margin: 16px 0 36px;
       font-size: 0.95rem;
+    }
+
+    .home-intro__heading {
+      grid-column: 1 / -1;
     }
 
     .home-intro__media-row {
