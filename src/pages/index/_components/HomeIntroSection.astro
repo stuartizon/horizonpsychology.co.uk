@@ -1,4 +1,5 @@
 ---
+import "@fontsource/lora/400-italic.css";
 import Button from "../../../components/Button.astro";
 import CredentialBadge from "../../../components/CredentialBadge.astro";
 ---
@@ -19,8 +20,8 @@ import CredentialBadge from "../../../components/CredentialBadge.astro";
 
   <blockquote>
     <p>
-      "A space for support, understanding, and change. Helping you move through
-      difficult times, one step at a time."
+      &ldquo;A space for support, understanding, and change. Helping you move
+      through difficult times, one step at a time.&rdquo;
     </p>
   </blockquote>
 
@@ -124,6 +125,7 @@ import CredentialBadge from "../../../components/CredentialBadge.astro";
   .home-intro blockquote {
     margin: 0 0 22px;
     color: var(--color-grey-600);
+    font-family: "Lora", Georgia, "Times New Roman", serif;
     font-style: italic;
     line-height: 1.22;
     text-align: center;
