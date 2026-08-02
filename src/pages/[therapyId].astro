@@ -7,12 +7,12 @@ import Faqs from "@/components/Faqs.astro";
 export async function getStaticPaths() {
     return [
         {
-            params: { therapyId: "psychological-therapy" },
-            props: { therapyName: "Psychological Therapy" },
+            params: { therapyId: "individual-therapy" },
+            props: { therapyName: "Individual Therapy" },
         },
         {
-            params: { therapyId: "couples-psychotherapy" },
-            props: { therapyName: "Couples Psychotherapy" },
+            params: { therapyId: "couples-therapy" },
+            props: { therapyName: "Couples Therapy" },
         },
         {
             params: { therapyId: "clinical-supervision" },
