@@ -2,10 +2,26 @@
 import Button from "../../../components/Button.astro";
 ---
 
-<section class="home-intro" aria-labelledby="home-intro-heading">
-  <h1 id="home-intro-heading">
-    Hor<span class="home-intro__italic">izon</span> Psychology
-  </h1>
+<section class="home-intro" aria-label="Horizon Psychology">
+  <img
+    class="home-intro__logo"
+    src="/images/logo.png"
+    alt="Horizon Psychology logo"
+    width="681"
+    height="374"
+  />
+
+  <p class="home-intro__tagline">
+    Psychological Therapy <span aria-hidden="true">|</span> Research
+    <span aria-hidden="true">|</span> Supervision
+  </p>
+
+  <blockquote>
+    <p>
+      “A space for support, understanding, and change. Helping you move
+      through difficult times, one step at a time.”
+    </p>
+  </blockquote>
 
   <div class="home-intro__media-row">
     <div class="home-intro__image-wrap">
@@ -34,13 +50,6 @@ import Button from "../../../components/Button.astro";
       </div>
     </div>
   </div>
-
-  <blockquote>
-    <p>
-      “A space for support, understanding, and change. Helping you move
-      through difficult times, one step at a time.”
-    </p>
-  </blockquote>
 </section>
 
 <style>
@@ -50,18 +59,24 @@ import Button from "../../../components/Button.astro";
     padding-block: 18px 26px;
   }
 
-  .home-intro__italic {
-    font-style: italic;
+  .home-intro__logo {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
   }
 
-  .home-intro h1 {
-    max-width: none;
-    margin: 0 0 18px;
-    color: var(--color-grey-600);
-    font-size: 1.45rem;
-    font-weight: 700;
-    line-height: 1.2;
+  .home-intro__tagline {
+    margin: 12px 0 22px;
+    color: var(--color-grey-100);
+    font-size: 0.68rem;
+    font-weight: 500;
+    font-style: italic;
     text-align: center;
+  }
+
+  .home-intro__tagline span {
+    color: var(--color-grey-50);
   }
 
   .home-intro__media-row {
@@ -69,7 +84,6 @@ import Button from "../../../components/Button.astro";
     flex-direction: column;
     align-items: center;
     gap: 18px;
-    margin-bottom: 22px;
   }
 
   .home-intro__image-wrap {
@@ -93,7 +107,7 @@ import Button from "../../../components/Button.astro";
   }
 
   .home-intro blockquote {
-    margin: 0;
+    margin: 0 0 22px;
     color: var(--color-grey-600);
     font-style: italic;
     line-height: 1.22;
@@ -134,10 +148,16 @@ import Button from "../../../components/Button.astro";
       padding-block: 56px 18px;
     }
 
-    .home-intro h1 {
+    .home-intro__logo {
       grid-column: 1 / -1;
-      margin-bottom: 28px;
-      font-size: clamp(1.8rem, 3vw, 2.8rem);
+      width: 480px;
+      margin-bottom: 0;
+    }
+
+    .home-intro__tagline {
+      grid-column: 1 / -1;
+      margin: 16px 0 36px;
+      font-size: 0.95rem;
     }
 
     .home-intro__media-row {
@@ -146,7 +166,6 @@ import Button from "../../../components/Button.astro";
       grid-template-columns: subgrid;
       align-items: start;
       gap: 0;
-      margin-bottom: 36px;
     }
 
     .home-intro__image-wrap {
@@ -156,6 +175,7 @@ import Button from "../../../components/Button.astro";
     .home-intro blockquote {
       grid-column: 1 / -1;
       max-width: none;
+      margin-bottom: 36px;
       font-size: clamp(1.5rem, 3vw, 2.5rem);
     }
 
