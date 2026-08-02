@@ -54,8 +54,6 @@ import Button from "../../../components/Button.astro";
 
 <style>
   .home-intro {
-    width: min(100% - 40px, 520px);
-    margin-inline: auto;
     padding-block: 18px 26px;
   }
 
@@ -141,7 +139,6 @@ import Button from "../../../components/Button.astro";
 
   @media (min-width: 761px) {
     .home-intro {
-      width: min(100% - 160px, 900px);
       display: grid;
       grid-template-columns: 280px minmax(280px, 1fr);
       column-gap: clamp(28px, 4vw, 48px);

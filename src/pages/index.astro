@@ -2,9 +2,12 @@
 import HomeIntroSection from "./index/_components/HomeIntroSection.astro";
 import ServicesSection from "./index/_components/ServicesSection.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import Container from "@/components/Container.astro";
 ---
 
 <BaseLayout>
-  <HomeIntroSection />
-  <ServicesSection />
+  <Container>
+    <HomeIntroSection />
+    <ServicesSection />
+  </Container>
 </BaseLayout>
