@@ -27,12 +27,13 @@ const { title, description, href } = Astro.props;
   <h3>{title}</h3>
   <p>{description}</p>
   <div class="service-card__action">
-    <Button href={href} label="Find out more" />
+    <Button href={href} label="Find out more" type="link" />
   </div>
 </article>
 
 <style>
   .service-card {
+    position: relative;
     display: grid;
     min-height: 280px;
     grid-template-rows: auto auto 1fr auto;
@@ -44,6 +45,12 @@ const { title, description, href } = Astro.props;
       box-shadow 180ms ease,
       transform 180ms ease;
     transform-origin: center;
+  }
+
+  .service-card__action :global(a)::before {
+    content: "";
+    position: absolute;
+    inset: 0;
   }
 
   .service-card:hover,
@@ -186,6 +193,7 @@ const { title, description, href } = Astro.props;
       grid-row: 3;
       grid-column: 1 / -1;
       margin-top: 14px;
+      text-align: center;
     }
   }
 

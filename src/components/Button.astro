@@ -46,14 +46,15 @@ const { href, label, type } = Astro.props;
     background: transparent;
     color: var(--color-button-link-text);
     padding: 0;
-    text-decoration: underline;
-    text-decoration-color: var(--color-sage-300);
+    text-decoration: none;
     text-underline-offset: 0.2em;
   }
 
   .button--link:hover {
     background: transparent;
-    color: var(--color-accent-strong);
+    color: var(--color-button-link-text);
+    text-decoration: underline;
+    text-decoration-color: var(--color-sage-300);
   }
 
   .button:focus-visible {
