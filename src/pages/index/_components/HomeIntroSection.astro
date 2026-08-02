@@ -1,5 +1,6 @@
 ---
 import Button from "../../../components/Button.astro";
+import CredentialBadge from "../../../components/CredentialBadge.astro";
 ---
 
 <section class="home-intro" aria-label="Horizon Psychology">
@@ -18,8 +19,8 @@ import Button from "../../../components/Button.astro";
 
   <blockquote>
     <p>
-      “A space for support, understanding, and change. Helping you move through
-      difficult times, one step at a time.”
+      "A space for support, understanding, and change. Helping you move through
+      difficult times, one step at a time."
     </p>
   </blockquote>
 
@@ -45,18 +46,20 @@ import Button from "../../../components/Button.astro";
         neurodiversity-affirming, and grounded in creating a safe,
         non-judgemental space for lasting understanding, resilience, and change.
       </p>
-      <ul class="home-intro__credentials">
-        <li>Health Care Professions Council (HCPC) registered</li>
-        <li>
-          British Association of Behavioural and Cognitive Psychotherapies
-          (BABCP) accredited
-        </li>
-        <li>
-          Evidence based practice and follow the National Institute of Health
-          and Care Excellence (NICE) guidelines for diagnostic assessments and
-          therapy.
-        </li>
-      </ul>
+      <div class="home-intro__badges">
+        <CredentialBadge
+          label="HCPC registered"
+          tooltip="Health Care Professions Council (HCPC) registered"
+        />
+        <CredentialBadge
+          label="BABCP accredited"
+          tooltip="British Association of Behavioural and Cognitive Psychotherapies (BABCP) accredited"
+        />
+        <CredentialBadge
+          label="NICE evidence based practice"
+          tooltip="Evidence based practice following the National Institute of Health and Care Excellence (NICE) guidelines for diagnostic assessments and therapy."
+        />
+      </div>
       <div class="home-intro__action">
         <Button href="/about/" label="More about me" />
       </div>
@@ -145,31 +148,11 @@ import Button from "../../../components/Button.astro";
     line-height: 1.16;
   }
 
-  .home-intro__credentials {
-    display: grid;
+  .home-intro__badges {
+    display: flex;
+    flex-wrap: wrap;
     gap: 8px;
     margin: 16px 0 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  .home-intro__credentials li {
-    position: relative;
-    padding-left: 20px;
-    color: var(--color-grey-600);
-    font-size: 0.85rem;
-    line-height: 1.28;
-  }
-
-  .home-intro__credentials li::before {
-    content: "";
-    position: absolute;
-    top: 0.4em;
-    left: 0;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--color-sage-600);
   }
 
   .home-intro__action {
