@@ -18,8 +18,8 @@ import Button from "../../../components/Button.astro";
 
   <blockquote>
     <p>
-      “A space for support, understanding, and change. Helping you move
-      through difficult times, one step at a time.”
+      “A space for support, understanding, and change. Helping you move through
+      difficult times, one step at a time.”
     </p>
   </blockquote>
 
@@ -38,13 +38,25 @@ import Button from "../../../components/Button.astro";
         Horizon Psychology is led by Dr Emma Izon. She provides evidence-based
         psychological therapy tailored to each person's individual needs and
         goals. Drawing on approaches including cognitive behavioural therapy
-        (CBT), acceptance and commitment therapy (ACT), compassion focused therapy
-        (CFT), systemic approaches and narrative therapies. She works
+        (CBT), acceptance and commitment therapy (ACT), compassion focused
+        therapy (CFT), systemic approaches and narrative therapies. She works
         collaboratively and integratively to offer thoughtful, flexible, and
         meaningful support. Her practice is compassionate,
-        neurodiversity-affirming, and grounded in creating a safe, non-
-        judgemental space for lasting understanding, resilience, and change.
+        neurodiversity-affirming, and grounded in creating a safe,
+        non-judgemental space for lasting understanding, resilience, and change.
       </p>
+      <ul class="home-intro__credentials">
+        <li>Health Care Professions Council (HCPC) registered</li>
+        <li>
+          British Association of Behavioural and Cognitive Psychotherapies
+          (BABCP) accredited
+        </li>
+        <li>
+          Evidence based practice and follow the National Institute of Health
+          and Care Excellence (NICE) guidelines for diagnostic assessments and
+          therapy.
+        </li>
+      </ul>
       <div class="home-intro__action">
         <Button href="/about/" label="More about me" />
       </div>
@@ -131,6 +143,33 @@ import Button from "../../../components/Button.astro";
     margin: 0;
     font-size: 0.92rem;
     line-height: 1.16;
+  }
+
+  .home-intro__credentials {
+    display: grid;
+    gap: 8px;
+    margin: 16px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .home-intro__credentials li {
+    position: relative;
+    padding-left: 20px;
+    color: var(--color-grey-600);
+    font-size: 0.85rem;
+    line-height: 1.28;
+  }
+
+  .home-intro__credentials li::before {
+    content: "";
+    position: absolute;
+    top: 0.4em;
+    left: 0;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--color-sage-600);
   }
 
   .home-intro__action {
