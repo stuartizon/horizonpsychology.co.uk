@@ -62,7 +62,7 @@ import CredentialBadge from "../../../components/CredentialBadge.astro";
         />
       </div>
       <div class="home-intro__action">
-        <Button href="/about/" label="More about me" />
+        <Button href="/about/" label="More about me" type="primary" />
       </div>
     </div>
   </div>
@@ -141,20 +141,20 @@ import CredentialBadge from "../../../components/CredentialBadge.astro";
 
   .home-intro__copy p {
     margin: 0;
-    font-size: 0.92rem;
-    line-height: 1.16;
+    line-height: 1.5;
   }
 
   .home-intro__badges {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
-    margin: 16px 0 0;
+    row-gap: 14px;
+    column-gap: 8px;
+    margin: 14px 0 0;
   }
 
   .home-intro__action {
     display: table;
-    margin: 20px auto 0;
+    margin: 32px auto 0;
   }
 
   @media (min-width: 761px) {
