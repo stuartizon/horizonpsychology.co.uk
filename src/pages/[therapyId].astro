@@ -67,7 +67,6 @@ const {
                 <div class="therapy__description">
                     {description}
                 </div>
-                <div class="therapy__divider"></div>
                 <div class="therapy__details">
                     {details.map((detail) => <p>{detail}</p>)}
                 </div>
@@ -112,11 +111,6 @@ const {
             border-radius: 8px;
             padding: 24px;
         }
-        .therapy__divider {
-            border-right: 1px solid var(--color-grey-50);
-            align-self: stretch;
-            opacity: 0.5;
-        }
         .therapy__details {
             flex: 0 0 280px;
             width: 280px;
@@ -146,11 +140,6 @@ const {
             .therapy__details {
                 flex: 1 1 auto;
                 width: auto;
-            }
-            .therapy__divider {
-                border-right: none;
-                border-bottom: 1px solid var(--color-grey-50);
-                align-self: auto;
             }
         }
     </style>
