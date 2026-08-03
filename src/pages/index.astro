@@ -3,6 +3,8 @@ import "@fontsource/lora/400-italic.css";
 import ServiceCard from "../components/ServiceCard.astro";
 import Button from "../components/Button.astro";
 import CredentialBadge from "../components/CredentialBadge.astro";
+import Carousel from "../components/Carousel.astro";
+import TestimonialCard from "../components/TestimonialCard.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Container from "@/components/Container.astro";
 import individualTherapyIcon from "../icons/individual-therapy.svg?raw";
@@ -38,6 +40,21 @@ const services = [
       "We offer research supervision for Master's and Doctoral students, providing structured, personalised support across every stage of the research process, from study design and ethics to data analysis, academic writing, and publication.",
     href: "/research-supervision/",
     icon: researchSupervisionIcon,
+  },
+];
+
+const testimonials = [
+  {
+    quote: "Placeholder testimonial copy goes here — real client copy to follow.",
+    name: "Client name",
+  },
+  {
+    quote: "Placeholder testimonial copy goes here — real client copy to follow.",
+    name: "Client name",
+  },
+  {
+    quote: "Placeholder testimonial copy goes here — real client copy to follow.",
+    name: "Client name",
   },
 ];
 ---
@@ -121,6 +138,17 @@ const services = [
           ))
         }
       </div>
+    </section>
+
+    <section class="testimonials-section" aria-labelledby="testimonials-heading">
+      <h2 id="testimonials-heading">Testimonials</h2>
+      <Carousel label="Client testimonials">
+        {
+          testimonials.map((testimonial) => (
+            <TestimonialCard quote={testimonial.quote} name={testimonial.name} />
+          ))
+        }
+      </Carousel>
     </section>
   </Container>
 </BaseLayout>
@@ -284,6 +312,25 @@ const services = [
     .services-section__grid {
       grid-template-columns: 1fr;
       gap: 20px;
+    }
+  }
+
+  .testimonials-section {
+    padding-block: 0 clamp(56px, 8vw, 96px);
+  }
+
+  .testimonials-section h2 {
+    margin: 0 0 16px;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 760px) {
+    .testimonials-section {
+      padding-block: 0 64px;
+    }
+
+    .testimonials-section h2 {
+      margin-bottom: 18px;
     }
   }
 </style>

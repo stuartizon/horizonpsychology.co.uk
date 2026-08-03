@@ -1,0 +1,28 @@
+---
+import starIcon from "../icons/star.svg?raw";
+---
+
+<div class="star-rating" role="img" aria-label="5 out of 5 stars">
+  {
+    Array.from({ length: 5 }).map(() => (
+      <span class="star-rating__star" aria-hidden="true" set:html={starIcon} />
+    ))
+  }
+</div>
+
+<style>
+  .star-rating {
+    display: flex;
+    gap: 4px;
+  }
+
+  .star-rating__star :global(svg) {
+    display: block;
+    width: 20px;
+    height: 20px;
+  }
+
+  .star-rating__star :global(path) {
+    fill: var(--color-warm);
+  }
+</style>

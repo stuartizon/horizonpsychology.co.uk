@@ -35,6 +35,8 @@
   --color-service-heading: var(--color-grey-600);
   --color-service-icon: var(--color-sage-600);
   --color-service-icon-mark: var(--color-panel);
+  --color-testimonial-surface: #f2f2f0;
+  --color-testimonial-border: var(--color-line);
   --color-button-surface: #9f9f9f;
   --color-button-surface-hover: #858585;
   --color-button-text: var(--color-panel);
