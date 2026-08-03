@@ -123,7 +123,8 @@ const { navItems } = Astro.props;
     gap: 18px;
     border-bottom: 1px solid var(--color-nav-border);
     background: var(--color-nav-surface);
-    padding: 18px 22px;
+    padding-block: 18px;
+    padding-inline: max(var(--gutter-min), calc((100% - var(--content-max-width)) / 2));
   }
 
   .mobile-menu__brand {
@@ -193,17 +194,13 @@ const { navItems } = Astro.props;
     color: var(--color-panel);
   }
 
-  @media (min-width: 761px) {
+  @media (min-width: 951px) {
     .mobile-menu {
       display: none;
     }
   }
 
   @media (max-width: 430px) {
-    .mobile-menu__bar {
-      padding-inline: 16px;
-    }
-
     .mobile-menu__brand {
       font-size: 1.25rem;
     }
