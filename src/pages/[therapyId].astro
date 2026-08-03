@@ -35,16 +35,52 @@ we're the right fit. During your initial assessment, we'll agree on a session fr
         },
         {
             params: { therapyId: "couples-therapy" },
-            props: { therapyName: "Couples Therapy" },
+            props: {
+                therapyName: "Couples Therapy",
+                description: `We offer couples and partner therapy in a safe, supportive, and confidential environment for
+any two people looking to improve their relationship or work through a shared
+difficulty—you do not need to be in a romantic relationship. Using evidence-based systemic
+and cognitive behavioural approaches, we help you understand the patterns within your
+relationship, improve communication, navigate conflict, and strengthen your connection.
+Most sessions are attended together, although individual sessions may be offered where
+appropriate and agreed by all parties. During your initial assessment, we'll discuss your goals
+and recommend a session frequency that best supports your progress.`,
+                details: [
+                    "£120 for 60-minute session",
+                    "Sessions are available online or face-to-face in Buckinghamshire.",
+                ],
+            },
         },
         {
             params: { therapyId: "clinical-supervision" },
-            props: { therapyName: "Clinical Supervision" },
+            props: {
+                therapyName: "Clinical Supervision",
+                description: `We offer clinical supervision for psychologists, CBT therapists, and other healthcare
+professionals in a supportive, collaborative, and reflective environment. Supervision is
+provided by Dr Emma Izon, a registered Clinical Psychologist and BABCP-accredited CBT
+therapist, and is suitable for professionals working towards or maintaining similar
+professional accreditations. We offer one-off, ad hoc, and ongoing supervision tailored to
+your individual clinical practice and professional development.`,
+                details: [
+                    "£130 for 60-minute session",
+                    "Supervision is available online or face-to-face in Buckinghamshire.",
+                ],
+            },
         },
 
         {
             params: { therapyId: "research-supervision" },
-            props: { therapyName: "Research Supervision" },
+            props: {
+                therapyName: "Research Supervision",
+                description: `We offer research supervision for clinicians, trainees, and researchers seeking guidance at any
+stage of the research process. Whether you are developing a research proposal, designing a
+study, analysing data, or preparing work for publication, supervision provides a collaborative
+space to build confidence, develop your skills, and progress your project.`,
+                details: [
+                    "£120 for 60-minute session",
+                    "Supervision is available online or face-to-face in Buckinghamshire.",
+                ],
+            },
         },
     ];
 }
