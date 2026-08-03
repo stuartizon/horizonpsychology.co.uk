@@ -5,25 +5,14 @@ interface Props {
   title: string;
   description: string;
   href: string;
+  icon: string;
 }
 
-const { title, description, href } = Astro.props;
+const { title, description, href, icon } = Astro.props;
 ---
 
 <article class="service-card">
-  <div class="service-card__icon" aria-hidden="true">
-    <svg viewBox="0 0 64 64" focusable="false">
-      <path
-        d="M17.5 40.5c6.2-3.5 12-4.8 18.7-2.5l9.7 3.3c2 .7 3.1 2.5 2.4 4.1-.6 1.5-2.5 2.2-4.5 1.7l-11.9-3.4"
-      />
-      <path d="M13 45.6c8.4-2 17.2.2 26.3 6.5 4.5-1.5 8.8-3.8 12.7-6.8" />
-      <path d="M31.8 35.7c-5.1-4.8-7.2-10.2-6.4-16.2 5.4 2.6 8.7 6.9 9.9 12.9" />
-      <path d="M32.5 35.7c5.1-4.8 7.2-10.2 6.4-16.2-5.4 2.6-8.7 6.9-9.9 12.9" />
-      <path d="M32 33.4c-3.4-5.6-3.4-11.2 0-16.9 3.4 5.7 3.4 11.3 0 16.9Z" />
-      <path d="M23.6 34.9c-5.4-.8-9.3-3.7-11.5-8.7 5.7-.5 10.1 1.4 13.4 5.8" />
-      <path d="M40.4 34.9c5.4-.8 9.3-3.7 11.5-8.7-5.7-.5-10.1 1.4-13.4 5.8" />
-    </svg>
-  </div>
+  <div class="service-card__icon" aria-hidden="true" set:html={icon} />
   <h3>{title}</h3>
   <p>{description}</p>
   <div class="service-card__action">
@@ -73,18 +62,14 @@ const { title, description, href } = Astro.props;
     background: var(--color-service-icon);
   }
 
-  .service-card__icon svg {
+  .service-card__icon :global(svg) {
     width: 56px;
     height: 56px;
     overflow: visible;
   }
 
-  .service-card__icon path {
-    fill: none;
-    stroke: var(--color-service-icon-mark);
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    stroke-width: 4.5;
+  .service-card__icon :global(path) {
+    fill: var(--color-service-icon-mark);
   }
 
   .service-card h3 {
@@ -134,13 +119,9 @@ const { title, description, href } = Astro.props;
       margin: 0;
     }
 
-    .service-card__icon svg {
+    .service-card__icon :global(svg) {
       width: 34px;
       height: 34px;
-    }
-
-    .service-card__icon path {
-      stroke-width: 5;
     }
 
     .service-card h3 {
@@ -183,7 +164,7 @@ const { title, description, href } = Astro.props;
       height: 44px;
     }
 
-    .service-card__icon svg {
+    .service-card__icon :global(svg) {
       width: 29px;
       height: 29px;
     }
