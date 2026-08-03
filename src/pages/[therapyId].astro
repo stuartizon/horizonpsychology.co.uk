@@ -4,11 +4,34 @@ import Container from "@/components/Container.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Faqs from "@/components/Faqs.astro";
 
+const placeholderDescription = `Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Aliquam nec sapien nec est tincidunt blandit. Orci varius
+natoque penatibus et magnis dis parturient montes, nascetur
+ridiculus mus. Nam augue lectus, volutpat vitae turpis a,
+fringilla tincidunt metus. Donec egestas laoreet massa nec
+pharetra.`;
+
+const placeholderDetails = ["Format", "Time", "Price"];
+
 export async function getStaticPaths() {
     return [
         {
             params: { therapyId: "individual-therapy" },
-            props: { therapyName: "Individual Therapy" },
+            props: {
+                therapyName: "Individual Therapy",
+                description: `We offer personalised therapy in a warm, safe, and confidential environment, tailored to your
+individual needs. Our clinicians support people experiencing a wide range of difficulties,
+including depression, anxiety, stress, low self-esteem, adjustment to life changes as well as
+physical health challenges. We also provide specialist support for athletes managing injury,
+performance stress, and the psychological demands of sport. Together, we work towards
+greater understanding, resilience, and lasting positive change. Before starting therapy, we
+offer a free 15-minute introductory call to answer any questions and help you decide whether
+we're the right fit. During your initial assessment, we'll agree on a session frequency that best supports your goals.`,
+                details: [
+                    "£100 for 50-minute session",
+                    "Sessions are available online or face-to-face in Buckinghamshire.",
+                ],
+            },
         },
         {
             params: { therapyId: "couples-therapy" },
@@ -27,7 +50,11 @@ export async function getStaticPaths() {
 }
 
 const { therapyId } = Astro.params;
-const { therapyName } = Astro.props;
+const {
+    therapyName,
+    description = placeholderDescription,
+    details = placeholderDetails,
+} = Astro.props;
 ---
 
 <BaseLayout title="About" description="About Emma">
@@ -38,18 +65,11 @@ const { therapyName } = Astro.props;
             </h2>
             <div class="therapy__section">
                 <div class="therapy__description">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Aliquam nec sapien nec est tincidunt blandit. Orci varius
-                    natoque penatibus et magnis dis parturient montes, nascetur
-                    ridiculus mus. Nam augue lectus, volutpat vitae turpis a,
-                    fringilla tincidunt metus. Donec egestas laoreet massa nec
-                    pharetra.
+                    {description}
                 </div>
                 <div class="therapy__divider"></div>
                 <div class="therapy__details">
-                    <p><u>Format</u></p>
-                    <p>Time</p>
-                    <p>Price</p>
+                    {details.map((detail) => <p>{detail}</p>)}
                 </div>
             </div>
             <div class="therapy__action">
@@ -87,19 +107,28 @@ const { therapyName } = Astro.props;
         }
 
         .therapy__description {
-            flex: 1;
+            flex: 1 1 auto;
             background-color: var(--color-sage-100);
             border-radius: 8px;
-            padding: 16px;
+            padding: 24px;
         }
         .therapy__divider {
             border-right: 1px solid var(--color-grey-50);
             align-self: stretch;
+            opacity: 0.5;
         }
         .therapy__details {
+            flex: 0 0 280px;
+            width: 280px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
             background-color: var(--color-sage-100);
             border-radius: 8px;
-            padding: 16px;
+            padding: 24px;
+        }
+        .therapy__details p {
+            margin: 0;
         }
         .therapy__action {
             margin-top: 24px;
@@ -108,6 +137,21 @@ const { therapyName } = Astro.props;
         .questions__heading {
             margin-top: 20px;
             margin-bottom: 20px;
+        }
+
+        @media (max-width: 640px) {
+            .therapy__section {
+                flex-direction: column;
+            }
+            .therapy__details {
+                flex: 1 1 auto;
+                width: auto;
+            }
+            .therapy__divider {
+                border-right: none;
+                border-bottom: 1px solid var(--color-grey-50);
+                align-self: auto;
+            }
         }
     </style>
 </BaseLayout>
