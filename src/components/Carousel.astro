@@ -59,10 +59,14 @@ const { label, interval = 6000 } = Astro.props;
       return dot;
     });
 
+    function setTransform(index: number, gapPx: number, extraPx = 0) {
+      track.style.transform = `translateX(calc(-${index * 100}% - ${index * gapPx}px + ${extraPx}px))`;
+    }
+
     function goTo(index: number) {
       currentIndex = (index + slides.length) % slides.length;
       const gapPx = parseFloat(getComputedStyle(track).columnGap) || 0;
-      track.style.transform = `translateX(calc(-${currentIndex * 100}% - ${currentIndex * gapPx}px))`;
+      setTransform(currentIndex, gapPx);
 
       slides.forEach((slide, i) => {
         slide.setAttribute("aria-hidden", String(i !== currentIndex));
@@ -97,6 +101,66 @@ const { label, interval = 6000 } = Astro.props;
     carousel.addEventListener("focusin", stop);
     carousel.addEventListener("focusout", start);
 
+    const DRAG_THRESHOLD_RATIO = 0.2;
+    let pointerStartX = 0;
+    let pointerStartY = 0;
+    let dragDeltaX = 0;
+    let dragGapPx = 0;
+    let isDragging = false;
+    let isDragGesture = false;
+
+    function endDrag() {
+      isDragging = false;
+      track.style.transition = "";
+
+      if (isDragGesture) {
+        const threshold = track.offsetWidth * DRAG_THRESHOLD_RATIO;
+        const next =
+          Math.abs(dragDeltaX) > threshold
+            ? currentIndex + (dragDeltaX < 0 ? 1 : -1)
+            : currentIndex;
+        goTo(next);
+      }
+
+      restart();
+    }
+
+    track.addEventListener("pointerdown", (event) => {
+      isDragging = true;
+      isDragGesture = false;
+      dragDeltaX = 0;
+      pointerStartX = event.clientX;
+      pointerStartY = event.clientY;
+      dragGapPx = parseFloat(getComputedStyle(track).columnGap) || 0;
+      track.style.transition = "none";
+      track.setPointerCapture(event.pointerId);
+      stop();
+    });
+
+    track.addEventListener("pointermove", (event) => {
+      if (!isDragging) return;
+
+      dragDeltaX = event.clientX - pointerStartX;
+      const dragDeltaY = event.clientY - pointerStartY;
+
+      if (!isDragGesture) {
+        if (Math.abs(dragDeltaX) < 4 && Math.abs(dragDeltaY) < 4) return;
+        isDragGesture = Math.abs(dragDeltaX) > Math.abs(dragDeltaY);
+        if (!isDragGesture) return;
+      }
+
+      event.preventDefault();
+      setTransform(currentIndex, dragGapPx, dragDeltaX);
+    });
+
+    track.addEventListener("pointerup", () => {
+      if (isDragging) endDrag();
+    });
+
+    track.addEventListener("pointercancel", () => {
+      if (isDragging) endDrag();
+    });
+
     goTo(0);
     start();
   });
@@ -115,8 +179,14 @@ const { label, interval = 6000 } = Astro.props;
   .carousel__track {
     display: flex;
     gap: 20px;
+    touch-action: pan-y;
+    cursor: grab;
     transition: transform 420ms ease;
     will-change: transform;
+  }
+
+  .carousel__track:active {
+    cursor: grabbing;
   }
 
   .carousel__track > :global(*) {
