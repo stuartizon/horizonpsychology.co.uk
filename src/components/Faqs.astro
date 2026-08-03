@@ -61,12 +61,12 @@ const faqs: FAQ[] = [
 <div class="faqs">
     {
         faqs.map(({ question, answer }, index) => (
-            <div class="faq__item" data-open={index === 0 ? "true" : "false"}>
+            <div class="faq__item" data-open="false">
                 <button
                     class="faq__question"
                     type="button"
-                    aria-label={index === 0 ? "Close answer" : "Open answer"}
-                    aria-expanded={index === 0 ? "true" : "false"}
+                    aria-label="Open answer"
+                    aria-expanded="false"
                     aria-controls={`faq-answer-${index}`}
                     data-faq-toggle
                 >
@@ -76,7 +76,7 @@ const faqs: FAQ[] = [
                 <div
                     class="faq__answer"
                     id={`faq-answer-${index}`}
-                    aria-hidden={index === 0 ? "false" : "true"}
+                    aria-hidden="true"
                 >
                     <div class="faq__answer-content">
                         <div class="faq__answer-inner">
@@ -140,6 +140,7 @@ const faqs: FAQ[] = [
         display: flex;
         width: 100%;
         align-items: center;
+        gap: 12px;
         border: none;
         background-color: var(--color-sage-300);
         padding: 16px;
@@ -157,6 +158,7 @@ const faqs: FAQ[] = [
     .faq__arrow {
         color: var(--color-sage-800);
         display: block;
+        flex-shrink: 0;
         width: 22px;
         transition:
             color 160ms ease,
