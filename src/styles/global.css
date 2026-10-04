@@ -1,29 +1,171 @@
 :root {
   color-scheme: light;
-  --color-background: #f7f8f4;
-  --color-primary-50: #eef5f0;
-  --color-primary-100: #dfeae4;
-  --color-primary-300: #aac6b8;
-  --color-primary-600: #58796b;
-  --color-primary-800: #2f5147;
-  --color-grey-50: #9f9f9f;
-  --color-grey-100: #858585;
-  --color-grey-600: #65716d;
-  --color-grey-800: #263331;
 
-  /* ------------------------------------------------ */
-
-  --color-line: #cfd9d4;
+  /* ---- Paper ---- */
+  --color-background: #f8f6f1;
   --color-panel: #ffffff;
-  --color-sage-50: #eef5f0;
-  --color-sage-100: #dfeae4;
-  --color-sage-300: #aac6b8;
-  --color-sage-600: #58796b;
-  --color-sage-800: #2f5147;
-  --color-cream: #fbf7ef;
+  --color-cream: #f3efe7;
+  --color-line: #e4dfd4;
+  --color-line-strong: #cfc7b8;
+
+  /* ---- Sage: the brand ---- */
+  --color-sage-50: #eef3ef;
+  --color-sage-100: #dde8e1;
+  --color-sage-300: #a8c2b4;
+  --color-sage-600: #4f7264;
+  --color-sage-800: #2c453c;
+
+  /* ---- Amber: the sun. Warmth, emphasis, stars ---- */
+  --color-amber-100: #fbeada;
+  --color-amber-300: #f0c08e;
+  --color-amber-600: #d9772e;
+  --color-amber-800: #8c4a1d;
+
+  /* ---- Ink ---- */
+  --color-ink: #23302c;
+  --color-ink-soft: #5c6b64;
+  --color-ink-faint: #8b978f;
+
+  /* ---- Semantic ---- */
+  --color-text-body: var(--color-ink);
+  --color-text-muted: var(--color-ink-soft);
+  --color-text-heading: var(--color-sage-800);
+  --color-eyebrow: var(--color-sage-600);
+
+  --surface-page: var(--color-background);
+  --surface-card: var(--color-panel);
+  --surface-quiet: var(--color-cream);
+  --surface-sage: var(--color-sage-50);
+
   --color-accent: var(--color-sage-600);
   --color-accent-strong: var(--color-sage-800);
-  --color-warm: #9a7a55;
+  --color-warm: var(--color-amber-600);
+
+  --color-button-primary-surface: var(--color-sage-600);
+  --color-button-primary-surface-hover: var(--color-sage-800);
+  --color-button-primary-text: #ffffff;
+  --color-button-secondary-border: var(--color-sage-300);
+  --color-button-secondary-text: var(--color-sage-800);
+  --color-button-link-text: var(--color-sage-600);
+
+  --color-icon-surface: var(--color-sage-50);
+  --color-icon-mark: var(--color-sage-600);
+
+  --color-field-surface: var(--color-panel);
+  --color-field-border: var(--color-line-strong);
+  --color-field-border-focus: var(--color-sage-600);
+  --color-focus-ring: var(--color-sage-600);
+  --color-focus-halo: color-mix(in srgb, var(--color-focus-ring) 16%, transparent);
+  --color-note-surface: var(--color-amber-100);
+  --color-note-border: var(--color-amber-300);
+  --color-note-text: var(--color-amber-800);
+  --color-error: #9c4a3f;
+
+  /* ---- Type ---- */
+  --font-display: Lora, Georgia, "Times New Roman", serif;
+  --font-body:
+    "Source Sans 3 Variable", "Source Sans 3", ui-sans-serif, system-ui,
+    -apple-system, "Segoe UI", sans-serif;
+
+  /* Display: Lora, regular weight, sentence case. Only the eyebrow is set in caps. */
+  --text-hero: clamp(2.3rem, 4.4vw, 3.5rem);
+  --text-h1: clamp(2rem, 3.4vw, 2.9rem);
+  --text-h2: clamp(1.55rem, 2.4vw, 2.15rem);
+  --text-h3: 1.3rem;
+  --text-quote: clamp(1.35rem, 2.1vw, 1.85rem);
+  --text-quote-card: 1.3rem;
+
+  /* Body: Source Sans 3 */
+  --text-lead: 1.15rem;
+  --text-body: 1.0625rem;
+  --text-small: 0.95rem;
+  --text-eyebrow: 0.78rem;
+  --text-caption: 0.85rem;
+  --text-button: 1rem;
+
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+
+  --leading-display: 1.14;
+  --leading-quote: 1.3;
+  --leading-body: 1.65;
+  --leading-tight: 1.45;
+
+  --tracking-display: -0.012em;
+  --tracking-eyebrow: 0.14em;
+
+  /* ---- Spacing ---- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 56px;
+  --space-16: 72px;
+  --space-20: 96px;
+
+  --content-max-width: 1080px;
+  --measure-prose: 64ch;
+  --measure-quote: 34ch;
+  --measure-feature: 820px;
+  --gutter: clamp(20px, 5vw, 48px);
+  --section-y: clamp(72px, 10vw, 128px);
+  --card-pad: clamp(24px, 2.4vw, 32px);
+  --panel-pad: clamp(24px, 2.8vw, 40px);
+
+  /* ---- Shape ---- */
+  --radius-sm: 8px;
+  --radius-card: 16px;
+  --radius-panel: 20px;
+  --radius-image: 20px;
+  --radius-pill: 999px;
+  --radius-brand-mark: 26%;
+
+  --border-hairline: 1px solid var(--color-line);
+  --border-quiet: 1px solid var(--color-line-strong);
+
+  /* Soft, low, warm-tinted. Nothing in the system casts a hard shadow. */
+  --shadow-rest: 0 1px 2px color-mix(in srgb, var(--color-sage-800) 4%, transparent);
+  --shadow-raised:
+    0 14px 34px -22px color-mix(in srgb, var(--color-sage-800) 28%, transparent),
+    0 2px 6px color-mix(in srgb, var(--color-sage-800) 4%, transparent);
+
+  /* Two soft diagonal washes, fixed behind every page: sage from the top left,
+     amber from the bottom right, each fading out before the middle of the page. */
+  --wash:
+    linear-gradient(145deg, color-mix(in srgb, var(--color-sage-600) 10%, transparent), transparent 44%),
+    linear-gradient(315deg, color-mix(in srgb, var(--color-amber-600) 5%, transparent), transparent 46%);
+
+  /* ---- Motion ---- */
+  --duration-fast: 160ms;
+  --duration-base: 220ms;
+  --duration-slow: 480ms;
+  --ease-calm: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --transition-card:
+    transform var(--duration-base) var(--ease-calm),
+    box-shadow var(--duration-base) var(--ease-calm),
+    border-color var(--duration-base) var(--ease-calm);
+  --transition-quiet:
+    color var(--duration-fast) var(--ease-calm),
+    background-color var(--duration-fast) var(--ease-calm),
+    border-color var(--duration-fast) var(--ease-calm);
+
+  /* ---- Legacy ----
+     Names the current components still use, pointed at the new palette.
+     Remove each one as its component moves to the tokens above (#4 to #10). */
+  --color-primary-50: var(--color-sage-50);
+  --color-primary-100: var(--color-sage-100);
+  --color-primary-300: var(--color-sage-300);
+  --color-primary-600: var(--color-sage-600);
+  --color-primary-800: var(--color-sage-800);
+  --color-grey-50: var(--color-ink-faint);
+  --color-grey-100: var(--color-ink-soft);
+  --color-grey-600: var(--color-ink-soft);
+  --color-grey-800: var(--color-ink);
   --color-nav-surface: var(--color-sage-100);
   --color-nav-border: var(--color-sage-300);
   --color-nav-action: var(--color-sage-600);
@@ -32,35 +174,40 @@
   --color-service-surface: var(--color-sage-50);
   --color-service-card-surface: var(--color-sage-100);
   --color-service-border: var(--color-sage-300);
-  --color-service-heading: var(--color-grey-600);
-  --color-service-icon: var(--color-sage-600);
+  --color-service-heading: var(--color-text-heading);
+  --color-service-icon: var(--color-icon-mark);
   --color-service-icon-mark: var(--color-panel);
-  --color-testimonial-surface: #f2f2f0;
+  --color-testimonial-surface: var(--surface-quiet);
   --color-testimonial-border: var(--color-line);
-  --color-button-surface: #9f9f9f;
-  --color-button-surface-hover: #858585;
+  --color-button-surface: var(--color-ink-faint);
+  --color-button-surface-hover: var(--color-ink-soft);
   --color-button-text: var(--color-panel);
-  --color-button-primary-surface: var(--color-sage-600);
-  --color-button-primary-text: var(--color-panel);
-  --color-button-link-text: var(--color-sage-600);
-
-  --font-sans:
-    "Inter Variable", Inter, ui-sans-serif, system-ui, -apple-system,
-    BlinkMacSystemFont, "Segoe UI", sans-serif;
-
-  --content-max-width: 1100px;
+  --font-sans: var(--font-body);
   --gutter-min: 1rem;
 }
 
-* {
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
 html {
   min-width: 320px;
-  background: var(--color-background);
-  color: var(--color-grey-800);
-  font-family: var(--font-sans);
+  background: var(--surface-page);
+  color: var(--color-text-body);
+  font-family: var(--font-body);
+  font-size: 100%;
+  -webkit-font-smoothing: antialiased;
 }
 
 body {
@@ -68,7 +215,8 @@ body {
   margin: 0;
   display: flex;
   flex-direction: column;
-  line-height: 1.6;
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
 }
 
 body::before {
@@ -76,37 +224,7 @@ body::before {
   inset: 0;
   z-index: -1;
   content: "";
-  background:
-    linear-gradient(120deg, rgb(88 121 107 / 0.1), transparent 36%),
-    linear-gradient(300deg, rgb(170 198 184 / 0.1), transparent 36%);
-}
-
-a {
-  color: var(--color-primary-600);
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-  text-decoration-color: var(--color-primary-300);
-  text-underline-offset: 0.2em;
-}
-
-p {
-  margin-block-start: 1em;
-  margin-block-end: 1em;
-  margin-inline-start: 0px;
-  margin-inline-end: 0px;
-}
-
-blockquote {
-  margin: 36px 0;
-  color: var(--color-grey-600);
-  font-family: "Lora", Georgia, "Times New Roman", serif;
-  font-style: italic;
-  font-size: 1.75rem;
-  line-height: 1.22;
-  text-align: center;
+  background: var(--wash);
 }
 
 main {
@@ -115,20 +233,87 @@ main {
 
 h1,
 h2,
-h3 {
-  color: var(--color-grey-600);
-  font-weight: 800;
+h3,
+h4 {
   margin: 0;
+  color: var(--color-text-heading);
+  font-family: var(--font-display);
+  font-weight: var(--weight-regular);
+  line-height: var(--leading-display);
+  letter-spacing: var(--tracking-display);
+  text-wrap: pretty;
 }
 
 h1 {
-  font-size: clamp(2rem, 4vw, 3.6rem);
+  font-size: var(--text-h1);
 }
 
 h2 {
-  font-size: clamp(1.5rem, 3vw, 2.4rem);
+  font-size: var(--text-h2);
 }
 
 h3 {
-  font-size: clamp(1rem, 2vw, 1.8rem);
+  font-size: var(--text-h3);
+  line-height: var(--leading-tight);
+}
+
+p {
+  margin-block: 0 1em;
+  text-wrap: pretty;
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-decoration-color: var(--color-sage-300);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+  transition: var(--transition-quiet);
+}
+
+a:hover {
+  color: var(--color-accent-strong);
+  text-decoration-color: var(--color-accent-strong);
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+  border-radius: 4px;
+  box-shadow: 0 0 0 5px var(--color-focus-halo);
+}
+
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  border-color: var(--color-field-border-focus) !important;
+  border-radius: var(--radius-sm);
+}
+
+blockquote {
+  margin: 0;
+  color: var(--color-text-heading);
+  font-family: var(--font-display);
+  font-size: var(--text-quote);
+  font-style: italic;
+  font-weight: var(--weight-regular);
+  line-height: var(--leading-quote);
+  text-wrap: pretty;
+}
+
+img {
+  max-width: 100%;
+}
+
+::selection {
+  background: var(--color-sage-100);
 }
