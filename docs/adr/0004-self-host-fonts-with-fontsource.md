@@ -1,7 +1,6 @@
 # 0004. Self-host web fonts with Fontsource
 
-- **Status:** Accepted
-- **Date:** 2026-08-03 (reconstructed from git history: "self-host Inter")
+- **Date:** 2026-08-03
 
 ## Context
 

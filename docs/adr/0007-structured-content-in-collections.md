@@ -1,6 +1,5 @@
 # 0007. Keep structured content in one place
 
-- **Status:** Accepted
 - **Date:** 2026-10-04
 - **Issue:** #3
 

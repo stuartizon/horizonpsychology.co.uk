@@ -1,6 +1,5 @@
 # 0001. Record architecture decisions
 
-- **Status:** Accepted
 - **Date:** 2026-10-04
 - **Issue:** #15
 
@@ -12,9 +11,8 @@ Decisions about this site have so far lived only in commit messages and in AI co
 
 Record significant decisions as architecture decision records (ADRs) in `docs/adr/`, one Markdown file per decision, named `NNNN-short-title.md` and based on `template.md`.
 
-- Accepted ADRs aren't rewritten. A changed decision gets a new ADR that supersedes the old one, and the old one's status is updated to point to it.
+- Past ADRs aren't rewritten. A changed decision gets a new ADR that references the one it replaces.
 - `README.md` in this directory is the index.
-- ADRs 0002 to 0005 were reconstructed on 2026-10-04 from git history and the code, and are dated by the commits that made the decision.
 
 ## Consequences
 

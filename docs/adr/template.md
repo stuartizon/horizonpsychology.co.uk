@@ -1,6 +1,5 @@
 # NNNN. Title
 
-- **Status:** Proposed | Accepted | Superseded by [NNNN](NNNN-title.md) | Deprecated
 - **Date:** YYYY-MM-DD
 - **Issue:** #N (optional)
 

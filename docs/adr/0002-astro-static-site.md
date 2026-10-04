@@ -1,7 +1,6 @@
 # 0002. Build the site with Astro as a static site
 
-- **Status:** Accepted
-- **Date:** 2026-05-11 (reconstructed from git history)
+- **Date:** 2026-05-11
 
 ## Context
 

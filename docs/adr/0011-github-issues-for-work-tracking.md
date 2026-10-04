@@ -1,6 +1,5 @@
 # 0011. Track all work in GitHub issues
 
-- **Status:** Accepted
 - **Date:** 2026-10-04
 - **Issue:** #15
 

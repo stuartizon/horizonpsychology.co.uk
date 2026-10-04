@@ -1,7 +1,6 @@
 # 0003. Style with plain CSS and custom-property design tokens
 
-- **Status:** Accepted
-- **Date:** 2026-05-12 (reconstructed from git history: colours extracted into CSS variables on 2026-05-12, global styles moved to `src/styles/global.css` on 2026-05-14)
+- **Date:** 2026-05-12
 
 ## Context
 

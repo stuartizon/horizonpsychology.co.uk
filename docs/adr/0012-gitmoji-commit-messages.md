@@ -1,6 +1,5 @@
 # 0012. Gitmoji commit messages
 
-- **Status:** Accepted
 - **Date:** 2026-10-04
 - **Issue:** #15
 

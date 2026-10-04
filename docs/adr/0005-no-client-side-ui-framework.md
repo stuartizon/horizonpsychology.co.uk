@@ -1,7 +1,6 @@
 # 0005. No client-side UI framework
 
-- **Status:** Accepted
-- **Date:** 2026-05-14 (reconstructed: the mobile menu, FAQ accordion and testimonials carousel were all built as vanilla scripts in Astro components)
+- **Date:** 2026-05-14
 
 ## Context
 

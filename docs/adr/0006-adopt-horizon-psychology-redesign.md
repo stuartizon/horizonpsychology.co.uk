@@ -1,6 +1,5 @@
 # 0006. Adopt the Horizon Psychology redesign
 
-- **Status:** Accepted
 - **Date:** 2026-10-04
 - **Issue:** #14
 

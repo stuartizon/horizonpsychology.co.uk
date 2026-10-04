@@ -1,6 +1,5 @@
 # 0013. Contact form email delivery
 
-- **Status:** Proposed
 - **Date:** 2026-10-04
 - **Issue:** #12
 
@@ -21,4 +20,4 @@ The redesign adds a contact form (name, email, topic, online or face-to-face, me
 
 ## Decision
 
-Pending: depends on confirming the hosting platform.
+To be decided once the hosting platform is confirmed.

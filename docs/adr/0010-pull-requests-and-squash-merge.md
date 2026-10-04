@@ -1,6 +1,5 @@
 # 0010. All changes via pull requests, squash merged
 
-- **Status:** Accepted
 - **Date:** 2026-10-04
 - **Issue:** #15
 

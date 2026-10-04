@@ -1,6 +1,5 @@
 # 0008. Test-driven development with red, green, refactor
 
-- **Status:** Accepted
 - **Date:** 2026-10-04
 - **Issue:** #15
 
