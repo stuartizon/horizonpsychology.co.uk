@@ -139,7 +139,7 @@ export interface FaqGroup {
   faqs: FaqId[];
 }
 
-/** The groups on the FAQs page. Some FAQs only appear on service pages. */
+/** The groups on the FAQs page, which together hold every FAQ. */
 export const faqGroups: FaqGroup[] = [
   {
     eyebrow: "Getting started",
@@ -153,8 +153,13 @@ export const faqGroups: FaqGroup[] = [
   },
   {
     eyebrow: "Supervision",
-    title: "Clinical and research supervision",
-    faqs: ["supervisionWho", "accreditation", "groupSupervision", "researchStage"],
+    title: "Clinical supervision",
+    faqs: ["supervisionWho", "accreditation", "groupSupervision", "supervisionCadence"],
+  },
+  {
+    eyebrow: "Supervision",
+    title: "Research supervision",
+    faqs: ["researchWho", "researchStage", "researchEthics", "researchPublication"],
   },
   {
     eyebrow: "Practical",
