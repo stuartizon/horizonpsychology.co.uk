@@ -62,7 +62,7 @@ Pure visual styling with no testable behaviour (e.g. adjusting a token value) do
 ### Branches, commits and pull requests
 
 - Never commit directly to `main`. All changes go through a pull request.
-- Branch from `main` with a descriptive name: `feat/…`, `fix/…`, `docs/…`, `chore/…`, `test/…`.
+- Branch from `main` with a short descriptive name (e.g. `services-dropdown`).
 - **Commit little and often.** Each commit is one small, coherent step.
 - PRs are **squash merged**. The PR title becomes the commit on `main`, so it must follow the gitmoji style below. The PR description should say what changed, why, how it was tested, and `Closes #<issue>`.
 - Keep PRs small enough to review in one sitting. Split large issues into several PRs.

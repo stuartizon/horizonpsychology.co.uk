@@ -8,7 +8,7 @@ Until now, commits went straight to `main`. With TDD, issue tracking and AI-assi
 
 ## Decision
 
-- Nothing is committed directly to `main`. Every change is made on a branch (`feat/…`, `fix/…`, `docs/…`, `chore/…`, `test/…`) and merged through a pull request.
+- Nothing is committed directly to `main`. Every change is made on a branch with a short descriptive name and merged through a pull request.
 - Commit little and often on the branch.
 - PRs are **squash merged**, so each PR becomes one commit on `main`. The PR title must therefore follow the commit convention ([0010](0010-gitmoji-commit-messages.md)).
 - PR descriptions say what changed and why, how it was tested, and link the issue (`Closes #N`).
