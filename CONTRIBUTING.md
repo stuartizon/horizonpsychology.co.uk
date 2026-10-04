@@ -8,6 +8,17 @@ Every user story, task, bug or chore is a [GitHub issue](https://github.com/stua
 
 Work is test-first: a failing test is written and committed before the code that makes it pass ([ADR 0007](docs/adr/0007-test-driven-development.md)). The README describes the kinds of test.
 
+## Accessibility
+
+Everything on the site must:
+
+- use semantic HTML
+- be operable with a keyboard alone, with visible focus
+- respect `prefers-reduced-motion`
+- work from 320px wide
+
+The browser tests check pages with axe and cover keyboard and focus behaviour. New interactive components also get a manual check with the keyboard.
+
 ## Branches and pull requests
 
 - Nothing is committed directly to `main`; every change goes through a pull request ([ADR 0008](docs/adr/0008-pull-requests-and-squash-merge.md)).
