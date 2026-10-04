@@ -14,3 +14,4 @@ One file per decision, numbered in sequence. See [0001](0001-record-architecture
 | [0008](0008-pull-requests-and-squash-merge.md) | All changes via pull requests, squash merged |
 | [0009](0009-github-issues-for-work-tracking.md) | Track all work in GitHub issues |
 | [0010](0010-gitmoji-commit-messages.md) | Gitmoji commit messages |
+| [0011](0011-vitest-and-playwright-for-tests.md) | Test with Vitest, Playwright and axe, run in GitHub Actions |
