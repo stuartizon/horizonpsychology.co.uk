@@ -14,10 +14,14 @@ concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
+env:
+  ASTRO_TELEMETRY_DISABLED: 1
+
 jobs:
-  test:
+  check:
+    name: Type check
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
@@ -25,35 +29,82 @@ jobs:
           node-version-file: .nvmrc
           cache: npm
       - run: npm ci
-      - name: Type check and build
-        run: npm run build
-      - name: Component tests
-        run: npm test
-      - name: Install Playwright browsers
-        run: npx playwright install --with-deps chromium webkit
-      - name: Browser and accessibility tests
-        run: npm run test:e2e
-      - uses: actions/upload-artifact@v7
-        if: failure()
+      - run: npm run check
+
+  unit:
+    name: Component tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
-          name: playwright-report
-          path: |
-            playwright-report/
-            test-results/
-          retention-days: 7
-      - name: Upload the tested build
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm test
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npx astro build
+      - name: Upload the build
         uses: actions/upload-artifact@v7
         with:
           name: dist
           path: dist/
           retention-days: 7
 
-  # Deploys the build the tests ran against to Cloudflare Pages (ADR 0015):
-  # main to production, and each pull request to a preview named after its
-  # branch. Pull requests from forks don't get the Cloudflare secrets, so they
-  # aren't deployed.
+  # Runs against the uploaded build, so the files that get deployed are the
+  # ones that were tested. One job per browser, each at desktop and phone sizes.
+  e2e:
+    name: Browser tests (${{ matrix.browser }})
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, webkit]
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - uses: actions/download-artifact@v8
+        with:
+          name: dist
+          path: dist/
+      - name: Install Playwright browser
+        run: npx playwright install --with-deps ${{ matrix.browser }}
+      - name: Browser and accessibility tests
+        run: npx playwright test --project="${{ matrix.browser }}*"
+      - uses: actions/upload-artifact@v7
+        if: failure()
+        with:
+          name: playwright-report-${{ matrix.browser }}
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 7
+
+  # Deploys the tested build to Cloudflare Pages (ADR 0015): main to
+  # production, and each pull request to a preview named after its branch.
+  # Pull requests from forks don't get the Cloudflare secrets, so they aren't
+  # deployed.
   deploy:
-    needs: test
+    name: Deploy
+    needs: [check, unit, build, e2e]
     if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     timeout-minutes: 10

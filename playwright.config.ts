@@ -18,7 +18,9 @@ export default defineConfig({
     { name: "webkit-phone", use: { ...devices["iPhone SE"] } },
   ],
   webServer: {
-    command: `astro build && astro preview --host 127.0.0.1 --port ${port}`,
+    // CI serves the build the tests ran against, which the e2e job downloads
+    // from the build job. Locally, build first so a stale dist/ is never tested.
+    command: `${process.env.CI ? "" : "astro build && "}astro preview --host 127.0.0.1 --port ${port}`,
     env: { ASTRO_TELEMETRY_DISABLED: "1" },
     url: `http://127.0.0.1:${port}`,
     reuseExistingServer: !process.env.CI,
