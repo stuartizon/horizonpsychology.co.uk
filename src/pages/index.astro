@@ -6,41 +6,13 @@ import Carousel from "../components/Carousel.astro";
 import TestimonialCard from "../components/TestimonialCard.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Container from "@/components/Container.astro";
-import individualTherapyIcon from "../icons/individual-therapy.svg?raw";
-import couplesTherapyIcon from "../icons/couples-therapy.svg?raw";
-import clinicalSupervisionIcon from "../icons/clinical-supervision.svg?raw";
-import researchSupervisionIcon from "../icons/research-supervision.svg?raw";
+import { services } from "@/data/services";
 
-const services = [
-  {
-    title: "Individual Therapy",
-    description:
-      "We offer personalised therapy for adults and older adults, supporting difficulties including anxiety, trauma, depression, life changes, stress, and academic or sport-related performance pressures.",
-    href: "/individual-therapy/",
-    icon: individualTherapyIcon,
-  },
-  {
-    title: "Couples Therapy",
-    description:
-      "We offer couples and partner psychotherapy for any two people wishing to work on a shared issue, supporting relationship difficulties, communication, and patterns of interaction using systemic and CBT-informed approaches in a safe, collaborative space.",
-    href: "/couples-therapy/",
-    icon: couplesTherapyIcon,
-  },
-  {
-    title: "Clinical Supervision",
-    description:
-      "We offer individual and group supervision for psychologists, CBT therapists, and mental health professionals, alongside reflective practice, training, and consultation for organisations on mental health, neurodiversity, and wellbeing.",
-    href: "/clinical-supervision/",
-    icon: clinicalSupervisionIcon,
-  },
-  {
-    title: "Research Supervision",
-    description:
-      "We offer research supervision for Master's and Doctoral students, providing structured, personalised support across every stage of the research process, from study design and ethics to data analysis, academic writing, and publication.",
-    href: "/research-supervision/",
-    icon: researchSupervisionIcon,
-  },
-];
+const icons = import.meta.glob<string>("../icons/*.svg", {
+  query: "?raw",
+  import: "default",
+  eager: true,
+});
 
 const testimonials = [
   {
@@ -156,10 +128,10 @@ const testimonials = [
         {
           services.map((service) => (
             <ServiceCard
-              title={service.title}
-              description={service.description}
-              href={service.href}
-              icon={service.icon}
+              title={service.name}
+              description={service.summary}
+              href={`/${service.id}/`}
+              icon={icons[`../icons/${service.id}.svg`]}
             />
           ))
         }
