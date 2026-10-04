@@ -1,12 +1,39 @@
 # CLAUDE.md
 
-Guidance for Claude working in this repository. The README, imported below, covers the project, setup, structure, conventions, testing and how we work. Follow it as written. This file adds only what the README doesn't say.
+Guidance for Claude working in this repository. The README and CONTRIBUTING.md, imported below, cover the project, setup, structure, testing and how we work. Follow them as written. This file adds what they don't say.
 
 @README.md
 
-## Additional guidance for Claude
+@CONTRIBUTING.md
 
+## Code conventions
+
+- Styling is plain CSS ([ADR 0012](docs/adr/0012-small-global-token-set-and-component-owned-styles.md)). `src/styles/global.css` holds only the colour palette (hex), shared scales (type, spacing, radii, shadows, motion) and base element styles. Don't add role aliases like `--color-eyebrow`.
+- Build small components even for simple elements (eyebrow, button, heading), with their styles in the component's scoped `<style>`. Components use palette colours and scale tokens directly; never a hex value outside the palette. A value only one component needs is defined in that component, not added to `global.css`.
+- Interactive behaviour (menu, carousel, accordion) is small vanilla TypeScript in a component's `<script>`. Don't add a UI framework without an ADR.
+- Content must be accessible: semantic HTML, keyboard operable, visible focus, respects `prefers-reduced-motion`, works from 320px wide.
 - Production hosting is undecided (#18), so don't assume Vercel-specific features or adapters.
+
+## Test-driven development: red, green, refactor
+
+1. **Red**: write a failing test that describes the behaviour. Run it and see it fail for the expected reason. **Commit the failing test on its own** with ✅ (e.g. `✅ Add failing test for service card price line`).
+2. **Green**: write the simplest implementation that makes the test pass. Commit.
+3. **Refactor**: tidy the code and tests with the suite green. Commit.
+
+The test-first commit is part of the history on the branch, so reviewers can see the test existed before the implementation. CI on the PR must be green, not each intermediate commit.
+
+Pure visual styling with no testable behaviour (e.g. adjusting a token value) doesn't need a contrived test. Say so in the PR description and include before/after screenshots instead.
+
+Where tests go ([ADR 0011](docs/adr/0011-vitest-and-playwright-for-tests.md)):
+
+- **Component tests** (`npm test`): `Component.test.ts` next to the component. Render it with `render()` from `@/test/render` and query the returned DOM. Use these for rendered output: content, links, attributes, ARIA.
+- **Browser tests** (`npm run test:e2e`): `e2e/*.spec.ts`. Use these for anything that needs a browser: scripts, keyboard and focus, navigation, responsive layout, and axe accessibility checks.
+- A test for a known bug that won't be fixed in the current PR is marked `test.fail()` with a comment linking the issue. Remove the marker in the PR that fixes it.
+
+Run `npm run build`, `npm test` and `npm run test:e2e` before opening a PR.
+
+## Other guidance
+
 - If no GitHub issue exists for the work, create one before starting.
-- Keep this file, the README and the ADRs in step with the change in the same pull request. Put anything a human developer needs in the README, not here; nobody should have to read this file to work on the repo.
+- Keep this file in step with the README, CONTRIBUTING.md and the ADRs. Anything a human developer needs goes in those, not here; nobody should have to read this file to work on the repo.
 - When writing an ADR, record where the decision landed, not the conversation that led to it. Only list alternatives that were actually considered.
