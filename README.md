@@ -32,7 +32,7 @@ The dev server runs on <http://127.0.0.1:4321>.
 |---|---|
 | Framework | [Astro](https://astro.build) 5, static output ([ADR 0002](docs/adr/0002-astro-static-site.md)) |
 | Language | TypeScript, strict mode |
-| Styling | Plain CSS: a small set of global tokens, with each component's styles in its own file ([ADR 0012](docs/adr/0012-small-global-token-set-and-component-owned-styles.md)) |
+| Styling | Plain CSS: a small set of global tokens, with each component's styles in its own file ([ADR 0012](docs/adr/0012-small-global-token-set-and-component-owned-styles.md)), and two breakpoints, tablet and desktop ([ADR 0014](docs/adr/0014-two-site-wide-breakpoints-in-rem.md)) |
 | Interactivity | Small vanilla TypeScript scripts in components, no UI framework ([ADR 0005](docs/adr/0005-no-client-side-ui-framework.md)) |
 | Content | One typed source each for services, FAQs, testimonials, publications and legal pages ([ADR 0006](docs/adr/0006-structured-content-in-collections.md), in progress in #3) |
 | Fonts | Lora and Source Sans 3, served from the site with [Fontsource](https://fontsource.org) ([ADR 0004](docs/adr/0004-self-host-fonts-with-fontsource.md)) |
