@@ -1,14 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img">
-  <rect width="64" height="64" rx="14" fill="#faf9f6" />
-  <rect x="8" y="8" width="48" height="48" rx="10" fill="#ffffff" stroke="#ded9cf" stroke-width="2" />
-
-  <g stroke="#a99f94" stroke-linecap="round" fill="none">
-    <line x1="24.5" y1="40" x2="39.5" y2="40" stroke-width="1.1" opacity="0.45" />
-    <line x1="26.5" y1="43" x2="37.5" y2="43" stroke-width="1.1" opacity="0.3" />
-  </g>
-
-  <circle cx="32" cy="33" r="5.5" fill="#decab6" />
-
-  <path d="M17,34 A15,15 0 0 1 47,34" stroke="#a99f94" stroke-width="2" fill="none" stroke-linecap="round" />
-  <line x1="17" y1="34" x2="47" y2="34" stroke="#a99f94" stroke-width="2.2" stroke-linecap="round" />
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+  <title>Horizon Psychology</title>
+  <defs>
+    <linearGradient id="sun" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f5b25a" />
+      <stop offset="0.5" stop-color="#e5872f" />
+      <stop offset="1" stop-color="#c15a1e" />
+    </linearGradient>
+  </defs>
+  <path d="M11.93 31.1A14 14 0 1 1 36.07 31.1Z" fill="url(#sun)" />
+  <rect x="5.8" y="31.1" width="36.4" height="1.9" fill="#4f7264" />
 </svg>
