@@ -34,7 +34,7 @@ src/
   layouts/      # BaseLayout.astro (head, Navbar, Footer)
   components/   # reusable .astro components with scoped <style>
   icons/        # SVGs imported with ?raw
-  styles/       # global.css: design tokens and base element styles
+  styles/       # global.css: palette, shared scales and base element styles
   test/         # test helpers (render.ts renders a component to a queryable DOM)
   consts.ts     # site title and description
 e2e/            # Playwright browser and accessibility tests
@@ -43,7 +43,8 @@ docs/adr/       # architecture decision records
 ```
 
 - Import from `src` with the `@/` alias (e.g. `@/components/Button.astro`).
-- Styling uses CSS custom properties defined in `src/styles/global.css`. Use the tokens; don't hard-code colours, font sizes, spacing or radii in components.
+- Styling is plain CSS ([ADR 0012](docs/adr/0012-small-global-token-set-and-component-owned-styles.md)). `src/styles/global.css` holds only the colour palette (hex), shared scales (type, spacing, radii, shadows, motion) and base element styles. Don't add role aliases like `--color-eyebrow`.
+- Build small components even for simple elements (eyebrow, button, heading), with their styles in the component's scoped `<style>`. Components use palette colours and scale tokens directly; never a hex value outside the palette. A value only one component needs is defined in that component, not added to `global.css`.
 - Interactive behaviour (menu, carousel, accordion) is small vanilla TypeScript in a component's `<script>`. Don't add a UI framework without an ADR.
 - Content must be accessible: semantic HTML, keyboard operable, visible focus, respects `prefers-reduced-motion`, works from 320px wide.
 
