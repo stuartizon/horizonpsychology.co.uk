@@ -109,6 +109,11 @@
     background-color var(--duration-fast) var(--ease-calm),
     border-color var(--duration-fast) var(--ease-calm);
 
+  /* ---- Breakpoints ----
+     Custom properties can't be used in media queries, so write these out
+     mobile-first: @media (min-width: 48rem) for tablet, (min-width: 64rem)
+     for desktop. src/styles/breakpoints.test.ts fails on any other width. */
+
   /* ---- Legacy ----
      Names the current components still use, pointed at the new palette.
      Remove each one as its component moves to the tokens above (#4 to #10). */
