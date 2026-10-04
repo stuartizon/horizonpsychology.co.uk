@@ -6,7 +6,7 @@ One file per decision, numbered in sequence. See [0001](0001-record-architecture
 |---|---|
 | [0001](0001-record-architecture-decisions.md) | Record architecture decisions |
 | [0002](0002-astro-static-site.md) | Build the site with Astro as a static site |
-| [0003](0003-plain-css-with-design-tokens.md) | Style with plain CSS and custom-property design tokens |
+| [0003](0003-plain-css-with-design-tokens.md) | Style with plain CSS and custom-property design tokens (superseded by 0012) |
 | [0004](0004-self-host-fonts-with-fontsource.md) | Self-host web fonts with Fontsource |
 | [0005](0005-no-client-side-ui-framework.md) | No client-side UI framework |
 | [0006](0006-structured-content-in-collections.md) | Keep structured content in one place |
@@ -15,3 +15,4 @@ One file per decision, numbered in sequence. See [0001](0001-record-architecture
 | [0009](0009-github-issues-for-work-tracking.md) | Track all work in GitHub issues |
 | [0010](0010-gitmoji-commit-messages.md) | Gitmoji commit messages |
 | [0011](0011-vitest-and-playwright-for-tests.md) | Test with Vitest, Playwright and axe, run in GitHub Actions |
+| [0012](0012-small-global-token-set-and-component-owned-styles.md) | Keep global tokens small and give components their own styles |

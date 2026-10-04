@@ -26,39 +26,7 @@
   --color-ink-soft: #5c6b64;
   --color-ink-faint: #8b978f;
 
-  /* ---- Semantic ---- */
-  --color-text-body: var(--color-ink);
-  --color-text-muted: var(--color-ink-soft);
-  --color-text-heading: var(--color-sage-800);
-  --color-eyebrow: var(--color-sage-600);
-
-  --surface-page: var(--color-background);
-  --surface-card: var(--color-panel);
-  --surface-quiet: var(--color-cream);
-  --surface-sage: var(--color-sage-50);
-
-  --color-accent: var(--color-sage-600);
-  --color-accent-strong: var(--color-sage-800);
-  --color-warm: var(--color-amber-600);
-
-  --color-button-primary-surface: var(--color-sage-600);
-  --color-button-primary-surface-hover: var(--color-sage-800);
-  --color-button-primary-text: #ffffff;
-  --color-button-secondary-border: var(--color-sage-300);
-  --color-button-secondary-text: var(--color-sage-800);
-  --color-button-link-text: var(--color-sage-600);
-
-  --color-icon-surface: var(--color-sage-50);
-  --color-icon-mark: var(--color-sage-600);
-
-  --color-field-surface: var(--color-panel);
-  --color-field-border: var(--color-line-strong);
-  --color-field-border-focus: var(--color-sage-600);
-  --color-focus-ring: var(--color-sage-600);
-  --color-focus-halo: color-mix(in srgb, var(--color-focus-ring) 16%, transparent);
-  --color-note-surface: var(--color-amber-100);
-  --color-note-border: var(--color-amber-300);
-  --color-note-text: var(--color-amber-800);
+  /* ---- Feedback ---- */
   --color-error: #9c4a3f;
 
   /* ---- Type ---- */
@@ -73,15 +41,12 @@
   --text-h2: clamp(1.55rem, 2.4vw, 2.15rem);
   --text-h3: 1.3rem;
   --text-quote: clamp(1.35rem, 2.1vw, 1.85rem);
-  --text-quote-card: 1.3rem;
 
   /* Body: Source Sans 3 */
   --text-lead: 1.15rem;
   --text-body: 1.0625rem;
   --text-small: 0.95rem;
-  --text-eyebrow: 0.78rem;
   --text-caption: 0.85rem;
-  --text-button: 1rem;
 
   --weight-regular: 400;
   --weight-medium: 500;
@@ -93,7 +58,6 @@
   --leading-tight: 1.45;
 
   --tracking-display: -0.012em;
-  --tracking-eyebrow: 0.14em;
 
   /* ---- Spacing ---- */
   --space-1: 4px;
@@ -110,7 +74,6 @@
 
   --content-max-width: 1080px;
   --measure-prose: 64ch;
-  --measure-quote: 34ch;
   --measure-feature: 820px;
   --gutter: clamp(20px, 5vw, 48px);
   --section-y: clamp(72px, 10vw, 128px);
@@ -123,10 +86,6 @@
   --radius-panel: 20px;
   --radius-image: 20px;
   --radius-pill: 999px;
-  --radius-brand-mark: 26%;
-
-  --border-hairline: 1px solid var(--color-line);
-  --border-quiet: 1px solid var(--color-line-strong);
 
   /* Soft, low, warm-tinted. Nothing in the system casts a hard shadow. */
   --shadow-rest: 0 1px 2px color-mix(in srgb, var(--color-sage-800) 4%, transparent);
@@ -145,10 +104,6 @@
   --duration-base: 220ms;
   --duration-slow: 480ms;
   --ease-calm: cubic-bezier(0.22, 0.61, 0.36, 1);
-  --transition-card:
-    transform var(--duration-base) var(--ease-calm),
-    box-shadow var(--duration-base) var(--ease-calm),
-    border-color var(--duration-base) var(--ease-calm);
   --transition-quiet:
     color var(--duration-fast) var(--ease-calm),
     background-color var(--duration-fast) var(--ease-calm),
@@ -174,10 +129,10 @@
   --color-service-surface: var(--color-sage-50);
   --color-service-card-surface: var(--color-sage-100);
   --color-service-border: var(--color-sage-300);
-  --color-service-heading: var(--color-text-heading);
-  --color-service-icon: var(--color-icon-mark);
+  --color-service-heading: var(--color-sage-800);
+  --color-service-icon: var(--color-sage-600);
   --color-service-icon-mark: var(--color-panel);
-  --color-testimonial-surface: var(--surface-quiet);
+  --color-testimonial-surface: var(--color-cream);
   --color-testimonial-border: var(--color-line);
   --color-button-surface: var(--color-ink-faint);
   --color-button-surface-hover: var(--color-ink-soft);
@@ -203,8 +158,8 @@
 
 html {
   min-width: 320px;
-  background: var(--surface-page);
-  color: var(--color-text-body);
+  background: var(--color-background);
+  color: var(--color-ink);
   font-family: var(--font-body);
   font-size: 100%;
   -webkit-font-smoothing: antialiased;
@@ -236,7 +191,7 @@ h2,
 h3,
 h4 {
   margin: 0;
-  color: var(--color-text-heading);
+  color: var(--color-sage-800);
   font-family: var(--font-display);
   font-weight: var(--weight-regular);
   line-height: var(--leading-display);
@@ -267,7 +222,7 @@ p:last-child {
 }
 
 a {
-  color: var(--color-accent);
+  color: var(--color-sage-600);
   text-decoration: underline;
   text-decoration-color: var(--color-sage-300);
   text-decoration-thickness: 1px;
@@ -276,8 +231,8 @@ a {
 }
 
 a:hover {
-  color: var(--color-accent-strong);
-  text-decoration-color: var(--color-accent-strong);
+  color: var(--color-sage-800);
+  text-decoration-color: var(--color-sage-800);
 }
 
 a:focus-visible,
@@ -286,22 +241,22 @@ input:focus-visible,
 textarea:focus-visible,
 select:focus-visible,
 [tabindex]:focus-visible {
-  outline: 2px solid var(--color-focus-ring);
+  outline: 2px solid var(--color-sage-600);
   outline-offset: 2px;
   border-radius: 4px;
-  box-shadow: 0 0 0 5px var(--color-focus-halo);
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--color-sage-600) 16%, transparent);
 }
 
 input:focus-visible,
 textarea:focus-visible,
 select:focus-visible {
-  border-color: var(--color-field-border-focus) !important;
+  border-color: var(--color-sage-600) !important;
   border-radius: var(--radius-sm);
 }
 
 blockquote {
   margin: 0;
-  color: var(--color-text-heading);
+  color: var(--color-sage-800);
   font-family: var(--font-display);
   font-size: var(--text-quote);
   font-style: italic;

@@ -32,19 +32,19 @@ const { href, label, type } = Astro.props;
   }
 
   .button--primary {
-    background: var(--color-button-primary-surface);
-    color: var(--color-button-primary-text);
+    background: var(--color-sage-600);
+    color: var(--color-panel);
   }
 
   .button--primary:hover {
-    color: var(--color-button-primary-text);
-    background: var(--color-accent-strong);
+    color: var(--color-panel);
+    background: var(--color-sage-800);
   }
 
   .button--link {
     min-height: 0;
     background: transparent;
-    color: var(--color-button-link-text);
+    color: var(--color-sage-600);
     padding: 0;
     text-decoration: none;
     text-underline-offset: 0.2em;
@@ -52,13 +52,13 @@ const { href, label, type } = Astro.props;
 
   .button--link:hover {
     background: transparent;
-    color: var(--color-button-link-text);
+    color: var(--color-sage-600);
     text-decoration: underline;
     text-decoration-color: var(--color-sage-300);
   }
 
   .button:focus-visible {
-    outline: 2px solid var(--color-accent-strong);
+    outline: 2px solid var(--color-sage-800);
     outline-offset: 3px;
   }
 </style>
