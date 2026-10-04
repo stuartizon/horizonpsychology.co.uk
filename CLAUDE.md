@@ -66,6 +66,7 @@ Pure visual styling with no testable behaviour (e.g. adjusting a token value) do
 - **Commit little and often.** Each commit is one small, coherent step.
 - PRs are **squash merged**. The PR title becomes the commit on `main`, so it must follow the gitmoji style below. The PR description should say what changed, why, how it was tested, and `Closes #<issue>`.
 - Keep PRs small enough to review in one sitting. Split large issues into several PRs.
+- Update `README.md`, this file and the ADRs in the same PR as the change they describe (new commands, setup steps, conventions or decisions).
 
 ### Commit messages: gitmoji
 
