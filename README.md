@@ -47,7 +47,8 @@ src/
   pages/        # one file per route; [therapyId].astro renders the service pages
   layouts/      # BaseLayout.astro: head, header and footer
   components/   # .astro components, each with its own scoped styles and any script
-  icons/        # SVGs imported with ?raw
+  data/         # typed content shared across pages, such as services.ts
+  icons/        # SVGs imported with ?raw; service icons are named by service id
   styles/       # global.css: colour palette, shared scales and base element styles
   test/         # test helpers (render.ts renders a component to a queryable DOM)
   consts.ts     # site title and description
