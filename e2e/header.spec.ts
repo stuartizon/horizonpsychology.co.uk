@@ -77,7 +77,7 @@ test.describe("from tablet width", () => {
 
     await pressTab(page);
     await expect(servicesButton(page)).toHaveAttribute("aria-expanded", "false");
-    await expect(primaryNav(page).getByRole("link", { name: "Research" })).toBeFocused();
+    await expect(primaryNav(page).getByRole("link", { name: "Research", exact: true })).toBeFocused();
   });
 
   test("the Services dropdown closes when you click outside it", async ({ page }) => {
