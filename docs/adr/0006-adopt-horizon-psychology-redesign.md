@@ -21,7 +21,6 @@ A new design for the whole site (design export *Horizon Psychology website 20261
 ## Alternatives considered
 
 - **Port the prototype's React markup directly.** It's built with inline styles and a React runtime, which conflicts with [0003](0003-plain-css-with-design-tokens.md) and [0005](0005-no-client-side-ui-framework.md).
-- **Incrementally restyle the existing design.** The new design changes typography, colour and page structure across every page, so piecemeal changes would leave the site inconsistent for longer.
 
 ## Consequences
 

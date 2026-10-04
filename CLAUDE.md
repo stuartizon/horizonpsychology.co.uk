@@ -98,7 +98,7 @@ Keep messages about the change itself. Don't describe where third-party assets c
 
 ### Architecture decision records
 
-Significant decisions are recorded in `docs/adr/` as one Markdown file each: `NNNN-short-title.md`, numbered in sequence and copied from `docs/adr/template.md` (Context, Decision, Alternatives considered, Consequences). Add an ADR when you choose or change a framework, library, hosting or service, data handling approach, or way of working, and list it in `docs/adr/README.md`. ADRs aren't rewritten once written: if a decision changes, write a new ADR that supersedes the old one, add "Supersedes" / "Superseded by" lines under both dates, and mark the old one in the index. Record where a decision landed, not the conversation that led to it.
+Significant decisions are recorded in `docs/adr/` as one Markdown file each: `NNNN-short-title.md`, numbered in sequence and copied from `docs/adr/template.md` (Context, Decision, Alternatives considered if there were any, Consequences). Add an ADR when you choose or change a framework, library, hosting or service, data handling approach, or way of working, and list it in `docs/adr/README.md`. ADRs aren't rewritten once written: if a decision changes, write a new ADR that supersedes the old one, add "Supersedes" / "Superseded by" lines under both dates, and mark the old one in the index. Record where a decision landed, not the conversation that led to it.
 
 ## Domain notes
 

@@ -16,7 +16,6 @@ Hold structured content in a single typed source each, and have pages read from 
 ## Alternatives considered
 
 - **Keep content in each page file.** The current approach. Simple, but the same service and FAQ text would be duplicated in several places and drift apart.
-- **Headless CMS.** Gives non-developers an editing UI, but adds a service, cost and integration for content that changes rarely.
 
 ## Consequences
 

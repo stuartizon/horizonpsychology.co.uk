@@ -12,11 +12,6 @@ The site has a small, bespoke visual design. A utility or component CSS framewor
 - Component styles live in each `.astro` component's scoped `<style>` block and use the tokens.
 - Don't use a CSS framework (Tailwind or similar) or a CSS-in-JS library.
 
-## Alternatives considered
-
-- **Tailwind CSS.** Adds a build dependency and a utility vocabulary, and scatters design values through the markup instead of keeping them in one token file.
-- **CSS-in-JS.** Needs a JavaScript framework this site doesn't use ([0005](0005-no-client-side-ui-framework.md)).
-
 ## Consequences
 
 - A redesign is largely a matter of swapping token values, as the 2026-10 redesign does ([0006](0006-adopt-horizon-psychology-redesign.md)).

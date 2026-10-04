@@ -13,7 +13,6 @@ Follow [gitmoji](https://gitmoji.dev): start each commit message and each PR tit
 ## Alternatives considered
 
 - **Conventional Commits (`feat:`, `fix:` and so on).** Machine-readable, but we don't generate changelogs or versions from commits, and gitmoji is quicker to scan.
-- **Free-form messages.** The previous approach. Readable, but the type of change isn't visible at a glance.
 
 ## Consequences
 

@@ -15,8 +15,6 @@ Record significant decisions as architecture decision records (ADRs) in `docs/ad
 
 ## Alternatives considered
 
-- **Commit messages only.** That's where decisions have lived so far, but the reasoning is hard to find and gets lost once commits are squashed.
-- **One long decisions document.** Easy to start with, but it grows without bound and makes it easy to change past decisions quietly.
 - **Plain Nygard template.** It has no place for rejected alternatives, which are often as useful as the decision itself.
 
 ## Consequences

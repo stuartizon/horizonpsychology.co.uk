@@ -15,6 +15,9 @@ What we are doing, stated plainly.
 
 ## Alternatives considered
 
+<!-- Only include alternatives that were actually considered. Leave this
+     section out if there weren't any. -->
+
 - **Alternative.** Why it was rejected.
 
 ## Consequences

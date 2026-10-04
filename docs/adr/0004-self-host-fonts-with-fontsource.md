@@ -10,11 +10,6 @@ Loading fonts from Google Fonts at runtime sends visitors' IP addresses to a thi
 
 Install fonts as npm packages from [Fontsource](https://fontsource.org) and import them in the layout or page, so they're bundled and served from our own origin. Import only the weights and styles that are used.
 
-## Alternatives considered
-
-- **Google Fonts CDN.** Simplest to set up, but sends visitors' IP addresses to Google and adds a third-party connection.
-- **System font stack only.** No font loading at all, but loses the brand typography the design depends on.
-
 ## Consequences
 
 - No third-party font requests and no extra connection before text can render.
