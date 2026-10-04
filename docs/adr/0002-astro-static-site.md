@@ -14,4 +14,4 @@ Use [Astro](https://astro.build) (currently v5) with its default static output, 
 
 - Pages are pre-rendered HTML with no JavaScript by default, which is fast and easy to host on any static host or CDN.
 - `astro check` gives type checking across `.astro` files and runs as part of `npm run build`.
-- Anything that needs a server, such as sending contact form email, needs either a third-party service or an opt-in server route (see [0013](0013-contact-form-email-delivery.md)).
+- Anything that needs a server, such as sending contact form email, needs either a third-party service or an opt-in server route (see [0012](0012-contact-form-email-delivery.md)).

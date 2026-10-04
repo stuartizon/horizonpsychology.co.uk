@@ -1,4 +1,4 @@
-# 0012. Gitmoji commit messages
+# 0011. Gitmoji commit messages
 
 Date: 2026-10-04
 

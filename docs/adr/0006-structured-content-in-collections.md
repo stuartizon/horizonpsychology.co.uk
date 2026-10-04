@@ -1,4 +1,4 @@
-# 0007. Keep structured content in one place
+# 0006. Keep structured content in one place
 
 Date: 2026-10-04
 

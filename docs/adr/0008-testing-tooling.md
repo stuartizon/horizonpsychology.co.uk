@@ -1,10 +1,10 @@
-# 0009. Testing tooling
+# 0008. Testing tooling
 
 Date: 2026-10-04
 
 ## Context
 
-TDD ([0008](0008-test-driven-development.md)) needs a test runner. There are no tests or CI in the repo yet. The things worth testing are how Astro components render (correct markup, links and content from data), client-side behaviour (menus, accordions, carousel, form validation) and accessibility.
+TDD ([0007](0007-test-driven-development.md)) needs a test runner. There are no tests or CI in the repo yet. The things worth testing are how Astro components render (correct markup, links and content from data), client-side behaviour (menus, accordions, carousel, form validation) and accessibility.
 
 ## Decision
 

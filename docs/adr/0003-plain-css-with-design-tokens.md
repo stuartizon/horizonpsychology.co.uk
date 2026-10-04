@@ -14,5 +14,5 @@ The site has a small, bespoke visual design. A utility or component CSS framewor
 
 ## Consequences
 
-- A redesign is largely a matter of swapping token values, as the 2026-10 redesign does ([0006](0006-adopt-horizon-psychology-redesign.md)).
+- A redesign is largely a matter of swapping token values.
 - Discipline is needed to avoid hard-coded values in components. Review should check for them.

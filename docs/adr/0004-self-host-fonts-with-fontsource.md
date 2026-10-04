@@ -14,4 +14,3 @@ Install fonts as npm packages from [Fontsource](https://fontsource.org) and impo
 
 - No third-party font requests and no extra connection before text can render.
 - Fonts are versioned with the rest of the dependencies.
-- The redesign changes which fonts are used (Lora and Source Sans 3 instead of Inter, see [0006](0006-adopt-horizon-psychology-redesign.md)) but keeps this approach.

@@ -57,7 +57,7 @@ The test-first commit is part of the history on the branch, so reviewers can see
 
 Pure visual styling with no testable behaviour (e.g. adjusting a token value) doesn't need a contrived test. Say so in the PR description and include before/after screenshots instead.
 
-> Test tooling is not set up yet (ADR 0009, #16). Until it lands, write the test plan in the PR description.
+> Test tooling is not set up yet (ADR 0008, #16). Until it lands, write the test plan in the PR description.
 
 ### Branches, commits and pull requests
 
