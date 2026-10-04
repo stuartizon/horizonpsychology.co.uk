@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test";
+import { pressTab } from "./keyboard";
 
 test("body text is set in Source Sans 3", async ({ page }) => {
   await page.goto("/");
@@ -31,7 +32,7 @@ test("Inter is no longer loaded", async ({ page }) => {
 
 test("keyboard focus shows a ring and a soft halo", async ({ page }) => {
   await page.goto("/");
-  await page.keyboard.press("Tab");
+  await pressTab(page);
 
   const style = await page.evaluate(() => {
     const { outlineStyle, outlineWidth, boxShadow } = getComputedStyle(document.activeElement!);

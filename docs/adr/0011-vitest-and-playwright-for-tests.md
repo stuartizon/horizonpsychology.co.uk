@@ -2,6 +2,8 @@
 
 Date: 2026-10-04
 
+Superseded by [0013](0013-test-in-chromium-and-webkit-at-desktop-and-phone-sizes.md).
+
 ## Context
 
 We work test-first ([0007](0007-test-driven-development.md)), so the redesign needs test tooling before it starts. Most of the site is static Astro components, plus a few interactive ones (menu, dropdown, accordion, carousel) and accessibility requirements that are easy to break without noticing.

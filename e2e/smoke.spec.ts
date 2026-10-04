@@ -8,7 +8,8 @@ test("home page loads", async ({ page }) => {
   await expect(page.getByRole("main")).toBeVisible();
 });
 
-test("primary navigation links open their pages", async ({ page }) => {
+test("primary navigation links open their pages", async ({ page, isMobile }) => {
+  test.skip(isMobile, "On a phone the navigation is behind the menu button");
   await page.goto("/");
   const nav = page.getByRole("navigation", { name: "Primary navigation" });
   const links = await nav.getByRole("link").all();

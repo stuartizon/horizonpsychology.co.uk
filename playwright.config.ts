@@ -11,7 +11,12 @@ export default defineConfig({
     baseURL: `http://127.0.0.1:${port}`,
     trace: "retain-on-failure",
   },
-  projects: [{ name: "chromium", use: { ...devices["Desktop Chrome"] } }],
+  projects: [
+    { name: "chromium", use: { ...devices["Desktop Chrome"] } },
+    { name: "chromium-phone", use: { ...devices["iPhone SE"], browserName: "chromium" } },
+    { name: "webkit", use: { ...devices["Desktop Safari"] } },
+    { name: "webkit-phone", use: { ...devices["iPhone SE"] } },
+  ],
   webServer: {
     command: `astro build && astro preview --host 127.0.0.1 --port ${port}`,
     env: { ASTRO_TELEMETRY_DISABLED: "1" },
