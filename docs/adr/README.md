@@ -15,5 +15,5 @@ One file per decision, numbered in sequence. See [0001](0001-record-architecture
 | [0009](0009-github-issues-for-work-tracking.md) | Track all work in GitHub issues |
 | [0010](0010-gitmoji-commit-messages.md) | Gitmoji commit messages |
 | [0011](0011-vitest-and-playwright-for-tests.md) | Test with Vitest, Playwright and axe, run in GitHub Actions (superseded by 0013) |
-| [0013](0013-test-in-chromium-and-webkit-at-desktop-and-phone-sizes.md) | Test with Vitest, and with Playwright and axe in Chromium and WebKit at desktop and phone sizes |
 | [0012](0012-small-global-token-set-and-component-owned-styles.md) | Keep global tokens small and give components their own styles |
+| [0013](0013-test-in-chromium-and-webkit-at-desktop-and-phone-sizes.md) | Test with Vitest, and with Playwright and axe in Chromium and WebKit at desktop and phone sizes |
