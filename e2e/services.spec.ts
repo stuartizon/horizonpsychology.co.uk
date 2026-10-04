@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test";
+import { faqs } from "../src/data/faqs";
 import { services } from "../src/data/services";
 
 test("the home page links to each service with its summary", async ({ page }) => {
@@ -25,5 +26,14 @@ for (const service of services) {
     for (const item of service.practical) {
       await expect(page.getByText(item, { exact: true })).toBeVisible();
     }
+  });
+}
+
+for (const service of services) {
+  test(`the ${service.name} page shows its own questions`, async ({ page }) => {
+    await page.goto(`/${service.id}/`);
+
+    const questions = page.getByRole("region", { name: "Got questions?" }).getByRole("button");
+    await expect(questions).toHaveText(service.faqs.map((id) => faqs[id].question));
   });
 }
