@@ -8,7 +8,7 @@ Commit messages so far are plain imperative sentences. We want the type of each 
 
 ## Decision
 
-Follow [gitmoji](https://gitmoji.dev): start each commit message and each PR title with the relevant gitmoji as a Unicode character, followed by an imperative summary in sentence case with no full stop, for example `✨ Add services dropdown to the header`. The commonly used emojis are listed in `CLAUDE.md`. Messages describe the change itself, not where third-party assets came from.
+Follow [gitmoji](https://gitmoji.dev): start each commit message and each PR title with the relevant gitmoji as a Unicode character, followed by an imperative summary in sentence case with no full stop, for example `✨ Add services dropdown to the header`. The commonly used emojis are listed in the README. Messages describe the change itself, not where third-party assets came from.
 
 ## Alternatives considered
 
