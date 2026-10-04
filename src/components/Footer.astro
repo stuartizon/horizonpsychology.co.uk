@@ -1,5 +1,5 @@
 ---
-import { services } from "@/data/services";
+import { about, contact, faqs, practicalLinks, research, serviceLinks } from "@/data/navigation";
 import Brand from "./Brand.astro";
 import Container from "./Container.astro";
 import Eyebrow from "./Eyebrow.astro";
@@ -7,28 +7,9 @@ import Eyebrow from "./Eyebrow.astro";
 const email = "hello@horizonpsychology.co.uk";
 
 const groups = [
-  {
-    title: "Work together",
-    links: services.map((service) => ({ label: service.name, href: `/${service.id}/` })),
-  },
-  {
-    title: "Practice",
-    links: [
-      { label: "About Emma", href: "/about/" },
-      { label: "Research", href: "/projects/" },
-      { label: "FAQs", href: "/faqs/" },
-    ],
-  },
-  {
-    title: "Practical",
-    links: [
-      { label: "Contact Us", href: "/contact/" },
-      { label: "Fees and cancellations", href: "/terms-and-conditions/" },
-      { label: "Confidentiality", href: "/confidentiality/" },
-      { label: "Privacy policy", href: "/privacy-policy/" },
-      { label: "Complaints", href: "/complaints/" },
-    ],
-  },
+  { title: "Work together", links: serviceLinks },
+  { title: "Practice", links: [about, research, faqs] },
+  { title: "Practical", links: [contact, ...practicalLinks] },
 ];
 ---
 

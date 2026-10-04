@@ -1,5 +1,5 @@
 ---
-import { services } from "@/data/services";
+import { about, contact, research, serviceLinks } from "@/data/navigation";
 import burgerIcon from "@/icons/burger.svg?raw";
 import Brand from "./Brand.astro";
 import Button from "./Button.astro";
@@ -7,10 +7,6 @@ import Container from "./Container.astro";
 import MobileMenu from "./MobileMenu.astro";
 import ServicesMenu from "./ServicesMenu.astro";
 
-const about = { label: "About Emma", href: "/about/" };
-const research = { label: "Research", href: "/projects/" };
-const contact = { label: "Contact Us", href: "/contact/" };
-const serviceLinks = services.map((service) => ({ label: service.name, href: `/${service.id}/` }));
 ---
 
 <header class="header">

@@ -1,8 +1,9 @@
 ---
+import type { Link } from "@/data/navigation";
 import chevronIcon from "@/icons/arrow.svg?raw";
 
 interface Props {
-  links: { label: string; href: string }[];
+  links: Link[];
 }
 
 const { links } = Astro.props;
