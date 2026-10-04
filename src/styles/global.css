@@ -125,13 +125,8 @@
   --color-grey-50: var(--color-ink-faint);
   --color-grey-100: var(--color-ink-soft);
   --color-grey-600: var(--color-ink-soft);
-  --color-grey-800: var(--color-ink);
-  --color-nav-surface: var(--color-sage-100);
-  --color-nav-border: var(--color-sage-300);
   --color-nav-action: var(--color-sage-600);
   --color-nav-action-text: var(--color-panel);
-  --color-nav-menu: var(--color-sage-800);
-  --color-service-surface: var(--color-sage-50);
   --color-service-card-surface: var(--color-sage-100);
   --color-service-border: var(--color-sage-300);
   --color-service-heading: var(--color-sage-800);
@@ -139,11 +134,9 @@
   --color-service-icon-mark: var(--color-panel);
   --color-testimonial-surface: var(--color-cream);
   --color-testimonial-border: var(--color-line);
-  --color-button-surface: var(--color-ink-faint);
   --color-button-surface-hover: var(--color-ink-soft);
   --color-button-text: var(--color-panel);
   --font-sans: var(--font-body);
-  --gutter-min: 1rem;
 }
 
 @media (prefers-reduced-motion: reduce) {
