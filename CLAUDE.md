@@ -7,7 +7,7 @@ Guidance for Claude (and humans) working in this repository.
 Marketing website for **Horizon Psychology**, the private practice of Dr Emma Izon (clinical psychologist): individual and couples therapy, clinical supervision and research supervision, online or face-to-face in Buckinghamshire.
 
 - Static site built with [Astro](https://astro.build) 5, TypeScript (strict), plain CSS.
-- Deployed at `https://emmaizon.com` (see `astro.config.mjs`).
+- The demo is deployed to Vercel. Production hosting isn't decided yet (#18), so don't assume Vercel-specific features or adapters.
 - Node `>=22` (see `.nvmrc`).
 
 ## Commands
