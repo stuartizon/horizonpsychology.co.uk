@@ -4,7 +4,7 @@ Website for Horizon Psychology, the private practice of Dr Emma Izon, clinical p
 
 It's a static site built with [Astro](https://astro.build), TypeScript and plain CSS.
 
-## Development
+## Getting started
 
 Requires Node 22 or later (see `.nvmrc`).
 
@@ -13,17 +13,60 @@ npm install
 npm run dev
 ```
 
-## Commands
+The dev server runs on <http://127.0.0.1:4321>.
 
-- `npm run dev` starts the local development server.
-- `npm run check` runs Astro and TypeScript checks.
-- `npm run build` checks and builds the static site.
-- `npm run preview` previews the production build locally.
-- `npm test` runs the component tests.
-- `npm run test:e2e` runs the browser and accessibility tests. Install the browser first with `npx playwright install chromium`.
+### Commands
 
-## How we work
+| Command | What it does |
+|---|---|
+| `npm run dev` | Local development server |
+| `npm run check` | Astro and TypeScript checks |
+| `npm run build` | Checks, then builds the static site to `dist/` |
+| `npm run preview` | Serves the production build locally |
+| `npm test` | Component tests |
+| `npm run test:e2e` | Browser and accessibility tests. Install the browser once first with `npx playwright install chromium` |
 
-- [CLAUDE.md](CLAUDE.md) describes the project layout and ways of working: GitHub issues for all work, test-driven development, pull requests with squash merging, and gitmoji commit messages. It's written for Claude Code but applies to everyone.
-- [docs/adr/](docs/adr/README.md) records the architecture decisions behind the site.
-- Work is tracked in [GitHub issues](https://github.com/stuartizon/horizonpsychology.co.uk/issues).
+## Stack
+
+| Layer | Choice |
+|---|---|
+| Framework | [Astro](https://astro.build) 5, static output ([ADR 0002](docs/adr/0002-astro-static-site.md)) |
+| Language | TypeScript, strict mode |
+| Styling | Plain CSS: a small set of global tokens, with each component's styles in its own file ([ADR 0012](docs/adr/0012-small-global-token-set-and-component-owned-styles.md)) |
+| Interactivity | Small vanilla TypeScript scripts in components, no UI framework ([ADR 0005](docs/adr/0005-no-client-side-ui-framework.md)) |
+| Content | One typed source each for services, FAQs, testimonials, publications and legal pages ([ADR 0006](docs/adr/0006-structured-content-in-collections.md), in progress in #3) |
+| Fonts | Lora and Source Sans 3, served from the site with [Fontsource](https://fontsource.org) ([ADR 0004](docs/adr/0004-self-host-fonts-with-fontsource.md)) |
+| Testing | [Vitest](https://vitest.dev) for components, [Playwright](https://playwright.dev) with [axe](https://github.com/dequelabs/axe-core-npm) in the browser ([ADR 0011](docs/adr/0011-vitest-and-playwright-for-tests.md)) |
+| CI | GitHub Actions on every pull request and push to `main` |
+| Hosting | A demo is deployed to Vercel. Production hosting isn't decided yet (#18) |
+
+## Repo structure
+
+```
+src/
+  pages/        # one file per route; [therapyId].astro renders the service pages
+  layouts/      # BaseLayout.astro: head, header and footer
+  components/   # .astro components, each with its own scoped styles and any script
+  icons/        # SVGs imported with ?raw
+  styles/       # global.css: colour palette, shared scales and base element styles
+  test/         # test helpers (render.ts renders a component to a queryable DOM)
+  consts.ts     # site title and description
+e2e/            # Playwright browser and accessibility tests
+public/         # static assets served as-is (images, favicon, robots.txt)
+docs/adr/       # architecture decision records
+```
+
+Import from `src` with the `@/` alias, for example `@/components/Button.astro`.
+
+## Testing
+
+Work is test-first ([ADR 0007](docs/adr/0007-test-driven-development.md)), with two kinds of automated test ([ADR 0011](docs/adr/0011-vitest-and-playwright-for-tests.md)):
+
+- **Component tests** (`npm test`, Vitest) render a component and check its output: content, links, attributes and ARIA. They sit next to the component they test.
+- **Browser tests** (`npm run test:e2e`, Playwright) run in Chromium against a production build. They cover smoke checks that pages load and navigation works, interactive behaviour (scripts, keyboard and focus, responsive layout), and automated accessibility checks with axe. They live in `e2e/`.
+
+CI runs the build and both test suites on every pull request and push to `main`.
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for how work is tracked, branched, committed and reviewed, and [docs/adr/](docs/adr/README.md) for the decisions behind the site.
