@@ -8,6 +8,7 @@ import ServicesMenu from "./ServicesMenu.astro";
 
 const about = { label: "About Emma", href: "/about/" };
 const research = { label: "Research", href: "/projects/" };
+const contact = { label: "Contact Us", href: "/contact/" };
 const serviceLinks = services.map((service) => ({ label: service.name, href: `/${service.id}/` }));
 ---
 
@@ -23,7 +24,7 @@ const serviceLinks = services.map((service) => ({ label: service.name, href: `/$
         <a href={research.href}>{research.label}</a>
       </nav>
       <div class="header__contact">
-        <Button href="/contact/" label="Contact Us" />
+        <Button href={contact.href} label={contact.label} />
       </div>
       <button
         class="header__menu"
@@ -38,7 +39,7 @@ const serviceLinks = services.map((service) => ({ label: service.name, href: `/$
     </div>
   </Container>
 </header>
-<MobileMenu navItems={[about, ...serviceLinks, research]} />
+<MobileMenu links={[about, ...serviceLinks, research, contact]} />
 
 <style>
   .header {

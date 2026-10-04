@@ -8,7 +8,6 @@ const breakpoints = ["(min-width: 48rem)", "(min-width: 64rem)"];
 const notYetRedesigned: Record<string, number> = {
   "src/components/CredentialBadge.astro": 13,
   "src/components/Footer.astro": 42,
-  "src/components/MobileMenu.astro": 41,
   "src/components/ServiceCard.astro": 4,
   "src/components/TestimonialCard.astro": 7,
   "src/pages/404.astro": 13,

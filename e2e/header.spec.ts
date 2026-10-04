@@ -50,7 +50,7 @@ test.describe("on a phone", () => {
 
     await menuLinks(page).last().focus();
     await pressTab(page);
-    await expect(closeButton(page)).toBeFocused();
+    await expect(menu(page).getByRole("link", { name: /home/ })).toBeFocused();
 
     await pressShiftTab(page);
     await expect(menuLinks(page).last()).toBeFocused();
@@ -105,8 +105,8 @@ test.describe("on a phone", () => {
 
     await page.setViewportSize({ width: 768, height: 800 });
 
-    await expect(menu(page)).toBeHidden();
-    expect(await page.evaluate(() => getComputedStyle(document.documentElement).overflow)).not.toBe("hidden");
+    await expect(page.locator("dialog#mobile-menu")).not.toHaveAttribute("open");
+    await expect.poll(() => page.evaluate(() => getComputedStyle(document.documentElement).overflow)).not.toBe("hidden");
   });
 
   test("the open menu has no detectable accessibility violations", async ({ page }) => {
