@@ -1,61 +1,12 @@
 ---
+import type { Faq } from "@/data/faqs";
 import arrowDownIcon from "../icons/arrow.svg?raw";
 
-interface FAQ {
-    question: string;
-    answer: string;
+interface Props {
+    faqs: Faq[];
 }
 
-const faqs: FAQ[] = [
-    {
-        question: "How do I know if this is right for me?",
-        answer: "You may not be completely sure whether therapy is right for you—and that’s okay. Reaching this point often means something feels difficult, unsettled, or hard to carry on your own. Therapy can offer a supportive space to slow things down, make sense of what you’re experiencing, and gently explore what might help.\nI offer a complimentary 15-minute initial consultation where you’re welcome to ask questions and share what feels important to you. This is simply a chance to see whether working together feels comfortable and right for you, with no pressure to decide straight away.",
-    },
-    {
-        question: "What happens after I get in touch?",
-        answer: "After you get in touch, you will be contacted via email within 5 working days. This will usually include a response to your enquiry and, if helpful, the option to arrange a complimentary 15-minute consultation. This initial conversation is a chance to talk through what you’re looking for, ask any questions, and see whether working together feels like a good fit.\nIf you decide to go ahead, we will arrange your first appointment at a time that works for you. Everything shared is treated with care, respect, and confidentiality, and you are welcome to take things at a pace that feels comfortable for you.",
-    },
-    {
-        question: "What if I’m not sure where to start?",
-        answer: "If you’re not sure where to start, that’s completely okay. Many people feel this way when they first consider therapy, especially if things feel overwhelming, confusing, or hard to put into words. You don’t need to have everything figured out before reaching out.\nWe can begin with whatever feels most present for you in that moment, even if it feels unclear or difficult to explain. We hope to guide you along the process, gently explore what might be going on, and support you in making sense of your experiences at a pace that feels comfortable. Therapy is a collaborative space—you don’t need to do it “right” or come prepared.",
-    },
-    {
-        question: "Do you offer online sessions?",
-        answer: "Yes, both online and in-person sessions are available. Online therapy is delivered securely via video call and can be a helpful option if you prefer the comfort of your own space, have a busy schedule, or are not local. In-person sessions are also available for those who prefer to meet face-to-face. Both formats offer the same level of care, confidentiality, and therapeutic support.",
-    },
-    {
-        question: "How often are therapy sessions held?",
-        answer: "Sessions are usually held weekly, particularly at the beginning of therapy, as this can help provide consistency and support progress. However, there is flexibility, and we can agree a schedule that works for you. My approach is collaborative, so we will think together about what pace and frequency feels most helpful based on your needs, preferences, and circumstances.\nAs therapy continues, the frequency of sessions can also be reviewed and adjusted—whether that means continuing weekly, moving to fortnightly, or spacing sessions further apart. The aim is always to ensure therapy feels supportive, manageable, and aligned with you.",
-    },
-    {
-        question: "Is therapy confidential?",
-        answer: "Yes, therapy is confidential. Everything you share is treated with care and respect, and is not discussed outside of sessions. Confidentiality is a key part of creating a safe, trusting space where you can speak freely and at your own pace.\nThere are a small number of legal and ethical exceptions to confidentiality. These relate to situations where there may be a serious risk of harm to you or others, or where information is required by law (for example, safeguarding concerns or court orders). If anything like this were ever to arise, it would always be discussed with you first wherever possible, so you are kept informed and supported throughout.\nIf you are accessing therapy alongside other professionals (such as a GP or psychiatrist), information would only ever be shared with your explicit consent. The aim is always to protect your privacy while ensuring safe and appropriate care.",
-    },
-    {
-        question: "Will my GP be informed?",
-        answer: "No, your GP will not be informed automatically. Therapy is confidential, and anything you share remains private unless you choose for it to be shared.\nIf you are currently under the care of a GP or another health professional, information would only be shared with your explicit consent. The exception to this is if there were serious concerns about safety or risk, in which case this would be discussed with you wherever possible beforehand.",
-    },
-    {
-        question: "Do I need a referral?",
-        answer: "No, you do not need a referral to begin therapy. You are welcome to get in touch directly to arrange an initial consultation or to ask any questions about the process. Some people are referred by their GP or another professional, but many people choose to contact me themselves. The process is simple and designed to make accessing support as straightforward as possible.",
-    },
-    {
-        question: "Do you work with insurance companies?",
-        answer: "I am registered with a number of insurance providers. If you plan to use insurance, you may wish to check your policy details in advance or contact me to confirm coverage. If you are accessing therapy as part of your insurance claim, please speak with your case manager or legal counsel.",
-    },
-    {
-        question: "Do you receive supervision?",
-        answer: "Yes. I engage in regular clinical supervision in line with HCPC and BABCP professional standards. Supervision is an essential part of my practice and provides a reflective space to ensure safe, ethical, and high-quality work. It supports ongoing professional development and helps me continue to offer thoughtful, evidence-based care to the people I work with.",
-    },
-    {
-        question: "How do I book and pay for sessions?",
-        answer: "Sessions can be booked by getting in touch via email. Once an appointment is agreed, payment is made in advance of the session to confirm your booking. For online sessions, a secure Google Meet link will then be sent to you ahead of your appointment.\nFor in-person sessions, payment is also made in advance, and full details of the location will be provided before your session. The process is designed to be simple and straightforward, and you are welcome to ask any questions at any stage.",
-    },
-    {
-        question: "What are your fees and cancellation policy?",
-        answer: "My fees are as outlined at the time of booking and are payable in advance of each session. I understand that sometimes unexpected things arise and plans may need to change. If you need to cancel or reschedule your appointment, I kindly ask for at least 48 hours’ notice so that the time can be offered to someone else. Cancellations made with less than 48 hours’ notice will be charged at 50% of the session fee. Cancellations made with less than 24 hours’ notice, or missed appointments without notice, will be charged at the full session fee. This policy is in place to ensure fairness and to protect the dedicated time set aside for your session.",
-    },
-];
+const { faqs } = Astro.props;
 ---
 
 <div class="faqs">
@@ -80,7 +31,7 @@ const faqs: FAQ[] = [
                 >
                     <div class="faq__answer-content">
                         <div class="faq__answer-inner">
-                            {answer.split("\n").map((paragraph) => <p>{paragraph}</p>)}
+                            {answer.map((paragraph) => <p>{paragraph}</p>)}
                         </div>
                     </div>
                 </div>

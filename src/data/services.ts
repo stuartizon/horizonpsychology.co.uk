@@ -1,3 +1,5 @@
+import type { FaqId } from "./faqs";
+
 export interface Service {
   /** URL slug, and the name of the service's icon in `src/icons/`. */
   id: string;
@@ -12,6 +14,8 @@ export interface Service {
   minutes: number;
   /** Short practical points, such as where sessions happen. */
   practical: string[];
+  /** The questions shown on the service's page. */
+  faqs: FaqId[];
 }
 
 export const services: Service[] = [
@@ -32,6 +36,7 @@ export const services: Service[] = [
       "Online or face-to-face in Buckinghamshire",
       "No referral needed",
     ],
+    faqs: ["right", "firstSession", "howMany", "online"],
   },
   {
     id: "couples-therapy",
@@ -50,6 +55,7 @@ export const services: Service[] = [
       "Online or face-to-face in Buckinghamshire",
       "Both partners usually attend together",
     ],
+    faqs: ["romantic", "bothAttend", "couplesConfidential", "online"],
   },
   {
     id: "clinical-supervision",
@@ -69,6 +75,7 @@ export const services: Service[] = [
       "Suitable for BABCP accreditation routes",
       "Group supervision available on request",
     ],
+    faqs: ["supervisionWho", "accreditation", "groupSupervision", "supervisionCadence"],
   },
   {
     id: "research-supervision",
@@ -88,5 +95,6 @@ export const services: Service[] = [
       "Online or face-to-face in Buckinghamshire",
       "One-off or ongoing",
     ],
+    faqs: ["researchWho", "researchStage", "researchEthics", "researchPublication"],
   },
 ];

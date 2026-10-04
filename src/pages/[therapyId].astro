@@ -3,6 +3,7 @@ import Button from "@/components/Button.astro";
 import Container from "@/components/Container.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Faqs from "@/components/Faqs.astro";
+import { faqs } from "@/data/faqs";
 import { services, type Service } from "@/data/services";
 
 export function getStaticPaths() {
@@ -42,7 +43,7 @@ const { service } = Astro.props;
             <h3 id="questions-heading" class="questions__heading">
                 Got questions?
             </h3>
-            <Faqs />
+            <Faqs faqs={service.faqs.map((id) => faqs[id])} />
         </section>
     </Container>
 
