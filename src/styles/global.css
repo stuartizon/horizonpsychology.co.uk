@@ -55,7 +55,7 @@
   --color-field-border: var(--color-line-strong);
   --color-field-border-focus: var(--color-sage-600);
   --color-focus-ring: var(--color-sage-600);
-  --color-focus-halo: rgb(79 114 100 / 0.16);
+  --color-focus-halo: color-mix(in srgb, var(--color-focus-ring) 16%, transparent);
   --color-note-surface: var(--color-amber-100);
   --color-note-border: var(--color-amber-300);
   --color-note-text: var(--color-amber-800);
@@ -129,15 +129,16 @@
   --border-quiet: 1px solid var(--color-line-strong);
 
   /* Soft, low, warm-tinted. Nothing in the system casts a hard shadow. */
-  --shadow-rest: 0 1px 2px rgb(44 69 60 / 0.04);
+  --shadow-rest: 0 1px 2px color-mix(in srgb, var(--color-sage-800) 4%, transparent);
   --shadow-raised:
-    0 14px 34px -22px rgb(44 69 60 / 0.28), 0 2px 6px rgb(44 69 60 / 0.04);
+    0 14px 34px -22px color-mix(in srgb, var(--color-sage-800) 28%, transparent),
+    0 2px 6px color-mix(in srgb, var(--color-sage-800) 4%, transparent);
 
   /* Two soft diagonal washes, fixed behind every page: sage from the top left,
      amber from the bottom right, each fading out before the middle of the page. */
   --wash:
-    linear-gradient(145deg, rgb(79 114 100 / 0.1), transparent 44%),
-    linear-gradient(315deg, rgb(217 119 46 / 0.05), transparent 46%);
+    linear-gradient(145deg, color-mix(in srgb, var(--color-sage-600) 10%, transparent), transparent 44%),
+    linear-gradient(315deg, color-mix(in srgb, var(--color-amber-600) 5%, transparent), transparent 46%);
 
   /* ---- Motion ---- */
   --duration-fast: 160ms;
