@@ -91,6 +91,41 @@ test.describe("from tablet width", () => {
     await expect(servicesLinks(page)).toHaveCount(0);
   });
 
+  test("the Services dropdown opens on hover and closes when the mouse leaves", async ({ page }) => {
+    await page.goto("/");
+
+    await servicesButton(page).hover();
+    await expect(servicesButton(page)).toHaveAttribute("aria-expanded", "true");
+
+    await servicesLinks(page).last().hover();
+    await expect(servicesButton(page)).toHaveAttribute("aria-expanded", "true");
+
+    await page.getByRole("main").hover({ position: { x: 10, y: 200 } });
+    await expect(servicesButton(page)).toHaveAttribute("aria-expanded", "false");
+  });
+
+  test("clicking Services while it's open from hovering keeps it open", async ({ page }) => {
+    await page.goto("/");
+
+    await servicesButton(page).hover();
+    await expect(servicesButton(page)).toHaveAttribute("aria-expanded", "true");
+
+    await servicesButton(page).click();
+    await expect(servicesButton(page)).toHaveAttribute("aria-expanded", "true");
+  });
+
+  test("the Services dropdown stays open when the mouse leaves after it was clicked open", async ({ page }) => {
+    await page.goto("/");
+    await servicesButton(page).focus();
+    await page.keyboard.press("Enter");
+
+    await servicesButton(page).hover();
+    await page.getByRole("main").hover({ position: { x: 10, y: 200 } });
+    await page.waitForTimeout(500);
+
+    await expect(servicesButton(page)).toHaveAttribute("aria-expanded", "true");
+  });
+
   test("a Services link opens the service page", async ({ page }) => {
     const [service] = services;
     await page.goto("/");
