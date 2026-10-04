@@ -45,7 +45,7 @@ docs/adr/       # architecture decision records
 
 ### Track everything in GitHub issues
 
-Every user story, task, bug or chore is a GitHub issue in `stuartizon/emmaizon.com` before work starts. Larger pieces of work get a tracking issue with a checklist of sub-issues (e.g. the redesign in #14). Reference the issue from the branch, the PR and the commits.
+Every user story, task, bug or chore is a GitHub issue in `stuartizon/horizonpsychology.co.uk` before work starts. Larger pieces of work get a tracking issue with a checklist of sub-issues (e.g. the redesign in #14). Reference the issue from the branch, the PR and the commits.
 
 ### Test-driven development: red, green, refactor
 

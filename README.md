@@ -24,4 +24,4 @@ npm run dev
 
 - [CLAUDE.md](CLAUDE.md) describes the project layout and ways of working: GitHub issues for all work, test-driven development, pull requests with squash merging, and gitmoji commit messages. It's written for Claude Code but applies to everyone.
 - [docs/adr/](docs/adr/README.md) records the architecture decisions behind the site.
-- Work is tracked in [GitHub issues](https://github.com/stuartizon/emmaizon.com/issues).
+- Work is tracked in [GitHub issues](https://github.com/stuartizon/horizonpsychology.co.uk/issues).
