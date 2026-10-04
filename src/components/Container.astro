@@ -1,50 +1,14 @@
 ---
-
+// Sets the width shared by the header, footer and page content: at most
+// --content-max-width, with a --gutter either side at every width.
 ---
 
 <div class="container"><slot /></div>
 
 <style>
-    .container {
-        width: calc(100% - var(--gutter-min) * 2);
-        max-width: var(--content-max-width);
-        margin-inline: auto;
-        padding-block: 18px 26px;
-    }
-
-    /* .container {
-        width: 100%;
-        margin-inline: auto;
-        padding-block: 18px 26px;
-    }
-
-    @media (min-width: 640px) {
-        .container {
-            max-width: 640px;
-        }
-    }
-
-    @media (min-width: 768px) {
-        .container {
-            max-width: 768px;
-        }
-    }
-
-    @media (min-width: 1024px) {
-        .container {
-            max-width: 1024px;
-        }
-    }
-
-    @media (min-width: 1280px) {
-        .container {
-            max-width: 1280px;
-        }
-    }
-
-    @media (min-width: 1536px) {
-        .container {
-            max-width: 1536px;
-        }
-    } */
+  .container {
+    max-width: calc(var(--content-max-width) + var(--gutter) * 2);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+  }
 </style>

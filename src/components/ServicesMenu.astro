@@ -1,0 +1,167 @@
+---
+import chevronIcon from "@/icons/arrow.svg?raw";
+
+interface Props {
+  links: { label: string; href: string }[];
+}
+
+const { links } = Astro.props;
+---
+
+<div class="services" data-services-menu>
+  <button class="services__toggle" type="button" aria-expanded="false" aria-controls="services-menu">
+    Services
+    <span class="services__chevron" aria-hidden="true" set:html={chevronIcon} />
+  </button>
+  <div class="services__panel" id="services-menu">
+    <ul>
+      {
+        links.map((link) => (
+          <li>
+            <a href={link.href}>{link.label}</a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</div>
+
+<script>
+  for (const menu of document.querySelectorAll<HTMLElement>("[data-services-menu]")) {
+    const toggle = menu.querySelector("button")!;
+    const isOpen = () => toggle.getAttribute("aria-expanded") === "true";
+    // Opened by hovering, so it closes again when the mouse leaves.
+    let openedByHover = false;
+    let closeTimer: number | undefined;
+    const setOpen = (open: boolean) => {
+      clearTimeout(closeTimer);
+      openedByHover = false;
+      toggle.setAttribute("aria-expanded", String(open));
+    };
+
+    // Clicking while it's open from hovering keeps it open, rather than closing it under the mouse.
+    toggle.addEventListener("click", () => setOpen(openedByHover || !isOpen()));
+
+    // Hover only with a mouse: on a touch screen, tapping toggles it.
+    menu.addEventListener("pointerenter", (event) => {
+      if (event.pointerType !== "mouse") return;
+      clearTimeout(closeTimer);
+      if (!isOpen()) {
+        setOpen(true);
+        openedByHover = true;
+      }
+    });
+
+    menu.addEventListener("pointerleave", (event) => {
+      if (event.pointerType !== "mouse" || !openedByHover) return;
+      // A short delay, so the dropdown doesn't close if the mouse briefly strays outside it.
+      // It stays open while keyboard focus is inside it.
+      closeTimer = window.setTimeout(() => {
+        if (!menu.contains(document.activeElement)) setOpen(false);
+      }, 200);
+    });
+
+    menu.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && isOpen()) {
+        setOpen(false);
+        toggle.focus();
+      }
+    });
+
+    menu.addEventListener("focusout", (event) => {
+      if (!menu.contains(event.relatedTarget as Node | null)) setOpen(false);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!menu.contains(event.target as Node)) setOpen(false);
+    });
+  }
+</script>
+
+<style>
+  .services {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .services__toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border: 0;
+    background: transparent;
+    color: var(--color-ink-soft);
+    padding: 10px 0;
+    font: inherit;
+    cursor: pointer;
+    transition: var(--transition-quiet);
+  }
+
+  .services__toggle:hover,
+  .services__toggle[aria-expanded="true"] {
+    color: var(--color-sage-800);
+  }
+
+  .services__chevron {
+    display: inline-flex;
+    width: 10px;
+    transition: transform var(--duration-base) var(--ease-calm);
+  }
+
+  .services__chevron :global(svg) {
+    width: 100%;
+    height: auto;
+  }
+
+  .services__toggle[aria-expanded="true"] .services__chevron {
+    transform: rotate(180deg);
+  }
+
+  .services__panel {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    z-index: 16;
+    padding-top: 10px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-50%);
+    /* Hide the links only once the fade out has finished. */
+    transition:
+      opacity 180ms var(--ease-calm),
+      visibility 0s 180ms;
+  }
+
+  .services__toggle[aria-expanded="true"] + .services__panel {
+    opacity: 1;
+    visibility: visible;
+    /* Show the links straight away, so they can be tabbed to as soon as it opens. */
+    transition: opacity 180ms var(--ease-calm);
+  }
+
+  ul {
+    min-width: 240px;
+    margin: 0;
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-card);
+    background: var(--color-panel);
+    padding: var(--space-2);
+    box-shadow: var(--shadow-raised);
+    list-style: none;
+  }
+
+  a {
+    display: block;
+    border-radius: var(--radius-sm);
+    padding: 10px 14px;
+    color: var(--color-ink);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  a:hover {
+    background: var(--color-sage-50);
+    color: var(--color-sage-800);
+  }
+</style>

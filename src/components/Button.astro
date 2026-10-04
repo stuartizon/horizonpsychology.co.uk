@@ -5,60 +5,54 @@ interface Props {
   type?: "primary" | "link";
 }
 
-const { href, label, type } = Astro.props;
+const { href, label, type = "primary" } = Astro.props;
 ---
 
-<a class:list={["button", type && `button--${type}`]} href={href}>{label}</a>
+<a class:list={["button", `button--${type}`]} href={href}>{label}</a>
 
 <style>
   .button {
     display: inline-flex;
-    min-height: 38px;
+    min-height: 46px;
     align-items: center;
     justify-content: center;
-    background: var(--color-button-surface);
-    color: var(--color-button-text);
-    padding: 8px 13px;
-    font-size: 0.95rem;
-    font-weight: 800;
-    line-height: 1;
+    gap: var(--space-2);
+    border: 1px solid transparent;
+    border-radius: var(--radius-pill);
+    padding: 12px 26px;
+    font-size: 1rem;
+    font-weight: var(--weight-semibold);
+    line-height: 1.2;
+    letter-spacing: 0.005em;
     text-decoration: none;
-    text-transform: uppercase;
+    white-space: nowrap;
   }
 
-  .button:hover {
-    color: var(--color-button-text);
-    background: var(--color-button-surface-hover);
+  .button--primary,
+  .button--primary:hover {
+    color: var(--color-panel);
   }
 
   .button--primary {
     background: var(--color-sage-600);
-    color: var(--color-panel);
   }
 
   .button--primary:hover {
-    color: var(--color-panel);
     background: var(--color-sage-800);
   }
 
   .button--link {
     min-height: 0;
+    border: 0;
     background: transparent;
     color: var(--color-sage-600);
     padding: 0;
-    text-decoration: none;
     text-underline-offset: 0.2em;
   }
 
   .button--link:hover {
-    background: transparent;
     color: var(--color-sage-600);
     text-decoration: underline;
     text-decoration-color: var(--color-sage-300);
-  }
-
-  .button:focus-visible {
-    outline: 2px solid var(--color-sage-800);
-    outline-offset: 3px;
   }
 </style>
