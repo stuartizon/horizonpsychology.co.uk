@@ -27,6 +27,7 @@ The browser tests check pages with axe and cover keyboard and focus behaviour. N
 - Pull requests are squash merged, so the title becomes the commit on `main` and follows the commit style below. The description says what changed, why, how it was tested, and `Closes #<issue>`.
 - Keep pull requests small enough to review in one sitting. Split large issues into several.
 - The build and both test suites must pass. CI runs them on every pull request.
+- CI deploys each pull request to its own preview, linked from the pull request. Check the change there before merging: merging to `main` puts it live straight away.
 - Update the README, this file and the ADRs in the same pull request as the change they describe.
 
 ## Commit messages

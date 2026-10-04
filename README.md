@@ -38,7 +38,7 @@ The dev server runs on <http://127.0.0.1:4321>.
 | Fonts | Lora and Source Sans 3, served from the site with [Fontsource](https://fontsource.org) ([ADR 0004](docs/adr/0004-self-host-fonts-with-fontsource.md)) |
 | Testing | [Vitest](https://vitest.dev) for components, [Playwright](https://playwright.dev) with [axe](https://github.com/dequelabs/axe-core-npm) in the browser ([ADR 0013](docs/adr/0013-test-in-chromium-and-webkit-at-desktop-and-phone-sizes.md)) |
 | CI | GitHub Actions on every pull request and push to `main` |
-| Hosting | A demo is deployed to Vercel. Production hosting isn't decided yet (#18) |
+| Hosting | [Cloudflare Pages](https://pages.cloudflare.com), deployed with Wrangler from GitHub Actions ([ADR 0015](docs/adr/0015-host-on-cloudflare-pages-deployed-from-github-actions.md)) |
 
 ## Repo structure
 
@@ -67,6 +67,15 @@ Work is test-first ([ADR 0007](docs/adr/0007-test-driven-development.md)), with 
 - **Browser tests** (`npm run test:e2e`, Playwright) run in Chromium and WebKit, at desktop and 320px phone sizes, against a production build. They cover smoke checks that pages load and navigation works, interactive behaviour (scripts, keyboard and focus, responsive layout), and automated accessibility checks with axe. They live in `e2e/`.
 
 CI runs the build and both test suites on every pull request and push to `main`.
+
+## Deployment
+
+Once the tests pass, CI deploys the build to Cloudflare Pages ([ADR 0015](docs/adr/0015-host-on-cloudflare-pages-deployed-from-github-actions.md)):
+
+- each pull request to a preview at `<branch>.horizonpsychology.pages.dev`, linked from the pull request
+- every push to `main` to production at <https://horizonpsychology.co.uk>
+
+There's no separate staging site. Check changes on the pull request's preview before merging.
 
 ## Contributing
 
