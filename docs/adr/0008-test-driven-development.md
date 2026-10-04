@@ -1,7 +1,6 @@
 # 0008. Test-driven development with red, green, refactor
 
-- **Date:** 2026-10-04
-- **Issue:** #15
+Date: 2026-10-04
 
 ## Context
 
@@ -16,6 +15,11 @@ Work test-first, using the red-green-refactor cycle:
 3. **Refactor**: improve the code with the tests green and commit.
 
 The failing-test commit lives on the feature branch. Squash merging ([0010](0010-pull-requests-and-squash-merge.md)) collapses it on `main`, but it stays visible in the PR. Purely visual changes with no testable behaviour may skip the test, with the reason and screenshots given in the PR.
+
+## Alternatives considered
+
+- **Write tests after implementation.** Easier to start, but tests tend to follow what was built rather than define what should happen, and often get skipped.
+- **Manual testing only.** The current state. Doesn't scale to a full rebuild and misses regressions.
 
 ## Consequences
 

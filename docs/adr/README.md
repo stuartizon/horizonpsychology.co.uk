@@ -1,6 +1,6 @@
 # Architecture decision records
 
-One file per decision, numbered in sequence. Start new records from [template.md](template.md). See [0001](0001-record-architecture-decisions.md) for how we use them.
+One file per decision, numbered in sequence. See [0001](0001-record-architecture-decisions.md) for how these work, and copy [template.md](template.md) to add one. A superseded record is marked "(superseded by NNNN)" in this list.
 
 | # | Decision |
 |---|---|

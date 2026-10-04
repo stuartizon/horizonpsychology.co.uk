@@ -1,7 +1,6 @@
 # 0012. Gitmoji commit messages
 
-- **Date:** 2026-10-04
-- **Issue:** #15
+Date: 2026-10-04
 
 ## Context
 
@@ -10,6 +9,11 @@ Commit messages so far are plain imperative sentences. We want the type of each 
 ## Decision
 
 Follow [gitmoji](https://gitmoji.dev): start each commit message and each PR title with the relevant gitmoji as a Unicode character, followed by an imperative summary in sentence case with no full stop, for example `✨ Add services dropdown to the header`. The commonly used emojis are listed in `CLAUDE.md`. Messages describe the change itself, not where third-party assets came from.
+
+## Alternatives considered
+
+- **Conventional Commits (`feat:`, `fix:` and so on).** Machine-readable, but we don't generate changelogs or versions from commits, and gitmoji is quicker to scan.
+- **Free-form messages.** The previous approach. Readable, but the type of change isn't visible at a glance.
 
 ## Consequences
 

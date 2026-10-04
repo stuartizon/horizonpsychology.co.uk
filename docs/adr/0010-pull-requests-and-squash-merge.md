@@ -1,7 +1,6 @@
 # 0010. All changes via pull requests, squash merged
 
-- **Date:** 2026-10-04
-- **Issue:** #15
+Date: 2026-10-04
 
 ## Context
 
@@ -13,6 +12,12 @@ Until now, commits went straight to `main`. With TDD, issue tracking and AI-assi
 - Commit little and often on the branch.
 - PRs are **squash merged**, so each PR becomes one commit on `main`. The PR title must therefore follow the commit convention ([0012](0012-gitmoji-commit-messages.md)).
 - PR descriptions say what changed and why, how it was tested, and link the issue (`Closes #N`).
+
+## Alternatives considered
+
+- **Commit directly to `main`.** The previous approach. Fast for one person, but nothing is reviewed or checked before it lands.
+- **Merge commits.** Keep every branch commit on `main`, including the red test-first commits, which makes the history noisy.
+- **Rebase merging.** Keeps a linear history but still puts every small commit on `main`.
 
 ## Consequences
 

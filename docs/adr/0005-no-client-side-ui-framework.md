@@ -1,6 +1,6 @@
 # 0005. No client-side UI framework
 
-- **Date:** 2026-05-14
+Date: 2026-05-14
 
 ## Context
 
@@ -9,6 +9,11 @@ The site's interactivity is limited to a mobile menu, a services dropdown, FAQ a
 ## Decision
 
 Implement interactive behaviour as small vanilla TypeScript `<script>` blocks inside the relevant Astro component, using semantic HTML (`<button>`, `aria-expanded` and so on) so that content stays usable before and without JavaScript where possible. Don't add React, Vue, Svelte or another UI framework, or an Astro islands integration, without a new ADR.
+
+## Alternatives considered
+
+- **React (or another framework) as Astro islands.** Would match the design prototype's code, but adds a runtime and hydration for a handful of small widgets.
+- **Alpine.js or a similar lightweight library.** Smaller than a framework, but still a dependency for behaviour that's a few lines of vanilla TypeScript.
 
 ## Consequences
 

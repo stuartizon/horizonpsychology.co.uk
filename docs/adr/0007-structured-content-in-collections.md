@@ -1,7 +1,6 @@
 # 0007. Keep structured content in one place
 
-- **Date:** 2026-10-04
-- **Issue:** #3
+Date: 2026-10-04
 
 ## Context
 
@@ -13,6 +12,11 @@ Hold structured content in a single typed source each, and have pages read from 
 
 - Astro content collections (or typed TypeScript data files where Markdown adds nothing) for **services**, **FAQs** (tagged by group and by service), **testimonials** and **publications**.
 - Markdown files in a collection for the **legal pages**, with a `draft` flag in frontmatter until the wording is signed off.
+
+## Alternatives considered
+
+- **Keep content in each page file.** The current approach. Simple, but the same service and FAQ text would be duplicated in several places and drift apart.
+- **Headless CMS.** Gives non-developers an editing UI, but adds a service, cost and integration for content that changes rarely.
 
 ## Consequences
 

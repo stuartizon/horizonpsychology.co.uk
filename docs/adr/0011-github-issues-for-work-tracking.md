@@ -1,7 +1,6 @@
 # 0011. Track all work in GitHub issues
 
-- **Date:** 2026-10-04
-- **Issue:** #15
+Date: 2026-10-04
 
 ## Context
 
@@ -10,6 +9,11 @@ Work needs to be visible and plannable, and should be picked up by people or AI 
 ## Decision
 
 Every user story, task, bug and chore is a GitHub issue in this repository before work starts. Larger efforts get a tracking issue with a checklist of sub-issues (for example #14 for the redesign). Issues say what's in scope, how we'll know it's done, and which other issues they depend on. Branches, commits and PRs reference their issue.
+
+## Alternatives considered
+
+- **To-do lists in docs or `CLAUDE.md`.** Easy to edit, but they drift and can't be linked from PRs or closed automatically.
+- **External tracker (Linear, Trello).** Another tool and login for a small project, and not linked to the code as directly.
 
 ## Consequences
 

@@ -1,6 +1,6 @@
 # 0002. Build the site with Astro as a static site
 
-- **Date:** 2026-05-11
+Date: 2026-05-11
 
 ## Context
 
@@ -9,6 +9,12 @@ The site is a small marketing site for a private psychology practice: a handful 
 ## Decision
 
 Use [Astro](https://astro.build) (currently v5) with its default static output, TypeScript in strict mode (`astro/tsconfigs/strict`), and Node 22 or later. Pages are `.astro` files in `src/pages/`. Repeated pages such as the four service pages use dynamic routes with `getStaticPaths`.
+
+## Alternatives considered
+
+- **Hosted site builder (Squarespace, Wix and similar).** Quick to start, but less control over performance, accessibility, privacy and design detail, and an ongoing subscription.
+- **React framework such as Next.js.** Built for application-style interactivity this site doesn't need, and ships more JavaScript by default.
+- **Other static site generators (Eleventy, Hugo).** Viable, but Astro's component model and TypeScript support suit a component-based design better.
 
 ## Consequences
 

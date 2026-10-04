@@ -1,7 +1,6 @@
 # 0006. Adopt the Horizon Psychology redesign
 
-- **Date:** 2026-10-04
-- **Issue:** #14
+Date: 2026-10-04
 
 ## Context
 
@@ -18,6 +17,11 @@ A new design for the whole site (design export *Horizon Psychology website 20261
   - The blog is **not** part of the MVP. `/blog/` and its footer link are left out for now.
   - `/projects/` is replaced by `/research/` (published work).
 - Work is split into issues #1 to #13 and tracked in #14.
+
+## Alternatives considered
+
+- **Port the prototype's React markup directly.** It's built with inline styles and a React runtime, which conflicts with [0003](0003-plain-css-with-design-tokens.md) and [0005](0005-no-client-side-ui-framework.md).
+- **Incrementally restyle the existing design.** The new design changes typography, colour and page structure across every page, so piecemeal changes would leave the site inconsistent for longer.
 
 ## Consequences
 
