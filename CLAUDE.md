@@ -18,9 +18,13 @@ npm run dev      # local dev server on 127.0.0.1
 npm run check    # astro check (types + .astro diagnostics)
 npm run build    # check, then static build to dist/
 npm run preview  # serve the production build
+npm test         # component tests (Vitest)
+npm run test:e2e # browser and accessibility tests (Playwright + axe)
 ```
 
-`npm run build` must pass before a PR is opened.
+Before the first `npm run test:e2e`, install the browser once with `npx playwright install chromium`.
+
+`npm run build`, `npm test` and `npm run test:e2e` must pass before a PR is opened. CI runs all three on every PR.
 
 ## Layout
 
@@ -31,7 +35,9 @@ src/
   components/   # reusable .astro components with scoped <style>
   icons/        # SVGs imported with ?raw
   styles/       # global.css: design tokens and base element styles
+  test/         # test helpers (render.ts renders a component to a queryable DOM)
   consts.ts     # site title and description
+e2e/            # Playwright browser and accessibility tests
 public/         # static assets served as-is (images, favicon, robots.txt)
 docs/adr/       # architecture decision records
 ```
@@ -57,7 +63,11 @@ The test-first commit is part of the history on the branch, so reviewers can see
 
 Pure visual styling with no testable behaviour (e.g. adjusting a token value) doesn't need a contrived test. Say so in the PR description and include before/after screenshots instead.
 
-> Test tooling is not set up yet (#16). Until it lands, write the test plan in the PR description.
+Where tests go ([ADR 0011](docs/adr/0011-vitest-and-playwright-for-tests.md)):
+
+- **Component tests** (`npm test`): `Component.test.ts` next to the component. Render it with `render()` from `@/test/render` and query the returned DOM. Use these for rendered output: content, links, attributes, ARIA.
+- **Browser tests** (`npm run test:e2e`): `e2e/*.spec.ts`. Use these for anything that needs a browser: scripts, keyboard and focus, navigation, responsive layout, and axe accessibility checks.
+- A test for a known bug that won't be fixed in the current PR is marked `test.fail()` with a comment linking the issue. Remove the marker in the PR that fixes it.
 
 ### Branches, commits and pull requests
 
@@ -94,6 +104,7 @@ Common ones:
 | 🚚 | Move or rename files or routes |
 | ⚡️ | Performance |
 | 🔒️ | Security or privacy |
+| 👷 | CI and build system |
 
 Keep messages about the change itself. Don't describe where third-party assets came from or what attribution was removed from them.
 

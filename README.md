@@ -19,6 +19,8 @@ npm run dev
 - `npm run check` runs Astro and TypeScript checks.
 - `npm run build` checks and builds the static site.
 - `npm run preview` previews the production build locally.
+- `npm test` runs the component tests.
+- `npm run test:e2e` runs the browser and accessibility tests. Install the browser first with `npx playwright install chromium`.
 
 ## How we work
 
