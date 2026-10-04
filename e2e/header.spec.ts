@@ -1,6 +1,7 @@
+import AxeBuilder from "@axe-core/playwright";
 import { expect, test, type Page } from "@playwright/test";
 import { services } from "../src/data/services";
-import { pressTab } from "./keyboard";
+import { pressShiftTab, pressTab } from "./keyboard";
 
 const header = (page: Page) => page.getByRole("banner");
 const primaryNav = (page: Page) => header(page).getByRole("navigation", { name: "Primary" });
@@ -9,6 +10,9 @@ const menuButton = (page: Page) => header(page).getByRole("button", { name: "Ope
 const servicesButton = (page: Page) => primaryNav(page).getByRole("button", { name: "Services" });
 const servicesLinks = (page: Page) =>
   primaryNav(page).getByRole("link").filter({ hasText: /Therapy|Supervision/ });
+const menu = (page: Page) => page.getByRole("dialog", { name: "Menu" });
+const closeButton = (page: Page) => menu(page).getByRole("button", { name: "Close menu" });
+const menuLinks = (page: Page) => menu(page).getByRole("navigation").getByRole("link");
 
 test.describe("on a phone", () => {
   test.skip(({ isMobile }) => !isMobile, "Phone layout only");
@@ -19,6 +23,100 @@ test.describe("on a phone", () => {
     await expect(menuButton(page)).toBeVisible();
     await expect(primaryNav(page)).toBeHidden();
     await expect(contactUs(page)).toBeHidden();
+  });
+
+  test("the menu button opens the menu and moves focus into it", async ({ page }) => {
+    await page.goto("/");
+
+    await menuButton(page).click();
+
+    await expect(menu(page)).toBeVisible();
+    await expect(menuButton(page)).toHaveAttribute("aria-expanded", "true");
+    await expect(closeButton(page)).toBeFocused();
+    await expect(menuLinks(page)).toHaveText([
+      "About Emma",
+      ...services.map(({ name }) => name),
+      "Research",
+      "Contact Us",
+    ]);
+  });
+
+  test("the menu keeps keyboard focus inside it", async ({ page }) => {
+    await page.goto("/");
+    await menuButton(page).click();
+
+    await pressTab(page);
+    await expect(menuLinks(page).first()).toBeFocused();
+
+    await menuLinks(page).last().focus();
+    await pressTab(page);
+    await expect(menu(page).getByRole("link", { name: /home/ })).toBeFocused();
+
+    await pressShiftTab(page);
+    await expect(menuLinks(page).last()).toBeFocused();
+  });
+
+  test("Escape closes the menu and returns focus to the menu button", async ({ page }) => {
+    await page.goto("/");
+    await menuButton(page).click();
+
+    await page.keyboard.press("Escape");
+
+    await expect(menu(page)).toBeHidden();
+    await expect(menuButton(page)).toHaveAttribute("aria-expanded", "false");
+    await expect(menuButton(page)).toBeFocused();
+  });
+
+  test("the close button closes the menu and returns focus to the menu button", async ({ page }) => {
+    await page.goto("/");
+    await menuButton(page).click();
+
+    await closeButton(page).click();
+
+    await expect(menu(page)).toBeHidden();
+    await expect(menuButton(page)).toHaveAttribute("aria-expanded", "false");
+    await expect(menuButton(page)).toBeFocused();
+  });
+
+  test("opening the menu doesn't move the logo or the menu button", async ({ page }) => {
+    await page.goto("/about/");
+    const headerLogo = await header(page).getByRole("link", { name: /home/ }).boundingBox();
+    const burger = await menuButton(page).boundingBox();
+
+    await menuButton(page).click();
+
+    expect(await menu(page).getByRole("link", { name: /home/ }).boundingBox()).toEqual(headerLogo);
+    expect(await closeButton(page).boundingBox()).toEqual(burger);
+  });
+
+  test("every menu link opens a page", async ({ page }) => {
+    await page.goto("/");
+    await menuButton(page).click();
+
+    for (const href of await menuLinks(page).evaluateAll((links) => links.map((link) => link.getAttribute("href")))) {
+      const response = await page.request.get(href!);
+      expect(response.status(), href!).toBe(200);
+    }
+  });
+
+  test("the menu closes if the window widens to tablet width", async ({ page }) => {
+    await page.goto("/");
+    await menuButton(page).click();
+
+    await page.setViewportSize({ width: 768, height: 800 });
+
+    await expect(page.locator("dialog#mobile-menu")).not.toHaveAttribute("open");
+    await expect.poll(() => page.evaluate(() => getComputedStyle(document.documentElement).overflow)).not.toBe("hidden");
+  });
+
+  test("the open menu has no detectable accessibility violations", async ({ page }) => {
+    await page.goto("/");
+    await menuButton(page).click();
+    await expect(menu(page)).toBeVisible();
+
+    const results = await new AxeBuilder({ page }).include("dialog").analyze();
+
+    expect(results.violations).toEqual([]);
   });
 });
 
