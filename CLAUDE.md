@@ -23,10 +23,10 @@ The test-first commit is part of the history on the branch, so reviewers can see
 
 Pure visual styling with no testable behaviour (e.g. adjusting a token value) doesn't need a contrived test. Say so in the PR description and include before/after screenshots instead.
 
-Where tests go ([ADR 0011](docs/adr/0011-vitest-and-playwright-for-tests.md)):
+Where tests go ([ADR 0013](docs/adr/0013-test-in-chromium-and-webkit-at-desktop-and-phone-sizes.md)):
 
 - **Component tests** (`npm test`): `Component.test.ts` next to the component. Render it with `render()` from `@/test/render` and query the returned DOM. Use these for rendered output: content, links, attributes, ARIA.
-- **Browser tests** (`npm run test:e2e`): `e2e/*.spec.ts`. Use these for anything that needs a browser: scripts, keyboard and focus, navigation, responsive layout, and axe accessibility checks.
+- **Browser tests** (`npm run test:e2e`): `e2e/*.spec.ts`. Use these for anything that needs a browser: scripts, keyboard and focus, navigation, responsive layout, and axe accessibility checks. Each runs in Chromium and WebKit at desktop and 320px phone sizes; skip a size a test doesn't apply to with `test.skip(isMobile, reason)`. Move focus with `pressTab()` from `e2e/keyboard.ts`, not `keyboard.press("Tab")`, so links are reachable in WebKit.
 - A test for a known bug that won't be fixed in the current PR is marked `test.fail()` with a comment linking the issue. Remove the marker in the PR that fixes it.
 
 Run `npm run build`, `npm test` and `npm run test:e2e` before opening a PR.
