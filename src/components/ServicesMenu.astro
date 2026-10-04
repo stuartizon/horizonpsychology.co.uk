@@ -30,9 +30,36 @@ const { links } = Astro.props;
   for (const menu of document.querySelectorAll<HTMLElement>("[data-services-menu]")) {
     const toggle = menu.querySelector("button")!;
     const isOpen = () => toggle.getAttribute("aria-expanded") === "true";
-    const setOpen = (open: boolean) => toggle.setAttribute("aria-expanded", String(open));
+    // Opened by hovering, so it closes again when the mouse leaves.
+    let openedByHover = false;
+    let closeTimer: number | undefined;
+    const setOpen = (open: boolean) => {
+      clearTimeout(closeTimer);
+      openedByHover = false;
+      toggle.setAttribute("aria-expanded", String(open));
+    };
 
-    toggle.addEventListener("click", () => setOpen(!isOpen()));
+    // Clicking while it's open from hovering keeps it open, rather than closing it under the mouse.
+    toggle.addEventListener("click", () => setOpen(openedByHover || !isOpen()));
+
+    // Hover only with a mouse: on a touch screen, tapping toggles it.
+    menu.addEventListener("pointerenter", (event) => {
+      if (event.pointerType !== "mouse") return;
+      clearTimeout(closeTimer);
+      if (!isOpen()) {
+        setOpen(true);
+        openedByHover = true;
+      }
+    });
+
+    menu.addEventListener("pointerleave", (event) => {
+      if (event.pointerType !== "mouse" || !openedByHover) return;
+      // A short delay, so the dropdown doesn't close if the mouse briefly strays outside it.
+      // It stays open while keyboard focus is inside it.
+      closeTimer = window.setTimeout(() => {
+        if (!menu.contains(document.activeElement)) setOpen(false);
+      }, 200);
+    });
 
     menu.addEventListener("keydown", (event) => {
       if (event.key === "Escape" && isOpen()) {
