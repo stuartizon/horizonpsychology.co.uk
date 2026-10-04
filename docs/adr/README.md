@@ -11,8 +11,6 @@ One file per decision, numbered in sequence. See [0001](0001-record-architecture
 | [0005](0005-no-client-side-ui-framework.md) | No client-side UI framework |
 | [0006](0006-structured-content-in-collections.md) | Keep structured content in one place |
 | [0007](0007-test-driven-development.md) | Test-driven development with red, green, refactor |
-| [0008](0008-testing-tooling.md) | Testing tooling |
-| [0009](0009-pull-requests-and-squash-merge.md) | All changes via pull requests, squash merged |
-| [0010](0010-github-issues-for-work-tracking.md) | Track all work in GitHub issues |
-| [0011](0011-gitmoji-commit-messages.md) | Gitmoji commit messages |
-| [0012](0012-contact-form-email-delivery.md) | Contact form email delivery |
+| [0008](0008-pull-requests-and-squash-merge.md) | All changes via pull requests, squash merged |
+| [0009](0009-github-issues-for-work-tracking.md) | Track all work in GitHub issues |
+| [0010](0010-gitmoji-commit-messages.md) | Gitmoji commit messages |

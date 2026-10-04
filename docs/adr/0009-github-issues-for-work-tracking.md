@@ -1,4 +1,4 @@
-# 0010. Track all work in GitHub issues
+# 0009. Track all work in GitHub issues
 
 Date: 2026-10-04
 
