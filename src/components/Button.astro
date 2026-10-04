@@ -3,13 +3,12 @@ interface Props {
   href: string;
   label: string;
   type?: "primary" | "link";
-  size?: "small";
 }
 
-const { href, label, type = "primary", size } = Astro.props;
+const { href, label, type = "primary" } = Astro.props;
 ---
 
-<a class:list={["button", `button--${type}`, size && `button--${size}`]} href={href}>{label}</a>
+<a class:list={["button", `button--${type}`]} href={href}>{label}</a>
 
 <style>
   .button {
@@ -28,12 +27,6 @@ const { href, label, type = "primary", size } = Astro.props;
     text-decoration: none;
     white-space: nowrap;
     transition: var(--transition-quiet);
-  }
-
-  .button--small {
-    min-height: 44px;
-    padding: 10px 20px;
-    font-size: var(--text-small);
   }
 
   .button--primary,
