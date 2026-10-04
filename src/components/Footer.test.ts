@@ -19,17 +19,17 @@ test("Work together links to each service", async () => {
   );
 });
 
-test("Practice links to About Emma, Research and FAQs, with no blog", async () => {
+test("Practice links to About Emma, Research, FAQs and Contact Us, with no blog", async () => {
   expect(await groupLinks("Practice")).toEqual([
     ["About Emma", "/about/"],
     ["Research", "/projects/"],
     ["FAQs", "/faqs/"],
+    ["Contact Us", "/contact/"],
   ]);
 });
 
-test("Practical links to Contact Us and the practical pages", async () => {
+test("Practical links to the practical pages", async () => {
   expect(await groupLinks("Practical")).toEqual([
-    ["Contact Us", "/contact/"],
     ["Fees and cancellations", "/terms-and-conditions/"],
     ["Confidentiality", "/confidentiality/"],
     ["Privacy policy", "/privacy-policy/"],
