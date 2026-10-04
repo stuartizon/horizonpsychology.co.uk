@@ -1,0 +1,8 @@
+// Cloudflare Pages project for the static site (ADR 0015). Deployed from
+// GitHub Actions; see .github/workflows/ci.yml.
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "horizonpsychology",
+  "pages_build_output_dir": "./dist",
+  "compatibility_date": "2026-10-01"
+}
