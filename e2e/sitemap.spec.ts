@@ -28,6 +28,7 @@ test("the sitemap lists every page on the site's domain", async ({ request }) =>
       "/",
       "/about/",
       "/contact/",
+      "/faqs/",
       "/projects/",
       ...services.map((service) => `/${service.id}/`),
     ]
