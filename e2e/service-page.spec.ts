@@ -70,6 +70,18 @@ for (const { id, name } of services) {
   });
 }
 
+test("the description column is the same width before the web fonts load", async ({ page, isMobile }) => {
+  test.skip(isMobile, "On a phone the description runs the full width");
+  const width = async () => (await page.locator(".service__main").boundingBox())!.width;
+  await page.evaluate(() => document.fonts.ready);
+  const loaded = await width();
+
+  await page.route(/\.woff2?$/, (route) => route.abort());
+  await page.reload();
+
+  expect(await width()).toBeCloseTo(loaded, 0);
+});
+
 test("on a wide screen the fees panel sits beside the description", async ({ page, isMobile }) => {
   test.skip(isMobile, "On a phone the fees panel follows the description");
 
