@@ -8,6 +8,10 @@ Every user story, task, bug or chore is a [GitHub issue](https://github.com/stua
 
 Work is test-first: a failing test is written and committed before the code that makes it pass ([ADR 0007](docs/adr/0007-test-driven-development.md)). The README describes the kinds of test.
 
+## Design
+
+The design is in [docs/design/](docs/design/2026-10-01/README.md), a dated snapshot from Claude Design ([ADR 0017](docs/adr/0017-keep-a-snapshot-of-the-design-in-the-repo.md)). It's a reference for the styles and copy the design intended, not a spec. Where sources disagree, the later one wins: the code, ADRs and issues, then the website design, then the design system. If a change departs from the design on purpose, add it to the snapshot's list of known differences in the same pull request.
+
 ## Accessibility
 
 Everything on the site must:

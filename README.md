@@ -56,6 +56,7 @@ src/
 e2e/            # Playwright browser and accessibility tests
 public/         # static assets served as-is (images, favicon, robots.txt)
 docs/adr/       # architecture decision records
+docs/design/    # dated snapshot of the design from Claude Design
 ```
 
 Import from `src` with the `@/` alias, for example `@/components/Button.astro`.
