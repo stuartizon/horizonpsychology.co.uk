@@ -1,4 +1,6 @@
+import { iconPath } from "@/test/icon";
 import { render } from "@/test/render";
+import caretDownIcon from "@phosphor-icons/core/regular/caret-down.svg?raw";
 import { expect, test } from "vitest";
 import Faqs from "./Faqs.astro";
 
@@ -18,4 +20,12 @@ test("shows each question with its answer paragraphs", async () => {
     "No.",
     "Get in touch directly.",
   ]);
+});
+
+test("each question shows a Phosphor caret", async () => {
+  const list = await render(Faqs, {
+    faqs: [{ question: "Do I need a referral?", answer: ["No."] }],
+  });
+
+  expect(iconPath(list.querySelector("button"))).toBe(iconPath(caretDownIcon));
 });

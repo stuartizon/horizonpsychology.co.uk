@@ -19,3 +19,4 @@ One file per decision, numbered in sequence. See [0001](0001-record-architecture
 | [0013](0013-test-in-chromium-and-webkit-at-desktop-and-phone-sizes.md) | Test with Vitest, and with Playwright and axe in Chromium and WebKit at desktop and phone sizes |
 | [0014](0014-two-site-wide-breakpoints-in-rem.md) | Use two site-wide breakpoints, in rem |
 | [0015](0015-host-on-cloudflare-pages-deployed-from-github-actions.md) | Host on Cloudflare Pages, deployed with Wrangler from GitHub Actions |
+| [0016](0016-phosphor-icons-from-the-npm-package.md) | Use Phosphor icons from the npm package |

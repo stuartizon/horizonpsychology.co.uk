@@ -1,6 +1,6 @@
 ---
 import { about, contact, research, serviceLinks } from "@/data/navigation";
-import burgerIcon from "@/icons/burger.svg?raw";
+import burgerIcon from "@phosphor-icons/core/regular/list.svg?raw";
 import Brand from "./Brand.astro";
 import Button from "./Button.astro";
 import Container from "./Container.astro";
@@ -114,6 +114,8 @@ const { wide = false } = Astro.props;
     width: 44px;
     height: 44px;
     flex: 0 0 auto;
+    /* The icon has space around it inside the 44px button, so pull it out to line up with the page margin. */
+    margin-right: -14px;
     align-items: center;
     justify-content: center;
     border: 0;

@@ -60,16 +60,13 @@ const { title, description, href, icon } = Astro.props;
     margin-top: 16px;
     border-radius: 999px;
     background: var(--color-service-icon);
+    color: var(--color-service-icon-mark);
   }
 
   .service-card__icon :global(svg) {
     width: 56px;
     height: 56px;
     overflow: visible;
-  }
-
-  .service-card__icon :global(path) {
-    fill: var(--color-service-icon-mark);
   }
 
   .service-card h3 {

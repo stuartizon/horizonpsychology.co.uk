@@ -36,6 +36,7 @@ The dev server runs on <http://127.0.0.1:4321>.
 | Interactivity | Small vanilla TypeScript scripts in components, no UI framework ([ADR 0005](docs/adr/0005-no-client-side-ui-framework.md)) |
 | Content | One typed source each for services, FAQs, testimonials, publications and legal pages ([ADR 0006](docs/adr/0006-structured-content-in-collections.md), in progress in #3) |
 | Fonts | Lora and Source Sans 3, served from the site with [Fontsource](https://fontsource.org) ([ADR 0004](docs/adr/0004-self-host-fonts-with-fontsource.md)) |
+| Icons | [Phosphor](https://phosphoricons.com), imported from `@phosphor-icons/core` ([ADR 0016](docs/adr/0016-phosphor-icons-from-the-npm-package.md)), and the service icons in `src/icons/` |
 | Testing | [Vitest](https://vitest.dev) for components, [Playwright](https://playwright.dev) with [axe](https://github.com/dequelabs/axe-core-npm) in the browser ([ADR 0013](docs/adr/0013-test-in-chromium-and-webkit-at-desktop-and-phone-sizes.md)) |
 | CI | GitHub Actions on every pull request and push to `main` |
 | Hosting | [Cloudflare Pages](https://pages.cloudflare.com), deployed with Wrangler from GitHub Actions ([ADR 0015](docs/adr/0015-host-on-cloudflare-pages-deployed-from-github-actions.md)) |
@@ -48,7 +49,7 @@ src/
   layouts/      # BaseLayout.astro: head, header and footer
   components/   # .astro components, each with its own scoped styles and any script
   data/         # typed content shared across pages, such as services.ts
-  icons/        # SVGs imported with ?raw; service icons are named by service id
+  icons/        # the service icons, named by service id, imported with ?raw
   styles/       # global.css: colour palette, shared scales and base element styles
   test/         # test helpers (render.ts renders a component to a queryable DOM)
   consts.ts     # site title and description

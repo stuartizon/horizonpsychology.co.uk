@@ -1,6 +1,6 @@
 ---
 import type { Link } from "@/data/navigation";
-import closeIcon from "@/icons/close.svg?raw";
+import closeIcon from "@phosphor-icons/core/regular/x.svg?raw";
 import Brand from "./Brand.astro";
 import Container from "./Container.astro";
 
@@ -119,6 +119,8 @@ const { links } = Astro.props;
     width: 44px;
     height: 44px;
     flex: 0 0 auto;
+    /* The icon has space around it inside the 44px button, so pull it out to line up with the page margin. */
+    margin-right: -14px;
     align-items: center;
     justify-content: center;
     border: 0;
@@ -130,7 +132,7 @@ const { links } = Astro.props;
 
   .menu__close-icon {
     display: block;
-    width: 20px;
+    width: 24px;
   }
 
   .menu__close-icon :global(svg) {

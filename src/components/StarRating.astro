@@ -1,5 +1,5 @@
 ---
-import starIcon from "../icons/star.svg?raw";
+import starIcon from "@phosphor-icons/core/fill/star-fill.svg?raw";
 ---
 
 <div class="star-rating" role="img" aria-label="5 out of 5 stars">
@@ -14,15 +14,12 @@ import starIcon from "../icons/star.svg?raw";
   .star-rating {
     display: flex;
     gap: 4px;
+    color: var(--color-amber-600);
   }
 
   .star-rating__star :global(svg) {
     display: block;
     width: 20px;
     height: 20px;
-  }
-
-  .star-rating__star :global(path) {
-    fill: var(--color-amber-600);
   }
 </style>
