@@ -44,7 +44,8 @@ for (const service of services) {
     await page.goto(`/${service.id}/`);
 
     await expect(page).toHaveTitle(new RegExp(`^${service.name} \\|`));
-    await expect(page.getByRole("heading", { name: service.name, exact: true })).toBeVisible();
+    await expect(page.getByRole("heading", { level: 1, name: service.name, exact: true })).toBeVisible();
+    await expect(page.getByText(service.summary, { exact: true })).toBeVisible();
     for (const paragraph of service.description) {
       await expect(page.getByText(paragraph)).toBeVisible();
     }
@@ -70,7 +71,25 @@ for (const service of services) {
   test(`the ${service.name} page shows its own questions`, async ({ page }) => {
     await page.goto(`/${service.id}/`);
 
-    const questions = page.getByRole("region", { name: "Got questions?" }).getByRole("button");
-    await expect(questions).toHaveText(service.faqs.map((id) => faqs[id].question));
+    const section = page.getByRole("region", { name: "Before you get in touch" });
+    await expect(section.getByRole("button")).toHaveText(service.faqs.map((id) => faqs[id].question));
+    await expect(section.getByRole("link", { name: "All frequently asked questions" })).toHaveAttribute(
+      "href",
+      "/faqs/",
+    );
+  });
+
+  test(`the ${service.name} page links to the other three services`, async ({ page }) => {
+    await page.goto(`/${service.id}/`);
+
+    const others = services.filter((other) => other.id !== service.id);
+    const section = page.getByRole("region", { name: "Also available" });
+    await expect(section.getByRole("article").getByRole("heading")).toHaveText(others.map((other) => other.name));
+    for (const other of others) {
+      await expect(section.getByRole("article").filter({ hasText: other.name }).getByRole("link")).toHaveAttribute(
+        "href",
+        `/${other.id}/`,
+      );
+    }
   });
 }
