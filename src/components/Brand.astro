@@ -1,16 +1,10 @@
 ---
 // The logo, linking to the home page. Shared by the header, mobile menu and footer, so the
-// logo sits in exactly the same place in the header and the menu.
+// logo is the same size everywhere and sits in exactly the same place in the header and menu.
 import Logo from "./Logo.astro";
-
-interface Props {
-  size?: "header" | "footer";
-}
-
-const { size = "header" } = Astro.props;
 ---
 
-<a class:list={["brand", `brand--${size}`]} href="/" aria-label="Horizon Psychology, home">
+<a class="brand" href="/" aria-label="Horizon Psychology, home">
   <Logo />
 </a>
 
@@ -22,12 +16,8 @@ const { size = "header" } = Astro.props;
     height: 20px;
   }
 
-  .brand--footer {
-    height: 22px;
-  }
-
   @media (min-width: 48rem) {
-    .brand--header {
+    .brand {
       height: 24px;
     }
   }
