@@ -236,7 +236,7 @@ test.describe("from tablet width", () => {
 });
 
 test("the header stays at the top of the page when you scroll", async ({ page }) => {
-  await page.goto("/");
+  await page.goto("/about/");
 
   await page.evaluate(() => window.scrollTo(0, 1500));
   expect(await page.evaluate(() => window.scrollY)).toBeGreaterThan(0);
