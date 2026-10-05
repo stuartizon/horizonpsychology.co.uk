@@ -99,21 +99,31 @@ const icon = icons[`../icons/${service.id}.svg`];
     gap: 14px;
   }
 
+  /* The title shrinks on narrow phones so the longest, "Research
+     Supervision" (about 9.7em), fits on one line beside its icon. */
   .service__title {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: var(--space-4);
+    font-size: min(var(--text-h1), calc((100vw - 3.5rem) / 11));
   }
 
+  h1 {
+    font-size: inherit;
+  }
+
+  /* Sized to the title, and as tall as its first line. */
   .service__icon {
     display: flex;
+    height: calc(1em * var(--leading-display));
     flex: none;
+    align-items: center;
     color: var(--color-sage-800);
   }
 
   .service__icon :global(svg) {
-    width: 34px;
-    height: 34px;
+    width: 1.05em;
+    height: 1.05em;
   }
 
   .service__image {
@@ -154,21 +164,29 @@ const icon = icons[`../icons/${service.id}.svg`];
     margin-top: var(--space-8);
   }
 
-  /* On a desktop, the fees panel sits beside the description, and the
-     questions beside their heading. */
-  @media (min-width: 64rem) {
-    .service,
-    .questions__layout {
+  /* From a tablet up, the fees panel sits beside the description. The
+     description gives up width first, down to what's left beside a 280px
+     panel; the panel takes any width the description doesn't need. */
+  @media (min-width: 48rem) {
+    .service {
       flex-direction: row;
       align-items: flex-start;
     }
 
     .service__main {
-      flex: 2 1 420px;
+      flex: 0 1 var(--measure-prose);
     }
 
     .service__fees {
-      flex: 1 1 280px;
+      flex: 1 0 280px;
+    }
+  }
+
+  /* On a desktop, the questions sit beside their heading. */
+  @media (min-width: 64rem) {
+    .questions__layout {
+      flex-direction: row;
+      align-items: flex-start;
     }
 
     .questions__heading {
