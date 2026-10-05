@@ -23,27 +23,24 @@ const { quote, cite } = Astro.props;
 <style>
   .quote-band {
     background: var(--color-sage-50);
-    padding-block: var(--space-16);
+    padding-block: var(--section-y);
   }
 
   figure {
     display: flex;
-    max-width: var(--measure-feature);
+    max-width: var(--measure-prose);
     flex-direction: column;
     align-items: center;
-    gap: var(--space-5);
+    gap: var(--space-4);
     margin: 0 auto;
     text-align: center;
   }
 
   figcaption {
     color: var(--color-ink-soft);
-    font-size: var(--text-small);
-  }
-
-  @media (min-width: 48rem) {
-    .quote-band {
-      padding-block: var(--space-20);
-    }
+    font-size: 0.78rem;
+    font-weight: var(--weight-semibold);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
   }
 </style>

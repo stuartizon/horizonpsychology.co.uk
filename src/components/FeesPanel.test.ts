@@ -13,7 +13,7 @@ test("is labelled by its eyebrow", async () => {
   const panel = await renderPanel();
   const label = panel.querySelector(`#${panel.getAttribute("aria-labelledby")}`);
 
-  expect(label?.textContent).toBe("Fees and practicalities");
+  expect(label?.textContent?.trim()).toBe("Fees and practicalities");
   expect(label?.querySelector(".eyebrow")).not.toBeNull();
 });
 
