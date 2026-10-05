@@ -13,6 +13,15 @@ test("the home page links to each service with its summary", async ({ page }) =>
   }
 });
 
+test("clicking anywhere on a service card opens its page", async ({ page }) => {
+  await page.goto("/");
+  const [service] = services;
+
+  await page.getByRole("article").filter({ hasText: service.name }).getByText(service.summary).click();
+
+  await expect(page).toHaveURL(`/${service.id}/`);
+});
+
 for (const service of services) {
   test(`the ${service.name} page shows the service's details`, async ({ page }) => {
     await page.goto(`/${service.id}/`);
