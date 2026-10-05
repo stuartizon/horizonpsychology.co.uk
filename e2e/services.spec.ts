@@ -17,7 +17,8 @@ test("clicking anywhere on a service card opens its page", async ({ page }) => {
   await page.goto("/");
   const [service] = services;
 
-  await page.getByRole("article").filter({ hasText: service.name }).getByText(service.summary).click();
+  // Away from the link text: the link covers the whole card.
+  await page.getByRole("article").filter({ hasText: service.name }).click({ position: { x: 20, y: 20 } });
 
   await expect(page).toHaveURL(`/${service.id}/`);
 });
