@@ -54,3 +54,17 @@ test("the questions have no detectable accessibility violations, open or closed"
   expect((await new AxeBuilder({ page }).include(".faqs").analyze()).violations).toEqual([]);
   await expect(list).toBeVisible();
 });
+
+test("an open answer runs the full width of its question", async ({ page }) => {
+  const button = question(page, first.question);
+  await button.click();
+  const answer = page.locator(`#${await button.getAttribute("aria-controls")}`);
+  await expect(answer).toBeVisible();
+
+  const row = (await button.boundingBox())!;
+  for (const paragraph of await answer.locator("p").all()) {
+    const box = (await paragraph.boundingBox())!;
+    expect(box.x).toBeCloseTo(row.x, 0);
+    expect(box.width).toBeCloseTo(row.width, 0);
+  }
+});
