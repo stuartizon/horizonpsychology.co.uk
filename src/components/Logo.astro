@@ -1,13 +1,14 @@
 ---
 // The HORIZON wordmark: the amber sun as the first O, rising over its horizon line, with IZON
 // in amber. The letters are outlines of Lora, so the sun sits exactly in the O whether or not
-// the font has loaded. Each logo gets its own gradient id, as there's more than one on a page.
+// the font has loaded. The gradient spans the whole sun, of which only the part above the
+// horizon shows. Each logo gets its own gradient id, as there's more than one on a page.
 const id = `logo-sun-${crypto.randomUUID().slice(0, 8)}`;
 ---
 
 <svg class="logo" viewBox="91.06 24.88 248.7 34" aria-hidden="true" focusable="false">
   <defs>
-    <linearGradient id={id} x1="0" y1="0" x2="0" y2="1">
+    <linearGradient id={id} gradientUnits="userSpaceOnUse" x1="0" y1="31.99" x2="0" y2="68.11">
       <stop offset="0" stop-color="#f5b25a" />
       <stop offset="0.5" stop-color="#e5872f" />
       <stop offset="1" stop-color="#c15a1e" />
