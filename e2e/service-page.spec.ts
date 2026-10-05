@@ -19,16 +19,21 @@ test("on a tablet the fees panel sits beside the description", async ({ page, is
 });
 
 for (const { id, name } of services) {
-  test(`the ${name} page title fits on one line`, async ({ page }) => {
+  test(`the ${name} page title fits on one line`, async ({ page, isMobile }) => {
     await page.goto(`/${id}/`);
     await page.evaluate(() => document.fonts.ready);
+    const lines = () =>
+      page.getByRole("heading", { level: 1 }).evaluate((heading) => {
+        const range = document.createRange();
+        range.selectNodeContents(heading);
+        return range.getClientRects().length;
+      });
 
-    const lines = await page.getByRole("heading", { level: 1 }).evaluate((heading) => {
-      const range = document.createRange();
-      range.selectNodeContents(heading);
-      return range.getClientRects().length;
-    });
-    expect(lines).toBe(1);
+    expect(await lines()).toBe(1);
+    if (!isMobile) {
+      await page.setViewportSize({ width: 768, height: 1024 });
+      expect(await lines()).toBe(1);
+    }
   });
 }
 
