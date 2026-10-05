@@ -1,0 +1,13 @@
+:root{
+  --space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-5:20px;
+  --space-6:24px;--space-8:32px;--space-10:40px;--space-12:56px;--space-16:72px;--space-20:96px;
+
+  --content-max-width:1080px;
+  --measure-prose:64ch;
+  --measure-quote:34ch;
+  --measure-feature:820px;
+  --gutter:clamp(20px, 5vw, 48px); /* @kind spacing */
+  --section-y:clamp(72px, 10vw, 128px); /* @kind spacing */
+  --card-pad:clamp(24px, 2.4vw, 32px); /* @kind spacing */
+  --panel-pad:clamp(24px, 2.8vw, 40px); /* @kind spacing */
+}
