@@ -85,10 +85,10 @@ const icon = icons[`../icons/${service.id}.svg`];
     padding-top: clamp(36px, 5vw, 72px);
   }
 
+  /* Full width while stacked, so it lines up with the fees panel below. */
   .service__main {
     display: flex;
     min-width: 0;
-    max-width: var(--measure-prose);
     flex-direction: column;
     gap: var(--space-6);
   }
@@ -139,10 +139,11 @@ const icon = icons[`../icons/${service.id}.svg`];
     padding-block: var(--section-y);
   }
 
+  /* Stacked, the questions follow closely after their heading. */
   .questions__layout {
     display: flex;
     flex-direction: column;
-    gap: clamp(28px, 5vw, 72px);
+    gap: var(--space-4);
   }
 
   .questions__list {
@@ -174,6 +175,7 @@ const icon = icons[`../icons/${service.id}.svg`];
     }
 
     .service__main {
+      max-width: var(--measure-prose);
       flex: 0 1 var(--measure-prose);
     }
 
@@ -189,6 +191,7 @@ const icon = icons[`../icons/${service.id}.svg`];
     .questions__layout {
       flex-direction: row;
       align-items: flex-start;
+      gap: clamp(28px, 5vw, 72px);
     }
 
     .questions__heading {
