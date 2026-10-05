@@ -1,190 +1,109 @@
 ---
-import Button from "./Button.astro";
+import type { Service } from "@/data/services";
 
 interface Props {
-  title: string;
-  description: string;
-  href: string;
-  icon: string;
+  service: Service;
 }
 
-const { title, description, href, icon } = Astro.props;
+const { service } = Astro.props;
+
+const icons = import.meta.glob<string>("../icons/*.svg", { query: "?raw", import: "default", eager: true });
+const icon = icons[`../icons/${service.id}.svg`];
 ---
 
 <article class="service-card">
-  <div class="service-card__icon" aria-hidden="true" set:html={icon} />
-  <h3>{title}</h3>
-  <p>{description}</p>
-  <div class="service-card__action">
-    <Button href={href} label="Find out more" type="link" />
-  </div>
+  <span class="service-card__icon" aria-hidden="true" set:html={icon} />
+  <h3>{service.name}</h3>
+  <p class="service-card__summary">{service.summary}</p>
+  <p class="service-card__meta">£{service.price} · {service.minutes} minutes</p>
+  <a href={`/${service.id}/`}>Find out more<span class="service-card__arrow" aria-hidden="true">→</span></a>
 </article>
 
 <style>
   .service-card {
     position: relative;
-    display: grid;
-    min-height: 280px;
-    grid-template-rows: auto auto 1fr auto;
-    justify-items: center;
-    border: 1px solid var(--color-service-border);
-    border-radius: 8px;
-    background: var(--color-service-card-surface);
-    padding: 18px 28px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-card);
+    background: var(--color-panel);
+    padding: var(--space-6);
+    box-shadow: var(--shadow-rest);
     transition:
-      box-shadow 180ms ease,
-      transform 180ms ease,
-      border-color 180ms ease;
-    transform-origin: center;
-  }
-
-  .service-card__action :global(a)::before {
-    content: "";
-    position: absolute;
-    inset: 0;
+      transform var(--duration-base) var(--ease-calm),
+      box-shadow var(--duration-base) var(--ease-calm),
+      border-color var(--duration-base) var(--ease-calm);
   }
 
   .service-card:hover,
   .service-card:focus-within {
-    border-color: var(--color-sage-600);
-    box-shadow: 0 22px 48px rgb(0 0 0 / 0.2);
-    transform: scale(1.025);
+    border-color: var(--color-sage-300);
+    box-shadow: var(--shadow-raised);
+    transform: translateY(-3px);
   }
 
   .service-card__icon {
     display: grid;
-    width: 88px;
-    height: 88px;
+    width: 52px;
+    height: 52px;
     place-items: center;
-    align-self: start;
-    margin-top: 16px;
-    border-radius: 999px;
-    background: var(--color-service-icon);
-    color: var(--color-service-icon-mark);
+    border-radius: var(--radius-pill);
+    background: var(--color-sage-50);
+    color: var(--color-sage-600);
   }
 
   .service-card__icon :global(svg) {
-    width: 56px;
-    height: 56px;
-    overflow: visible;
+    width: 26px;
+    height: 26px;
   }
 
-  .service-card h3 {
-    order: -1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 2.4em;
-    margin: 0 0 12px;
-    color: var(--color-service-heading);
-    font-size: 1.4rem;
-    font-weight: 700;
-    line-height: 1.2;
-    text-align: center;
-    text-transform: uppercase;
+  h3,
+  p {
+    margin: 0;
   }
 
-  .service-card p {
-    max-width: none;
-    margin: 22px 0 0;
-    font-size: 0.92rem;
-    line-height: 1.18;
+  .service-card__summary {
+    flex: 1;
+    color: var(--color-ink-soft);
+    font-size: var(--text-small);
+    line-height: 1.6;
   }
 
-  .service-card__action {
-    align-self: end;
-    margin-top: 22px;
+  .service-card__meta {
+    color: var(--color-amber-800);
+    font-size: var(--text-caption);
   }
 
-  @media (max-width: 760px) {
-    .service-card {
-      min-height: 0;
-      grid-template-columns: 54px 1fr auto;
-      grid-template-rows: auto auto;
-      justify-items: stretch;
-      column-gap: 16px;
-      row-gap: 8px;
-      border-radius: 12px;
-      padding: 10px 20px 16px 12px;
-    }
-
-    .service-card__icon {
-      width: 52px;
-      height: 52px;
-      grid-row: 1;
-      grid-column: 1;
-      margin: 0;
-    }
-
-    .service-card__icon :global(svg) {
-      width: 34px;
-      height: 34px;
-    }
-
-    .service-card h3 {
-      order: initial;
-      align-self: center;
-      grid-row: 1;
-      grid-column: 2;
-      min-height: 0;
-      margin: 0;
-      font-size: 1.3rem;
-      text-align: left;
-      justify-content: flex-start;
-    }
-
-    .service-card p {
-      grid-row: 2;
-      grid-column: 1 / -1;
-      margin: 0;
-      font-size: 0.92rem;
-      line-height: 1.2;
-    }
-
-    .service-card__action {
-      align-self: center;
-      grid-row: 1;
-      grid-column: 3;
-      margin: 0;
-      white-space: nowrap;
-    }
+  a {
+    align-self: start;
+    color: var(--color-sage-600);
+    font-size: var(--text-small);
+    font-weight: var(--weight-semibold);
+    text-decoration: none;
   }
 
-  @media (max-width: 430px) {
-    .service-card {
-      grid-template-columns: 44px 1fr;
-      padding: 12px 14px 14px;
-    }
+  /* The whole card is the link. */
+  a::after {
+    position: absolute;
+    inset: 0;
+    content: "";
+  }
 
-    .service-card__icon {
-      width: 44px;
-      height: 44px;
-    }
+  .service-card__arrow {
+    display: inline-block;
+    margin-left: 6px;
+    transition: transform var(--duration-base) var(--ease-calm);
+  }
 
-    .service-card__icon :global(svg) {
-      width: 29px;
-      height: 29px;
-    }
-
-    .service-card h3 {
-      font-size: 1.15rem;
-    }
-
-    .service-card__action {
-      grid-row: 3;
-      grid-column: 1 / -1;
-      margin-top: 14px;
-      text-align: center;
-    }
+  .service-card:hover .service-card__arrow {
+    transform: translateX(3px);
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .service-card {
-      transition: box-shadow 180ms ease;
-    }
-
     .service-card:hover,
-    .service-card:focus-within {
+    .service-card:focus-within,
+    .service-card:hover .service-card__arrow {
       transform: none;
     }
   }

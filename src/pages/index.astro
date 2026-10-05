@@ -8,12 +8,6 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Container from "@/components/Container.astro";
 import { services } from "@/data/services";
 import { testimonials } from "@/data/testimonials";
-
-const icons = import.meta.glob<string>("../icons/*.svg", {
-  query: "?raw",
-  import: "default",
-  eager: true,
-});
 ---
 
 <BaseLayout wideHeader>
@@ -86,12 +80,7 @@ const icons = import.meta.glob<string>("../icons/*.svg", {
       <div class="services-section__grid">
         {
           services.map((service) => (
-            <ServiceCard
-              title={service.name}
-              description={service.summary}
-              href={`/${service.id}/`}
-              icon={icons[`../icons/${service.id}.svg`]}
-            />
+            <ServiceCard service={service} />
           ))
         }
       </div>
@@ -248,7 +237,7 @@ const icons = import.meta.glob<string>("../icons/*.svg", {
   .services-section__grid {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 28px;
+    gap: 20px;
   }
 
   @media (max-width: 960px) {
