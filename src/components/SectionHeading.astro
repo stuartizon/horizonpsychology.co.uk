@@ -7,14 +7,16 @@ interface Props {
   title: string;
   /** h1 for a page's intro, h2 for a section. */
   level?: "h1" | "h2";
+  /** An id for the heading, so a section can be labelled by it. */
+  id?: string;
 }
 
-const { eyebrow, title, level: Heading = "h2" } = Astro.props;
+const { eyebrow, title, level: Heading = "h2", id } = Astro.props;
 ---
 
 <hgroup class="section-heading">
   <p><Eyebrow>{eyebrow}</Eyebrow></p>
-  <Heading>{title}</Heading>
+  <Heading id={id}>{title}</Heading>
 </hgroup>
 
 <style>

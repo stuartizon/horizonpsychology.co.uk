@@ -19,3 +19,10 @@ test("uses an h1 when asked", async () => {
   expect(group.querySelector("h1")?.textContent).toBe("Published work");
   expect(group.querySelector("h2")).toBeNull();
 });
+
+test("gives the heading an id when asked, so a section can be labelled by it", async () => {
+  const group = (await render(SectionHeading, { eyebrow: "Questions", title: "Before you get in touch", id: "questions" }))
+    .firstElementChild!;
+
+  expect(group.querySelector("h2")?.id).toBe("questions");
+});

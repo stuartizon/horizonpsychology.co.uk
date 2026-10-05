@@ -1,7 +1,7 @@
 import type { FaqId } from "./faqs";
 
 export interface Service {
-  /** URL slug, and the name of the service's icon in `src/icons/`. */
+  /** URL slug, and the name of the service's icon in `src/icons/` and photo in `src/photos/`. */
   id: string;
   name: string;
   /** One sentence for service cards and the page description. */
@@ -16,6 +16,8 @@ export interface Service {
   practical: string[];
   /** The questions shown on the service's page. */
   faqs: FaqId[];
+  /** Alt text for the photo on the service's page, `src/photos/<id>.jpg`. */
+  photoAlt: string;
 }
 
 export const services: Service[] = [
@@ -37,6 +39,7 @@ export const services: Service[] = [
       "No referral needed",
     ],
     faqs: ["right", "firstSession", "howMany", "online"],
+    photoAlt: "Emma talking with a client in armchairs, notes on the table between them",
   },
   {
     id: "couples-therapy",
@@ -56,6 +59,7 @@ export const services: Service[] = [
       "Both partners usually attend together",
     ],
     faqs: ["romantic", "bothAttend", "couplesConfidential", "online"],
+    photoAlt: "Emma talking with a couple who are laughing together on a sofa",
   },
   {
     id: "clinical-supervision",
@@ -76,6 +80,7 @@ export const services: Service[] = [
       "Group supervision available on request",
     ],
     faqs: ["supervisionWho", "accreditation", "groupSupervision", "supervisionCadence"],
+    photoAlt: "Emma and a colleague going through notes together",
   },
   {
     id: "research-supervision",
@@ -96,5 +101,6 @@ export const services: Service[] = [
       "One-off or ongoing",
     ],
     faqs: ["researchWho", "researchStage", "researchEthics", "researchPublication"],
+    photoAlt: "Emma smiling as she goes through some papers with someone at a low table",
   },
 ];
