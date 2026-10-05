@@ -1,7 +1,7 @@
 import type { FaqId } from "./faqs";
 
 export interface Service {
-  /** URL slug, and the name of the service's icon in `src/icons/`. */
+  /** URL slug, and the name of the service's icon in `src/icons/` and photo in `src/photos/`. */
   id: string;
   name: string;
   /** One sentence for service cards and the page description. */
@@ -16,8 +16,10 @@ export interface Service {
   practical: string[];
   /** The questions shown on the service's page. */
   faqs: FaqId[];
-  /** The photo on the service's page, in `public/`. Decorative, so it has no alt text. */
-  image: string;
+  /** Alt text for the photo on the service's page, `src/photos/<id>.jpg`. */
+  photoAlt: string;
+  /** Where to centre the photo when it's cropped, as a CSS `object-position`, if not the middle. */
+  photoPosition?: string;
 }
 
 export const services: Service[] = [
@@ -39,7 +41,7 @@ export const services: Service[] = [
       "No referral needed",
     ],
     faqs: ["right", "firstSession", "howMany", "online"],
-    image: "/images/hands-connecting.png",
+    photoAlt: "Emma talking with a client in armchairs, notes on the table between them",
   },
   {
     id: "couples-therapy",
@@ -59,7 +61,7 @@ export const services: Service[] = [
       "Both partners usually attend together",
     ],
     faqs: ["romantic", "bothAttend", "couplesConfidential", "online"],
-    image: "/images/emma-about-me.png",
+    photoAlt: "Emma talking with a couple who are laughing together on a sofa",
   },
   {
     id: "clinical-supervision",
@@ -80,7 +82,7 @@ export const services: Service[] = [
       "Group supervision available on request",
     ],
     faqs: ["supervisionWho", "accreditation", "groupSupervision", "supervisionCadence"],
-    image: "/images/hands-connecting.png",
+    photoAlt: "Emma and a colleague going through notes together",
   },
   {
     id: "research-supervision",
@@ -101,6 +103,7 @@ export const services: Service[] = [
       "One-off or ongoing",
     ],
     faqs: ["researchWho", "researchStage", "researchEthics", "researchPublication"],
-    image: "/images/emma-about-me.png",
+    photoAlt: "Emma smiling at the camera",
+    photoPosition: "50% 20%",
   },
 ];

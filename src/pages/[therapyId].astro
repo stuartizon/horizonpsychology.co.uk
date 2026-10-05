@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets";
 import Button from "@/components/Button.astro";
 import Container from "@/components/Container.astro";
 import Faqs from "@/components/Faqs.astro";
@@ -25,6 +26,8 @@ const others = services.filter((other) => other.id !== service.id);
 
 const icons = import.meta.glob<string>("../icons/*.svg", { query: "?raw", import: "default", eager: true });
 const icon = icons[`../icons/${service.id}.svg`];
+const photos = import.meta.glob<{ default: ImageMetadata }>("../photos/*.jpg", { eager: true });
+const photo = photos[`../photos/${service.id}.jpg`].default;
 ---
 
 <BaseLayout title={service.name} description={service.summary}>
@@ -38,7 +41,14 @@ const icon = icons[`../icons/${service.id}.svg`];
           </div>
           <p>{service.summary}</p>
         </div>
-        <img class="service__image" src={service.image} alt="" width="1254" height="1254" />
+        <Image
+          class="service__image"
+          src={photo}
+          alt={service.photoAlt}
+          style={service.photoPosition && { objectPosition: service.photoPosition }}
+          widths={[480, 800, 1200, 1600]}
+          sizes="(min-width: 48rem) 640px, 100vw"
+        />
         {service.description.map((paragraph) => <p>{paragraph}</p>)}
       </div>
       <div class="service__fees">
