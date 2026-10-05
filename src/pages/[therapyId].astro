@@ -1,82 +1,182 @@
 ---
+import Button from "@/components/Button.astro";
 import Container from "@/components/Container.astro";
-import BaseLayout from "@/layouts/BaseLayout.astro";
 import Faqs from "@/components/Faqs.astro";
 import FeesPanel from "@/components/FeesPanel.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
+import ServiceCard from "@/components/ServiceCard.astro";
 import { faqs } from "@/data/faqs";
 import { services, type Service } from "@/data/services";
+import BaseLayout from "@/layouts/BaseLayout.astro";
 
 export function getStaticPaths() {
-    return services.map((service) => ({
-        params: { therapyId: service.id },
-        props: { service },
-    }));
+  return services.map((service) => ({
+    params: { therapyId: service.id },
+    props: { service },
+  }));
 }
 
 interface Props {
-    service: Service;
+  service: Service;
 }
 
 const { service } = Astro.props;
+const others = services.filter((other) => other.id !== service.id);
+
+const icons = import.meta.glob<string>("../icons/*.svg", { query: "?raw", import: "default", eager: true });
+const icon = icons[`../icons/${service.id}.svg`];
 ---
 
 <BaseLayout title={service.name} description={service.summary}>
+  <Container>
+    <div class="service">
+      <div class="service__main">
+        <div class="service__intro">
+          <div class="service__title">
+            <span class="service__icon" aria-hidden="true" set:html={icon} />
+            <h1>{service.name}</h1>
+          </div>
+          <p>{service.summary}</p>
+        </div>
+        <img class="service__image" src={service.image} alt="" width="1254" height="1254" />
+        {service.description.map((paragraph) => <p>{paragraph}</p>)}
+      </div>
+      <div class="service__fees">
+        <FeesPanel service={service} />
+      </div>
+    </div>
+  </Container>
+
+  <section class="questions" aria-labelledby="questions-heading">
     <Container>
-        <section aria-labelledby="therapy-heading">
-            <h2 id="therapy-heading" class="therapy__heading">
-                {service.name}
-            </h2>
-            <div class="therapy__section">
-                <div class="therapy__description">
-                    {service.description.map((paragraph) => <p>{paragraph}</p>)}
-                </div>
-                <div class="therapy__fees">
-                    <FeesPanel service={service} />
-                </div>
-            </div>
-        </section>
-        <section aria-labelledby="questions-heading">
-            <h2 id="questions-heading" class="questions__heading">
-                Got questions?
-            </h2>
-            <Faqs faqs={service.faqs.map((id) => faqs[id])} />
-        </section>
+      <div class="questions__layout">
+        <div class="questions__heading">
+          <SectionHeading eyebrow="Questions" title="Before you get in touch" id="questions-heading" />
+        </div>
+        <div class="questions__list">
+          <Faqs faqs={service.faqs.map((id) => faqs[id])} />
+          <div>
+            <Button href="/faqs/" label="All frequently asked questions" type="link" />
+          </div>
+        </div>
+      </div>
     </Container>
+  </section>
 
-    <style>
-        .therapy__heading {
-            text-transform: uppercase;
-            margin-bottom: 20px;
-        }
-        .therapy__section {
-            display: flex;
-            gap: 24px;
-        }
-
-        .therapy__description {
-            flex: 1 1 auto;
-            background-color: var(--color-sage-100);
-            border-radius: 8px;
-            padding: 24px;
-        }
-        .therapy__fees {
-            flex: 0 0 300px;
-        }
-        .therapy__description p + p {
-            margin-top: 12px;
-        }
-        .questions__heading {
-            margin-top: 20px;
-            margin-bottom: 20px;
-        }
-
-        @media (max-width: 640px) {
-            .therapy__section {
-                flex-direction: column;
-            }
-            .therapy__fees {
-                flex: 1 1 auto;
-            }
-        }
-    </style>
+  <section class="others" aria-labelledby="others-heading">
+    <Container>
+      <SectionHeading eyebrow="Other services" title="Also available" id="others-heading" />
+      <div class="others__grid">
+        {others.map((other) => <ServiceCard service={other} />)}
+      </div>
+    </Container>
+  </section>
 </BaseLayout>
+
+<style>
+  p {
+    margin: 0;
+  }
+
+  .service {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(28px, 4vw, 56px);
+    padding-top: clamp(36px, 5vw, 72px);
+  }
+
+  .service__main {
+    display: flex;
+    min-width: 0;
+    max-width: var(--measure-prose);
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  .service__intro {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .service__title {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .service__icon {
+    display: flex;
+    flex: none;
+    color: var(--color-sage-800);
+  }
+
+  .service__icon :global(svg) {
+    width: 34px;
+    height: 34px;
+  }
+
+  .service__image {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 7;
+    border-radius: var(--radius-image);
+    object-fit: cover;
+    box-shadow: var(--shadow-rest);
+  }
+
+  .questions {
+    padding-block: var(--section-y);
+  }
+
+  .questions__layout {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(28px, 5vw, 72px);
+  }
+
+  .questions__list {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  .others {
+    background: var(--color-cream);
+    padding-block: var(--section-y);
+  }
+
+  .others__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+    gap: var(--space-5);
+    margin-top: var(--space-8);
+  }
+
+  /* On a desktop, the fees panel sits beside the description, and the
+     questions beside their heading. */
+  @media (min-width: 64rem) {
+    .service,
+    .questions__layout {
+      flex-direction: row;
+      align-items: flex-start;
+    }
+
+    .service__main {
+      flex: 2 1 420px;
+    }
+
+    .service__fees {
+      flex: 1 1 280px;
+    }
+
+    .questions__heading {
+      flex: 1 1 260px;
+    }
+
+    .questions__list {
+      flex: 2 1 420px;
+    }
+  }
+</style>

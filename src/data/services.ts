@@ -16,6 +16,8 @@ export interface Service {
   practical: string[];
   /** The questions shown on the service's page. */
   faqs: FaqId[];
+  /** The photo on the service's page, in `public/`. Decorative, so it has no alt text. */
+  image: string;
 }
 
 export const services: Service[] = [
@@ -37,6 +39,7 @@ export const services: Service[] = [
       "No referral needed",
     ],
     faqs: ["right", "firstSession", "howMany", "online"],
+    image: "/images/hands-connecting.png",
   },
   {
     id: "couples-therapy",
@@ -56,6 +59,7 @@ export const services: Service[] = [
       "Both partners usually attend together",
     ],
     faqs: ["romantic", "bothAttend", "couplesConfidential", "online"],
+    image: "/images/emma-about-me.png",
   },
   {
     id: "clinical-supervision",
@@ -76,6 +80,7 @@ export const services: Service[] = [
       "Group supervision available on request",
     ],
     faqs: ["supervisionWho", "accreditation", "groupSupervision", "supervisionCadence"],
+    image: "/images/hands-connecting.png",
   },
   {
     id: "research-supervision",
@@ -96,5 +101,6 @@ export const services: Service[] = [
       "One-off or ongoing",
     ],
     faqs: ["researchWho", "researchStage", "researchEthics", "researchPublication"],
+    image: "/images/emma-about-me.png",
   },
 ];
