@@ -26,7 +26,7 @@ const headingId = (title: string) => `${title.toLowerCase().replace(/[^a-z0-9]+/
       <div class="faqs-page__groups">
         {
           faqGroups.map((group) => (
-            <FaqSection eyebrow={group.eyebrow} title={group.title} id={headingId(group.title)}>
+            <FaqSection title={group.title} id={headingId(group.title)}>
               <Faqs faqs={group.faqs.map((id) => faqs[id])} />
             </FaqSection>
           ))
@@ -46,7 +46,6 @@ const headingId = (title: string) => `${title.toLowerCase().replace(/[^a-z0-9]+/
 
   .faqs-page__intro {
     display: flex;
-    max-width: var(--measure-prose);
     flex-direction: column;
     gap: 14px;
   }
@@ -58,6 +57,18 @@ const headingId = (title: string) => `${title.toLowerCase().replace(/[^a-z0-9]+/
   .faqs-page__groups {
     display: flex;
     flex-direction: column;
-    gap: clamp(40px, 5vw, 64px);
+    gap: var(--space-10);
+  }
+
+  /* From a tablet up, the groups run on from each other as one list, with
+     one divider where they meet. */
+  @media (min-width: 48rem) {
+    .faqs-page__groups {
+      gap: 0;
+    }
+
+    .faqs-page__groups > :global(* + *) :global(.faq:first-child) {
+      border-top: 0;
+    }
   }
 </style>

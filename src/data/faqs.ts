@@ -134,7 +134,6 @@ export const faqs = {
 export type FaqId = keyof typeof faqs;
 
 export interface FaqGroup {
-  eyebrow: string;
   title: string;
   faqs: FaqId[];
 }
@@ -142,27 +141,22 @@ export interface FaqGroup {
 /** The groups on the FAQs page, which together hold every FAQ. */
 export const faqGroups: FaqGroup[] = [
   {
-    eyebrow: "Getting started",
     title: "Before you begin",
     faqs: ["right", "next", "firstSession", "referral"],
   },
   {
-    eyebrow: "Sessions",
     title: "How the work runs",
     faqs: ["online", "howMany", "bothAttend", "romantic"],
   },
   {
-    eyebrow: "Supervision",
     title: "Clinical supervision",
     faqs: ["supervisionWho", "accreditation", "groupSupervision", "supervisionCadence"],
   },
   {
-    eyebrow: "Supervision",
     title: "Research supervision",
     faqs: ["researchWho", "researchStage", "researchEthics", "researchPublication"],
   },
   {
-    eyebrow: "Practical",
     title: "Fees and confidentiality",
     faqs: ["fees", "confidential", "couplesConfidential", "gp"],
   },
