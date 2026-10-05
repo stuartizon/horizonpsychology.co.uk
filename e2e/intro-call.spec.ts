@@ -17,7 +17,7 @@ test("on a wide screen the Book a free call button sits beside the paragraph, be
 }) => {
   test.skip(isMobile, "On a phone the button wraps below the paragraph");
   await page.goto("/");
-  const panel = page.locator(".cta-panel");
+  const panel = page.locator(".intro-call-panel");
 
   const heading = (await panel.getByRole("heading").boundingBox())!;
   const paragraph = (await panel.locator("p").boundingBox())!;
@@ -33,7 +33,7 @@ test("on a wide screen the Book a free call button sits beside the paragraph, be
 test("on a phone the Book a free call button is centred below the paragraph", async ({ page, isMobile }) => {
   test.skip(!isMobile, "Phones only");
   await page.goto("/");
-  const panel = page.locator(".cta-panel");
+  const panel = page.locator(".intro-call-panel");
 
   const box = (await panel.boundingBox())!;
   const paragraph = (await panel.locator("p").boundingBox())!;

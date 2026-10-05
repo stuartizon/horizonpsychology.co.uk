@@ -3,18 +3,18 @@
 import Button from "./Button.astro";
 ---
 
-<section class="cta-panel">
+<section class="intro-call-panel">
   <h2>Start with a free 15-minute call</h2>
-  <div class="cta-panel__body">
+  <div class="intro-call-panel__body">
     <p>A short, no-obligation conversation to ask questions and see whether working together feels right.</p>
-    <div class="cta-panel__action">
+    <div class="intro-call-panel__action">
       <Button href="/contact/" label="Book a free call" />
     </div>
   </div>
 </section>
 
 <style>
-  .cta-panel {
+  .intro-call-panel {
     display: flex;
     flex-direction: column;
     gap: 14px;
@@ -26,7 +26,7 @@ import Button from "./Button.astro";
   }
 
   /* On a phone the button sits centred under the paragraph. */
-  .cta-panel__body {
+  .intro-call-panel__body {
     display: flex;
     flex-direction: column;
     gap: var(--space-6);
@@ -37,14 +37,14 @@ import Button from "./Button.astro";
     color: var(--color-ink-soft);
   }
 
-  .cta-panel__action {
+  .intro-call-panel__action {
     display: flex;
     justify-content: center;
   }
 
   /* From tablet up, it sits beside the paragraph, centred on it. */
   @media (min-width: 48rem) {
-    .cta-panel__body {
+    .intro-call-panel__body {
       flex-direction: row;
       align-items: center;
       gap: clamp(28px, 5vw, 64px);
@@ -54,7 +54,7 @@ import Button from "./Button.astro";
       flex: 1;
     }
 
-    .cta-panel__action {
+    .intro-call-panel__action {
       flex: none;
     }
   }
