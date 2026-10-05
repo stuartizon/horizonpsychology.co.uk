@@ -4,7 +4,6 @@ import { expect, test, type Page } from "@playwright/test";
 // Footer links to pages that haven't been built yet, with the issue that builds each one.
 // Remove a page from this list when it exists, and its test below will start passing.
 const notYetBuilt: Record<string, number> = {
-  "/faqs/": 8,
   "/terms-and-conditions/": 10,
   "/confidentiality/": 10,
   "/privacy-policy/": 10,

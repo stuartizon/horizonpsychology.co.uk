@@ -1,0 +1,98 @@
+---
+import Container from "@/components/Container.astro";
+import Faqs from "@/components/Faqs.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
+import { faqGroups, faqs } from "@/data/faqs";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+const headingId = (title: string) => `${title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}-heading`;
+---
+
+<BaseLayout
+  title="FAQs"
+  description="Answers to the questions people usually ask about therapy and supervision with Horizon Psychology."
+>
+  <Container>
+    <div class="faqs-page">
+      <div class="faqs-page__intro">
+        <SectionHeading eyebrow="Questions" title="Frequently asked questions" level="h1" />
+        <p>
+          Everything people usually want to know before getting in touch. If your question is not here, ask it on the
+          free 15-minute call.
+        </p>
+      </div>
+
+      <div class="faqs-page__groups">
+        {
+          faqGroups.map((group) => (
+            <section class="group" aria-labelledby={headingId(group.title)}>
+              <div class="group__heading">
+                <SectionHeading eyebrow={group.eyebrow} title={group.title} id={headingId(group.title)} />
+              </div>
+              <div class="group__list">
+                <Faqs faqs={group.faqs.map((id) => faqs[id])} />
+              </div>
+            </section>
+          ))
+        }
+      </div>
+    </div>
+  </Container>
+</BaseLayout>
+
+<style>
+  .faqs-page {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-12);
+    padding-block: clamp(36px, 5vw, 72px) var(--section-y);
+  }
+
+  .faqs-page__intro {
+    display: flex;
+    max-width: var(--measure-prose);
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .faqs-page__intro p {
+    margin: 0;
+  }
+
+  .faqs-page__groups {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(40px, 5vw, 64px);
+  }
+
+  /* Stacked, the questions follow closely after their heading. */
+  .group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .group__list {
+    min-width: 0;
+  }
+
+  /* From a tablet up, the questions sit beside their heading. The heading
+     column gives up width first, down to 200px, so the questions keep
+     their width for as long as they can. */
+  @media (min-width: 48rem) {
+    .group {
+      flex-direction: row;
+      align-items: flex-start;
+      gap: clamp(28px, 5vw, 72px);
+    }
+
+    .group__heading {
+      flex: 1 1 0;
+      min-width: 200px;
+    }
+
+    .group__list {
+      flex: 0 1 600px;
+    }
+  }
+</style>
