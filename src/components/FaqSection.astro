@@ -37,13 +37,14 @@ const { eyebrow, title, id } = Astro.props;
     gap: var(--space-6);
   }
 
-  /* From a tablet up, the questions sit beside their heading. The heading
-     column gives up width first, down to 200px, so the questions keep
-     their width for as long as they can. */
+  /* From a tablet up, the questions sit beside their heading, with the first
+     line of the heading level with the first question. The heading column
+     gives up width first, down to 200px, so the questions keep their width
+     for as long as they can. */
   @media (min-width: 48rem) {
     .faq-section {
       flex-direction: row;
-      align-items: flex-start;
+      align-items: baseline;
       gap: clamp(28px, 5vw, 72px);
     }
 
