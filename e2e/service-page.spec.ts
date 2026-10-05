@@ -65,15 +65,18 @@ test("on a phone the fees panel follows the description", async ({ page, isMobil
   expect(fees.y).toBeGreaterThan(description.y + description.height);
 });
 
-test("on a wide screen the questions sit to the right of their heading", async ({ page, isMobile }) => {
-  test.skip(isMobile, "On a phone the questions follow their heading");
+for (const width of [768, 1280]) {
+  test(`at ${width}px the questions sit to the right of their heading`, async ({ page, isMobile }) => {
+    test.skip(isMobile, "On a phone the questions follow their heading");
+    await page.setViewportSize({ width, height: 1024 });
 
-  const section = page.getByRole("region", { name: "Before you get in touch" });
-  const heading = (await section.getByRole("heading", { level: 2 }).boundingBox())!;
-  const questions = (await section.locator(".faqs").boundingBox())!;
+    const section = page.getByRole("region", { name: "Before you get in touch" });
+    const heading = (await section.getByRole("heading", { level: 2 }).boundingBox())!;
+    const questions = (await section.locator(".faqs").boundingBox())!;
 
-  expect(questions.x).toBeGreaterThan(heading.x + heading.width);
-});
+    expect(questions.x).toBeGreaterThan(heading.x + heading.width);
+  });
+}
 
 test("the service page has no detectable accessibility violations", async ({ page }) => {
   const results = await new AxeBuilder({ page }).analyze();
