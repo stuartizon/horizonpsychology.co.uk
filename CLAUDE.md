@@ -9,7 +9,7 @@ Guidance for Claude working in this repository. The README and CONTRIBUTING.md, 
 ## Code conventions
 
 - Styling is plain CSS ([ADR 0012](docs/adr/0012-small-global-token-set-and-component-owned-styles.md)). `src/styles/global.css` holds only the colour palette (hex), shared scales (type, spacing, radii, shadows, motion) and base element styles. Don't add role aliases like `--color-eyebrow`.
-- Build small components even for simple elements (eyebrow, button, heading), with their styles in the component's scoped `<style>`. Components use palette colours and scale tokens directly; never a hex value outside the palette. A value only one component needs is defined in that component, not added to `global.css`.
+- Build small components even for simple elements (eyebrow, button, section heading), with their styles in the component's scoped `<style>`. Components use palette colours and scale tokens directly; never a hex value outside the palette. A value only one component needs is defined in that component, not added to `global.css`.
 - Media queries are mobile-first and use only the two breakpoints, `(min-width: 48rem)` for tablet and `(min-width: 64rem)` for desktop ([ADR 0014](docs/adr/0014-two-site-wide-breakpoints-in-rem.md)). A test fails on any other width.
 - Interactive behaviour (menu, carousel, accordion) is small vanilla TypeScript in a component's `<script>`. Don't add a UI framework without an ADR.
 - The site is hosted on Cloudflare Pages and stays fully static, with no Astro adapter ([ADR 0015](docs/adr/0015-host-on-cloudflare-pages-deployed-from-github-actions.md)). A server-side feature means a Pages Function and a new ADR.
