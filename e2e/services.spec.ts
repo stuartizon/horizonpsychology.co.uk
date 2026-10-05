@@ -44,7 +44,7 @@ for (const service of services) {
     await page.goto(`/${service.id}/`);
 
     await expect(page).toHaveTitle(new RegExp(`^${service.name} \\|`));
-    await expect(page.getByRole("heading", { name: service.name })).toBeVisible();
+    await expect(page.getByRole("heading", { name: service.name, exact: true })).toBeVisible();
     for (const paragraph of service.description) {
       await expect(page.getByText(paragraph)).toBeVisible();
     }

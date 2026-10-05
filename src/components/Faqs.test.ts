@@ -34,7 +34,7 @@ test("the open and closed toggle is hidden from screen readers", async () => {
   const list = await render(Faqs, { faqs });
 
   for (const button of list.querySelectorAll("button")) {
-    const toggle = button.querySelector(".faq__toggle");
+    const toggle = button.querySelector(".faq__toggle-line");
     expect(toggle?.getAttribute("aria-hidden")).toBe("true");
     expect(toggle?.textContent?.trim()).toBe("");
   }
