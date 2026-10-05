@@ -1,4 +1,6 @@
+import { iconPath } from "@/test/icon";
 import { render } from "@/test/render";
+import plusIcon from "@phosphor-icons/core/regular/plus.svg?raw";
 import { expect, test } from "vitest";
 import Faqs from "./Faqs.astro";
 
@@ -30,13 +32,14 @@ test("each question is a collapsed button in a heading, named by the question", 
   }
 });
 
-test("the open and closed toggle is hidden from screen readers", async () => {
+test("the toggle is Phosphor's plus, hidden from screen readers", async () => {
   const list = await render(Faqs, { faqs });
 
   for (const button of list.querySelectorAll("button")) {
     const toggle = button.querySelector(".faq__toggle-line");
     expect(toggle?.getAttribute("aria-hidden")).toBe("true");
     expect(toggle?.textContent?.trim()).toBe("");
+    expect(iconPath(toggle?.querySelector("svg"))).toBe(iconPath(plusIcon));
   }
 });
 
