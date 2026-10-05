@@ -53,3 +53,25 @@ Significant decisions are recorded in [docs/adr/](docs/adr/README.md), one Markd
 - Treat anything a visitor submits, especially contact form messages, as potentially sensitive health data under UK GDPR. Collect the minimum, and don't log or store it beyond what's needed.
 - Keep the "not an emergency service" signposting (GP, NHS 111, Samaritans 116 123) wherever the design includes it.
 - Legal pages (fees and cancellations, confidentiality, privacy, complaints) need sign-off from Dr Izon before they're published as final.
+
+## Writing copy
+
+The site's wording isn't final, but whoever writes it follows these rules.
+
+**Voice.** Use one voice per block, and don't mix them within a paragraph:
+
+- third person for credentials and biography: "Dr Emma Izon is a Clinical Psychologist…"
+- "we" for what the practice offers: "We offer personalised therapy…"
+- "you" wherever the reader has a decision to make: "You may not be completely sure whether therapy is right for you, and that's okay."
+
+Headings are statements, not labels: the eyebrow above them carries the label.
+
+**What we say.**
+
+- Never guarantee or imply an outcome. Describe what happens in sessions, not what they'll fix.
+- Use non-pathologising language: people *have experiences of* psychosis. Prefer "difficulties", "lived experience" and "neurodivergent".
+- Only claim what the practice can stand behind and attribute, especially credentials.
+- Wherever confidentiality is mentioned, say what its limits are.
+- Quote testimonials word for word, with first names only.
+
+**Style.** UK English. Sentence case everywhere, including headings, buttons and card titles. The eyebrow is the only uppercase text, and CSS sets it. No exclamation marks, no emoji, and no rhetorical questions as headings. Write fees as "£100 · 50 minutes". Give a registration body's name in full the first time, with its acronym in brackets.

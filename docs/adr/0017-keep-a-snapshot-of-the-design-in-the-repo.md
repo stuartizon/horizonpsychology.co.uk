@@ -10,7 +10,7 @@ The export holds three layers that don't always agree: the design system (compon
 
 ## Decision
 
-Keep a dated snapshot of the readable parts of the export in `docs/design/YYYY-MM-DD/`: the website design (`website.dc.html`) and the design system's component source, tokens and readme. Leave out the compiled bundle, the prototype images and the uploaded working documents.
+Keep a dated snapshot of the readable parts of the export in `docs/design/YYYY-MM-DD/`: the website design (`website.dc.html`) and the design system's component source and tokens. Leave out the compiled bundle, the prototype images, the uploaded working documents, and the design system's readme. The readme's rules for writing copy move into CONTRIBUTING.md, where they're kept up to date; its other notes are covered by the tokens or out of date.
 
 The snapshot is a reference, not a spec. When sources disagree, the later one wins: the code, ADRs and issues first, then the website design, then the design system. The snapshot's README lists where the site departs from the design on purpose, and a pull request that departs from it adds a line there.
 
