@@ -44,20 +44,20 @@ test.describe("on the home page from tablet width", () => {
     await page.setViewportSize({ width: 1280, height: 800 });
     await page.goto("/");
 
-    await scrollTo(page, 400);
+    await scrollTo(page, 500);
 
     expect(await borderOpacity(page)).toBe(1);
     expect(await headerBottom(page)).toBe(77);
     await expect(header(page).getByRole("link", { name: "Contact Us" })).toBeInViewport({ ratio: 1 });
   });
 
-  test("the header shrinks over the first 250px of scrolling", async ({ page }) => {
+  test("the header shrinks over the first 375px of scrolling", async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 800 });
     await page.goto("/");
 
-    await scrollTo(page, 125);
-    expect(await headerBottom(page)).toBe(127);
-    await scrollTo(page, 250);
+    await scrollTo(page, 150);
+    expect(await headerBottom(page)).toBe(137);
+    await scrollTo(page, 375);
     expect(await headerBottom(page)).toBe(77);
   });
 
@@ -66,11 +66,11 @@ test.describe("on the home page from tablet width", () => {
     await page.goto("/");
     const mainTop = () => page.getByRole("main").evaluate((main) => Math.round(main.getBoundingClientRect().top));
 
-    for (const y of [0, 60, 125, 200, 250]) {
+    for (const y of [0, 75, 150, 300, 375]) {
       await scrollTo(page, y);
       expect(await mainTop(), `scrolled ${y}px`).toBe(await headerBottom(page));
     }
-    await scrollTo(page, 350);
+    await scrollTo(page, 475);
     expect(await mainTop()).toBe(77 - 100);
   });
 
