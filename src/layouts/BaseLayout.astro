@@ -11,11 +11,14 @@ import "../styles/global.css";
 interface Props {
   title?: string;
   description?: string;
+  /** Use the tall header that shrinks as you scroll (home page). */
+  wideHeader?: boolean;
 }
 
 const {
   title = SITE_TITLE,
   description = SITE_DESCRIPTION,
+  wideHeader = false,
 } = Astro.props;
 
 const pageTitle = title === SITE_TITLE ? SITE_TITLE : `${title} | ${SITE_TITLE}`;
@@ -38,7 +41,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <title>{pageTitle}</title>
   </head>
   <body>
-    <Navbar />
+    <Navbar wide={wideHeader} />
     <main>
       <slot />
     </main>

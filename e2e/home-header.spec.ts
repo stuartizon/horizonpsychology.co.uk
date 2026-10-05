@@ -63,8 +63,9 @@ test.describe("on the home page from tablet width", () => {
     await page.setViewportSize({ width: 768, height: 800 });
     await page.goto("/");
 
-    const [logoBox, navBox] = await Promise.all([logo(page).boundingBox(), nav(page).boundingBox()]);
-    expect(logoBox!.x + logoBox!.width).toBeLessThan(navBox!.x);
+    const firstLink = nav(page).getByRole("link").first();
+    const [logoBox, linkBox] = await Promise.all([logo(page).boundingBox(), firstLink.boundingBox()]);
+    expect(logoBox!.x + logoBox!.width).toBeLessThan(linkBox!.x);
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(768);
   });
 

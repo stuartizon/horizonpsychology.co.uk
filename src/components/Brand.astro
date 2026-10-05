@@ -1,11 +1,21 @@
 ---
 // The logo, linking to the home page. Shared by the header, mobile menu and footer, so the
 // logo is the same size everywhere and sits in exactly the same place in the header and menu.
+//
+// With `full`, it shows the full lockup in a box the size of the wordmark, with the lockup's
+// HORIZON exactly over where the wordmark would be. The home page header scales and moves it
+// with --logo-scale and --logo-shift, which change only how it's drawn, not the layout.
 import Logo from "./Logo.astro";
+
+interface Props {
+  full?: boolean;
+}
+
+const { full = false } = Astro.props;
 ---
 
-<a class="brand" href="/" aria-label="Horizon Psychology, home">
-  <Logo />
+<a class:list={["brand", { "brand--full": full }]} href="/" aria-label="Horizon Psychology, home">
+  <Logo variant={full ? "full" : "wordmark"} />
 </a>
 
 <style>
@@ -14,6 +24,22 @@ import Logo from "./Logo.astro";
     flex: 0 0 auto;
     align-items: center;
     height: 20px;
+  }
+
+  /* The wordmark's proportions, from its viewBox. */
+  .brand--full {
+    position: relative;
+    aspect-ratio: 248.7 / 34;
+  }
+
+  /* The lockup's proportions, from its viewBox: as tall as the wordmark plus PSYCHOLOGY. */
+  .brand--full :global(svg) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: calc(100% * 63.12 / 34);
+    transform: translateY(var(--logo-shift, 0px)) scale(var(--logo-scale, 1));
+    transform-origin: 0 0;
   }
 
   @media (min-width: 48rem) {

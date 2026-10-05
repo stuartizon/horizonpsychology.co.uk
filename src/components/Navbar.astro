@@ -7,12 +7,18 @@ import Container from "./Container.astro";
 import MobileMenu from "./MobileMenu.astro";
 import ServicesMenu from "./ServicesMenu.astro";
 
+interface Props {
+  /** Start tall with the full logo, and shrink to the regular header as you scroll (home page). */
+  wide?: boolean;
+}
+
+const { wide = false } = Astro.props;
 ---
 
-<header class="header">
+<header class:list={["header", { "header--wide": wide }]}>
   <Container>
     <div class="header__bar">
-      <Brand />
+      <Brand full={wide} />
       <nav class="header__nav" aria-label="Primary">
         <a href={about.href}>{about.label}</a>
         <ServicesMenu links={serviceLinks} />
@@ -36,6 +42,29 @@ import ServicesMenu from "./ServicesMenu.astro";
 </header>
 <MobileMenu links={[about, ...serviceLinks, research, contact]} />
 
+<script>
+  // The wide header shrinks over the first part of the scroll. --t runs from 0, at the top of the
+  // page, to 1 once it's the regular header; the styles work out everything else from it.
+  const header = document.querySelector<HTMLElement>(".header--wide");
+  if (header) {
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      // How far it scrolls before sticking: its negative top, or 0 when it isn't wide (or its
+      // styles haven't applied yet), when --t isn't used.
+      const range = -parseFloat(getComputedStyle(header).top) || 0;
+      header.style.setProperty("--t", String(range > 0 ? Math.min(1, window.scrollY / range) : 0));
+    };
+    const schedule = () => {
+      frame ||= requestAnimationFrame(update);
+    };
+    addEventListener("scroll", schedule, { passive: true });
+    addEventListener("resize", schedule);
+    addEventListener("load", schedule);
+    update();
+  }
+</script>
+
 <style>
   .header {
     position: sticky;
@@ -44,6 +73,8 @@ import ServicesMenu from "./ServicesMenu.astro";
     border-bottom: 1px solid var(--color-line);
     background: color-mix(in srgb, var(--color-background) 88%, transparent);
     backdrop-filter: blur(8px);
+    /* The full logo's PSYCHOLOGY line only shows in the wide header. */
+    --logo-sub-opacity: 0;
   }
 
   .header__bar {
@@ -115,6 +146,49 @@ import ServicesMenu from "./ServicesMenu.astro";
 
     .header__menu {
       display: none;
+    }
+  }
+
+  /*
+   * The home page header from tablet width. It's always --tall in the page layout, so nothing
+   * below it moves, and sticks with a negative top: it scrolls up until only the regular 76px
+   * bar shows. As it does, --t runs from 0 to 1 (set by the script), and the bar's contents move
+   * from the middle of the tall header to the middle of the bar, the full logo shrinks onto the
+   * wordmark, PSYCHOLOGY fades out, and the background, blur and bottom border fade in. Only
+   * transforms and colours change, so it stays smooth. With reduced motion it's the regular header.
+   */
+  @media (min-width: 48rem) and (prefers-reduced-motion: no-preference) {
+    .header--wide {
+      --tall: 176px;
+      /* How much bigger the full logo starts: a smaller start at tablet width, so it fits beside the navigation. */
+      --wide-scale: 1.4;
+      --progress: var(--t, 0);
+      --chrome: clamp(0, (var(--progress) - 0.15) / 0.55, 1);
+      --logo-sub-opacity: clamp(0, 1 - var(--progress) / 0.45, 1);
+      --logo-scale: calc(var(--wide-scale) - (var(--wide-scale) - 1) * var(--progress));
+      /* Centres the scaled lockup on the wordmark's 24px box, easing to none. */
+      --logo-shift: calc((24px - 24px * 63.12 / 34 * var(--wide-scale)) / 2 * (1 - var(--progress)));
+
+      top: calc(76px - var(--tall));
+      border-bottom-color: color-mix(in srgb, var(--color-line) calc(var(--chrome) * 100%), transparent);
+      background: color-mix(in srgb, var(--color-background) calc(var(--chrome) * 88%), transparent);
+      backdrop-filter: blur(calc(var(--chrome) * 8px));
+    }
+
+    .header--wide .header__bar {
+      min-height: var(--tall);
+      padding-top: calc(var(--tall) - 76px);
+    }
+
+    .header--wide .header__bar > :global(*) {
+      transform: translateY(calc((var(--tall) - 76px) / -2 * (1 - var(--progress))));
+    }
+  }
+
+  @media (min-width: 64rem) and (prefers-reduced-motion: no-preference) {
+    .header--wide {
+      /* The design's 78px-tall lockup. */
+      --wide-scale: 1.751;
     }
   }
 </style>
