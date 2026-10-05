@@ -51,6 +51,7 @@ src/
   components/   # .astro components, each with its own scoped styles and any script
   data/         # typed content shared across pages, such as services.ts
   icons/        # the service icons, named by service id, imported with ?raw
+  photos/       # site photos, named by the page they appear on, loaded with astro:assets
   styles/       # global.css: colour palette, shared scales and base element styles
   test/         # test helpers (render.ts renders a component to a queryable DOM)
   consts.ts     # site title and description
