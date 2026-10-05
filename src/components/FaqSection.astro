@@ -1,0 +1,59 @@
+---
+// A section of questions under a heading: stacked on a phone, side by side
+// from a tablet up. The questions, and anything after them, go in the slot.
+import SectionHeading from "./SectionHeading.astro";
+
+interface Props {
+  eyebrow: string;
+  title: string;
+  /** The heading's id, which labels the section. */
+  id: string;
+}
+
+const { eyebrow, title, id } = Astro.props;
+---
+
+<section class="faq-section" aria-labelledby={id}>
+  <div class="faq-section__heading">
+    <SectionHeading eyebrow={eyebrow} title={title} id={id} />
+  </div>
+  <div class="faq-section__list">
+    <slot />
+  </div>
+</section>
+
+<style>
+  /* Stacked, the questions follow closely after their heading. */
+  .faq-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .faq-section__list {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  /* From a tablet up, the questions sit beside their heading. The heading
+     column gives up width first, down to 200px, so the questions keep
+     their width for as long as they can. */
+  @media (min-width: 48rem) {
+    .faq-section {
+      flex-direction: row;
+      align-items: flex-start;
+      gap: clamp(28px, 5vw, 72px);
+    }
+
+    .faq-section__heading {
+      flex: 1 1 0;
+      min-width: 200px;
+    }
+
+    .faq-section__list {
+      flex: 0 1 600px;
+    }
+  }
+</style>

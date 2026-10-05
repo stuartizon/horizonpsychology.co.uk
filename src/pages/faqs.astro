@@ -1,5 +1,6 @@
 ---
 import Container from "@/components/Container.astro";
+import FaqSection from "@/components/FaqSection.astro";
 import Faqs from "@/components/Faqs.astro";
 import SectionHeading from "@/components/SectionHeading.astro";
 import { faqGroups, faqs } from "@/data/faqs";
@@ -25,14 +26,9 @@ const headingId = (title: string) => `${title.toLowerCase().replace(/[^a-z0-9]+/
       <div class="faqs-page__groups">
         {
           faqGroups.map((group) => (
-            <section class="group" aria-labelledby={headingId(group.title)}>
-              <div class="group__heading">
-                <SectionHeading eyebrow={group.eyebrow} title={group.title} id={headingId(group.title)} />
-              </div>
-              <div class="group__list">
-                <Faqs faqs={group.faqs.map((id) => faqs[id])} />
-              </div>
-            </section>
+            <FaqSection eyebrow={group.eyebrow} title={group.title} id={headingId(group.title)}>
+              <Faqs faqs={group.faqs.map((id) => faqs[id])} />
+            </FaqSection>
           ))
         }
       </div>
@@ -63,36 +59,5 @@ const headingId = (title: string) => `${title.toLowerCase().replace(/[^a-z0-9]+/
     display: flex;
     flex-direction: column;
     gap: clamp(40px, 5vw, 64px);
-  }
-
-  /* Stacked, the questions follow closely after their heading. */
-  .group {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-4);
-  }
-
-  .group__list {
-    min-width: 0;
-  }
-
-  /* From a tablet up, the questions sit beside their heading. The heading
-     column gives up width first, down to 200px, so the questions keep
-     their width for as long as they can. */
-  @media (min-width: 48rem) {
-    .group {
-      flex-direction: row;
-      align-items: flex-start;
-      gap: clamp(28px, 5vw, 72px);
-    }
-
-    .group__heading {
-      flex: 1 1 0;
-      min-width: 200px;
-    }
-
-    .group__list {
-      flex: 0 1 600px;
-    }
   }
 </style>
