@@ -1,0 +1,46 @@
+---
+// A full-width sage band holding a single quote.
+import Container from "./Container.astro";
+
+interface Props {
+  quote: string;
+  /** Who said it, if anyone is credited. */
+  cite?: string;
+}
+
+const { quote, cite } = Astro.props;
+---
+
+<div class="quote-band">
+  <Container>
+    <figure>
+      <blockquote>&ldquo;{quote}&rdquo;</blockquote>
+      {cite && <figcaption>{cite}</figcaption>}
+    </figure>
+  </Container>
+</div>
+
+<style>
+  .quote-band {
+    background: var(--color-sage-50);
+    padding-block: var(--section-y);
+  }
+
+  figure {
+    display: flex;
+    max-width: var(--measure-prose);
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-4);
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  figcaption {
+    color: var(--color-ink-soft);
+    font-size: 0.78rem;
+    font-weight: var(--weight-semibold);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+</style>

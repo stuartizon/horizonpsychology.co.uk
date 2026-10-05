@@ -48,10 +48,21 @@ for (const service of services) {
     for (const paragraph of service.description) {
       await expect(page.getByText(paragraph)).toBeVisible();
     }
-    await expect(page.getByText(`£${service.price} for a ${service.minutes}-minute session`)).toBeVisible();
+  });
+
+  test(`the ${service.name} page shows its fees and links to the contact form`, async ({ page }) => {
+    await page.goto(`/${service.id}/`);
+
+    const fees = page.getByRole("complementary", { name: "Fees and practicalities" });
+    await expect(fees.getByText(`£${service.price}`, { exact: true })).toBeVisible();
+    await expect(fees.getByText(`${service.minutes}-minute session`, { exact: true })).toBeVisible();
     for (const item of service.practical) {
-      await expect(page.getByText(item, { exact: true })).toBeVisible();
+      await expect(fees.getByText(item, { exact: true })).toBeVisible();
     }
+    await expect(fees.getByRole("link", { name: "Schedule" })).toHaveAttribute(
+      "href",
+      `/contact/?topic=${service.id}`,
+    );
   });
 }
 

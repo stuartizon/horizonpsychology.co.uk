@@ -1,8 +1,8 @@
 ---
-import Button from "@/components/Button.astro";
 import Container from "@/components/Container.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Faqs from "@/components/Faqs.astro";
+import FeesPanel from "@/components/FeesPanel.astro";
 import { faqs } from "@/data/faqs";
 import { services, type Service } from "@/data/services";
 
@@ -30,13 +30,9 @@ const { service } = Astro.props;
                 <div class="therapy__description">
                     {service.description.map((paragraph) => <p>{paragraph}</p>)}
                 </div>
-                <div class="therapy__details">
-                    <p>£{service.price} for a {service.minutes}-minute session</p>
-                    {service.practical.map((item) => <p>{item}</p>)}
+                <div class="therapy__fees">
+                    <FeesPanel service={service} />
                 </div>
-            </div>
-            <div class="therapy__action">
-                <Button href="/schedule/" type="primary" label="Schedule" />
             </div>
         </section>
         <section aria-labelledby="questions-heading">
@@ -63,25 +59,11 @@ const { service } = Astro.props;
             border-radius: 8px;
             padding: 24px;
         }
-        .therapy__details {
-            flex: 0 0 280px;
-            width: 280px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            background-color: var(--color-sage-100);
-            border-radius: 8px;
-            padding: 24px;
+        .therapy__fees {
+            flex: 0 0 300px;
         }
         .therapy__description p + p {
             margin-top: 12px;
-        }
-        .therapy__details p {
-            margin: 0;
-        }
-        .therapy__action {
-            margin-top: 24px;
-            text-align: center;
         }
         .questions__heading {
             margin-top: 20px;
@@ -92,9 +74,8 @@ const { service } = Astro.props;
             .therapy__section {
                 flex-direction: column;
             }
-            .therapy__details {
+            .therapy__fees {
                 flex: 1 1 auto;
-                width: auto;
             }
         }
     </style>

@@ -1,0 +1,87 @@
+---
+// A service's fee, session length and practicalities, with a button to enquire.
+import type { Service } from "@/data/services";
+import Button from "./Button.astro";
+import Eyebrow from "./Eyebrow.astro";
+
+interface Props {
+  service: Service;
+}
+
+const { service } = Astro.props;
+const labelId = `${service.id}-fees`;
+---
+
+<aside class="fees-panel" aria-labelledby={labelId}>
+  <div>
+    <p id={labelId}><Eyebrow>Fees and practicalities</Eyebrow></p>
+    <p class="fees-panel__fee">£{service.price}</p>
+    <p class="fees-panel__duration">{service.minutes}-minute session</p>
+  </div>
+  <ul>
+    {
+      service.practical.map((point) => (
+        <li>
+          <span class="fees-panel__dash" aria-hidden="true">
+            &mdash;
+          </span>
+          <span>{point}</span>
+        </li>
+      ))
+    }
+  </ul>
+  <Button href={`/contact/?topic=${service.id}`} label="Schedule" />
+</aside>
+
+<style>
+  .fees-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    border-radius: var(--radius-panel);
+    background: var(--color-sage-50);
+    padding: var(--panel-pad);
+  }
+
+  p {
+    margin: 0;
+  }
+
+  /* So the paragraph is only as tall as the eyebrow, not a line of body text. */
+  p:first-child {
+    display: flex;
+  }
+
+  .fees-panel__fee {
+    margin-top: var(--space-3);
+    color: var(--color-sage-800);
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+  }
+
+  .fees-panel__duration {
+    margin-top: var(--space-1);
+    color: var(--color-ink-soft);
+    font-size: var(--text-small);
+  }
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    color: var(--color-ink-soft);
+    font-size: var(--text-small);
+    list-style: none;
+  }
+
+  li {
+    display: flex;
+    gap: 10px;
+  }
+
+  .fees-panel__dash {
+    color: var(--color-sage-600);
+  }
+</style>

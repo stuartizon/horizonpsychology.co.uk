@@ -1,0 +1,61 @@
+---
+// Invites visitors to book the free introductory call.
+import Button from "./Button.astro";
+---
+
+<section class="intro-call-panel">
+  <h2>Start with a free 15-minute call</h2>
+  <div class="intro-call-panel__body">
+    <p>A short, no-obligation conversation to ask questions and see whether working together feels right.</p>
+    <div class="intro-call-panel__action">
+      <Button href="/contact/" label="Book a free call" />
+    </div>
+  </div>
+</section>
+
+<style>
+  .intro-call-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-panel);
+    background: var(--color-panel);
+    padding: var(--panel-pad);
+    box-shadow: var(--shadow-rest);
+  }
+
+  /* On a phone the button sits centred under the paragraph. */
+  .intro-call-panel__body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  p {
+    margin: 0;
+    color: var(--color-ink-soft);
+  }
+
+  .intro-call-panel__action {
+    display: flex;
+    justify-content: center;
+  }
+
+  /* From tablet up, it sits beside the paragraph, centred on it. */
+  @media (min-width: 48rem) {
+    .intro-call-panel__body {
+      flex-direction: row;
+      align-items: center;
+      gap: clamp(28px, 5vw, 64px);
+    }
+
+    p {
+      flex: 1;
+    }
+
+    .intro-call-panel__action {
+      flex: none;
+    }
+  }
+</style>
