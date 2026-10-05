@@ -89,6 +89,20 @@ test.describe("on a phone", () => {
     expect(await closeButton(page).boundingBox()).toEqual(burger);
   });
 
+  test("the menu and close icons line up with the page's right margin", async ({ page }) => {
+    await page.goto("/about/");
+    const margin = (await header(page).getByRole("link", { name: /home/ }).boundingBox())!.x;
+    const rightGap = async (button: ReturnType<typeof menuButton>) => {
+      const icon = (await button.locator("path").boundingBox())!;
+      return page.viewportSize()!.width - (icon.x + icon.width);
+    };
+
+    // Within 1px: the two icons have slightly different padding, and the buttons sit in the same place.
+    expect(Math.abs((await rightGap(menuButton(page))) - margin)).toBeLessThanOrEqual(1);
+    await menuButton(page).click();
+    expect(Math.abs((await rightGap(closeButton(page))) - margin)).toBeLessThanOrEqual(1);
+  });
+
   test("every menu link opens a page", async ({ page }) => {
     await page.goto("/");
     await menuButton(page).click();
