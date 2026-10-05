@@ -7,7 +7,6 @@ const breakpoints = ["(min-width: 48rem)", "(min-width: 64rem)"];
 // redesigns each one. Remove a file from this list when its test starts passing.
 const notYetRedesigned: Record<string, number> = {
   "src/components/CredentialBadge.astro": 13,
-  "src/components/ServiceCard.astro": 4,
   "src/components/TestimonialCard.astro": 7,
   "src/pages/404.astro": 13,
   "src/pages/[therapyId].astro": 6,
