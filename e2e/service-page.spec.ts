@@ -46,6 +46,17 @@ test("the service icon is sized to the page title", async ({ page }) => {
   expect(icon.height / fontSize).toBeLessThan(1.1);
 });
 
+for (const { id, name } of services) {
+  test(`the ${name} page shows its own photo, resized, with alt text`, async ({ page }) => {
+    await page.goto(`/${id}/`);
+    const photo = page.locator(".service__image");
+
+    await expect(photo).toHaveAttribute("src", new RegExp(`^/_astro/${id}\\.`));
+    await expect(photo).toHaveAttribute("srcset", /\d+w/);
+    await expect(photo).toHaveAttribute("alt", /\S/);
+  });
+}
+
 test("on a wide screen the fees panel sits beside the description", async ({ page, isMobile }) => {
   test.skip(isMobile, "On a phone the fees panel follows the description");
 
