@@ -7,17 +7,21 @@ const logo = (page: Page) => header(page).getByRole("link", { name: "Horizon Psy
 /** The opacity of the header's bottom border, from 0 (none) to 1. */
 const borderOpacity = (page: Page) =>
   header(page).evaluate((element) => {
+    const before = getComputedStyle(element, "::before");
+    const style = before.content === "none" ? getComputedStyle(element) : before;
     const probe = document.createElement("canvas").getContext("2d")!;
-    probe.fillStyle = getComputedStyle(element).borderBottomColor;
+    probe.fillStyle = style.borderBottomColor;
     probe.fillRect(0, 0, 1, 1);
     return probe.getImageData(0, 0, 1, 1).data[3] / 255;
   });
 
 /** Where the visible part of the header ends, from the top of the window. */
-const headerBottom = async (page: Page) => {
-  const box = (await header(page).boundingBox())!;
-  return box.y + box.height;
-};
+const headerBottom = (page: Page) =>
+  header(page).evaluate((element) => {
+    const { top, height } = element.getBoundingClientRect();
+    const before = getComputedStyle(element, "::before");
+    return Math.round(top + (before.content === "none" ? height : parseFloat(before.height)));
+  });
 
 const scrollTo = async (page: Page, y: number) => {
   await page.evaluate((top) => window.scrollTo(0, top), y);
@@ -47,16 +51,27 @@ test.describe("on the home page from tablet width", () => {
     await expect(header(page).getByRole("link", { name: "Contact Us" })).toBeInViewport({ ratio: 1 });
   });
 
-  test("the page below doesn't move as the header shrinks", async ({ page }) => {
+  test("the header shrinks over the first 250px of scrolling", async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 800 });
     await page.goto("/");
-    const mainTop = () => page.getByRole("main").evaluate((main) => main.getBoundingClientRect().top + window.scrollY);
 
-    const atTop = await mainTop();
-    for (const y of [30, 60, 120, 400]) {
+    await scrollTo(page, 125);
+    expect(await headerBottom(page)).toBe(127);
+    await scrollTo(page, 250);
+    expect(await headerBottom(page)).toBe(77);
+  });
+
+  test("the page stays just below the header as it shrinks", async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 800 });
+    await page.goto("/");
+    const mainTop = () => page.getByRole("main").evaluate((main) => Math.round(main.getBoundingClientRect().top));
+
+    for (const y of [0, 60, 125, 200, 250]) {
       await scrollTo(page, y);
-      expect(await mainTop(), `scrolled ${y}px`).toBe(atTop);
+      expect(await mainTop(), `scrolled ${y}px`).toBe(await headerBottom(page));
     }
+    await scrollTo(page, 350);
+    expect(await mainTop()).toBe(77 - 100);
   });
 
   test("at 768px the full logo fits beside the navigation", async ({ page }) => {
