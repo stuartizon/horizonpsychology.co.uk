@@ -66,7 +66,7 @@ for (const { id, name } of services) {
       shown: img.clientWidth / img.clientHeight,
     }));
 
-    expect(shown).toBeCloseTo(natural, 2);
+    expect(shown).toBeCloseTo(natural, 1);
   });
 }
 

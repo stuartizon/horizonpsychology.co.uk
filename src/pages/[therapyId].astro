@@ -45,7 +45,6 @@ const photo = photos[`../photos/${service.id}.jpg`].default;
           class="service__image"
           src={photo}
           alt={service.photoAlt}
-          style={service.photoPosition && { objectPosition: service.photoPosition }}
           widths={[480, 800, 1200, 1600]}
           sizes="(min-width: 48rem) 640px, 100vw"
         />
@@ -136,12 +135,11 @@ const photo = photos[`../photos/${service.id}.jpg`].default;
     height: 1.05em;
   }
 
+  /* Shown at its own proportions, uncropped. */
   .service__image {
     width: 100%;
     height: auto;
-    aspect-ratio: 16 / 7;
     border-radius: var(--radius-image);
-    object-fit: cover;
     box-shadow: var(--shadow-rest);
   }
 

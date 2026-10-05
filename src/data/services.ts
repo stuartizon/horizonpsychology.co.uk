@@ -18,8 +18,6 @@ export interface Service {
   faqs: FaqId[];
   /** Alt text for the photo on the service's page, `src/photos/<id>.jpg`. */
   photoAlt: string;
-  /** Where to centre the photo when it's cropped, as a CSS `object-position`, if not the middle. */
-  photoPosition?: string;
 }
 
 export const services: Service[] = [
@@ -103,7 +101,6 @@ export const services: Service[] = [
       "One-off or ongoing",
     ],
     faqs: ["researchWho", "researchStage", "researchEthics", "researchPublication"],
-    photoAlt: "Emma smiling at the camera",
-    photoPosition: "50% 20%",
+    photoAlt: "Emma smiling as she goes through some papers with someone at a low table",
   },
 ];

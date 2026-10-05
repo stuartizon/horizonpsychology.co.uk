@@ -39,6 +39,7 @@ Where the site departs from the design on purpose. A pull request that departs f
 - **Intro call panel** (the design's "Start with a free 15-minute call" panel). The heading has its own row, and the button sits beside the paragraph from tablet up, or centred below it on a phone, rather than centred across the heading and paragraph and wrapping at about 700px (#68).
 - **FAQ answers** line up with the question text, running up to the toggle's column, rather than stopping at the prose measure (#73).
 - **Service page intro.** The fees panel sits beside the description from tablet width up, rather than dropping below it until the description and panel both fit at their preferred widths. On narrow phones the title shrinks so it stays on one line beside its icon, and the icon is sized to the title (1.05em) rather than a fixed 34px. The questions also sit beside their heading from tablet width up, with the heading column narrowing first (#75).
+- **Service page photos.** Each photo is shown at its own proportions, uncropped, rather than at 16:7, so nothing important is cut off (#75).
 - **Section heading** takes a `level` prop where the design's takes `as` (#65).
 - **Not built:** the blog page and its link in the footer, which are out of scope for launch (#14).
 
