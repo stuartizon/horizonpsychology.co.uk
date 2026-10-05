@@ -83,3 +83,27 @@ test("the service page has no detectable accessibility violations", async ({ pag
 
   expect(results.violations).toEqual([]);
 });
+
+for (const width of [320, 740]) {
+  test(`at ${width}px the description and fees panel are the same width`, async ({ page, isMobile }) => {
+    test.skip(isMobile && width !== 320, "Sets a narrow width on the desktop browsers");
+    await page.setViewportSize({ width, height: 1024 });
+
+    const description = (await page.getByText(service.description[0]).boundingBox())!;
+    const fees = (await page.getByRole("complementary", { name: "Fees and practicalities" }).boundingBox())!;
+
+    expect(description.x).toBeCloseTo(fees.x, 0);
+    expect(description.width).toBeCloseTo(fees.width, 0);
+  });
+
+  test(`at ${width}px the questions follow closely after their heading`, async ({ page, isMobile }) => {
+    test.skip(isMobile && width !== 320, "Sets a narrow width on the desktop browsers");
+    await page.setViewportSize({ width, height: 1024 });
+
+    const section = page.getByRole("region", { name: "Before you get in touch" });
+    const heading = (await section.getByRole("heading", { level: 2 }).boundingBox())!;
+    const questions = (await section.locator(".faqs").boundingBox())!;
+
+    expect(questions.y - (heading.y + heading.height)).toBeLessThanOrEqual(16);
+  });
+}
