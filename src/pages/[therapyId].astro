@@ -36,9 +36,9 @@ const { service } = Astro.props;
             </div>
         </section>
         <section aria-labelledby="questions-heading">
-            <h3 id="questions-heading" class="questions__heading">
+            <h2 id="questions-heading" class="questions__heading">
                 Got questions?
-            </h3>
+            </h2>
             <Faqs faqs={service.faqs.map((id) => faqs[id])} />
         </section>
     </Container>

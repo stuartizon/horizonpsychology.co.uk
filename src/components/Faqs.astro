@@ -1,165 +1,167 @@
 ---
+// An accordion of questions, each opening to show its answer.
 import type { Faq } from "@/data/faqs";
-import arrowDownIcon from "@phosphor-icons/core/regular/caret-down.svg?raw";
+import plusIcon from "@phosphor-icons/core/regular/plus.svg?raw";
 
 interface Props {
-    faqs: Faq[];
+  faqs: Faq[];
 }
 
 const { faqs } = Astro.props;
+
+// Answer ids come from the question, so lists on the same page don't clash.
+const answerId = (question: string) =>
+  `faq-${question
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "")}`;
 ---
 
 <div class="faqs">
-    {
-        faqs.map(({ question, answer }, index) => (
-            <div class="faq__item" data-open="false">
-                <button
-                    class="faq__question"
-                    type="button"
-                    aria-label="Open answer"
-                    aria-expanded="false"
-                    aria-controls={`faq-answer-${index}`}
-                    data-faq-toggle
-                >
-                    <span class="faq__title">{question}</span>
-                    <span class="faq__arrow" aria-hidden="true" set:html={arrowDownIcon}></span>
-                </button>
-                <div
-                    class="faq__answer"
-                    id={`faq-answer-${index}`}
-                    aria-hidden="true"
-                >
-                    <div class="faq__answer-content">
-                        <div class="faq__answer-inner">
-                            {answer.map((paragraph) => <p>{paragraph}</p>)}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        ))
-    }
+  {
+    faqs.map(({ question, answer }) => (
+      <div class="faq" data-open="false">
+        <h3>
+          <button type="button" aria-expanded="false" aria-controls={answerId(question)} data-faq-toggle>
+            <span class="faq__question">{question}</span>
+            <span class="faq__toggle-line" aria-hidden="true">
+              <span class="faq__toggle" set:html={plusIcon} />
+            </span>
+          </button>
+        </h3>
+        <div class="faq__answer" id={answerId(question)}>
+          <div class="faq__answer-inner">
+            {answer.map((paragraph) => (
+              <p>{paragraph}</p>
+            ))}
+          </div>
+        </div>
+      </div>
+    ))
+  }
 </div>
 
 <script>
-    const faqToggles = document.querySelectorAll("[data-faq-toggle]");
+  for (const toggle of document.querySelectorAll<HTMLButtonElement>("[data-faq-toggle]")) {
+    toggle.addEventListener("click", () => {
+      const item = toggle.closest<HTMLElement>(".faq");
+      if (!item) return;
 
-    faqToggles.forEach((toggle) => {
-        toggle.addEventListener("click", () => {
-            const answerId = toggle.getAttribute("aria-controls");
-            const answer = answerId ? document.getElementById(answerId) : null;
-            const item = toggle.closest("[data-open]");
-
-            if (!(answer instanceof HTMLElement) || !(item instanceof HTMLElement)) return;
-
-            const isOpen = toggle.getAttribute("aria-expanded") === "true";
-            const nextIsOpen = !isOpen;
-
-            item.dataset.open = String(nextIsOpen);
-            toggle.setAttribute("aria-expanded", String(nextIsOpen));
-            toggle.setAttribute("aria-label", nextIsOpen ? "Close answer" : "Open answer");
-            answer.setAttribute("aria-hidden", String(!nextIsOpen));
-        });
+      const open = toggle.getAttribute("aria-expanded") !== "true";
+      toggle.setAttribute("aria-expanded", String(open));
+      item.dataset.open = String(open);
     });
+  }
 </script>
 
 <style>
-    .faqs {
-        display: flex;
-        flex-direction: column;
-    }
+  .faqs {
+    /* The plus fills about 72% of Phosphor's icon box, so a 22px icon draws
+       a 16px plus, as in the design. */
+    --toggle-size: 22px;
+    --toggle-gap: clamp(16px, 3vw, 28px);
 
-    .faq__item {
-        border: 1px solid var(--color-sage-600);
-        overflow: hidden;
-    }
+    display: flex;
+    flex-direction: column;
+  }
 
-    .faq__item:first-child {
-        border-radius: 16px 16px 0 0;
-    }
+  .faq {
+    border-bottom: 1px solid var(--color-line);
+  }
 
-    .faq__item:last-child {
-        border-radius: 0 0 16px 16px;
-    }
+  .faq:first-child {
+    border-top: 1px solid var(--color-line);
+  }
 
-    .faq__item:not(:last-child) {
-        border-bottom: none;
-    }
+  h3 {
+    margin: 0;
+    font-size: inherit;
+  }
 
-    .faq__question {
-        appearance: none;
-        -webkit-appearance: none;
-        display: flex;
-        width: 100%;
-        align-items: center;
-        gap: 12px;
-        border: none;
-        background-color: var(--color-sage-300);
-        padding: 16px;
-        color: inherit;
-        cursor: pointer;
-        font: inherit;
-        text-align: left;
-    }
+  button {
+    display: flex;
+    width: 100%;
+    align-items: baseline;
+    gap: var(--toggle-gap);
+    border: 0;
+    background: transparent;
+    padding: 22px 0;
+    color: var(--color-sage-800);
+    cursor: pointer;
+    font-family: var(--font-display);
+    font-size: 1.22rem;
+    font-weight: var(--weight-regular);
+    letter-spacing: var(--tracking-display);
+    line-height: var(--leading-tight);
+    text-align: left;
+  }
 
-    .faq__title {
-        font-weight: 600;
-        flex: 1;
-    }
+  .faq__question {
+    flex: 1;
+  }
 
-    .faq__arrow {
-        color: var(--color-sage-800);
-        display: block;
-        flex-shrink: 0;
-        width: 22px;
-        transition:
-            color 160ms ease,
-            transform 160ms ease;
-    }
+  /* As tall as a line of the question, so the toggle sits level with the
+     first line when the question wraps. */
+  .faq__toggle-line {
+    display: flex;
+    height: 1.3em;
+    flex: none;
+    align-items: center;
+  }
 
-    .faq__question:hover .faq__arrow,
-    .faq__question:focus-visible .faq__arrow {
-        color: var(--color-sage-600);
-    }
+  /* A plus that turns into a cross when the answer is open. */
+  .faq__toggle {
+    display: flex;
+    width: var(--toggle-size);
+    height: var(--toggle-size);
+    color: var(--color-sage-600);
+    transition: transform var(--duration-base) var(--ease-calm);
+  }
 
-    .faq__question[aria-expanded="true"] .faq__arrow {
-        transform: rotate(180deg);
-    }
+  .faq__toggle :global(svg) {
+    width: 100%;
+    height: 100%;
+  }
 
-    .faq__arrow :global(svg) {
-        display: block;
-        width: 100%;
-        height: auto;
-    }
+  .faq[data-open="true"] .faq__toggle {
+    transform: rotate(135deg);
+  }
 
-    .faq__answer {
-        display: grid;
-        grid-template-rows: 0fr;
-        border-top: 0 solid var(--color-sage-600);
-        background-color: var(--color-sage-100);
-        transition:
-            grid-template-rows 180ms ease,
-            border-top-width 180ms ease;
-    }
+  /* Closed answers are hidden, not just squashed, so they're out of the tab
+     order and the accessibility tree. They stay visible while they close. */
+  .faq__answer {
+    display: grid;
+    grid-template-rows: 0fr;
+    visibility: hidden;
+    transition:
+      grid-template-rows var(--duration-base) var(--ease-calm),
+      visibility 0s linear var(--duration-base);
+  }
 
-    .faq__item[data-open="true"] .faq__answer {
-        grid-template-rows: 1fr;
-        border-top-width: 1px;
-    }
+  .faq[data-open="true"] .faq__answer {
+    grid-template-rows: 1fr;
+    visibility: visible;
+    transition: grid-template-rows var(--duration-base) var(--ease-calm);
+  }
 
-    .faq__answer-content {
-        min-height: 0;
-        overflow: hidden;
-    }
+  /* Lines up with the question, leaving the toggle's column clear. */
+  .faq__answer-inner {
+    min-height: 0;
+    overflow: hidden;
+    padding-right: calc(var(--toggle-size) + var(--toggle-gap));
+  }
 
-    .faq__answer-inner {
-        padding: 16px;
-    }
+  .faq__answer-inner p {
+    margin: 0;
+    color: var(--color-ink-soft);
+    font-size: var(--text-small);
+  }
 
-    .faq__answer-inner p {
-        margin: 0;
-    }
+  .faq__answer-inner p + p {
+    margin-top: 0.9em;
+  }
 
-    .faq__answer-inner p + p {
-        margin-top: 12px;
-    }
+  .faq__answer-inner p:last-child {
+    padding-bottom: 26px;
+  }
 </style>
