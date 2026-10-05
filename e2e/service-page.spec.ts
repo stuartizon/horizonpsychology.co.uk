@@ -55,6 +55,19 @@ for (const { id, name } of services) {
     await expect(photo).toHaveAttribute("srcset", /\d+w/);
     await expect(photo).toHaveAttribute("alt", /\S/);
   });
+
+  test(`the ${name} photo keeps its own proportions`, async ({ page }) => {
+    await page.goto(`/${id}/`);
+    const photo = page.locator(".service__image");
+    await expect(photo).toHaveJSProperty("complete", true);
+
+    const { natural, shown } = await photo.evaluate((img: HTMLImageElement) => ({
+      natural: img.naturalWidth / img.naturalHeight,
+      shown: img.clientWidth / img.clientHeight,
+    }));
+
+    expect(shown).toBeCloseTo(natural, 2);
+  });
 }
 
 test("on a wide screen the fees panel sits beside the description", async ({ page, isMobile }) => {
