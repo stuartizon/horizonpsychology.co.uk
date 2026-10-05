@@ -12,7 +12,7 @@ test("shows the eyebrow above an h2 by default", async () => {
 });
 
 test("uses an h1 when asked", async () => {
-  const heading = (await render(SectionHeading, { eyebrow: "Research", title: "Published work", as: "h1" }))
+  const heading = (await render(SectionHeading, { eyebrow: "Research", title: "Published work", level: "h1" }))
     .firstElementChild!;
 
   expect(heading.querySelector("h1")?.textContent).toBe("Published work");

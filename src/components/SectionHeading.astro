@@ -1,0 +1,43 @@
+---
+// An eyebrow, a heading and an optional lead paragraph, at the top of a page or section.
+import Eyebrow from "./Eyebrow.astro";
+
+interface Props {
+  eyebrow: string;
+  title: string;
+  lead?: string;
+  /** Any CSS max-width for the lead. Defaults to a comfortable reading measure. */
+  leadMaxWidth?: string;
+  /** h1 for a page's intro, h2 for a section. */
+  level?: "h1" | "h2";
+}
+
+const { eyebrow, title, lead, leadMaxWidth, level: Heading = "h2" } = Astro.props;
+---
+
+<header class="section-heading">
+  <Eyebrow>{eyebrow}</Eyebrow>
+  <Heading>{title}</Heading>
+  {lead && <p style={leadMaxWidth ? { maxWidth: leadMaxWidth } : undefined}>{lead}</p>}
+</header>
+
+<style>
+  .section-heading {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  h1,
+  h2 {
+    margin: 0;
+  }
+
+  p {
+    max-width: var(--measure-prose);
+    margin: 0;
+    color: var(--color-ink-soft);
+    font-size: var(--text-lead);
+    line-height: 1.6;
+  }
+</style>
