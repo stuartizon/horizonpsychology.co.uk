@@ -1,0 +1,11 @@
+:root{
+  --duration-fast:160ms; /* @kind other */
+  --duration-base:220ms; /* @kind other */
+  --duration-slow:480ms; /* @kind other */
+  --ease-calm:cubic-bezier(0.22, 0.61, 0.36, 1); /* @kind other */
+  --transition-card:transform var(--duration-base) var(--ease-calm), box-shadow var(--duration-base) var(--ease-calm), border-color var(--duration-base) var(--ease-calm);
+  --transition-quiet:color var(--duration-fast) var(--ease-calm), background-color var(--duration-fast) var(--ease-calm), border-color var(--duration-fast) var(--ease-calm);
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:0.01ms !important;transition-duration:0.01ms !important}
+}

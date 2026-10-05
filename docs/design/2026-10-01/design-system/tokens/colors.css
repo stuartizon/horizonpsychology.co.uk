@@ -1,0 +1,67 @@
+:root{
+  /* ---- Paper ---- */
+  --color-background:#f8f6f1;
+  --color-panel:#ffffff;
+  --color-cream:#f3efe7;
+  --color-line:#e4dfd4;
+  --color-line-strong:#cfc7b8;
+
+  /* ---- Sage: the brand ---- */
+  --color-sage-50:#eef3ef;
+  --color-sage-100:#dde8e1;
+  --color-sage-300:#a8c2b4;
+  --color-sage-600:#4f7264;
+  --color-sage-800:#2c453c;
+
+  /* ---- Amber: the sun. Warmth, emphasis, stars ---- */
+  --color-amber-100:#fbeada;
+  --color-amber-300:#f0c08e;
+  --color-amber-600:#d9772e;
+  --color-amber-800:#8c4a1d;
+
+  /* Legacy sand names, kept as aliases so existing components keep resolving */
+  --color-sand-100:var(--color-amber-100);
+  --color-sand-300:var(--color-amber-300);
+  --color-sand-600:var(--color-amber-600);
+  --color-sand-800:var(--color-amber-800);
+
+  /* ---- Ink ---- */
+  --color-ink:#23302c;
+  --color-ink-soft:#5c6b64;
+  --color-ink-faint:#8b978f;
+
+  /* ---- Semantic ---- */
+  --color-text-body:var(--color-ink);
+  --color-text-muted:var(--color-ink-soft);
+  --color-text-heading:var(--color-sage-800);
+  --color-eyebrow:var(--color-sage-600);
+
+  --surface-page:var(--color-background);
+  --surface-card:var(--color-panel);
+  --surface-quiet:var(--color-cream);
+  --surface-sage:var(--color-sage-50);
+
+  --color-accent:var(--color-sage-600);
+  --color-accent-strong:var(--color-sage-800);
+  --color-warm:var(--color-amber-600);
+
+  --color-button-primary-surface:var(--color-sage-600);
+  --color-button-primary-surface-hover:var(--color-sage-800);
+  --color-button-primary-text:#ffffff;
+  --color-button-secondary-border:var(--color-sage-300);
+  --color-button-secondary-text:var(--color-sage-800);
+  --color-button-link-text:var(--color-sage-600);
+
+  --color-icon-surface:var(--color-sage-50);
+  --color-icon-mark:var(--color-sage-600);
+
+  --color-field-surface:var(--color-panel);
+  --color-field-border:var(--color-line-strong);
+  --color-field-border-focus:var(--color-sage-600);
+  --color-focus-ring:var(--color-sage-600);
+  --color-focus-halo:rgba(79,114,100,0.16);
+  --color-note-surface:var(--color-sand-100);
+  --color-note-border:var(--color-sand-300);
+  --color-note-text:var(--color-sand-800);
+  --color-error:#9c4a3f;
+}

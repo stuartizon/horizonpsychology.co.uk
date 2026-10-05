@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/horizon-psychology-design-system-bf71c7c4-6249-4d1e-b40d-a7a709e3333b/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/horizon-psychology-design-system-bf71c7c4-6249-4d1e-b40d-a7a709e3333b/tokens/colors.css">
+<link rel="stylesheet" href="_ds/horizon-psychology-design-system-bf71c7c4-6249-4d1e-b40d-a7a709e3333b/tokens/typography.css">
+<link rel="stylesheet" href="_ds/horizon-psychology-design-system-bf71c7c4-6249-4d1e-b40d-a7a709e3333b/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/horizon-psychology-design-system-bf71c7c4-6249-4d1e-b40d-a7a709e3333b/tokens/shape.css">
+<link rel="stylesheet" href="_ds/horizon-psychology-design-system-bf71c7c4-6249-4d1e-b40d-a7a709e3333b/tokens/motion.css">
+<link rel="stylesheet" href="_ds/horizon-psychology-design-system-bf71c7c4-6249-4d1e-b40d-a7a709e3333b/tokens/base.css">
+<link rel="stylesheet" href="_ds/horizon-psychology-design-system-bf71c7c4-6249-4d1e-b40d-a7a709e3333b/styles.css">
+<script src="_ds/horizon-psychology-design-system-bf71c7c4-6249-4d1e-b40d-a7a709e3333b/_ds_bundle.js"></script>
+<style>body{display:block;height:auto!important;min-height:100vh}#dc-root,#dc-root > .sc-host{height:auto!important;min-height:100vh}</style>
+</helmet>
+
+<x-import component-from-global-scope="HorIZONPsychologyDesignSystem_bf71c7.Navbar" hint-size="100%,76px" brand-name="Horizon Psychology" icon-base="assets/icons" items="{{ nav }}" on-navigate="{{ navigate }}" compact="{{ compact }}" wide-logo="{{ wideLogo }}"></x-import>
+
+<main style="display:block">
+
+<sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+  <div style="padding-block: clamp(0px, calc(56px - 4vw), 40px) clamp(48px, 7vw, 96px)">
+    <div style="width:100%;max-width:calc(var(--content-max-width) + var(--gutter) * 2);margin-inline:auto;padding-inline:var(--gutter)">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(min(100%, 380px), 1fr));gap:clamp(32px, 5vw, 72px);align-items:center">
+        <div style="display:flex;flex-direction:column;gap:26px;max-width:46ch">
+          <span style="color:var(--color-eyebrow);font-size:var(--text-eyebrow);font-weight:600;letter-spacing:var(--tracking-eyebrow);text-transform:uppercase">Dr Emma Izon · Clinical Psychologist</span>
+          <h1 style="font-size:var(--text-hero);margin:0">A space for support, understanding, and change</h1>
+          <p style="margin:0;color:var(--color-text-muted);font-size:var(--text-lead);line-height:1.6">Psychological therapy, clinical and research supervision for adults. Online, or face-to-face in Buckinghamshire. Helping you move through difficult times, one step at a time.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center">
+            <x-import component-from-global-scope="HorIZONPsychologyDesignSystem_bf71c7.Button" hint-size="220px,44px" label="Get in touch" href="/contact/" on-click="{{ goContact }}"></x-import>
+          </div>
+        </div>
+        <img src="assets/imagery/hands-connecting.png" alt="" style="width:100%;aspect-ratio:4 / 5;object-fit:cover;border-radius:var(--radius-panel);box-shadow:var(--shadow-rest)">
+      </div>
+    </div>
+  </div>
+
+  <section style="padding-block:0 var(--section-y)">
+    <div style="width:100%;max-width:calc(var(--content-max-width) + var(--gutter) * 2);margin-inline:auto;padding-inline:var(--gutter)">
+      <div style="display:flex;flex-wrap:wrap;gap:clamp(28px, 5vw, 72px);align-items:flex-start">
+        <div style="flex:1 1 260px;min-width:0">
+          <x-import component-from-global-scope="HorIZONPsychologyDesignSystem_bf71c7.SectionHeading" hint-size="100%,90px" eyebrow="What we offer" title="Evidence-based therapy, delivered with warmth"></x-import>
+        </div>
+        <div style="flex:2 1 420px;min-width:0;display:flex;flex-direction:column;gap:20px;max-width:var(--measure-prose)">
+          <p style="margin:0;color:var(--color-text-muted);font-size:var(--text-lead);line-height:1.6">Horizon Psychology is led by Dr Emma Izon. She provides evidence-based psychological therapy tailored to each person's individual needs and goals, drawing on cognitive behavioural therapy (CBT), acceptance and commitment therapy (ACT), compassion-focused therapy (CFT), systemic approaches and narrative therapies. Her practice is compassionate, neurodiversity-affirming, and grounded in creating a safe, non-judgemental space for lasting understanding, resilience, and change.</p>
+          <p style="margin:0;color:var(--color-text-muted);font-size:var(--text-small)">Diagnostic assessment and therapy follow National Institute for Health and Care Excellence (NICE) guidelines.</p>
+          <div><x-import component-from-global-scope="HorIZONPsychologyDesignSystem_bf71c7.Button" hint-size="150px,24px" label="More about Emma" type="link" href="/about/" on-click="{{ goAbout }}"></x-import></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-block:0 var(--section-y)">
+    <div style="width:100%;max-width:calc(var(--content-max-width) + var(--gutter) * 2);margin-inline:auto;padding-inline:var(--gutter)">
+      <x-import component-from-global-scope="HorIZONPsychologyDesignSystem_bf71c7.SectionHeading" hint-size="100%,120px" eyebrow="Services" title="Four ways of working together" lead-max-width="none" lead="Every service begins with a free 15-minute call, so you can ask questions and decide whether it feels right."></x-import>
+      <div style="display:grid;grid-template-columns:{{ serviceCols }};grid-auto-rows:minmax(340px, auto);gap:20px;margin-top:40px">
+        <sc-for list="{{ services }}" as="s" hint-placeholder-count="4">
+          <div style="display:grid;white-space:pre-line">
+            <x-import component-from-global-scope="HorIZONPsychologyDesignSystem_bf71c7.ServiceCard" hint-size="100%,260px" icon-base="assets/icons" icon="{{ s.icon }}" title="{{ s.cardTitle }}" meta="{{ s.meta }}" description="{{ s.summary }}" href="{{ s.href }}" cta="Find out more" on-click="{{ s.onClick }}"></x-import>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <div style="background:var(--surface-sage)">
+    <section style="padding-block:var(--section-y)">
+      <div style="width:100%;max-width:calc(var(--content-max-width) + var(--gutter) * 2);margin-inline:auto;padding-inline:var(--gutter)">
+        <x-import component-from-global-scope="HorIZONPsychologyDesignSystem_bf71c7.Quote" hint-size="100%,120px">&ldquo;A space for support, understanding, and change. Helping you move through difficult times, one step at a time.&rdquo;</x-import>
+      </div>
+    </section>
+  </div>
+
+  <section style="padding-block:var(--section-y)">
+    <div style="width:100%;max-width:calc(var(--content-max-width) + var(--gutter) * 2);margin-inline:auto;padding-inline:var(--gutter)">
+      <div style="display:flex;flex-wrap:wrap;gap:clamp(28px, 5vw, 64px);align-items:center;background:var(--surface-card);border:1px solid var(--color-line);border-radius:var(--radius-panel);padding:var(--panel-pad);box-shadow:var(--shadow-rest)">
+        <div style="flex:1 1 380px;min-width:0;display:flex;flex-direction:column;gap:14px">
+          <h2 style="margin:0">Start with a free 15-minute call</h2>
+          <p style="margin:0;color:var(--color-text-muted)">A short, no-obligation conversation to ask questions and see whether working together feels right.</p>
+        </div>
+        <div style="flex:0 0 auto">
+          <x-import component-from-global-scope="HorIZONPsychologyDesignSystem_bf71c7.Button" hint-size="180px,44px" label="Book a free call" href="/contact/" on-click="{{ goContact }}"></x-import>
+        </div>
+      </div>
+    </div>
+  </section>
+</sc-if>
+
+<sc-if value="{{ isAbout }}">
+  <section style="padding-block:clamp(36px, 5vw, 72px) var(--section-y)">
+    <div style="width:100%;max-width:calc(var(--content-max-width) + var(--gutter) * 2);margin-inline:auto;padding-inline:var(--gutter)">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(min(100%, 340px), 1fr));gap:clamp(32px, 5vw, 64px);align-items:start">
+        <div style="display:flex;flex-direction:column;gap:24px;max-width:var(--measure-prose)">
+          <x-import component-from-global-scope="HorIZONPsychologyDesignSystem_bf71c7.SectionHeading" hint-size="100%,120px" eyebrow="About Emma" as="h1" title="Dr Emma Izon" lead="Clinical Psychologist · PhD, DClinPsych, MSc, BSc (International)"></x-import>
+          <p style="margin:0">Dr Emma Izon is a Clinical Psychologist, Cognitive Behavioural Psychotherapist, and researcher who offers psychological therapy, as well as clinical and research supervision. Trained at the University of Oxford, she specialises in evidence-based, compassionate care, with particular expertise in psychosis, bipolar disorder, trauma-informed practice, and neurodiversity-affirming therapy.</p>
+          <p style="margin:0">She works collaboratively with people from all walks of life, helping them understand their experiences, make sense of difficult emotions, and develop meaningful, lasting change.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:24px;align-items:center">
+            <a href="https://www.hcpc-uk.org/check-the-register/" target="_blank" rel="noopener noreferrer" title="Health and Care Professions Council (HCPC) registered" aria-label="Health and Care Professions Council (HCPC) registered (opens in a new tab)" style="display:flex;height:88px;align-items:center;transition:opacity 220ms cubic-bezier(0.22, 0.61, 0.36, 1)" style-hover="opacity:0.8">
+                <img src="assets/hcpc-registered.png" alt="HCPC registered" style="display:block;height:100%;width:auto">
+              </a>
+            <a href="https://www.babcp.com/" target="_blank" rel="noopener noreferrer" title="British Association for Behavioural and Cognitive Psychotherapies (BABCP) accredited" aria-label="British Association for Behavioural and Cognitive Psychotherapies (BABCP) accredited (opens in a new tab)" style="display:flex;height:88px;align-items:center;transition:opacity 220ms cubic-bezier(0.22, 0.61, 0.36, 1)" style-hover="opacity:0.8">
+                <img src="assets/babcp-accredited.png" alt="BABCP accredited" style="display:block;height:100%;width:auto">
+              </a>
+          </div>
+        </div>
+        <img src="assets/imagery/emma-portrait.png" alt="Dr Emma Izon" style="width:100%;aspect-ratio:4 / 5;object-fit:cover;border-radius:var(--radius-panel);box-shadow:var(--shadow-rest)">
+      </div>
+    </div>
+  </section>
+
+  <div style="background:var(--surface-sage)">
+    <section style="padding-block:var(--section-y)">
+      <div style="width:100%;max-width:calc(var(--content-max-width) + var(--gutter) * 2);margin-inline:auto;padding-inline:var(--gutter)">
+        <x-import component-from-global-scope="HorIZONPsychologyDesignSystem_bf71c7.SectionHeading" hint-size="100%,90px" eyebrow="Client experience" title="What people have said"></x-import>
+        <div style="margin-top:36px;max-width:var(--measure-feature);margin-inline:auto">
+          <x-import component-from-global-scope="HorIZONPsychologyDesignSystem_bf71c7.TestimonialCarousel" hint-size="100%,280px" items="{{ testimonials }}" icon-base="assets/icons" interval="{{ carouselInterval }}"></x-import>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <section style="padding-block:var(--section-y)">
+    <div style="width:100%;max-width:calc(var(--content-max-width) + var(--gutter) * 2);margin-inline:auto;padding-inline:var(--gutter)">
+      <div style="display:flex;flex-wrap:wrap;gap:clamp(28px, 5vw, 72px);align-items:flex-start">
+        <div style="flex:1 1 260px;min-width:0">
+          <x-import component-from-global-scope="HorIZONPsychologyDesignSystem_bf71c7.SectionHeading" hint-size="100%,90px" eyebrow="Therapeutic approach" title="How Emma works"></x-import>
+        </div>
+        <div style="flex:2 1 420px;min-width:0;display:flex;flex-direction:column;gap:20px;max-width:var(--measure-prose)">
+          <p style="margin:0">Emma believes that therapy is most effective when it is built on a safe, trusting, and collaborative relationship. She offers a calm, confidential space where clients can explore their experiences at a pace that feels right for them, without judgement or pressure. Whether someone is experiencing stress, anxiety, low mood, the impact of trauma, relationship difficulties, or navigating significant life transitions, we work collaboratively to help them make sense of their experiences and develop practical tools for lasting wellbeing.</p>
+          <p style="margin:0">Our work is grounded in evidence-based psychological practice and integrates Cognitive Behavioural Therapy (CBT), Acceptance and Commitment Therapy (ACT), and Compassion-Focused Therapy (CFT), tailoring therapy to each individual's needs, strengths, and goals. Committed to trauma-informed, neurodiversity-affirming, and culturally sensitive practice, we combine compassionate honesty with evidence-based care to help clients build resilience, deepen self-understanding, and create meaningful, sustainable change.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-block:0 var(--section-y)">
+    <div style="width:100%;max-width:calc(var(--content-max-width) + var(--gutter) * 2);margin-inline:auto;padding-inline:var(--gutter)">
+      <div style="display:flex;flex-wrap:wrap;gap:clamp(28px, 5vw, 72px);align-items:flex-start">
+        <div style="flex:1 1 260px;min-width:0"></div>
+        <div style="flex:2 1 420px;min-width:0;display:flex;flex-wrap:wrap;gap:12px">
+          <x-import component-from-global-scope="HorIZONPsychologyDesignSystem_bf71c7.Button" hint-size="200px,44px" label="Get in touch" href="/contact/" on-click="{{ goContact }}"></x-import>
+          <x-import component-from-global-scope="HorIZONPsychologyDesignSystem_bf71c7.Button" hint-size="150px,44px" label="See publications" type="secondary" href="/research/" on-click="{{ goResearch }}"></x-import>
+        </div>
+      </div>
+    </div>
+  </section>
+</sc-if>
+
+<sc-if value="{{ isService }}">
+  <section style="padding-block:clamp(36px, 5vw, 72px) 0">
+    <div style="width:100%;max-width:calc(var(--content-max-width) + var(--gutter) * 2);margin-inline:auto;padding-inline:var(--gutter)">
+      <div style="display:flex;flex-wrap:wrap;gap:clamp(28px, 4vw, 56px);align-items:flex-start">
+        <div style="flex:2 1 420px;min-width:0;display:flex;flex-direction:column;gap:24px;max-width:var(--measure-prose)">
+          <div style="display:flex;flex-direction:column;gap:14px">
+            <div style="display:flex;gap:16px;align-items:center">
+              <x-import component-from-global-scope="HorIZONPsychologyDesignSystem_bf71c7.Icon" hint-size="34px,34px" name="{{ service.icon }}" size="{{ 34 }}" color="var(--color-text-heading)" base="assets/icons"></x-import>
+              <h1 style="margin:0">{{ service.title }}</h1>
+            </div>
+            <p style="margin:0;color:var(--color-text-muted);font-size:var(--text-lead);line-height:1.6">{{ service.summary }}</p>
+          </div>
+          <sc-if value="{{ imageHands }}">
+            <img src="assets/imagery/hands-connecting.png" alt="" style="width:100%;aspect-ratio:16 / 7;object-fit:cover;border-radius:var(--radius-panel);box-shadow:var(--shadow-rest)">
+          </sc-if>
+          <sc-if value="{{ imageAbout }}">
+            <img src="assets/imagery/emma-about-me.png" alt="" style="width:100%;aspect-ratio:16 / 7;object-fit:cover;border-radius:var(--radius-panel);box-shadow:var(--shadow-rest)">
+          </sc-if>
+          <sc-for list="{{ service.paragraphs }}" as="p" hint-placeholder-count="3">
+            <p style="margin:0">{{ p }}</p>
+          </sc-for>
+        </div>
+        <aside style="flex:1 1 280px;min-width:0;display:flex;flex-direction:column;gap:22px;background:var(--surface-sage);border-radius:var(--radius-panel);padding:var(--panel-pad)">
+          <div>
+            <span style="color:var(--color-eyebrow);font-size:var(--text-eyebrow);font-weight:600;letter-spacing:var(--tracking-eyebrow);text-transform:uppercase">Fees and practicalities</span>
+            <p style="margin:12px 0 0;color:var(--color-text-heading);font-family:var(--font-display);font-size:1.6rem">{{ service.fee }}</p>
+            <p style="margin:4px 0 0;color:var(--color-text-muted);font-size:var(--text-small)">{{ service.duration }}</p>
+          </div>
+          <ul style="display:flex;flex-direction:column;gap:10px;margin:0;padding:0;list-style:none;color:var(--color-text-muted);font-size:var(--text-small)">
+            <sc-for list="{{ service.practical }}" as="p" hint-placeholder-count="4">
+              <li style="display:flex;gap:10px"><span aria-hidden="true" style="color:var(--color-sage-600)">&mdash;</span><span>{{ p }}</span></li>
+            </sc-for>
+          </ul>
+          <x-import component-from-global-scope="HorIZONPsychologyDesignSystem_bf71c7.Button" hint-size="100%,44px" label="Schedule" href="{{ serviceContactHref }}" on-click="{{ goContactService }}"></x-import>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-block:var(--section-y)">
+    <div style="width:100%;max-width:calc(var(--content-max-width) + var(--gutter) * 2);margin-inline:auto;padding-inline:var(--gutter)">
+      <div style="display:flex;flex-wrap:wrap;gap:clamp(28px, 5vw, 72px);align-items:flex-start">
+        <div style="flex:1 1 260px;min-width:0">
+          <x-import component-from-global-scope="HorIZONPsychologyDesignSystem_bf71c7.SectionHeading" hint-size="100%,90px" eyebrow="Questions" title="Before you get in touch"></x-import>
+        </div>
+        <div style="flex:2 1 420px;min-width:0;display:flex;flex-direction:column;gap:24px">
+          <x-import component-from-global-scope="HorIZONPsychologyDesignSystem_bf71c7.Faqs" hint-size="100%,300px" items="{{ service.faqs }}"></x-import>
+          <div><x-import component-from-global-scope="HorIZONPsychologyDesignSystem_bf71c7.Button" hint-size="200px,24px" label="All frequently asked questions" type="link" href="/faqs/" on-click="{{ goFaqs }}"></x-import></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div style="background:var(--surface-quiet)">
+    <section style="padding-block:var(--section-y)">
+      <div style="width:100%;max-width:calc(var(--content-max-width) + var(--gutter) * 2);margin-inline:auto;padding-inline:var(--gutter)">
+        <x-import component-from-global-scope="HorIZONPsychologyDesignSystem_bf71c7.SectionHeading" hint-size="100%,90px" eyebrow="Other services" title="Also available"></x-import>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(min(100%, 300px), 1fr));gap:20px;margin-top:32px">
+          <sc-for list="{{ otherServices }}" as="s" hint-placeholder-count="3">
+            <x-import component-from-global-scope="HorIZONPsychologyDesignSystem_bf71c7.ServiceCard" hint-size="100%,240px" icon-base="assets/icons" icon="{{ s.icon }}" title="{{ s.title }}" meta="{{ s.meta }}" description="{{ s.summary }}" href="{{ s.href }}" cta="Find out more" on-click="{{ s.onClick }}"></x-import>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+  </div>
+</sc-if>
+
+<sc-if value="{{ isContact }}">
+  <section style="padding-block:clamp(36px, 5vw, 72px) var(--section-y)">
+    <div style="width:100%;max-width:calc(var(--content-max-width) + var(--gutter) * 2);margin-inline:auto;padding-inline:var(--gutter)">
+      <div style="display:grid;grid-template-columns:{{ contactCols }};grid-template-rows:{{ contactRows }};gap:clamp(28px, 5vw, 64px);align-items:start">
+        <div style="grid-area:{{ contactHeadArea }};min-width:0;max-width:var(--measure-prose)">
+          <x-import component-from-global-scope="HorIZONPsychologyDesignSystem_bf71c7.SectionHeading" hint-size="100%,160px" eyebrow="Contact us" as="h1" title="Get in touch" lead="You don’t need to have everything figured out. Tell us a little about what’s bringing you here and we can take it from there."></x-import>
+        </div>
+        <div style="grid-area:{{ contactAsideArea }};min-width:0;display:flex;flex-direction:column;gap:28px">
+          <div style="display:flex;flex-direction:column;gap:14px;background:var(--surface-sage);border-radius:var(--radius-panel);padding:var(--panel-pad)">
+            <a href="mailto:hello@horizonpsychology.co.uk" style="font-size:var(--text-small)">hello@horizonpsychology.co.uk</a>
+            <p style="margin:0;color:var(--color-text-muted);font-size:var(--text-small)">Sessions are available online, delivered securely by video call, or face-to-face in Buckinghamshire. Both formats carry the same care and confidentiality.</p>
+          </div>
+          <x-import component-from-global-scope="HorIZONPsychologyDesignSystem_bf71c7.Callout" hint-size="100%,140px" title="If you need help now">Therapy is not an emergency service. If you need support today, contact your GP, call NHS 111, or call the Samaritans free on 116 123.</x-import>
+        </div>
+
+        <div style="grid-area:{{ contactFormArea }};min-width:0;background:var(--surface-card);border:1px solid var(--color-line);border-radius:var(--radius-panel);padding:var(--panel-pad);box-shadow:var(--shadow-rest)">
+          <sc-if value="{{ sent }}">
+            <div style="display:flex;flex-direction:column;gap:18px">
+              <h2 style="margin:0">Thank you — your enquiry has been sent</h2>
+              <div><x-import component-from-global-scope="HorIZONPsychologyDesignSystem_bf71c7.Button" hint-size="200px,44px" label="Send another enquiry" type="secondary" on-click="{{ resetForm }}"></x-import></div>
+            </div>
+          </sc-if>
+          <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
+            <form style="display:flex;flex-direction:column;gap:20px" onSubmit="{{ submit }}" noValidate="{{ true }}">
+              <x-import component-from-global-scope="HorIZONPsychologyDesignSystem_bf71c7.FormField" hint-size="100%,76px" label="Your name" html-for="name" required="{{ true }}" error="{{ nameError }}">
+                <x-import component-from-global-scope="HorIZONPsychologyDesignSystem_bf71c7.Input" hint-size="100%,44px" id="name" name="name" placeholder="First name is fine" invalid="{{ nameInvalid }}" aria-invalid="{{ nameInvalid }}" on-input="{{ clearName }}"></x-import>
+              </x-import>
+              <x-import component-from-global-scope="HorIZONPsychologyDesignSystem_bf71c7.FormField" hint-size="100%,76px" label="Email" html-for="email" required="{{ true }}" error="{{ emailError }}">
+                <x-import component-from-global-scope="HorIZONPsychologyDesignSystem_bf71c7.Input" hint-size="100%,44px" id="email" name="email" type="email" placeholder="you@example.com" invalid="{{ emailInvalid }}" aria-invalid="{{ emailInvalid }}" on-input="{{ clearEmail }}"></x-import>
+              </x-import>
+              <x-import component-from-global-scope="HorIZONPsychologyDesignSystem_bf71c7.FormField" hint-size="100%,76px" label="What are you enquiring about?" html-for="topic">
+                <x-import component-from-global-scope="HorIZONPsychologyDesignSystem_bf71c7.Select" hint-size="100%,44px" id="topic" options="{{ topicOptions }}" value="{{ topic }}" on-change="{{ setTopic }}"></x-import>
+              </x-import>
+              <x-import component-from-global-scope="HorIZONPsychologyDesignSystem_bf71c7.FormField" hint-size="100%,76px" label="Online or face-to-face?" html-for="format">
+                <x-import component-from-global-scope="HorIZONPsychologyDesignSystem_bf71c7.Select" hint-size="100%,44px" id="format" options="{{ formatOptions }}"></x-import>
+              </x-import>
+              <x-import component-from-global-scope="HorIZONPsychologyDesignSystem_bf71c7.FormField" hint-size="100%,140px" label="Write a message" html-for="msg" hint="Only as much as you feel comfortable sharing.">
+                <x-import component-from-global-scope="HorIZONPsychologyDesignSystem_bf71c7.Textarea" hint-size="100%,120px" id="msg" rows="{{ 5 }}"></x-import>
+              </x-import>
+              <div style="display:flex;flex-direction:column;gap:7px">
+                <x-import component-from-global-scope="HorIZONPsychologyDesignSystem_bf71c7.Checkbox" hint-size="100%,44px" id="consent" name="consent" label="{{ consentLabel }}" aria-invalid="{{ consentInvalid }}" on-change="{{ clearConsent }}"></x-import>
+                <sc-if value="{{ consentInvalid }}" hint-placeholder-val="{{ false }}"><span style="color:var(--color-error);font-size:var(--text-caption)">{{ consentError }}</span></sc-if>
+              </div>
+              <div><x-import component-from-global-scope="HorIZONPsychologyDesignSystem_bf71c7.Button" hint-size="160px,44px" label="Send enquiry" type="primary"></x-import></div>
+            </form>
+          </sc-if>
+        </div>
+      </div>
+    </div>
+  </section>
+</sc-if>
+
+<sc-if value="{{ isResearch }}">
+  <section style="padding-block:clamp(36px, 5vw, 72px) var(--section-y)">
+    <div style="width:100%;max-width:calc(var(--content-max-width) + var(--gutter) * 2);margin-inline:auto;padding-inline:var(--gutter)">
+      <div style="display:flex;flex-wrap:wrap;gap:clamp(28px, 5vw, 72px);align-items:flex-start">
+        <div style="flex:1 1 280px;min-width:0;display:flex;flex-direction:column;gap:24px">
+          <x-import component-from-global-scope="HorIZONPsychologyDesignSystem_bf71c7.SectionHeading" hint-size="100%,160px" eyebrow="Research" as="h1" title="Published work" lead="Dr Izon publishes in peer-reviewed journals and brings that evidence directly into clinical practice."></x-import>
+          <p style="margin:0;color:var(--color-text-muted);font-size:var(--text-small)">Areas of research: at-risk mental states and psychosis, expressed emotion, family and sibling experience, older adults' access to psychological intervention, and service-user measures.</p>
+          <p style="margin:0;font-size:var(--text-small)"><a href="https://www.researchgate.net/profile/Emma-Izon">ResearchGate</a> · <a href="https://manchester.academia.edu/EmmaIzon">Academia.edu</a></p>
+          <div><x-import component-from-global-scope="HorIZONPsychologyDesignSystem_bf71c7.Button" hint-size="200px,44px" label="Enquire about research supervision" type="secondary" href="/contact/?topic=research-supervision" on-click="{{ goContactResearch }}"></x-import></div>
+        </div>
+        <ul style="flex:2 1 420px;min-width:0;margin:0;padding:0;border-top:1px solid var(--color-line)">
+          <sc-for list="{{ publications }}" as="p" hint-placeholder-count="8">
+            <x-import component-from-global-scope="HorIZONPsychologyDesignSystem_bf71c7.PublicationItem" hint-size="100%,110px" authors="{{ p.authors }}" year="{{ p.year }}" title="{{ p.title }}" journal="{{ p.journal }}" href="{{ p.href }}"></x-import>
+          </sc-for>
+        </ul>
+      </div>
+    </div>
+  </section>
+</sc-if>
+
+<sc-if value="{{ isFaqs }}">
+  <section style="padding-block:clamp(36px, 5vw, 72px) var(--section-y)">
+    <div style="width:100%;max-width:calc(var(--content-max-width) + var(--gutter) * 2);margin-inline:auto;padding-inline:var(--gutter)">
+      <div style="max-width:var(--measure-prose)">
+        <x-import component-from-global-scope="HorIZONPsychologyDesignSystem_bf71c7.SectionHeading" hint-size="100%,160px" eyebrow="Questions" as="h1" title="Frequently asked questions" lead="Everything people usually want to know before getting in touch. If your question is not here, ask it on the free 15-minute call."></x-import>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:clamp(40px, 5vw, 64px);margin-top:48px">
+        <sc-for list="{{ faqGroups }}" as="g" hint-placeholder-count="4">
+          <div style="display:flex;flex-wrap:wrap;gap:clamp(20px, 5vw, 72px);align-items:flex-start">
+            <div style="flex:1 1 220px;min-width:0">
+              <x-import component-from-global-scope="HorIZONPsychologyDesignSystem_bf71c7.SectionHeading" hint-size="100%,60px" eyebrow="{{ g.eyebrow }}" title="{{ g.title }}"></x-import>
+            </div>
+            <div style="flex:2 1 420px;min-width:0">
+              <x-import component-from-global-scope="HorIZONPsychologyDesignSystem_bf71c7.Faqs" hint-size="100%,240px" items="{{ g.items }}"></x-import>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+</sc-if>
+
+<sc-if value="{{ isBlog }}">
+  <section style="padding-block:clamp(36px, 5vw, 72px) var(--section-y)">
+    <div style="width:100%;max-width:calc(var(--content-max-width) + var(--gutter) * 2);margin-inline:auto;padding-inline:var(--gutter)">
+      <div style="display:flex;flex-direction:column;gap:28px;max-width:var(--measure-prose)">
+        <x-import component-from-global-scope="HorIZONPsychologyDesignSystem_bf71c7.SectionHeading" hint-size="100%,160px" eyebrow="Writing" as="h1" title="Blog" lead="A place for short, evidence-based writing on therapy, supervision and research."></x-import>
+        <p style="margin:0;color:var(--color-text-muted)">Nothing is published here yet. The first pieces are being written, and will cover what to expect from a first session, how CBT and ACT differ in practice, and reading for supervisees.</p>
+      </div>
+    </div>
+  </section>
+</sc-if>
+
+<sc-if value="{{ isLegal }}">
+  <section style="padding-block:clamp(36px, 5vw, 72px) var(--section-y)">
+    <div style="width:100%;max-width:calc(var(--content-max-width) + var(--gutter) * 2);margin-inline:auto;padding-inline:var(--gutter)">
+      <div style="display:flex;flex-direction:column;gap:clamp(24px, 3vw, 40px);max-width:var(--measure-feature)">
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <x-import component-from-global-scope="HorIZONPsychologyDesignSystem_bf71c7.SectionHeading" hint-size="100%,120px" eyebrow="{{ legal.eyebrow }}" as="h1" title="{{ legal.title }}"></x-import>
+          <p style="margin:0;color:var(--color-text-muted);font-size:var(--text-caption)">{{ legal.updated }}</p>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:20px">
+          <p style="margin:0;color:var(--color-text-muted);font-size:var(--text-lead);line-height:1.6">{{ legal.lead }}</p>
+          <sc-for list="{{ legal.paragraphs }}" as="p" hint-placeholder-count="3">
+            <p style="margin:0">{{ p }}</p>
+          </sc-for>
+          <p style="margin:0;color:var(--color-text-muted);font-size:var(--text-small)">Final wording is to be confirmed with Dr Izon's insurer and the HCPC. Questions about this page can go to <a href="mailto:hello@horizonpsychology.co.uk">hello@horizonpsychology.co.uk</a>.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</sc-if>
+
+</main>
+
+<x-import component-from-global-scope="HorIZONPsychologyDesignSystem_bf71c7.Footer" hint-size="100%,320px" brand-name="Horizon Psychology" email="hello@horizonpsychology.co.uk" groups="{{ footerGroups }}" note="Psychological therapy, clinical and research supervision. Online, and face-to-face in Buckinghamshire." on-navigate="{{ navigate }}"></x-import>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;homeHeaderScroll&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Behaviour&quot;},&quot;testimonialAutoplay&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Behaviour&quot;}}">
+const FAQ = {
+  right:{question:"How do I know if this is right for me?",answer:"You may not be completely sure whether therapy is right for you — and that's okay. Reaching this point often means something feels difficult, unsettled, or hard to carry on your own. Therapy can offer a supportive space to slow things down, make sense of what you're experiencing, and gently explore what might help.\nI offer a complimentary 15-minute initial consultation where you're welcome to ask questions and share what feels important to you. This is simply a chance to see whether working together feels comfortable and right for you, with no pressure to decide straight away."},
+  next:{question:"What happens after I get in touch?",answer:"After you get in touch, you will be contacted via email within 5 working days. This will usually include a response to your enquiry and, if helpful, the option to arrange a complimentary 15-minute consultation. This initial conversation is a chance to talk through what you're looking for, ask any questions, and see whether working together feels like a good fit.\nIf you decide to go ahead, we will arrange your first appointment at a time that works for you."},
+  online:{question:"Do you offer online sessions?",answer:"Yes, both online and in-person sessions are available. Online therapy is delivered securely via video call and can be a helpful option if you prefer the comfort of your own space, have a busy schedule, or are not local. In-person sessions are available in Buckinghamshire for those who prefer to meet face-to-face. Both formats offer the same level of care, confidentiality, and therapeutic support."},
+  confidential:{question:"Is therapy confidential?",answer:"Yes, therapy is confidential. Everything you share is treated with care and respect, and is not discussed outside of sessions. Confidentiality is a key part of creating a safe, trusting space where you can speak freely and at your own pace.\nThere are a small number of legal and ethical exceptions to confidentiality. These relate to situations where there may be a serious risk of harm to you or others, or where information is required by law. If anything like this were ever to arise, it would always be discussed with you first wherever possible."},
+  gp:{question:"Will my GP be informed?",answer:"No, your GP will not be informed automatically. Therapy is confidential, and anything you share remains private unless you choose for it to be shared.\nThe exception to this is if there were serious concerns about safety or risk, in which case this would be discussed with you wherever possible beforehand."},
+  referral:{question:"Do I need a referral?",answer:"No, you do not need a referral to begin therapy. You are welcome to get in touch directly to arrange an initial consultation or to ask any questions about the process."},
+  fees:{question:"What are your fees and cancellation policy?",answer:"Fees are as outlined at the time of booking and are payable in advance of each session. If you need to cancel or reschedule your appointment, I kindly ask for at least 48 hours' notice so that the time can be offered to someone else. Cancellations made with less than 48 hours' notice will be charged at 50% of the session fee. Cancellations made with less than 24 hours' notice, or missed appointments without notice, will be charged at the full session fee."},
+  howMany:{question:"How many sessions will I need?",answer:"There is no set number. Some people come for a short, focused piece of work; others prefer longer-term support. During your initial assessment we will agree a session frequency that supports your goals, and we review how the work is going as we go along."},
+  firstSession:{question:"What happens in a first session?",answer:"The first session is an assessment. There is time to describe what has been happening, what you would like to be different, and any history that feels relevant. Emma will explain how she works, answer questions, and together you will agree what to focus on and how often to meet. Nothing has to be decided on the spot."},
+  bothAttend:{question:"Do we both need to attend every session?",answer:"Most sessions are attended together, as the work focuses on what happens between you. Individual sessions may be offered where appropriate and agreed by all parties, and what is discussed in them is handled openly within the agreement you set at the start."},
+  romantic:{question:"Do we need to be in a romantic relationship?",answer:"No. Couples Therapy is available for any two people wishing to work on a shared issue — partners, family members, friends, or colleagues."},
+  couplesConfidential:{question:"How does confidentiality work with two people?",answer:"Confidentiality covers the work as a whole, and we agree at the outset how information shared in any individual session will be handled. The same legal and ethical exceptions apply: where there may be a serious risk of harm, or where information is required by law, and this would be discussed with you first wherever possible."},
+  accreditation:{question:"Is supervision suitable for BABCP accreditation?",answer:"Supervision is provided by a registered Clinical Psychologist and BABCP-accredited CBT therapist, and is suitable for professionals working towards or maintaining similar professional accreditations. Requirements are set by the accrediting body, so it is worth checking your route with them as you plan your supervision."},
+  groupSupervision:{question:"Do you offer group supervision?",answer:"Yes. Group supervision is available on request, alongside reflective practice, training, and consultation for organisations on mental health, neurodiversity, and wellbeing."},
+  supervisionCadence:{question:"Can I book a one-off session?",answer:"Yes. One-off, ad hoc, and ongoing supervision are all available, tailored to your clinical practice and professional development."},
+  supervisionWho:{question:"Who is clinical supervision for?",answer:"Psychologists, CBT therapists, and other mental health and healthcare professionals, including those in training and those maintaining accreditation."},
+  researchStage:{question:"At what stage can supervision start?",answer:"At any stage. Supervision covers study design and proposals, ethics applications, data collection, quantitative and qualitative analysis, academic writing, and preparing work for publication."},
+  researchWho:{question:"Who is research supervision for?",answer:"Master's and Doctoral students, clinicians, trainees, and researchers seeking guidance on a project. Supervision can sit alongside supervision provided by your institution."},
+  researchEthics:{question:"Can you help with ethics applications?",answer:"Yes. Ethics and governance paperwork is one of the most common reasons people get in touch, and supervision can cover drafting, review, and responding to committee feedback."},
+  researchPublication:{question:"Do you support publication?",answer:"Yes. Supervision can include structuring a manuscript, choosing a journal, responding to peer review, and planning authorship."}
+};
+
+const SERVICES = [
+  {id:"individual-therapy",icon:"individual-therapy",title:"Individual Therapy",cardTitle:"Individual\nTherapy",href:"/individual-therapy/",eyebrow:"Therapy",
+   meta:"£100 · 50 minutes",fee:"£100",duration:"50-minute session",image:"assets/imagery/hands-connecting.png",
+   summary:"Support for anxiety, low mood, trauma, stress, adjusting to change, and living with a long-term condition.",
+   paragraphs:[
+     "We offer personalised therapy in a warm, safe, and confidential environment, tailored to your individual needs. Our clinicians support people experiencing a wide range of difficulties, including depression, anxiety, stress, low self-esteem, adjustment to life changes as well as physical health challenges.",
+     "We also provide specialist support for athletes managing injury, performance stress, and the psychological demands of sport. Together, we work towards greater understanding, resilience, and lasting positive change.",
+     "Before starting therapy, we offer a free 15-minute introductory call to answer any questions and help you decide whether we're the right fit. During your initial assessment, we'll agree on a session frequency that best supports your goals."],
+   practical:["Free 15-minute introductory call","Online or face-to-face in Buckinghamshire","No referral needed"],
+   faqs:[FAQ.right,FAQ.firstSession,FAQ.howMany,FAQ.online]},
+  {id:"couples-therapy",icon:"couples-therapy",title:"Couples Therapy",cardTitle:"Couples\nTherapy",href:"/couples-therapy/",eyebrow:"Therapy",
+   meta:"£120 · 60 minutes",fee:"£120",duration:"60-minute session",image:"assets/imagery/emma-about-me.png",
+   summary:"For any two people working on a shared difficulty. You do not need to be in a romantic relationship.",
+   paragraphs:[
+     "We offer Couples Therapy in a safe, supportive, and confidential environment for any two people looking to improve their relationship or work through a shared difficulty — you do not need to be in a romantic relationship.",
+     "Using evidence-based systemic and cognitive behavioural approaches, we help you understand the patterns within your relationship, improve communication, navigate conflict, and strengthen your connection.",
+     "Most sessions are attended together, although individual sessions may be offered where appropriate and agreed by all parties. During your initial assessment, we'll discuss your goals and recommend a session frequency that best supports your progress."],
+   practical:["Free 15-minute introductory call","Online or face-to-face in Buckinghamshire","Both partners usually attend together"],
+   faqs:[FAQ.romantic,FAQ.bothAttend,FAQ.couplesConfidential,FAQ.online]},
+  {id:"clinical-supervision",icon:"clinical-supervision",title:"Clinical Supervision",cardTitle:"Clinical\nSupervision",href:"/clinical-supervision/",eyebrow:"Supervision",
+   meta:"£130 · 60 minutes",fee:"£130",duration:"60-minute session",image:"assets/imagery/hands-connecting.png",
+   summary:"For psychologists, CBT therapists and healthcare professionals, including those working towards accreditation.",
+   paragraphs:[
+     "We offer clinical supervision for psychologists, CBT therapists, and other healthcare professionals in a supportive, collaborative, and reflective environment.",
+     "Supervision is provided by Dr Emma Izon, a registered Clinical Psychologist and BABCP-accredited CBT therapist, and is suitable for professionals working towards or maintaining similar professional accreditations. We offer one-off, ad hoc, and ongoing supervision tailored to your individual clinical practice and professional development.",
+     "Alongside supervision, Emma offers reflective practice, training, and consultation for organisations on mental health, neurodiversity, and wellbeing."],
+   practical:["One-off, ad hoc or ongoing","Online or face-to-face in Buckinghamshire","Suitable for BABCP accreditation routes","Group supervision available on request"],
+   faqs:[FAQ.supervisionWho,FAQ.accreditation,FAQ.groupSupervision,FAQ.supervisionCadence]},
+  {id:"research-supervision",icon:"research-supervision",title:"Research Supervision",cardTitle:"Research\nSupervision",href:"/research-supervision/",eyebrow:"Supervision",
+   meta:"£120 · 60 minutes",fee:"£120",duration:"60-minute session",image:"assets/imagery/emma-about-me.png",
+   summary:"Support at any stage of a research project, from proposal and ethics through to analysis and publication.",
+   paragraphs:[
+     "We offer research supervision for clinicians, trainees, and researchers seeking guidance at any stage of the research process.",
+     "Whether you are developing a research proposal, designing a study, analysing data, or preparing work for publication, supervision provides a collaborative space to build confidence, develop your skills, and progress your project.",
+     "Emma supervises Master's and Doctoral students, and publishes in peer-reviewed journals herself, so supervision is grounded in current practice."],
+   practical:["Master's and Doctoral level","Proposal, ethics, analysis, write-up","Online or face-to-face in Buckinghamshire","One-off or ongoing"],
+   faqs:[FAQ.researchWho,FAQ.researchStage,FAQ.researchEthics,FAQ.researchPublication]}
+];
+
+const LEGAL = {
+  confidentiality:{eyebrow:"Practical",title:"Confidentiality statement",updated:"Draft — to be confirmed",
+    lead:"What you share in therapy or supervision stays between us, with a small number of legal and ethical exceptions that are set out here.",
+    paragraphs:[
+      "Everything you share is treated with care and respect, and is not discussed outside of sessions. Notes are kept securely and in line with data protection law, and are retained for the period required by professional guidance.",
+      "There are a small number of exceptions. These relate to situations where there may be a serious risk of harm to you or to another person, where a child or adult at risk may need safeguarding, or where information is required by law or a court order. If anything like this were ever to arise, it would be discussed with you first wherever possible.",
+      "Emma attends her own regular clinical supervision, as required by the HCPC and BABCP. Client work is discussed there anonymously, and supervisors are bound by the same duty of confidentiality."]},
+  privacy:{eyebrow:"Practical",title:"Privacy policy",updated:"Draft — to be confirmed",
+    lead:"How enquiry and client information is collected, used and stored.",
+    paragraphs:[
+      "When you send an enquiry, the details you provide are used only to respond to you and, if you go ahead, to arrange and deliver sessions. Enquiries that do not lead to work together are deleted.",
+      "Clinical records are kept securely, are accessible only to Dr Izon, and are held for the period set out in professional guidance. You may ask to see the information held about you, ask for it to be corrected, or ask for it to be deleted where there is no legal reason to keep it.",
+      "No information is sold or shared for marketing. Where a third-party service is used to deliver sessions or store records, it is chosen for its security and data protection standards."]},
+  complaints:{eyebrow:"Practical",title:"Complaints procedure",updated:"Draft — to be confirmed",
+    lead:"If something about your care has not been right, please say so. Concerns are taken seriously and are welcomed.",
+    paragraphs:[
+      "The first step is to raise it directly, either in a session or by email. Most concerns can be resolved by talking them through. You will receive an acknowledgement within 5 working days and a full response within 20 working days.",
+      "If you would prefer not to raise it directly, or you are not satisfied with the response, you can contact the Health and Care Professions Council (HCPC), which regulates practising Clinical Psychologists, or the British Association for Behavioural and Cognitive Psychotherapies (BABCP).",
+      "Making a complaint will not affect the care you receive."]},
+  terms:{eyebrow:"Practical",title:"Fees and cancellations",updated:"Draft — to be confirmed",
+    lead:"Session fees, payment, and the notice needed to cancel or reschedule.",
+    paragraphs:[
+      "Individual Therapy is £100 for a 50-minute session. Couples Therapy is £120 for a 60-minute session. Clinical Supervision is £130 for a 60-minute session. Research Supervision is £120 for a 60-minute session.",
+      "Fees are payable in advance of each session. If you need to cancel or reschedule, at least 48 hours' notice is asked for so the time can be offered to someone else. Cancellations with less than 48 hours' notice are charged at 50% of the session fee; cancellations with less than 24 hours' notice, or missed appointments without notice, are charged in full.",
+      "The free 15-minute introductory call carries no charge and no obligation to continue."]}
+};
+
+class Component extends DCLogic {
+  state = {page:"home", topic:"", sent:false, errors:{}, narrow:false, cols:4, mobile:false, stackContact:false};
+
+  componentDidMount(){
+    this.measure = () => {
+      const w = window.innerWidth;
+      const n = w < 900;   /* tablets in portrait and phones use the burger menu */
+      const c = w >= 1080 ? 4 : w >= 620 ? 2 : 1;
+      const m = w < 700;
+      const st = w < 800;   /* contact page has wrapped to one column by here */
+      if(n !== this.state.narrow || c !== this.state.cols || m !== this.state.mobile || st !== this.state.stackContact)
+        this.setState({narrow:n, cols:c, mobile:m, stackContact:st});
+    };
+    this.measure();
+    const t = new URLSearchParams(window.location.search).get("topic");
+    const ts = t && SERVICES.find(s => s.id === t);
+    if (ts) this.setState({topic: ts.title});
+    window.addEventListener("resize", this.measure);
+  }
+  componentWillUnmount(){ window.removeEventListener("resize", this.measure); }
+
+  go(id, topic){
+    this.setState(id === "contact" ? {page:id, topic: topic || "", sent:false, errors:{}} : {page:id});
+    if(typeof window !== "undefined") window.scrollTo({top:0, behavior:"smooth"});
+  }
+  link(id){ return e => { if(e && e.preventDefault) e.preventDefault(); this.go(id); }; }
+
+  renderVals(){
+    const page = this.state.page;
+    /* Titles stack onto two lines only in the narrow 4-up cards; at 2x2 and single column
+       there is room for one line, so the break is dropped. */
+    const stackTitles = this.state.cols === 4;
+    const services = SERVICES.map(s => ({...s, onClick:this.link(s.id),
+      cardTitle: stackTitles ? s.cardTitle : s.title}));
+    const service = services.find(s => s.id === page) || null;
+    const legalKey = ["confidentiality","privacy","complaints","terms"].includes(page) ? page : null;
+    return {
+      /* Schedule is the header action on desktop; in the mobile menu it is a plain link in the list. */
+      nav:(()=>{
+        const services=[
+          {id:"individual-therapy",label:"Individual Therapy",href:"/individual-therapy/"},
+          {id:"couples-therapy",label:"Couples Therapy",href:"/couples-therapy/"},
+          {id:"clinical-supervision",label:"Clinical Supervision",href:"/clinical-supervision/"},
+          {id:"research-supervision",label:"Research Supervision",href:"/research-supervision/"}
+        ];
+        const about={id:"about",label:"About Emma",href:"/about/"};
+        return this.state.narrow
+          ? [about].concat(services,[{id:"research",label:"Research",href:"/research/"},{id:"contact",label:"Contact Us",href:"/contact/"}])
+          : [about,{id:"services",label:"Services",children:services},{id:"research",label:"Research",href:"/research/"}];
+      })(),
+      footerGroups:[
+        {title:"Work together",links:[
+          {id:"individual-therapy",label:"Individual Therapy",href:"/individual-therapy/"},
+          {id:"couples-therapy",label:"Couples Therapy",href:"/couples-therapy/"},
+          {id:"clinical-supervision",label:"Clinical Supervision",href:"/clinical-supervision/"},
+          {id:"research-supervision",label:"Research Supervision",href:"/research-supervision/"}
+        ]},
+        {title:"Practice",links:[
+          {id:"about",label:"About Emma",href:"/about/"},
+          {id:"research",label:"Research",href:"/research/"},
+          {id:"blog",label:"Blog",href:"/blog/"},
+          {id:"faqs",label:"FAQs",href:"/faqs/"}
+        ]},
+        {title:"Practical",links:[
+          {id:"contact",label:"Contact Us",href:"/contact/"},
+          {id:"terms",label:"Fees and cancellations",href:"/terms-and-conditions/"},
+          {id:"confidentiality",label:"Confidentiality",href:"/confidentiality/"},
+          {id:"privacy",label:"Privacy policy",href:"/privacy-policy/"},
+          {id:"complaints",label:"Complaints",href:"/complaints/"}
+        ]}
+      ],
+      credentials:[
+        {src:"assets/hcpc-registered.png",alt:"HCPC registered",href:"https://www.hcpc-uk.org/check-the-register/",pad:"9px",tooltip:"Health and Care Professions Council (HCPC) registered"},
+        {src:"assets/babcp-accredited.png",alt:"BABCP accredited",href:"https://www.babcp.com/",pad:"3px",tooltip:"British Association for Behavioural and Cognitive Psychotherapies (BABCP) accredited"}
+      ],
+      highlights:[
+        "HCPC registered Clinical Psychologist",
+        "BABCP accredited Cognitive Behavioural Psychotherapist",
+        "Doctorate in Clinical Psychology (DClinPsy), University of Oxford",
+        "Clinical Psychology PhD, University of Manchester",
+        "Mental Health Studies MSc, King's College London — distinction",
+        "Psychology (International) BSc, University of Leeds — first class",
+        "Postgraduate Certificate in Enhanced CBT for Psychosis and Bipolar, University of Oxford",
+        "Foundation and Intermediate qualifications in Systemic Family Therapy, University of Oxford",
+        "Extensive experience across NHS and independent practice",
+        "Specialist expertise in psychosis, bipolar disorder, trauma, and neurodiversity-affirming care",
+        "Published researcher with articles in peer-reviewed academic journals",
+        "Experienced clinical and research supervisor, supporting healthcare professionals, Master's students, and doctoral researchers"
+      ],
+      testimonials:[
+        {name:"James",quote:"When I came to Emma, I was looking for someone with whom I could team up with on my journey of self understanding, who could provide suitable guidance along the way. Emma definitely provided what I was looking for. She was understanding, insightful and brought relevant, clinical knowledge."},
+        {name:"Sophie",quote:"I enjoyed having a space to express my feelings and thoughts that was warm and judgement free. I could really apply many of the methods and ideas she brought, to my daily interactions, and saw a positive impact."},
+        {name:"Laura",quote:"Thank you very much for all of the therapy sessions, I really appreciated them and feel I have learnt so much. You lent a non judgemental ear, and safe environment whereby I felt able to express myself and open up."},
+        {name:"Rachel",quote:"Emma created a safe and reassuring environment for my son to talk, listen and ask questions. Her focus was clearly on my son rather than him feeling it was adults talking about him or over him."},
+        {name:"Daniel",quote:"I very much enjoyed working with Emma. I had a very positive experience and would turn to her again in future if I was seeking support through psychology."},
+        {name:"Priya",quote:"I had a positive experience with Emma. I feel she understands my personal approach to psychology and our sessions, and I enjoyed working with her towards my goals."}
+      ],
+      publications:[
+        {authors:"Izon, E., & Fletcher, H. K.",year:"2026",title:"\u201cI'm not a wimp, I'm brave\u201d.",journal:"Advances in Mental Health and Intellectual Disabilities, advance online publication",href:"https://doi.org/10.1108/AMHID-10-2025-0048"},
+        {authors:"Izon, E., Dow, R., Collett, N., & Churchard, A.",year:"2026",title:"Understanding barriers to receiving psychological intervention for older persons who experience hallucinations.",journal:"BMC Geriatrics, advance online publication",href:"https://doi.org/10.1186/s12877-025-06831-7"},
+        {authors:"Izon, E., Radez, J., & Knight, M. T.",year:"2023",title:"The psychosocial stressors of siblings of people with experiences of psychosis (SOPEP): A systematic narrative review across cultures.",journal:"Clinical Psychology & Psychotherapy"},
+        {authors:"Radez, J., Waite, F., Izon, E., & Johns, L.",year:"2023",title:"Identifying individuals at risk of developing psychosis: A systematic review of the literature in primary care services.",journal:"Early Intervention in Psychiatry, 17(5), 429–446"},
+        {authors:"Izon, E., Au-Yeung, K., Berry, K., & French, P.",year:"2023",title:"Service User Perceived Criticism and Warmth (SU-PCaW) Questionnaire.",journal:"Psychosis, 15(2), 201–210"},
+        {authors:"Izon, E., & Dow, R.",year:"2022",title:"Treating anxiety in an older adult using internet-based cognitive behavioural therapy (iCBT): A case study.",journal:"FPOP Bulletin: Psychology of Older People",href:"https://doi.org/10.53841/bpsfpop.2022.1.158.22"},
+        {authors:"Izon, E., Berry, K., Law, H., & French, P.",year:"2022",title:"\u2018If he feels better I'll feel better\u2019: relationships with individuals at high-risk of developing psychosis.",journal:"Early Intervention in Psychiatry, 16(3), 231–238"},
+        {authors:"Izon, E., Berry, K., Wearden, A., Carter, L-A., Law, H., & French, P.",year:"2021",title:"Investigating Expressed Emotion (EE) in individuals at-risk of developing psychosis and their families over 12 months.",journal:"Clinical Psychology & Psychotherapy"},
+        {authors:"Izon, E., Berry, K., Law, H., Au-Yeung, K., & French, P.",year:"2020",title:"\u201cI don't know how to fix it and sometimes it's so overwhelming\u201d: Identifying the barriers and facilitators for family caregivers supporting someone at high-risk of psychosis: A qualitative study.",journal:"Psychosis, 12(1), 57–67"},
+        {authors:"Izon, E., Berry, K., Law, H., Shiers, D., & French, P.",year:"2020",title:"\u201cI don't think I took her fears seriously.\u201d Exploring the experiences of family members of individuals at-risk of developing psychosis over 12 months.",journal:"Clinical Psychology & Psychotherapy"},
+        {authors:"Izon, E., Au-Yeung, K., & Jones, W.",year:"2020",title:"The challenges of engaging individuals at high-risk of developing psychosis: reflections from research assistants within a randomised control trial.",journal:"Psychosis, 1–9"},
+        {authors:"Law, H., Izon, E., Au-Yeung, K., Morrison, A. P., Byrne, R., Notley, C., … French, P.",year:"2019",title:"Combined individual and family therapy in comparison to treatment as usual for people at-risk of psychosis: A feasibility study (IF CBT).",journal:"Trial rationale, methodology and baseline characteristics"},
+        {authors:"Izon, E., Berry, K., Law, H., & French, P.",year:"2018",title:"Expressed emotion (EE) in families of individuals at-risk of developing psychosis: A systematic review.",journal:"Psychiatry Research, 270, 661–672"}
+      ],
+      faqGroups:[
+        {eyebrow:"Getting started",title:"Before you begin",items:[FAQ.right,FAQ.next,FAQ.firstSession,FAQ.referral]},
+        {eyebrow:"Sessions",title:"How the work runs",items:[FAQ.online,FAQ.howMany,FAQ.bothAttend,FAQ.romantic]},
+        {eyebrow:"Supervision",title:"Clinical and research supervision",items:[FAQ.supervisionWho,FAQ.accreditation,FAQ.groupSupervision,FAQ.researchStage]},
+        {eyebrow:"Practical",title:"Fees and confidentiality",items:[FAQ.fees,FAQ.confidential,FAQ.couplesConfidential,FAQ.gp]}
+      ],
+      services, service,
+      imageHands: !!service && service.image === "assets/imagery/hands-connecting.png",
+      imageAbout: !!service && service.image === "assets/imagery/emma-about-me.png",
+      serviceCols: this.state.cols === 4 ? "repeat(4, minmax(0, 1fr))" : this.state.cols === 2 ? "repeat(2, minmax(0, 1fr))" : "minmax(0, 1fr)",
+      otherServices: services.filter(s => !service || s.id !== service.id),
+      topicOptions: SERVICES.map(s => s.title).concat("Other"),
+      formatOptions: ["Online","Face-to-face in Buckinghamshire","Not sure yet"],
+      /* Desktop: heading and the sage/crisis panels stack down the left, form on the right.
+         Stacked: heading, then the form, then the panels. */
+      contactCols: this.state.stackContact ? "minmax(0, 1fr)" : "minmax(0, 1fr) minmax(0, 1.35fr)",
+      contactRows: this.state.stackContact ? "auto auto auto" : "auto 1fr",
+      contactHeadArea: "1 / 1 / 2 / 2",
+      contactFormArea: this.state.stackContact ? "2 / 1 / 3 / 2" : "1 / 2 / 3 / 3",
+      contactAsideArea: this.state.stackContact ? "3 / 1 / 4 / 2" : "2 / 1 / 3 / 2",
+      legal: legalKey ? LEGAL[legalKey] : null,
+      isHome: page === "home",
+      isAbout: page === "about",
+      isService: !!service,
+      isContact: page === "contact",
+      isResearch: page === "research",
+      isFaqs: page === "faqs",
+      isBlog: page === "blog",
+      isLegal: !!legalKey,
+      wideLogo: page === "home" && !this.state.mobile && (this.props.homeHeaderScroll ?? true),
+      compact: this.state.narrow,
+      carouselInterval: (this.props.testimonialAutoplay ?? true) ? 7000 : 0,
+      sent: this.state.sent,
+      notSent: !this.state.sent,
+      navigate: item => this.go((item && item.id) || "home"),
+      goContact: this.link("contact"),
+      topic: this.state.topic || SERVICES[0].title,
+      setTopic: e => this.setState({topic: e.target.value}),
+      serviceContactHref: service ? "/contact/?topic=" + service.id : "/contact/",
+      goContactService: e => { if(e && e.preventDefault) e.preventDefault(); this.go("contact", service && service.title); },
+      goContactResearch: e => { if(e && e.preventDefault) e.preventDefault(); this.go("contact", "Research Supervision"); },
+      goAbout: this.link("about"),
+      goFaqs: this.link("faqs"),
+      goResearch: this.link("research"),
+      resetForm: () => this.setState({sent:false, errors:{}}),
+      nameError: this.state.errors.name, nameInvalid: !!this.state.errors.name,
+      consentLabel: React.createElement(React.Fragment, null, "I have read the privacy policy.", React.createElement("span", {style:{color:"var(--color-sand-600)"}}, " *")),
+      consentError: this.state.errors.consent, consentInvalid: !!this.state.errors.consent,
+      clearConsent: () => this.state.errors.consent && this.setState(s => ({errors:{...s.errors, consent:undefined}})),
+      emailError: this.state.errors.email, emailInvalid: !!this.state.errors.email,
+      clearName: () => this.state.errors.name && this.setState(s => ({errors:{...s.errors, name:undefined}})),
+      clearEmail: () => this.state.errors.email && this.setState(s => ({errors:{...s.errors, email:undefined}})),
+      submit: e => {
+        e.preventDefault();
+        const f = e.currentTarget, name = f.elements.name.value.trim(), email = f.elements.email.value.trim(), errors = {};
+        if (!name) errors.name = "Please enter your name.";
+        if (!email) errors.email = "Please enter your email address.";
+        else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) errors.email = "Please enter a valid email address, like you@example.com.";
+        if (!f.elements.consent.checked) errors.consent = "Please confirm you have read the privacy policy.";
+        const first = ["name","email","consent"].find(k => errors[k]);
+        if (first) { this.setState({errors}); f.elements[first].focus(); return; }
+        this.setState({sent:true, errors:{}}); window.scrollTo({top:0, behavior:"smooth"});
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>
