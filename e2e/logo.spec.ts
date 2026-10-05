@@ -10,6 +10,16 @@ test("the header logo is 20px tall on a phone and 24px from tablet width", async
   expect((await logo.boundingBox())?.height).toBe(isMobile ? 20 : 24);
 });
 
+test("the footer logo is the same size as the header logo", async ({ page }) => {
+  await page.goto("/");
+  const logo = (landmark: "banner" | "contentinfo") =>
+    page.getByRole(landmark).getByRole("link", { name: "Horizon Psychology, home" }).locator("svg").boundingBox();
+
+  const [header, footer] = await Promise.all([logo("banner"), logo("contentinfo")]);
+  expect(footer?.height).toBe(header?.height);
+  expect(footer?.width).toBe(header?.width);
+});
+
 test.describe("at 320px", () => {
   test.skip(({ isMobile }) => !isMobile, "Phone size only");
 
