@@ -1,9 +1,9 @@
 ---
-// An eyebrow and a heading, at the top of a page or section.
+// A heading, with an optional eyebrow, at the top of a page or section.
 import Eyebrow from "./Eyebrow.astro";
 
 interface Props {
-  eyebrow: string;
+  eyebrow?: string;
   title: string;
   /** h1 for a page's intro, h2 for a section. */
   level?: "h1" | "h2";
@@ -15,7 +15,7 @@ const { eyebrow, title, level: Heading = "h2", id } = Astro.props;
 ---
 
 <hgroup class="section-heading">
-  <p><Eyebrow>{eyebrow}</Eyebrow></p>
+  {eyebrow && <p><Eyebrow>{eyebrow}</Eyebrow></p>}
   <Heading id={id}>{title}</Heading>
 </hgroup>
 

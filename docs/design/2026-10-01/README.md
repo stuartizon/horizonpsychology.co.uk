@@ -33,13 +33,14 @@ Where the site departs from the design on purpose. A pull request that departs f
 - **Breakpoints.** The design changes layout at five widths. The site uses two, tablet at 48rem and desktop at 64rem ([ADR 0014](../../adr/0014-two-site-wide-breakpoints-in-rem.md)).
 - **Fonts** are self-hosted with Fontsource, not loaded from Google Fonts ([ADR 0004](../../adr/0004-self-host-fonts-with-fontsource.md)).
 - **Icons** are imported from the `@phosphor-icons/core` package ([ADR 0016](../../adr/0016-phosphor-icons-from-the-npm-package.md)).
-- **Lead text.** The home page intro and each service's summary are normal body text, not the design's larger, softer lead style (#5, #6).
+- **Lead text.** The home page intro, each service's summary and the FAQs page intro are normal body text, not the design's larger, softer lead style (#5, #6, #8).
 - **Home page.** Testimonials move to the About page (#5, #7).
 - **Service card.** Fixed 24px padding rather than `clamp(24px, 2.4vw, 32px)`, so titles fit on one line on wide screens; and its "Find out more →" is its own small semibold link, not the link button (#67).
 - **Intro call panel** (the design's "Start with a free 15-minute call" panel). The heading has its own row, and the button sits beside the paragraph from tablet up, or centred below it on a phone, rather than centred across the heading and paragraph and wrapping at about 700px (#68).
 - **FAQ answers** line up with the question text, running up to the toggle's column, rather than stopping at the prose measure (#73).
 - **Service page intro.** The fees panel sits beside the description from tablet width up, rather than dropping below it until the description and panel both fit at their preferred widths. On narrow phones the title shrinks so it stays on one line beside its icon, and the icon is sized to the title (1.05em) rather than a fixed 34px. The questions also sit beside their heading from tablet width up, with the heading column narrowing first (#75).
 - **Service page photos.** Each photo is shown at its own proportions, uncropped, rather than at 16:7, so nothing important is cut off (#75).
+- **FAQs page.** Every FAQ is on the page, in five groups of four: clinical and research supervision are separate groups, rather than the design's single group of four supervision questions. The groups have no eyebrows, and from tablet width up they run on as one list with a single divider between them, rather than being spaced apart. The heading and intro run the full width, not the prose measure. Wherever questions sit beside their heading, here and on the service pages, the first line of the heading column, the eyebrow if there is one, is level with the first question rather than with the top of the list (#8).
 - **Section heading** takes a `level` prop where the design's takes `as` (#65).
 - **Not built:** the blog page and its link in the footer, which are out of scope for launch (#14).
 

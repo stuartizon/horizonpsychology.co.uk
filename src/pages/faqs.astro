@@ -1,0 +1,74 @@
+---
+import Container from "@/components/Container.astro";
+import FaqSection from "@/components/FaqSection.astro";
+import Faqs from "@/components/Faqs.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
+import { faqGroups, faqs } from "@/data/faqs";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+const headingId = (title: string) => `${title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}-heading`;
+---
+
+<BaseLayout
+  title="FAQs"
+  description="Answers to the questions people usually ask about therapy and supervision with Horizon Psychology."
+>
+  <Container>
+    <div class="faqs-page">
+      <div class="faqs-page__intro">
+        <SectionHeading eyebrow="Questions" title="Frequently asked questions" level="h1" />
+        <p>
+          Everything people usually want to know before getting in touch. If your question is not here, ask it on the
+          free 15-minute call.
+        </p>
+      </div>
+
+      <div class="faqs-page__groups">
+        {
+          faqGroups.map((group) => (
+            <FaqSection title={group.title} id={headingId(group.title)}>
+              <Faqs faqs={group.faqs.map((id) => faqs[id])} />
+            </FaqSection>
+          ))
+        }
+      </div>
+    </div>
+  </Container>
+</BaseLayout>
+
+<style>
+  .faqs-page {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-12);
+    padding-block: clamp(36px, 5vw, 72px) var(--section-y);
+  }
+
+  .faqs-page__intro {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .faqs-page__intro p {
+    margin: 0;
+  }
+
+  .faqs-page__groups {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-10);
+  }
+
+  /* From a tablet up, the groups run on from each other as one list, with
+     one divider where they meet. */
+  @media (min-width: 48rem) {
+    .faqs-page__groups {
+      gap: 0;
+    }
+
+    .faqs-page__groups > :global(* + *) :global(.faq:first-child) {
+      border-top: 0;
+    }
+  }
+</style>

@@ -2,6 +2,7 @@
 import { Image } from "astro:assets";
 import Button from "@/components/Button.astro";
 import Container from "@/components/Container.astro";
+import FaqSection from "@/components/FaqSection.astro";
 import Faqs from "@/components/Faqs.astro";
 import FeesPanel from "@/components/FeesPanel.astro";
 import SectionHeading from "@/components/SectionHeading.astro";
@@ -56,21 +57,16 @@ const photo = photos[`../photos/${service.id}.jpg`].default;
     </div>
   </Container>
 
-  <section class="questions" aria-labelledby="questions-heading">
+  <div class="questions">
     <Container>
-      <div class="questions__layout">
-        <div class="questions__heading">
-          <SectionHeading eyebrow="Questions" title="Before you get in touch" id="questions-heading" />
+      <FaqSection eyebrow="Questions" title="Before you get in touch" id="questions-heading">
+        <Faqs faqs={service.faqs.map((id) => faqs[id])} />
+        <div>
+          <Button href="/faqs/" label="All frequently asked questions" type="link" />
         </div>
-        <div class="questions__list">
-          <Faqs faqs={service.faqs.map((id) => faqs[id])} />
-          <div>
-            <Button href="/faqs/" label="All frequently asked questions" type="link" />
-          </div>
-        </div>
-      </div>
+      </FaqSection>
     </Container>
-  </section>
+  </div>
 
   <section class="others" aria-labelledby="others-heading">
     <Container>
@@ -147,20 +143,6 @@ const photo = photos[`../photos/${service.id}.jpg`].default;
     padding-block: var(--section-y);
   }
 
-  /* Stacked, the questions follow closely after their heading. */
-  .questions__layout {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-4);
-  }
-
-  .questions__list {
-    display: flex;
-    min-width: 0;
-    flex-direction: column;
-    gap: var(--space-6);
-  }
-
   .others {
     background: var(--color-cream);
     padding-block: var(--section-y);
@@ -192,26 +174,6 @@ const photo = photos[`../photos/${service.id}.jpg`].default;
 
     .service__fees {
       flex: 1 0 280px;
-    }
-  }
-
-  /* From a tablet up, the questions sit beside their heading. The heading
-     column gives up width first, down to 200px, so the questions keep
-     their width for as long as they can. */
-  @media (min-width: 48rem) {
-    .questions__layout {
-      flex-direction: row;
-      align-items: flex-start;
-      gap: clamp(28px, 5vw, 72px);
-    }
-
-    .questions__heading {
-      flex: 1 1 0;
-      min-width: 200px;
-    }
-
-    .questions__list {
-      flex: 0 1 600px;
     }
   }
 </style>

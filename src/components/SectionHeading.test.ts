@@ -26,3 +26,10 @@ test("gives the heading an id when asked, so a section can be labelled by it", a
 
   expect(group.querySelector("h2")?.id).toBe("questions");
 });
+
+test("leaves out the eyebrow when there isn't one", async () => {
+  const group = (await render(SectionHeading, { title: "Before you begin" })).firstElementChild!;
+
+  expect([...group.children].map((child) => child.tagName)).toEqual(["H2"]);
+  expect(group.querySelector(".eyebrow")).toBeNull();
+});
