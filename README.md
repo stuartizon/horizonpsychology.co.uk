@@ -37,6 +37,7 @@ The dev server runs on <http://127.0.0.1:4321>.
 | Content | One typed source each for services, FAQs, testimonials, publications and legal pages ([ADR 0006](docs/adr/0006-structured-content-in-collections.md), in progress in #3) |
 | Fonts | Lora and Source Sans 3, served from the site with [Fontsource](https://fontsource.org) ([ADR 0004](docs/adr/0004-self-host-fonts-with-fontsource.md)) |
 | Icons | [Phosphor](https://phosphoricons.com), imported from `@phosphor-icons/core` ([ADR 0016](docs/adr/0016-phosphor-icons-from-the-npm-package.md)), and the service icons in `src/icons/` |
+| SEO | `sitemap-index.xml` built by [`@astrojs/sitemap`](https://docs.astro.build/en/guides/integrations-guide/sitemap/) and linked from `robots.txt` |
 | Testing | [Vitest](https://vitest.dev) for components, [Playwright](https://playwright.dev) with [axe](https://github.com/dequelabs/axe-core-npm) in the browser ([ADR 0013](docs/adr/0013-test-in-chromium-and-webkit-at-desktop-and-phone-sizes.md)) |
 | CI | GitHub Actions on every pull request and push to `main` |
 | Hosting | [Cloudflare Pages](https://pages.cloudflare.com), deployed with Wrangler from GitHub Actions ([ADR 0015](docs/adr/0015-host-on-cloudflare-pages-deployed-from-github-actions.md)) |
