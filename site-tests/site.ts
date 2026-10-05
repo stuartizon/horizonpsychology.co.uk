@@ -28,7 +28,19 @@ export function labelled(root: ParentNode, name: string) {
   return element;
 }
 
-/** The trimmed text of each element matching `selector` in `root`. */
+/** An element's text, with runs of whitespace collapsed as a browser shows them. */
+export function text(element: Element | null | undefined) {
+  return element?.textContent?.replace(/\s+/g, " ").trim();
+}
+
+/** The text of each element matching `selector` in `root`. */
 export function texts(root: ParentNode, selector: string) {
-  return [...root.querySelectorAll(selector)].map((element) => element.textContent?.trim());
+  return [...root.querySelectorAll(selector)].map(text);
+}
+
+/** The link in `root` whose text is `name`. */
+export function link(root: ParentNode, name: string) {
+  const element = [...root.querySelectorAll("a")].find((link) => text(link) === name);
+  if (!element) throw new Error(`No link "${name}"`);
+  return element;
 }
