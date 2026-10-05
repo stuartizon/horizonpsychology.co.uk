@@ -30,6 +30,6 @@ test("each logo on a page uses its own gradient", async () => {
 test("the favicon is the sun mark", () => {
   const favicon = readFileSync("public/favicon.svg", "utf8");
 
-  expect(favicon).toContain('viewBox="0 0 48 48"');
+  expect(favicon).toContain('d="M11.93 31.1A14 14 0 1 1 36.07 31.1Z"');
   expect(favicon).toContain("#f5b25a");
 });
