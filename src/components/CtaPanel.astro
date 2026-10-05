@@ -4,22 +4,20 @@ import Button from "./Button.astro";
 ---
 
 <section class="cta-panel">
-  <div class="cta-panel__text">
-    <h2>Start with a free 15-minute call</h2>
+  <h2>Start with a free 15-minute call</h2>
+  <div class="cta-panel__body">
     <p>A short, no-obligation conversation to ask questions and see whether working together feels right.</p>
-  </div>
-  <div class="cta-panel__action">
-    <Button href="/contact/" label="Book a free call" />
+    <div class="cta-panel__action">
+      <Button href="/contact/" label="Book a free call" />
+    </div>
   </div>
 </section>
 
 <style>
-  /* Wraps the button under the text when there isn't room for both side by side. */
   .cta-panel {
     display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: clamp(28px, 5vw, 64px);
+    flex-direction: column;
+    gap: 14px;
     border: 1px solid var(--color-line);
     border-radius: var(--radius-panel);
     background: var(--color-panel);
@@ -27,12 +25,11 @@ import Button from "./Button.astro";
     box-shadow: var(--shadow-rest);
   }
 
-  .cta-panel__text {
+  /* On a phone the button sits centred under the paragraph. */
+  .cta-panel__body {
     display: flex;
-    min-width: 0;
-    flex: 1 1 380px;
     flex-direction: column;
-    gap: 14px;
+    gap: var(--space-6);
   }
 
   p {
@@ -41,6 +38,24 @@ import Button from "./Button.astro";
   }
 
   .cta-panel__action {
-    flex: 0 0 auto;
+    display: flex;
+    justify-content: center;
+  }
+
+  /* From tablet up, it sits beside the paragraph, centred on it. */
+  @media (min-width: 48rem) {
+    .cta-panel__body {
+      flex-direction: row;
+      align-items: center;
+      gap: clamp(28px, 5vw, 64px);
+    }
+
+    p {
+      flex: 1;
+    }
+
+    .cta-panel__action {
+      flex: none;
+    }
   }
 </style>
