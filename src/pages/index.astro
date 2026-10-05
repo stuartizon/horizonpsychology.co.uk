@@ -3,6 +3,7 @@ import ServiceCard from "../components/ServiceCard.astro";
 import Button from "../components/Button.astro";
 import CredentialBadge from "../components/CredentialBadge.astro";
 import Carousel from "../components/Carousel.astro";
+import CtaPanel from "@/components/CtaPanel.astro";
 import TestimonialCard from "../components/TestimonialCard.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Container from "@/components/Container.astro";
@@ -96,6 +97,10 @@ import { testimonials } from "@/data/testimonials";
         }
       </Carousel>
     </section>
+
+    <div class="cta-section">
+      <CtaPanel />
+    </div>
   </Container>
 </BaseLayout>
 
@@ -263,6 +268,10 @@ import { testimonials } from "@/data/testimonials";
 
   .testimonials-section {
     padding-block: 0 clamp(56px, 8vw, 96px);
+  }
+
+  .cta-section {
+    padding-block-end: var(--section-y);
   }
 
   .testimonials-section h2 {
