@@ -82,6 +82,34 @@ for (const width of [768, 1280]) {
   });
 }
 
+/** Where the first line of text in each element sits, measured from a marker at its start. */
+async function baseline(element: import("@playwright/test").Locator) {
+  return element.evaluate((node) => {
+    const marker = document.createElement("span");
+    marker.style.display = "inline-block";
+    node.prepend(marker);
+    const { top } = marker.getBoundingClientRect();
+    marker.remove();
+    return top;
+  });
+}
+
+for (const width of [768, 1280]) {
+  test(`at ${width}px each group's heading lines up with its first question`, async ({ page, isMobile }) => {
+    test.skip(isMobile, "On a phone the questions follow their heading");
+    await page.setViewportSize({ width, height: 1024 });
+    await page.evaluate(() => document.fonts.ready);
+
+    for (const group of faqGroups) {
+      const section = page.getByRole("region", { name: group.title });
+      const heading = await baseline(section.getByRole("heading", { level: 2 }));
+      const question = await baseline(section.locator(".faq__question").first());
+
+      expect(heading, group.title).toBeCloseTo(question, 0);
+    }
+  });
+}
+
 test("on a phone each group's questions follow closely after its heading", async ({ page, isMobile }) => {
   test.skip(!isMobile, "Phones only");
 
