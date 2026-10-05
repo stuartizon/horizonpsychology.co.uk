@@ -2,6 +2,8 @@
 
 A copy of the site's design from Claude Design (claude.ai/design), kept here so anyone working on an issue can read the styles and copy it intended ([ADR 0017](../../adr/0017-keep-a-snapshot-of-the-design-in-the-repo.md)). It's a reference, not a spec: where it disagrees with the code, see [Which source wins](#which-source-wins).
 
+It's temporary. Once the redesign (#14) is built, this folder is deleted in the clean-up (#13), and the code is the record of the design.
+
 ## What's here
 
 | File | What it is |

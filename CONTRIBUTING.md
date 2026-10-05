@@ -10,7 +10,7 @@ Work is test-first: a failing test is written and committed before the code that
 
 ## Design
 
-The design is in [docs/design/](docs/design/2026-10-01/README.md), a dated snapshot from Claude Design ([ADR 0017](docs/adr/0017-keep-a-snapshot-of-the-design-in-the-repo.md)). It's a reference for the styles and copy the design intended, not a spec. Where sources disagree, the later one wins: the code, ADRs and issues, then the website design, then the design system. If a change departs from the design on purpose, add it to the snapshot's list of known differences in the same pull request.
+The design is in [docs/design/](docs/design/2026-10-01/README.md), a dated snapshot from Claude Design ([ADR 0017](docs/adr/0017-keep-a-snapshot-of-the-design-in-the-repo.md)). It's a reference for the styles and copy the design intended, not a spec, and it's temporary: it's deleted once the redesign (#14) is built. Where sources disagree, the later one wins: the code, ADRs and issues, then the website design, then the design system. If a change departs from the design on purpose, add it to the snapshot's list of known differences in the same pull request.
 
 ## Accessibility
 

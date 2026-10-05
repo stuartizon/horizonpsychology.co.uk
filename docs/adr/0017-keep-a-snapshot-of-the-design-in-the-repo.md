@@ -16,6 +16,8 @@ The snapshot is a reference, not a spec. When sources disagree, the later one wi
 
 When the design changes, export it again into a new dated folder and delete the old one.
 
+The snapshot is temporary. It's there to build the redesign (#14), and is deleted once the redesign is finished, in the clean-up (#13). From then on the code, ADRs and issues are the only record of the design.
+
 ## Alternatives considered
 
 - **Commit the whole export.** About 17 MB, mostly the compiled bundle and prototype images, which repeat the readable source or are replaced by the site's own images. It also includes the brief and page copy, which shouldn't become public with the repo.
@@ -23,6 +25,7 @@ When the design changes, export it again into a new dated folder and delete the 
 
 ## Consequences
 
-- Anyone working on an issue can read the design from the repo.
+- Anyone working on an issue can read the design from the repo while the redesign is being built.
 - The snapshot goes stale if the design changes and nobody exports it again. Its date makes that visible.
 - The known differences list has to be kept up to date by the pull requests that depart from the design.
+- Once the snapshot is deleted, changes to the design are made in the code and recorded in issues and ADRs, not in a design file.
