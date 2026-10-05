@@ -1,4 +1,97 @@
 ---
+// A service's fee, session length and practicalities, with a link to enquire.
+import type { Service } from "@/data/services";
+import checkIcon from "@phosphor-icons/core/regular/check.svg?raw";
+import Button from "./Button.astro";
+
+interface Props {
+  service: Service;
+}
+
+const { service } = Astro.props;
 ---
 
-<div></div>
+<section class="fees-panel" aria-labelledby={`${service.id}-fees`}>
+  <h2 id={`${service.id}-fees`}>Fees and practicalities</h2>
+  <p class="fees-panel__price">
+    <span class="fees-panel__amount">£{service.price}</span>
+    per {service.minutes}-minute session
+  </p>
+  <ul>
+    {
+      service.practical.map((point) => (
+        <li>
+          <span class="fees-panel__check" aria-hidden="true" set:html={checkIcon} />
+          {point}
+        </li>
+      ))
+    }
+  </ul>
+  <Button href={`/contact/?topic=${service.id}`} label="Get in touch" />
+</section>
+
+<style>
+  .fees-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: var(--space-5);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-panel);
+    background: var(--color-panel);
+    padding: var(--panel-pad);
+    box-shadow: var(--shadow-rest);
+  }
+
+  h2 {
+    font-size: var(--text-h3);
+    line-height: var(--leading-tight);
+  }
+
+  .fees-panel__price {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--space-2);
+    margin: 0;
+    color: var(--color-ink-soft);
+    font-size: var(--text-small);
+  }
+
+  .fees-panel__amount {
+    color: var(--color-amber-800);
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    line-height: var(--leading-display);
+  }
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    width: 100%;
+    margin: 0;
+    border-top: 1px solid var(--color-line);
+    padding: var(--space-5) 0 0;
+    list-style: none;
+  }
+
+  li {
+    display: flex;
+    gap: var(--space-3);
+    font-size: var(--text-small);
+    line-height: var(--leading-tight);
+  }
+
+  .fees-panel__check {
+    flex: none;
+    color: var(--color-sage-600);
+  }
+
+  .fees-panel__check :global(svg) {
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
+    vertical-align: -3px;
+  }
+</style>
