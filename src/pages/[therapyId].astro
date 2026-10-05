@@ -175,7 +175,10 @@ const photo = photos[`../photos/${service.id}.jpg`].default;
 
   /* From a tablet up, the fees panel sits beside the description. The
      description gives up width first, down to what's left beside a 280px
-     panel; the panel takes any width the description doesn't need. */
+     panel; the panel takes any width the description doesn't need. Its
+     width is in rem, not the ch of --measure-prose, so it doesn't jump when
+     the web font replaces the wider fallback font. 34rem is about 64ch of
+     body text. */
   @media (min-width: 48rem) {
     .service {
       flex-direction: row;
@@ -183,8 +186,8 @@ const photo = photos[`../photos/${service.id}.jpg`].default;
     }
 
     .service__main {
-      max-width: var(--measure-prose);
-      flex: 0 1 var(--measure-prose);
+      max-width: 34rem;
+      flex: 0 1 34rem;
     }
 
     .service__fees {
