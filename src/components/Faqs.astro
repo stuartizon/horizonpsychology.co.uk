@@ -55,6 +55,9 @@ const answerId = (question: string) =>
 
 <style>
   .faqs {
+    --toggle-size: 16px;
+    --toggle-gap: clamp(16px, 3vw, 28px);
+
     display: flex;
     flex-direction: column;
   }
@@ -76,7 +79,7 @@ const answerId = (question: string) =>
     display: flex;
     width: 100%;
     align-items: baseline;
-    gap: clamp(16px, 3vw, 28px);
+    gap: var(--toggle-gap);
     border: 0;
     background: transparent;
     padding: 22px 0;
@@ -106,8 +109,8 @@ const answerId = (question: string) =>
   /* A plus that turns into a cross when the answer is open. */
   .faq__toggle {
     position: relative;
-    width: 16px;
-    height: 16px;
+    width: var(--toggle-size);
+    height: var(--toggle-size);
     transition: transform var(--duration-base) var(--ease-calm);
   }
 
@@ -154,9 +157,11 @@ const answerId = (question: string) =>
     transition: grid-template-rows var(--duration-base) var(--ease-calm);
   }
 
+  /* Lines up with the question, leaving the toggle's column clear. */
   .faq__answer-inner {
     min-height: 0;
     overflow: hidden;
+    padding-right: calc(var(--toggle-size) + var(--toggle-gap));
   }
 
   .faq__answer-inner p {
