@@ -182,19 +182,22 @@ const icon = icons[`../icons/${service.id}.svg`];
     }
   }
 
-  /* On a desktop, the questions sit beside their heading. */
-  @media (min-width: 64rem) {
+  /* From a tablet up, the questions sit beside their heading. The heading
+     column gives up width first, down to 200px, so the questions keep
+     their width for as long as they can. */
+  @media (min-width: 48rem) {
     .questions__layout {
       flex-direction: row;
       align-items: flex-start;
     }
 
     .questions__heading {
-      flex: 1 1 260px;
+      flex: 1 1 0;
+      min-width: 200px;
     }
 
     .questions__list {
-      flex: 2 1 420px;
+      flex: 0 1 600px;
     }
   }
 </style>
