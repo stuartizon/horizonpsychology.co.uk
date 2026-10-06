@@ -1,111 +1,154 @@
 ---
+import { Image } from "astro:assets";
+import Button from "@/components/Button.astro";
+import Carousel from "@/components/Carousel.astro";
 import Container from "@/components/Container.astro";
-import Button from "../components/Button.astro";
-import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
+import TestimonialCard from "@/components/TestimonialCard.astro";
+import { testimonials } from "@/data/testimonials";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import portrait from "@/photos/about.jpg";
 ---
 
-<BaseLayout title="About" description="About Emma">
+<BaseLayout
+  title="About"
+  description="Dr Emma Izon is a Clinical Psychologist offering therapy and supervision, online or face-to-face in Buckinghamshire."
+>
   <Container>
-    <section class="about" aria-labelledby="about-heading">
-      <h2 id="about-heading">MEET EMMA</h2>
-      <p class="about__subheading">
-        Clinical Psychologist (PhD, DclinPsych, MSc, BSc international)
-      </p>
-      <img
-        class="about__image"
-        src="/images/emma-about-me.png"
-        alt="Dr Emma Izon"
-      />
-      <p>
-        Dr Emma Izon is a Clinical Psychologist, Cognitive Behavioural
-        Psychotherapist, and researcher who offers psychological therapy, as
-        well as clinical and research supervision. Trained at the University
-        of Oxford, she specialises in evidence-based, compassionate care,
-        with particular expertise in psychosis, bipolar disorder,
-        trauma-informed practice, and neurodiversity-affirming therapy. She
-        works collaboratively with people from all walks of life, helping
-        them understand their experiences, make sense of difficult emotions,
-        and develop meaningful, lasting change.
-      </p>
-      <div class="about__action">
-        <Button href="/schedule/" type="primary" label="Schedule" />
+    <div class="about">
+      <div class="about__intro">
+        <SectionHeading eyebrow="About Emma" title="Dr Emma Izon" level="h1" />
+        <p>Clinical Psychologist · PhD, DClinPsych, MSc, BSc (International)</p>
+        <p>
+          Dr Emma Izon is a Clinical Psychologist, Cognitive Behavioural Psychotherapist, and researcher who offers
+          psychological therapy, as well as clinical and research supervision. Trained at the University of Oxford, she
+          specialises in evidence-based, compassionate care, with particular expertise in psychosis, bipolar disorder,
+          trauma-informed practice, and neurodiversity-affirming therapy.
+        </p>
+        <p>
+          She works collaboratively with people from all walks of life, helping them understand their experiences, make
+          sense of difficult emotions, and develop meaningful, lasting change.
+        </p>
       </div>
-    </section>
-    <blockquote>
-      &ldquo;A safe and supportive space to reflect, grow, and make sense of
-      your experiences, at a pace that feels right for you&rdquo;
-    </blockquote>
-
-    <section class="therapy" aria-labelledby="therapy-heading">
-      <h2 id="therapy-heading">THERAPEUTIC APPROACH</h2>
-      <img
-        class="therapy__image"
-        src="/images/hands-connecting.png"
-        alt="hands connecting"
+      <Image
+        class="about__portrait"
+        src={portrait}
+        alt="Dr Emma Izon"
+        widths={[480, 800, 1200]}
+        sizes="(min-width: 64rem) 512px, (min-width: 48rem) 50vw, 100vw"
       />
-      <p>
-        Emma believes that therapy is most effective when it is built on a
-        safe, trusting, and collaborative relationship. She offers a calm,
-        confidential space where clients can explore their experiences at a
-        pace that feels right for them, without judgement or pressure.
-        Whether someone is experiencing stress, anxiety, low mood, the
-        impact of trauma, relationship difficulties, or navigating
-        significant life transitions, we work collaboratively to help them
-        make sense of their experiences and develop practical tools for
-        lasting wellbeing.
-      </p>
-      <p>
-        Our work is grounded in evidence-based psychological practice and
-        integrates Cognitive Behavioural Therapy (CBT), Acceptance and
-        Commitment Therapy (ACT), and Compassion-Focused Therapy (CFT),
-        tailoring therapy to each individual's needs, strengths, and goals.
-        Committed to trauma-informed, neurodiversity-affirming, and
-        culturally sensitive practice, we combine compassionate honesty with
-        evidence-based care to help clients build resilience, deepen
-        self-understanding, and create meaningful, sustainable change.
-      </p>
-    </section>
+    </div>
   </Container>
+
+  <section class="testimonials" aria-labelledby="testimonials-heading">
+    <Container>
+      <SectionHeading eyebrow="Client experience" title="What people have said" id="testimonials-heading" />
+      <div class="testimonials__carousel">
+        <Carousel label="Client testimonials">
+          {testimonials.map(({ quote, name }) => <TestimonialCard quote={quote} name={name} />)}
+        </Carousel>
+      </div>
+    </Container>
+  </section>
+
+  <section class="approach" aria-labelledby="approach-heading">
+    <Container>
+      <div class="approach__columns">
+        <SectionHeading eyebrow="Therapeutic approach" title="How Emma works" id="approach-heading" />
+        <div class="approach__body">
+          <p>
+            Emma believes that therapy is most effective when it is built on a safe, trusting, and collaborative
+            relationship. She offers a calm, confidential space where clients can explore their experiences at a pace
+            that feels right for them, without judgement or pressure. Whether someone is experiencing stress, anxiety,
+            low mood, the impact of trauma, relationship difficulties, or navigating significant life transitions, she
+            works with them to make sense of their experiences and develop practical tools for lasting wellbeing.
+          </p>
+          <p>
+            Her work is grounded in evidence-based psychological practice and integrates Cognitive Behavioural Therapy
+            (CBT), Acceptance and Commitment Therapy (ACT), and Compassion-Focused Therapy (CFT), tailoring therapy to
+            each individual's needs, strengths, and goals. Committed to trauma-informed, neurodiversity-affirming, and
+            culturally sensitive practice, she combines compassionate honesty with evidence-based care to help clients
+            build resilience, deepen self-understanding, and create meaningful, sustainable change.
+          </p>
+          <div class="approach__actions">
+            <Button href="/contact/" label="Get in touch" />
+            <Button href="/projects/" label="See publications" type="secondary" />
+          </div>
+        </div>
+      </div>
+    </Container>
+  </section>
 </BaseLayout>
 
 <style>
-  .about, .therapy {
-    display: inline-block;
+  p {
+    margin: 0;
   }
 
-  .about__image, .therapy__image {
-    width: 320px;
-    height: 320px;
-    object-fit: cover;
-    border-radius: 18px;
+  .about {
+    display: grid;
+    gap: clamp(32px, 5vw, 64px);
+    align-items: start;
+    padding-block: clamp(36px, 5vw, 72px) var(--section-y);
   }
 
-  .about__subheading {
-    margin: 4px 0 20px;
-    color: var(--color-grey-100);
-    font-family: var(--font-display);
-    font-size: 0.95rem;
-    font-style: italic;
+  .about__intro {
+    display: flex;
+    max-width: var(--measure-prose);
+    flex-direction: column;
+    gap: var(--space-6);
   }
 
-  .about__image {
-    float: right;
-    margin: 0 0 0.5em 1em;
+  .about__portrait {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-image);
+    box-shadow: var(--shadow-rest);
   }
 
-  .therapy__image {
-    float: left;
-    margin: 1em 1em 0.5em 0;
+  .testimonials {
+    background: var(--color-sage-50);
+    padding-block: var(--section-y);
   }
 
-  @media (max-width: 640px) {
-    .about__image, .therapy__image {
-      width: 150px;
-      height: 150px;
+  .testimonials__carousel {
+    max-width: var(--measure-feature);
+    margin: 36px auto 0;
+  }
+
+  .approach {
+    padding-block: var(--section-y);
+  }
+
+  .approach__columns {
+    display: grid;
+    gap: clamp(28px, 5vw, 72px);
+  }
+
+  .approach__body {
+    display: flex;
+    max-width: var(--measure-prose);
+    flex-direction: column;
+    gap: var(--space-5);
+  }
+
+  .approach__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-5);
+  }
+
+  /* From a tablet up, the portrait sits beside the introduction, and the
+     approach beside its heading. */
+  @media (min-width: 48rem) {
+    .about {
+      grid-template-columns: 1fr 1fr;
     }
-  }
 
-  .about__action {
-    text-align: center;
+    .approach__columns {
+      grid-template-columns: 1fr 2fr;
+      align-items: start;
+    }
   }
 </style>
