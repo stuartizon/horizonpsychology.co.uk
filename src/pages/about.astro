@@ -146,6 +146,13 @@ import portrait from "@/photos/about.jpg";
       grid-template-columns: 1fr 1fr;
     }
 
+    /* Level with the top of the eyebrow's capitals, not its line: they start
+       0.385em down its 0.78rem text, below the space the font leaves above
+       them. */
+    .about__portrait {
+      margin-top: calc(0.78rem * 0.385);
+    }
+
     .about__intro,
     .approach__body {
       max-width: var(--measure-prose);
