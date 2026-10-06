@@ -76,7 +76,7 @@
   --measure-prose: 64ch;
   --measure-feature: 820px;
   --gutter: clamp(20px, 5vw, 48px);
-  --section-y: clamp(72px, 10vw, 128px);
+  --section-y: clamp(56px, 7vw, 96px);
   --card-pad: clamp(24px, 2.4vw, 32px);
   --panel-pad: clamp(24px, 2.8vw, 40px);
 
