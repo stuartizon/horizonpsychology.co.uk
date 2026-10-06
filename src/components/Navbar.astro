@@ -35,7 +35,11 @@ const { wide = false } = Astro.props;
         aria-expanded="false"
         data-mobile-menu-open
       >
-        <span class="header__menu-icon" aria-hidden="true" set:html={burgerIcon} />
+        <span
+          class="header__menu-icon"
+          aria-hidden="true"
+          set:html={burgerIcon}
+        />
       </button>
     </div>
   </Container>
@@ -52,8 +56,12 @@ const { wide = false } = Astro.props;
     const update = () => {
       frame = 0;
       // 0 when the wide header's styles don't apply (or haven't yet), when --t isn't used.
-      const distance = parseFloat(getComputedStyle(root).getPropertyValue("--distance")) || 0;
-      root.style.setProperty("--t", String(distance > 0 ? Math.min(1, window.scrollY / distance) : 0));
+      const distance =
+        parseFloat(getComputedStyle(root).getPropertyValue("--distance")) || 0;
+      root.style.setProperty(
+        "--t",
+        String(distance > 0 ? Math.min(1, window.scrollY / distance) : 0),
+      );
     };
     const schedule = () => {
       frame ||= requestAnimationFrame(update);
@@ -174,9 +182,14 @@ const { wide = false } = Astro.props;
       --wide-scale: 1.4;
       --chrome: clamp(0, (var(--progress) - 0.15) / 0.55, 1);
       --logo-sub-opacity: clamp(0, 1 - var(--progress) / 0.45, 1);
-      --logo-scale: calc(var(--wide-scale) - (var(--wide-scale) - 1) * var(--progress));
+      --logo-scale: calc(
+        var(--wide-scale) - (var(--wide-scale) - 1) * var(--progress)
+      );
       /* Centres the scaled lockup on the wordmark's 24px box, easing to none. */
-      --logo-shift: calc((24px - 24px * 63.12 / 34 * var(--wide-scale)) / 2 * (1 - var(--progress)));
+      --logo-shift: calc(
+        (24px - 24px * 63.12 / 34 * var(--wide-scale)) / 2 *
+          (1 - var(--progress))
+      );
 
       /* The space the page below moves up out of as the header shrinks. */
       margin-bottom: calc(var(--distance) - var(--shrink));
@@ -192,8 +205,17 @@ const { wide = false } = Astro.props;
       inset: 0 0 auto;
       z-index: -1;
       height: calc(var(--tall) + 1px - var(--shrink) * var(--progress));
-      border-bottom: 1px solid color-mix(in srgb, var(--color-line) calc(var(--chrome) * 100%), transparent);
-      background: color-mix(in srgb, var(--color-background) calc(var(--chrome) * 88%), transparent);
+      border-bottom: 1px solid
+        color-mix(
+          in srgb,
+          var(--color-line) calc(var(--chrome) * 100%),
+          transparent
+        );
+      background: color-mix(
+        in srgb,
+        var(--color-background) calc(var(--chrome) * 88%),
+        transparent
+      );
       backdrop-filter: blur(calc(var(--chrome) * 8px));
       content: "";
     }
@@ -209,7 +231,9 @@ const { wide = false } = Astro.props;
 
     :global(body:has(.header--wide) > main),
     :global(body:has(.header--wide) > footer) {
-      transform: translateY(calc((var(--shrink) - var(--distance)) * (1 - var(--progress))));
+      transform: translateY(
+        calc((var(--shrink) - var(--distance)) * (1 - var(--progress)))
+      );
     }
   }
 

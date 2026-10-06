@@ -12,5 +12,7 @@ export async function pressTab(page: Page) {
 /** Moves focus to the previous element, including links. See pressTab. */
 export async function pressShiftTab(page: Page) {
   const engine = page.context().browser()?.browserType().name();
-  await page.keyboard.press(engine === "webkit" ? "Alt+Shift+Tab" : "Shift+Tab");
+  await page.keyboard.press(
+    engine === "webkit" ? "Alt+Shift+Tab" : "Shift+Tab",
+  );
 }

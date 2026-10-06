@@ -1,5 +1,12 @@
 ---
-import { about, contact, faqs, practicalLinks, research, serviceLinks } from "@/data/navigation";
+import {
+  about,
+  contact,
+  faqs,
+  practicalLinks,
+  research,
+  serviceLinks,
+} from "@/data/navigation";
 import Brand from "./Brand.astro";
 import Container from "./Container.astro";
 import Eyebrow from "./Eyebrow.astro";
@@ -18,27 +25,28 @@ const groups = [
     <div class="footer__grid">
       <div class="footer__about">
         <Brand />
-        <p>Psychological therapy, clinical and research supervision. Online, and face-to-face in Buckinghamshire.</p>
+        <p>
+          Psychological therapy, clinical and research supervision. Online, and
+          face-to-face in Buckinghamshire.
+        </p>
         <a class="footer__email" href={`mailto:${email}`}>{email}</a>
       </div>
-      {
-        groups.map((group) => (
-          <nav class="footer__group" aria-label={group.title}>
-            <Eyebrow>{group.title}</Eyebrow>
-            <ul>
-              {group.links.map((link) => (
-                <li>
-                  <a href={link.href}>{link.label}</a>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        ))
-      }
+      {groups.map((group) => <nav
+        class="footer__group"
+        aria-label={group.title}
+      >
+        <Eyebrow>{group.title}</Eyebrow>
+        <ul>
+          {group.links.map((link) => <li>
+            <a href={link.href}>{link.label}</a>
+          </li>)}
+        </ul>
+      </nav>)}
     </div>
     <p class="footer__note">
-      Dr Emma Izon is registered with the Health and Care Professions Council and accredited by the BABCP. Therapy is
-      not an emergency service: if you need support today, contact your GP or call NHS 111.
+      Dr Emma Izon is registered with the Health and Care Professions Council
+      and accredited by the BABCP. Therapy is not an emergency service: if you
+      need support today, contact your GP or call NHS 111.
     </p>
   </Container>
 </footer>

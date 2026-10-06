@@ -9,8 +9,13 @@ async function renderFooter() {
 }
 
 async function groupLinks(name: string) {
-  const nav = (await renderFooter()).querySelector(`nav[aria-label="${name}"]`)!;
-  return [...nav.querySelectorAll("a")].map((link) => [link.textContent?.trim(), link.getAttribute("href")]);
+  const nav = (await renderFooter()).querySelector(
+    `nav[aria-label="${name}"]`,
+  )!;
+  return [...nav.querySelectorAll("a")].map((link) => [
+    link.textContent?.trim(),
+    link.getAttribute("href"),
+  ]);
 }
 
 test("Work together links to each service", async () => {
@@ -44,14 +49,18 @@ test("shows what the practice offers and the email address", async () => {
     "Psychological therapy, clinical and research supervision. Online, and face-to-face in Buckinghamshire.",
   );
   const email = footer.querySelector('a[href^="mailto:"]');
-  expect(email?.getAttribute("href")).toBe("mailto:hello@horizonpsychology.co.uk");
+  expect(email?.getAttribute("href")).toBe(
+    "mailto:hello@horizonpsychology.co.uk",
+  );
   expect(email?.textContent?.trim()).toBe("hello@horizonpsychology.co.uk");
 });
 
 test("signposts that therapy isn't an emergency service, and gives registration", async () => {
   const text = (await renderFooter()).textContent!.replace(/\s+/g, " ");
 
-  expect(text).toContain("registered with the Health and Care Professions Council and accredited by the BABCP");
+  expect(text).toContain(
+    "registered with the Health and Care Professions Council and accredited by the BABCP",
+  );
   expect(text).toContain("Therapy is not an emergency service");
   expect(text).toContain("contact your GP or call NHS 111");
 });

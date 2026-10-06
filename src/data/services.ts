@@ -39,7 +39,8 @@ export const services: Service[] = [
       "No referral needed",
     ],
     faqs: ["right", "firstSession", "howMany", "online"],
-    photoAlt: "Emma smiling as she goes through some papers with someone at a low table",
+    photoAlt:
+      "Emma smiling as she goes through some papers with someone at a low table",
   },
   {
     id: "couples-therapy",
@@ -79,7 +80,12 @@ export const services: Service[] = [
       "Suitable for BABCP accreditation routes",
       "Group supervision available on request",
     ],
-    faqs: ["supervisionWho", "accreditation", "groupSupervision", "supervisionCadence"],
+    faqs: [
+      "supervisionWho",
+      "accreditation",
+      "groupSupervision",
+      "supervisionCadence",
+    ],
     photoAlt: "Emma and a colleague going through notes together",
   },
   {
@@ -100,7 +106,13 @@ export const services: Service[] = [
       "Online or face-to-face in Buckinghamshire",
       "One-off or ongoing",
     ],
-    faqs: ["researchWho", "researchStage", "researchEthics", "researchPublication"],
-    photoAlt: "Emma talking with someone in armchairs, notes on the table between them",
+    faqs: [
+      "researchWho",
+      "researchStage",
+      "researchEthics",
+      "researchPublication",
+    ],
+    photoAlt:
+      "Emma talking with someone in armchairs, notes on the table between them",
   },
 ];

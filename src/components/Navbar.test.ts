@@ -19,7 +19,9 @@ test("links the brand to the home page", async () => {
 });
 
 test("the primary navigation has About Emma, Services and Research", async () => {
-  const nav = (await renderHeader()).querySelector('nav[aria-label="Primary"]')!;
+  const nav = (await renderHeader()).querySelector(
+    'nav[aria-label="Primary"]',
+  )!;
 
   const links = [...nav.querySelectorAll(":scope > a")].map((link) => [
     link.textContent?.trim(),
@@ -35,14 +37,18 @@ test("the primary navigation has About Emma, Services and Research", async () =>
 test("the Services dropdown links to each service", async () => {
   const header = await renderHeader();
   const toggle = header.querySelector("button[aria-controls]")!;
-  const menu = header.querySelector(`#${toggle.getAttribute("aria-controls")}`)!;
+  const menu = header.querySelector(
+    `#${toggle.getAttribute("aria-controls")}`,
+  )!;
 
   expect(toggle.getAttribute("aria-expanded")).toBe("false");
   const links = [...menu.querySelectorAll("a")].map((link) => [
     link.textContent?.trim(),
     link.getAttribute("href"),
   ]);
-  expect(links).toEqual(services.map((service) => [service.name, `/${service.id}/`]));
+  expect(links).toEqual(
+    services.map((service) => [service.name, `/${service.id}/`]),
+  );
 });
 
 test("the Services toggle shows a Phosphor caret", async () => {
@@ -54,14 +60,18 @@ test("the Services toggle shows a Phosphor caret", async () => {
 test("Contact Us links to the contact page", async () => {
   const header = await renderHeader();
 
-  const contact = [...header.querySelectorAll("a")].find((link) => link.textContent?.trim() === "Contact Us");
+  const contact = [...header.querySelectorAll("a")].find(
+    (link) => link.textContent?.trim() === "Contact Us",
+  );
   expect(contact?.getAttribute("href")).toBe("/contact/");
 });
 
 test("no header or menu link goes to the missing schedule page", async () => {
   const body = await render(Navbar);
 
-  const hrefs = [...body.querySelectorAll("a")].map((link) => link.getAttribute("href"));
+  const hrefs = [...body.querySelectorAll("a")].map((link) =>
+    link.getAttribute("href"),
+  );
   expect(hrefs).not.toContain("/schedule/");
 });
 
@@ -82,7 +92,9 @@ test("the menu button opens the menu dialog", async () => {
 test("the menu links to the home page, About Emma, each service, Research and Contact Us", async () => {
   const menu = await renderMenu();
 
-  const links = [...menu.querySelectorAll("a")].map((link) => link.getAttribute("href"));
+  const links = [...menu.querySelectorAll("a")].map((link) =>
+    link.getAttribute("href"),
+  );
   expect(links).toEqual([
     "/",
     "/about/",
@@ -90,8 +102,15 @@ test("the menu links to the home page, About Emma, each service, Research and Co
     "/projects/",
     "/contact/",
   ]);
-  const navLinks = [...menu.querySelectorAll("nav a")].map((link) => link.textContent?.trim());
-  expect(navLinks).toEqual(["About Emma", ...services.map((service) => service.name), "Research", "Contact Us"]);
+  const navLinks = [...menu.querySelectorAll("nav a")].map((link) =>
+    link.textContent?.trim(),
+  );
+  expect(navLinks).toEqual([
+    "About Emma",
+    ...services.map((service) => service.name),
+    "Research",
+    "Contact Us",
+  ]);
 });
 
 test("the menu button shows the Phosphor list icon", async () => {
@@ -104,5 +123,7 @@ test("the menu button shows the Phosphor list icon", async () => {
 test("the close button shows the Phosphor x icon", async () => {
   const menu = await renderMenu();
 
-  expect(iconPath(menu.querySelector('button[aria-label="Close menu"]'))).toBe(iconPath(xIcon));
+  expect(iconPath(menu.querySelector('button[aria-label="Close menu"]'))).toBe(
+    iconPath(xIcon),
+  );
 });

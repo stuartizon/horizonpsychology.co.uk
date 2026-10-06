@@ -10,25 +10,28 @@ const { links } = Astro.props;
 ---
 
 <div class="services" data-services-menu>
-  <button class="services__toggle" type="button" aria-expanded="false" aria-controls="services-menu">
+  <button
+    class="services__toggle"
+    type="button"
+    aria-expanded="false"
+    aria-controls="services-menu"
+  >
     Services
     <span class="services__chevron" aria-hidden="true" set:html={chevronIcon} />
   </button>
   <div class="services__panel" id="services-menu">
     <ul>
-      {
-        links.map((link) => (
-          <li>
-            <a href={link.href}>{link.label}</a>
-          </li>
-        ))
-      }
+      {links.map((link) => <li>
+        <a href={link.href}>{link.label}</a>
+      </li>)}
     </ul>
   </div>
 </div>
 
 <script>
-  for (const menu of document.querySelectorAll<HTMLElement>("[data-services-menu]")) {
+  for (const menu of document.querySelectorAll<HTMLElement>(
+    "[data-services-menu]",
+  )) {
     const toggle = menu.querySelector("button")!;
     const isOpen = () => toggle.getAttribute("aria-expanded") === "true";
     // Opened by hovering, so it closes again when the mouse leaves.

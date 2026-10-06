@@ -44,15 +44,16 @@ import { testimonials } from "@/data/testimonials";
         </div>
         <div class="home-intro__copy">
           <p>
-            HorIZON Psychology is led by Dr Emma Izon. She provides evidence-based
-            psychological therapy tailored to each person's individual needs and
-            goals. Drawing on approaches including cognitive behavioural therapy
-            (CBT), acceptance and commitment therapy (ACT), compassion focused
-            therapy (CFT), systemic approaches and narrative therapies. She works
-            collaboratively and integratively to offer thoughtful, flexible, and
-            meaningful support. Her practice is compassionate,
-            neurodiversity-affirming, and grounded in creating a safe,
-            non-judgemental space for lasting understanding, resilience, and change.
+            HorIZON Psychology is led by Dr Emma Izon. She provides
+            evidence-based psychological therapy tailored to each person's
+            individual needs and goals. Drawing on approaches including
+            cognitive behavioural therapy (CBT), acceptance and commitment
+            therapy (ACT), compassion focused therapy (CFT), systemic approaches
+            and narrative therapies. She works collaboratively and integratively
+            to offer thoughtful, flexible, and meaningful support. Her practice
+            is compassionate, neurodiversity-affirming, and grounded in creating
+            a safe, non-judgemental space for lasting understanding, resilience,
+            and change.
           </p>
           <div class="home-intro__badges">
             <CredentialBadge
@@ -78,15 +79,16 @@ import { testimonials } from "@/data/testimonials";
     <section class="services-section" aria-labelledby="services-heading">
       <h2 id="services-heading">Services</h2>
       <div class="services-section__grid">
-        {
-          services.map((service) => (
-            <ServiceCard service={service} />
-          ))
-        }
+        {services.map((service) => (
+          <ServiceCard service={service} />
+        ))}
       </div>
     </section>
 
-    <section class="testimonials-section" aria-labelledby="testimonials-heading">
+    <section
+      class="testimonials-section"
+      aria-labelledby="testimonials-heading"
+    >
       <h2 id="testimonials-heading">Testimonials</h2>
       <TestimonialCarousel testimonials={testimonials} />
     </section>

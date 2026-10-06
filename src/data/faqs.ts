@@ -150,11 +150,21 @@ export const faqGroups: FaqGroup[] = [
   },
   {
     title: "Clinical supervision",
-    faqs: ["supervisionWho", "accreditation", "groupSupervision", "supervisionCadence"],
+    faqs: [
+      "supervisionWho",
+      "accreditation",
+      "groupSupervision",
+      "supervisionCadence",
+    ],
   },
   {
     title: "Research supervision",
-    faqs: ["researchWho", "researchStage", "researchEthics", "researchPublication"],
+    faqs: [
+      "researchWho",
+      "researchStage",
+      "researchEthics",
+      "researchPublication",
+    ],
   },
   {
     title: "Fees and confidentiality",

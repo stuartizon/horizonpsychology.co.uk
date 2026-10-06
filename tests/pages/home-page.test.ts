@@ -19,18 +19,29 @@ test("the home page links to each service with its summary", () => {
       text(card.querySelector("p")),
       card.querySelector("a")?.getAttribute("href"),
     ]),
-  ).toEqual(services.map((service) => [service.name, service.summary, `/${service.id}/`]));
+  ).toEqual(
+    services.map((service) => [
+      service.name,
+      service.summary,
+      `/${service.id}/`,
+    ]),
+  );
 });
 
 test("the home page shows each testimonial with its name", () => {
   const cards = [...document.querySelectorAll("figure")];
 
-  expect(cards.map((card) => [text(card.querySelector("blockquote")), text(card.querySelector("figcaption"))])).toEqual(
-    testimonials.map(({ quote, name }) => [`“${quote}”`, name]),
-  );
+  expect(
+    cards.map((card) => [
+      text(card.querySelector("blockquote")),
+      text(card.querySelector("figcaption")),
+    ]),
+  ).toEqual(testimonials.map(({ quote, name }) => [`“${quote}”`, name]));
 });
 
 test("the home page invites a free 15-minute call, linking to the contact page", () => {
   expect(texts(document, "h2")).toContain("Start with a free 15-minute call");
-  expect(link(document, "Book a free call").getAttribute("href")).toBe("/contact/");
+  expect(link(document, "Book a free call").getAttribute("href")).toBe(
+    "/contact/",
+  );
 });

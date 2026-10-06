@@ -19,7 +19,12 @@ export function dragAxis(dx: number, dy: number): "x" | "y" | undefined {
 }
 
 /** The slide to show after a swipe of `dx` across a carousel `width` wide, showing slide `index` of `count`. */
-export function slideAfterSwipe(index: number, count: number, dx: number, width: number) {
+export function slideAfterSwipe(
+  index: number,
+  count: number,
+  dx: number,
+  width: number,
+) {
   if (Math.abs(dx) <= width * SWIPE_THRESHOLD) return index;
   return wrap(index + (dx < 0 ? 1 : -1), count);
 }

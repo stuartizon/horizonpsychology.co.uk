@@ -25,9 +25,15 @@ interface Props {
 const { service } = Astro.props;
 const others = services.filter((other) => other.id !== service.id);
 
-const icons = import.meta.glob<string>("../icons/*.svg", { query: "?raw", import: "default", eager: true });
+const icons = import.meta.glob<string>("../icons/*.svg", {
+  query: "?raw",
+  import: "default",
+  eager: true,
+});
 const icon = icons[`../icons/${service.id}.svg`];
-const photos = import.meta.glob<{ default: ImageMetadata }>("../photos/*.jpg", { eager: true });
+const photos = import.meta.glob<{ default: ImageMetadata }>("../photos/*.jpg", {
+  eager: true,
+});
 const photo = photos[`../photos/${service.id}.jpg`].default;
 ---
 
@@ -59,10 +65,18 @@ const photo = photos[`../photos/${service.id}.jpg`].default;
 
   <div class="questions">
     <Container>
-      <FaqSection eyebrow="Questions" title="Before you get in touch" id="questions-heading">
+      <FaqSection
+        eyebrow="Questions"
+        title="Before you get in touch"
+        id="questions-heading"
+      >
         <Faqs faqs={service.faqs.map((id) => faqs[id])} />
         <div>
-          <Button href="/faqs/" label="All frequently asked questions" type="link" />
+          <Button
+            href="/faqs/"
+            label="All frequently asked questions"
+            type="link"
+          />
         </div>
       </FaqSection>
     </Container>
@@ -70,9 +84,15 @@ const photo = photos[`../photos/${service.id}.jpg`].default;
 
   <section class="others" aria-labelledby="others-heading">
     <Container>
-      <SectionHeading eyebrow="Other services" title="Also available" id="others-heading" />
+      <SectionHeading
+        eyebrow="Other services"
+        title="Also available"
+        id="others-heading"
+      />
       <div class="others__grid">
-        {others.map((other) => <ServiceCard service={other} />)}
+        {others.map((other) => (
+          <ServiceCard service={other} />
+        ))}
       </div>
     </Container>
   </section>

@@ -69,7 +69,7 @@ Headings are statements, not labels: the eyebrow above them carries the label.
 **What we say.**
 
 - Never guarantee or imply an outcome. Describe what happens in sessions, not what they'll fix.
-- Use non-pathologising language: people *have experiences of* psychosis. Prefer "difficulties", "lived experience" and "neurodivergent".
+- Use non-pathologising language: people _have experiences of_ psychosis. Prefer "difficulties", "lived experience" and "neurodivergent".
 - Only claim what the practice can stand behind and attribute, especially credentials.
 - Wherever confidentiality is mentioned, say what its limits are.
 

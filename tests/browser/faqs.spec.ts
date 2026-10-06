@@ -11,15 +11,22 @@ test.beforeEach(async ({ page }) => {
 });
 
 function question(page: import("@playwright/test").Page, text: string) {
-  return page.getByRole("heading", { level: 3, name: text }).getByRole("button", { name: text });
+  return page
+    .getByRole("heading", { level: 3, name: text })
+    .getByRole("button", { name: text });
 }
 
 test("answers are hidden until their question is opened", async ({ page }) => {
   await expect(page.getByText(first.answer[0])).toBeHidden();
-  await expect(question(page, first.question)).toHaveAttribute("aria-expanded", "false");
+  await expect(question(page, first.question)).toHaveAttribute(
+    "aria-expanded",
+    "false",
+  );
 });
 
-test("clicking a question opens its answer, and clicking again closes it", async ({ page }) => {
+test("clicking a question opens its answer, and clicking again closes it", async ({
+  page,
+}) => {
   const button = question(page, first.question);
 
   await button.click();
@@ -45,17 +52,25 @@ test("a question opens with Enter and closes with Space", async ({ page }) => {
   await expect(page.getByText(first.answer[0])).toBeHidden();
 });
 
-test("the questions have no detectable accessibility violations, open or closed", async ({ page }) => {
+test("the questions have no detectable accessibility violations, open or closed", async ({
+  page,
+}) => {
   const list = page.locator(".faqs");
-  expect((await new AxeBuilder({ page }).include(".faqs").analyze()).violations).toEqual([]);
+  expect(
+    (await new AxeBuilder({ page }).include(".faqs").analyze()).violations,
+  ).toEqual([]);
 
   await question(page, first.question).click();
   await expect(page.getByText(first.answer[0])).toBeVisible();
-  expect((await new AxeBuilder({ page }).include(".faqs").analyze()).violations).toEqual([]);
+  expect(
+    (await new AxeBuilder({ page }).include(".faqs").analyze()).violations,
+  ).toEqual([]);
   await expect(list).toBeVisible();
 });
 
-test("an open answer lines up with its question, leaving the toggle's column clear", async ({ page }) => {
+test("an open answer lines up with its question, leaving the toggle's column clear", async ({
+  page,
+}) => {
   const button = question(page, first.question);
   await button.click();
   const answer = page.locator(`#${await button.getAttribute("aria-controls")}`);

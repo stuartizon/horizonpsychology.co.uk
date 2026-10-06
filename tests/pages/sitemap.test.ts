@@ -6,14 +6,25 @@ const site = "https://horizonpsychology.co.uk";
 
 /** The `<loc>` URLs in the built XML file at `path`. */
 function locations(path: string) {
-  return [...file(path).matchAll(/<loc>(.*?)<\/loc>/g)].map((match) => match[1]);
+  return [...file(path).matchAll(/<loc>(.*?)<\/loc>/g)].map(
+    (match) => match[1],
+  );
 }
 
 test("the sitemap lists every page on the site's domain", () => {
-  const pages = locations("/sitemap-index.xml").flatMap((sitemap) => locations(new URL(sitemap).pathname));
+  const pages = locations("/sitemap-index.xml").flatMap((sitemap) =>
+    locations(new URL(sitemap).pathname),
+  );
 
   expect(pages.sort()).toEqual(
-    ["/", "/about/", "/contact/", "/faqs/", "/projects/", ...services.map((service) => `/${service.id}/`)]
+    [
+      "/",
+      "/about/",
+      "/contact/",
+      "/faqs/",
+      "/projects/",
+      ...services.map((service) => `/${service.id}/`),
+    ]
       .map((path) => site + path)
       .sort(),
   );

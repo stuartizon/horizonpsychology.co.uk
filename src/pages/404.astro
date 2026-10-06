@@ -5,41 +5,37 @@ import Button from "@/components/Button.astro";
 ---
 
 <BaseLayout title="Page not found" description="Page not found">
-    <Container>
-        <h1>404</h1>
-        This page isn't here right now.
-    </Container>
-    <img
-        class="error__image"
-        src="/images/404.png"
-        alt="A spilled cup of tea"
-    />
-    <Container>
-        But support, clarity, and conversation still are.
-        <div class="error__action">
-            <Button href="/" type="primary" label="Return home" />
-        </div>
-    </Container>
+  <Container>
+    <h1>404</h1>
+    This page isn't here right now.
+  </Container>
+  <img class="error__image" src="/images/404.png" alt="A spilled cup of tea" />
+  <Container>
+    But support, clarity, and conversation still are.
+    <div class="error__action">
+      <Button href="/" type="primary" label="Return home" />
+    </div>
+  </Container>
 </BaseLayout>
 
 <style>
-    .error__action {
-        margin-top: 1em;
-        width: 100%;
-        text-align: center;
-    }
+  .error__action {
+    margin-top: 1em;
+    width: 100%;
+    text-align: center;
+  }
 
+  .error__image {
+    width: 500px;
+    height: 347px;
+    display: block;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 640px) {
     .error__image {
-        width: 500px;
-        height: 347px;
-        display: block;
-        margin: 0 auto;
+      width: 360px;
+      height: 250px;
     }
-
-    @media (max-width: 640px) {
-        .error__image {
-            width: 360px;
-            height: 250px;
-        }
-    }
+  }
 </style>

@@ -6,6 +6,9 @@ import { execSync } from "node:child_process";
  */
 export default function setup() {
   if (!process.env.CI) {
-    execSync("astro build", { stdio: "ignore", env: { ...process.env, ASTRO_TELEMETRY_DISABLED: "1" } });
+    execSync("astro build", {
+      stdio: "ignore",
+      env: { ...process.env, ASTRO_TELEMETRY_DISABLED: "1" },
+    });
   }
 }

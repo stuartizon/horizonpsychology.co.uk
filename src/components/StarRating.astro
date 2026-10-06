@@ -3,11 +3,9 @@ import starIcon from "@phosphor-icons/core/fill/star-fill.svg?raw";
 ---
 
 <div class="star-rating" role="img" aria-label="5 out of 5 stars">
-  {
-    Array.from({ length: 5 }).map(() => (
-      <span class="star-rating__star" aria-hidden="true" set:html={starIcon} />
-    ))
-  }
+  {Array.from({ length: 5 }).map(() => (
+    <span class="star-rating__star" aria-hidden="true" set:html={starIcon} />
+  ))}
 </div>
 
 <style>

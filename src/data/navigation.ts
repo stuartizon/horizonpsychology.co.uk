@@ -11,7 +11,10 @@ export const research: Link = { label: "Research", href: "/projects/" };
 export const faqs: Link = { label: "FAQs", href: "/faqs/" };
 export const contact: Link = { label: "Contact Us", href: "/contact/" };
 
-export const serviceLinks: Link[] = services.map((service) => ({ label: service.name, href: `/${service.id}/` }));
+export const serviceLinks: Link[] = services.map((service) => ({
+  label: service.name,
+  href: `/${service.id}/`,
+}));
 
 export const practicalLinks: Link[] = [
   { label: "Fees and cancellations", href: "/terms-and-conditions/" },

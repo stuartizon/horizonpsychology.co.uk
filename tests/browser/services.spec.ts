@@ -6,12 +6,18 @@ test("clicking anywhere on a service card opens its page", async ({ page }) => {
   const [service] = services;
 
   // Away from the link text: the link covers the whole card.
-  await page.getByRole("article").filter({ hasText: service.name }).click({ position: { x: 20, y: 20 } });
+  await page
+    .getByRole("article")
+    .filter({ hasText: service.name })
+    .click({ position: { x: 20, y: 20 } });
 
   await expect(page).toHaveURL(`/${service.id}/`);
 });
 
-test("on a wide screen every service card title fits on one line", async ({ page, isMobile }) => {
+test("on a wide screen every service card title fits on one line", async ({
+  page,
+  isMobile,
+}) => {
   test.skip(isMobile, "Wide screens only");
   await page.setViewportSize({ width: 1400, height: 900 });
   await page.goto("/");

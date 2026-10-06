@@ -7,7 +7,11 @@ export default getViteConfig({
       { extends: true, test: { name: "unit", include: ["src/**/*.test.ts"] } },
       {
         extends: true,
-        test: { name: "pages", include: ["tests/pages/**/*.test.ts"], globalSetup: "tests/pages/build.ts" },
+        test: {
+          name: "pages",
+          include: ["tests/pages/**/*.test.ts"],
+          globalSetup: "tests/pages/build.ts",
+        },
       },
     ],
   },

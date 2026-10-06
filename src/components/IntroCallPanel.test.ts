@@ -5,8 +5,12 @@ import IntroCallPanel from "./IntroCallPanel.astro";
 test("invites a free 15-minute call", async () => {
   const panel = await render(IntroCallPanel);
 
-  expect(panel.querySelector("h2")?.textContent).toBe("Start with a free 15-minute call");
-  expect(panel.querySelector("p")?.textContent?.replace(/\s+/g, " ").trim()).toBe(
+  expect(panel.querySelector("h2")?.textContent).toBe(
+    "Start with a free 15-minute call",
+  );
+  expect(
+    panel.querySelector("p")?.textContent?.replace(/\s+/g, " ").trim(),
+  ).toBe(
     "A short, no-obligation conversation to ask questions and see whether working together feels right.",
   );
 });

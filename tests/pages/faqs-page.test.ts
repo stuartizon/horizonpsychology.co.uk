@@ -16,6 +16,8 @@ for (const group of faqGroups) {
     expect(section.tagName).toBe("SECTION");
     expect(texts(section, "h2")).toEqual([group.title]);
     expect(section.querySelector(".eyebrow")).toBeNull();
-    expect(texts(section, "h3 > button")).toEqual(group.faqs.map((id) => faqs[id].question));
+    expect(texts(section, "h3 > button")).toEqual(
+      group.faqs.map((id) => faqs[id].question),
+    );
   });
 }

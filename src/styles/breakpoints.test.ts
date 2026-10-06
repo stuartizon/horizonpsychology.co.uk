@@ -19,7 +19,9 @@ const stylesheets = readdirSync("src", { recursive: true, encoding: "utf8" })
 function widthQueries(path: string) {
   const css = readFileSync(path, "utf8").replace(/\/\*[\s\S]*?\*\//g, "");
   return [...css.matchAll(/@media([^{]*)\{/g)].flatMap(([, query]) =>
-    [...query.matchAll(/\([^)]*width[^)]*\)/g)].map(([feature]) => feature.replace(/\s+/g, " ").replace(/ ?: ?/, ": ")),
+    [...query.matchAll(/\([^)]*width[^)]*\)/g)].map(([feature]) =>
+      feature.replace(/\s+/g, " ").replace(/ ?: ?/, ": "),
+    ),
   );
 }
 
@@ -27,7 +29,9 @@ describe("media queries use only the site breakpoints", () => {
   for (const path of stylesheets) {
     const issue = notYetRedesigned[path];
     (issue ? test.fails : test)(issue ? `${path} (#${issue})` : path, () => {
-      expect(widthQueries(path).filter((query) => !breakpoints.includes(query))).toEqual([]);
+      expect(
+        widthQueries(path).filter((query) => !breakpoints.includes(query)),
+      ).toEqual([]);
     });
   }
 });

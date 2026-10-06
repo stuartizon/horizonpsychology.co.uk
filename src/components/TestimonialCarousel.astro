@@ -23,44 +23,48 @@ const count = testimonials.length;
   data-testimonial-carousel
 >
   <div class="carousel__row">
-    <button class="carousel__arrow" type="button" aria-label="Previous testimonial" data-previous>
+    <button
+      class="carousel__arrow"
+      type="button"
+      aria-label="Previous testimonial"
+      data-previous
+    >
       <span aria-hidden="true" set:html={caretLeft} />
     </button>
     <div class="carousel__slides" aria-live="off">
-      {
-        testimonials.map(({ quote, name }, index) => (
-          <figure
-            class="carousel__slide"
-            aria-roledescription="slide"
-            aria-label={`${index + 1} of ${count}`}
-            aria-hidden={index === 0 ? undefined : "true"}
-            inert={index !== 0}
-            data-state={index === 0 ? "current" : "hidden"}
-          >
-            <blockquote>&ldquo;{quote}&rdquo;</blockquote>
-            <figcaption>
-              <StarRating />
-              {name}
-            </figcaption>
-          </figure>
-        ))
-      }
+      {testimonials.map(({ quote, name }, index) => <figure
+        class="carousel__slide"
+        aria-roledescription="slide"
+        aria-label={`${index + 1} of ${count}`}
+        aria-hidden={index === 0 ? undefined : "true"}
+        inert={index !== 0}
+        data-state={index === 0 ? "current" : "hidden"}
+      >
+        <blockquote>&ldquo;{quote}&rdquo;</blockquote>
+        <figcaption>
+          <StarRating />
+          {name}
+        </figcaption>
+      </figure>)}
     </div>
-    <button class="carousel__arrow" type="button" aria-label="Next testimonial" data-next>
+    <button
+      class="carousel__arrow"
+      type="button"
+      aria-label="Next testimonial"
+      data-next
+    >
       <span aria-hidden="true" set:html={caretRight} />
     </button>
   </div>
   <div class="carousel__dots" role="group" aria-label="Choose a testimonial">
-    {
-      testimonials.map((_, index) => (
-        <button
-          class="carousel__dot"
-          type="button"
-          aria-label={`Testimonial ${index + 1} of ${count}`}
-          aria-current={index === 0 ? "true" : undefined}
-        />
-      ))
-    }
+    {testimonials.map((_, index) => (
+      <button
+        class="carousel__dot"
+        type="button"
+        aria-label={`Testimonial ${index + 1} of ${count}`}
+        aria-current={index === 0 ? "true" : undefined}
+      />
+    ))}
   </div>
 </div>
 
@@ -70,10 +74,16 @@ const count = testimonials.length;
   const INTERVAL = 7000;
   const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  for (const carousel of document.querySelectorAll<HTMLElement>("[data-testimonial-carousel]")) {
+  for (const carousel of document.querySelectorAll<HTMLElement>(
+    "[data-testimonial-carousel]",
+  )) {
     const slidesBox = carousel.querySelector<HTMLElement>(".carousel__slides")!;
-    const slides = [...carousel.querySelectorAll<HTMLElement>(".carousel__slide")];
-    const dots = [...carousel.querySelectorAll<HTMLButtonElement>(".carousel__dot")];
+    const slides = [
+      ...carousel.querySelectorAll<HTMLElement>(".carousel__slide"),
+    ];
+    const dots = [
+      ...carousel.querySelectorAll<HTMLButtonElement>(".carousel__dot"),
+    ];
     let current = 0;
     let timer: ReturnType<typeof setTimeout> | undefined;
     let hovered = false;
@@ -121,9 +131,15 @@ const count = testimonials.length;
       show(index, direction, offset);
     };
 
-    carousel.querySelector("[data-previous]")!.addEventListener("click", () => choose(current - 1, -1));
-    carousel.querySelector("[data-next]")!.addEventListener("click", () => choose(current + 1));
-    dots.forEach((dot, i) => dot.addEventListener("click", () => choose(i, i < current ? -1 : 1)));
+    carousel
+      .querySelector("[data-previous]")!
+      .addEventListener("click", () => choose(current - 1, -1));
+    carousel
+      .querySelector("[data-next]")!
+      .addEventListener("click", () => choose(current + 1));
+    dots.forEach((dot, i) =>
+      dot.addEventListener("click", () => choose(i, i < current ? -1 : 1)),
+    );
 
     carousel.addEventListener("mouseenter", () => {
       hovered = true;
@@ -170,7 +186,12 @@ const count = testimonials.length;
       start = undefined;
       slides[current].style.transition = "";
       slides[current].style.transform = "";
-      if (axis === "x") choose(slideAfterSwipe(current, slides.length, dx, slidesBox.offsetWidth), dx < 0 ? 1 : -1, dx);
+      if (axis === "x")
+        choose(
+          slideAfterSwipe(current, slides.length, dx, slidesBox.offsetWidth),
+          dx < 0 ? 1 : -1,
+          dx,
+        );
     };
     slidesBox.addEventListener("pointerup", endSwipe);
     slidesBox.addEventListener("pointercancel", endSwipe);
@@ -297,7 +318,11 @@ const count = testimonials.length;
     width: 9px;
     height: 9px;
     border-radius: var(--radius-pill);
-    background: color-mix(in srgb, var(--color-sage-600) 30%, var(--color-sage-300));
+    background: color-mix(
+      in srgb,
+      var(--color-sage-600) 30%,
+      var(--color-sage-300)
+    );
     content: "";
     transition: background-color var(--duration-base) var(--ease-calm);
   }

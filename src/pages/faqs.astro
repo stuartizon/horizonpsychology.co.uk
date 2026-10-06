@@ -6,7 +6,8 @@ import SectionHeading from "@/components/SectionHeading.astro";
 import { faqGroups, faqs } from "@/data/faqs";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 
-const headingId = (title: string) => `${title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}-heading`;
+const headingId = (title: string) =>
+  `${title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}-heading`;
 ---
 
 <BaseLayout
@@ -16,21 +17,24 @@ const headingId = (title: string) => `${title.toLowerCase().replace(/[^a-z0-9]+/
   <Container>
     <div class="faqs-page">
       <div class="faqs-page__intro">
-        <SectionHeading eyebrow="Questions" title="Frequently asked questions" level="h1" />
+        <SectionHeading
+          eyebrow="Questions"
+          title="Frequently asked questions"
+          level="h1"
+        />
         <p>
-          Everything people usually want to know before getting in touch. If your question is not here, ask it on the
-          free 15-minute call.
+          Everything people usually want to know before getting in touch. If
+          your question is not here, ask it on the free 15-minute call.
         </p>
       </div>
 
       <div class="faqs-page__groups">
-        {
-          faqGroups.map((group) => (
-            <FaqSection title={group.title} id={headingId(group.title)}>
-              <Faqs faqs={group.faqs.map((id) => faqs[id])} />
-            </FaqSection>
-          ))
-        }
+        {faqGroups.map((group) => <FaqSection
+          title={group.title}
+          id={headingId(group.title)}
+        >
+          <Faqs faqs={group.faqs.map((id) => faqs[id])} />
+        </FaqSection>)}
       </div>
     </div>
   </Container>

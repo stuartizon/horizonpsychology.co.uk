@@ -3,7 +3,10 @@ import { parseHTML } from "linkedom";
 
 /** The built file at the site path `path`: `/about/` reads `dist/about/index.html`. */
 export function file(path: string) {
-  return readFileSync(`dist${path.endsWith("/") ? `${path}index.html` : path}`, "utf8");
+  return readFileSync(
+    `dist${path.endsWith("/") ? `${path}index.html` : path}`,
+    "utf8",
+  );
 }
 
 /** The built page at `path`, as a queryable DOM. */
@@ -22,7 +25,10 @@ export function pages() {
 /** The element labelled by a heading with the text `name`, such as a section or aside. */
 export function labelled(root: ParentNode, name: string) {
   const element = [...root.querySelectorAll("[aria-labelledby]")].find(
-    (element) => root.querySelector(`#${element.getAttribute("aria-labelledby")}`)?.textContent?.trim() === name,
+    (element) =>
+      root
+        .querySelector(`#${element.getAttribute("aria-labelledby")}`)
+        ?.textContent?.trim() === name,
   );
   if (!element) throw new Error(`Nothing labelled "${name}"`);
   return element;
@@ -40,7 +46,9 @@ export function texts(root: ParentNode, selector: string) {
 
 /** The link in `root` whose text is `name`. */
 export function link(root: ParentNode, name: string) {
-  const element = [...root.querySelectorAll("a")].find((link) => text(link) === name);
+  const element = [...root.querySelectorAll("a")].find(
+    (link) => text(link) === name,
+  );
   if (!element) throw new Error(`No link "${name}"`);
   return element;
 }

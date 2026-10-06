@@ -17,32 +17,32 @@ The dev server runs on <http://127.0.0.1:4321>.
 
 ### Commands
 
-| Command | What it does |
-|---|---|
-| `npm run dev` | Local development server |
-| `npm run check` | Astro and TypeScript checks |
-| `npm run build` | Checks, then builds the static site to `dist/` |
-| `npm run preview` | Serves the production build locally |
-| `npm test` | All the tests below, one after the other |
-| `npm run test:unit` | Unit tests |
-| `npm run test:pages` | Builds the site, then tests its pages, links and sitemap |
+| Command                | What it does                                                                                                   |
+| ---------------------- | -------------------------------------------------------------------------------------------------------------- |
+| `npm run dev`          | Local development server                                                                                       |
+| `npm run check`        | Astro and TypeScript checks                                                                                    |
+| `npm run build`        | Checks, then builds the static site to `dist/`                                                                 |
+| `npm run preview`      | Serves the production build locally                                                                            |
+| `npm test`             | All the tests below, one after the other                                                                       |
+| `npm run test:unit`    | Unit tests                                                                                                     |
+| `npm run test:pages`   | Builds the site, then tests its pages, links and sitemap                                                       |
 | `npm run test:browser` | Browser and accessibility tests. Install the browsers once first with `npx playwright install chromium webkit` |
 
 ## Stack
 
-| Layer | Choice |
-|---|---|
-| Framework | [Astro](https://astro.build) 5, static output ([ADR 0002](docs/adr/0002-astro-static-site.md)) |
-| Language | TypeScript, strict mode |
-| Styling | Plain CSS: a small set of global tokens, with each component's styles in its own file ([ADR 0012](docs/adr/0012-small-global-token-set-and-component-owned-styles.md)), and two breakpoints, tablet and desktop ([ADR 0014](docs/adr/0014-two-site-wide-breakpoints-in-rem.md)) |
-| Interactivity | Small vanilla TypeScript scripts in components, no UI framework ([ADR 0005](docs/adr/0005-no-client-side-ui-framework.md)) |
-| Content | One typed source each for services, FAQs, testimonials, publications and legal pages ([ADR 0006](docs/adr/0006-structured-content-in-collections.md), in progress in #3) |
-| Fonts | Lora and Source Sans 3, served from the site with [Fontsource](https://fontsource.org) ([ADR 0004](docs/adr/0004-self-host-fonts-with-fontsource.md)) |
-| Icons | [Phosphor](https://phosphoricons.com), imported from `@phosphor-icons/core` ([ADR 0016](docs/adr/0016-phosphor-icons-from-the-npm-package.md)), and the service icons in `src/icons/` |
-| SEO | `sitemap-index.xml` built by [`@astrojs/sitemap`](https://docs.astro.build/en/guides/integrations-guide/sitemap/) and linked from `robots.txt` |
-| Testing | [Vitest](https://vitest.dev) for unit and page tests, [Playwright](https://playwright.dev) with [axe](https://github.com/dequelabs/axe-core-npm) for browser tests ([ADR 0018](docs/adr/0018-unit-page-and-browser-tests.md)) |
-| CI | GitHub Actions on every pull request and push to `main` |
-| Hosting | [Cloudflare Pages](https://pages.cloudflare.com), deployed with Wrangler from GitHub Actions ([ADR 0015](docs/adr/0015-host-on-cloudflare-pages-deployed-from-github-actions.md)) |
+| Layer         | Choice                                                                                                                                                                                                                                                                          |
+| ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Framework     | [Astro](https://astro.build) 5, static output ([ADR 0002](docs/adr/0002-astro-static-site.md))                                                                                                                                                                                  |
+| Language      | TypeScript, strict mode                                                                                                                                                                                                                                                         |
+| Styling       | Plain CSS: a small set of global tokens, with each component's styles in its own file ([ADR 0012](docs/adr/0012-small-global-token-set-and-component-owned-styles.md)), and two breakpoints, tablet and desktop ([ADR 0014](docs/adr/0014-two-site-wide-breakpoints-in-rem.md)) |
+| Interactivity | Small vanilla TypeScript scripts in components, no UI framework ([ADR 0005](docs/adr/0005-no-client-side-ui-framework.md))                                                                                                                                                      |
+| Content       | One typed source each for services, FAQs, testimonials, publications and legal pages ([ADR 0006](docs/adr/0006-structured-content-in-collections.md), in progress in #3)                                                                                                        |
+| Fonts         | Lora and Source Sans 3, served from the site with [Fontsource](https://fontsource.org) ([ADR 0004](docs/adr/0004-self-host-fonts-with-fontsource.md))                                                                                                                           |
+| Icons         | [Phosphor](https://phosphoricons.com), imported from `@phosphor-icons/core` ([ADR 0016](docs/adr/0016-phosphor-icons-from-the-npm-package.md)), and the service icons in `src/icons/`                                                                                           |
+| SEO           | `sitemap-index.xml` built by [`@astrojs/sitemap`](https://docs.astro.build/en/guides/integrations-guide/sitemap/) and linked from `robots.txt`                                                                                                                                  |
+| Testing       | [Vitest](https://vitest.dev) for unit and page tests, [Playwright](https://playwright.dev) with [axe](https://github.com/dequelabs/axe-core-npm) for browser tests ([ADR 0018](docs/adr/0018-unit-page-and-browser-tests.md))                                                   |
+| CI            | GitHub Actions on every pull request and push to `main`                                                                                                                                                                                                                         |
+| Hosting       | [Cloudflare Pages](https://pages.cloudflare.com), deployed with Wrangler from GitHub Actions ([ADR 0015](docs/adr/0015-host-on-cloudflare-pages-deployed-from-github-actions.md))                                                                                               |
 
 ## Repo structure
 
