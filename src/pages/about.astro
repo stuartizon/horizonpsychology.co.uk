@@ -159,8 +159,10 @@ import portrait from "@/photos/about.jpg";
       justify-content: flex-start;
     }
 
+    /* The text takes up to its measure, so it ends in line with the
+       portrait, and the heading takes the rest. */
     .approach__columns {
-      grid-template-columns: 1fr 2fr;
+      grid-template-columns: minmax(14rem, 1fr) minmax(0, var(--measure-prose));
       align-items: start;
     }
   }
