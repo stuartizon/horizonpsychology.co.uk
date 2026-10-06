@@ -13,6 +13,7 @@ Guidance for Claude working in this repository. The README and CONTRIBUTING.md, 
 - Media queries are mobile-first and use only the two breakpoints, `(min-width: 48rem)` for tablet and `(min-width: 64rem)` for desktop ([ADR 0014](docs/adr/0014-two-site-wide-breakpoints-in-rem.md)). A test fails on any other width.
 - Interactive behaviour (menu, carousel, accordion) is small vanilla TypeScript in a component's `<script>`. Don't add a UI framework without an ADR.
 - The site is hosted on Cloudflare Pages and stays fully static, with no Astro adapter ([ADR 0015](docs/adr/0015-host-on-cloudflare-pages-deployed-from-github-actions.md)). A server-side feature means a Pages Function and a new ADR.
+- Run `npm run format` after editing ([ADR 0019](docs/adr/0019-lint-with-eslint-and-format-with-prettier.md)). Prettier can wrap the text inside an element onto its own lines, so tests compare text with whitespace collapsed, not raw `textContent`.
 
 ## Test-driven development: red, green, refactor
 
@@ -31,7 +32,7 @@ Where tests go ([ADR 0018](docs/adr/0018-unit-page-and-browser-tests.md)). Put e
 - **Browser tests** (`npm run test:browser`): `tests/browser/*.spec.ts`. Use these only for what needs a browser: scripts, keyboard and focus, responsive layout and computed styles, and axe accessibility checks. Each runs in Chromium and WebKit at desktop and 320px phone sizes; skip a size a test doesn't apply to with `test.skip(isMobile, reason)`. Move focus with `pressTab()` from `tests/browser/keyboard.ts`, not `keyboard.press("Tab")`, so links are reachable in WebKit.
 - A test for a known bug that won't be fixed in the current PR is marked `test.fail()` (or `test.fails` in Vitest) with a comment linking the issue. Remove the marker in the PR that fixes it.
 
-Run `npm run build` and `npm test`, which runs all three kinds of test, before opening a PR.
+Run `npm run build`, `npm run lint`, `npm run format:check` and `npm test`, which runs all three kinds of test, before opening a PR.
 
 ## Other guidance
 
