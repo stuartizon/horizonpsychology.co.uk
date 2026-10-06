@@ -1,5 +1,5 @@
 ---
-// A heading, with an optional eyebrow, at the top of a page or section.
+// A heading, with an optional eyebrow and subtitle, at the top of a page or section.
 import Eyebrow from "./Eyebrow.astro";
 
 interface Props {
@@ -9,14 +9,17 @@ interface Props {
   level?: "h1" | "h2";
   /** An id for the heading, so a section can be labelled by it. */
   id?: string;
+  /** A short line after the heading, such as a person's credentials. */
+  subtitle?: string;
 }
 
-const { eyebrow, title, level: Heading = "h2", id } = Astro.props;
+const { eyebrow, title, level: Heading = "h2", id, subtitle } = Astro.props;
 ---
 
 <hgroup class="section-heading">
-  {eyebrow && <p><Eyebrow>{eyebrow}</Eyebrow></p>}
+  {eyebrow && <p class="section-heading__eyebrow"><Eyebrow>{eyebrow}</Eyebrow></p>}
   <Heading id={id}>{title}</Heading>
+  {subtitle && <p class="section-heading__subtitle">{subtitle}</p>}
 </hgroup>
 
 <style>
@@ -33,7 +36,12 @@ const { eyebrow, title, level: Heading = "h2", id } = Astro.props;
   }
 
   /* So the paragraph is only as tall as the eyebrow, not a line of body text. */
-  p {
+  .section-heading__eyebrow {
     display: flex;
+  }
+
+  .section-heading__subtitle {
+    color: var(--color-ink-soft);
+    font-size: var(--text-lead);
   }
 </style>
