@@ -38,17 +38,22 @@ for (const width of [768, 1280]) {
     await page.setViewportSize({ width, height: 1024 });
     await page.evaluate(() => document.fonts.ready);
 
+    // The font's own cap height, which doesn't vary with how each platform
+    // draws the letters.
     const eyebrow = page.locator(".about .eyebrow");
     const capHeight = await eyebrow.evaluate((node) => {
-      const style = getComputedStyle(node);
-      const context = document.createElement("canvas").getContext("2d")!;
-      context.font = `${style.fontWeight} ${style.fontSize} ${style.fontFamily}`;
-      return context.measureText("E").actualBoundingBoxAscent;
+      const probe = document.createElement("span");
+      probe.style.cssText = "display: inline-block; height: 1cap";
+      node.append(probe);
+      const { height } = probe.getBoundingClientRect();
+      probe.remove();
+      return height;
     });
     const capTop = (await baseline(eyebrow)) - capHeight;
     const portrait = (await page.getByRole("img", { name: "Dr Emma Izon" }).boundingBox())!;
 
-    expect(portrait.y).toBeCloseTo(capTop, 0);
+    // Within a pixel, as platforms round the baseline differently.
+    expect(Math.abs(portrait.y - capTop)).toBeLessThanOrEqual(1);
   });
 }
 
