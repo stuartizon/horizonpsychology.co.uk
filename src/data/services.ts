@@ -39,7 +39,7 @@ export const services: Service[] = [
       "No referral needed",
     ],
     faqs: ["right", "firstSession", "howMany", "online"],
-    photoAlt: "Emma talking with a client in armchairs, notes on the table between them",
+    photoAlt: "Emma smiling as she goes through some papers with someone at a low table",
   },
   {
     id: "couples-therapy",
@@ -101,6 +101,6 @@ export const services: Service[] = [
       "One-off or ongoing",
     ],
     faqs: ["researchWho", "researchStage", "researchEthics", "researchPublication"],
-    photoAlt: "Emma smiling as she goes through some papers with someone at a low table",
+    photoAlt: "Emma talking with a client in armchairs, notes on the table between them",
   },
 ];
