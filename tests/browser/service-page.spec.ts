@@ -1,6 +1,7 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 import { services } from "@/data/services";
+import { baseline } from "./baseline";
 
 const [service] = services;
 
@@ -102,6 +103,25 @@ for (const width of [768, 1280]) {
     const questions = (await section.locator(".faqs").boundingBox())!;
 
     expect(questions.x).toBeGreaterThan(heading.x + heading.width);
+  });
+}
+
+for (const width of [768, 1280]) {
+  test(`at ${width}px the questions heading lines up with the first question, with its eyebrow above`, async ({
+    page,
+    isMobile,
+  }) => {
+    test.skip(isMobile, "On a phone the questions follow their heading");
+    await page.setViewportSize({ width, height: 1024 });
+    await page.evaluate(() => document.fonts.ready);
+
+    const section = page.getByRole("region", { name: "Before you get in touch" });
+    const heading = section.getByRole("heading", { level: 2 });
+    expect(await baseline(heading)).toBeCloseTo(await baseline(section.locator(".faq__question").first()), 0);
+
+    const eyebrow = (await section.locator("hgroup > p").boundingBox())!;
+    const gap = await section.locator("hgroup").evaluate((hgroup) => parseFloat(getComputedStyle(hgroup).rowGap));
+    expect((await heading.boundingBox())!.y - (eyebrow.y + eyebrow.height)).toBeCloseTo(gap, 0);
   });
 }
 
