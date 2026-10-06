@@ -291,13 +291,13 @@ const count = testimonials.length;
     cursor: pointer;
   }
 
-  /* As light as it can be while keeping 3:1 contrast with both the sage band
-     and the current testimonial's dot. */
+  /* Light, so the current testimonial's dot stands out: 4.1:1 against it,
+     though only 2.2:1 against the sage band. */
   .carousel__dot::after {
     width: 9px;
     height: 9px;
     border-radius: var(--radius-pill);
-    background: color-mix(in srgb, var(--color-sage-600) 60%, var(--color-sage-300));
+    background: color-mix(in srgb, var(--color-sage-600) 30%, var(--color-sage-300));
     content: "";
     transition: background-color var(--duration-base) var(--ease-calm);
   }
