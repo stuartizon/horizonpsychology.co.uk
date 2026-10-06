@@ -5,7 +5,7 @@ import { labelled, link, page, text, texts } from "./pages";
 const document = page("/about/");
 
 test("the About page has its title and heading, with Emma's credentials", () => {
-  expect(document.title).toMatch(/^About \| /);
+  expect(document.title).toMatch(/^About Emma \| /);
   expect(texts(document, "h1")).toEqual(["Dr Emma Izon"]);
   expect(text(document.querySelector("main"))).toContain("PhD, DClinPsych, MSc, BSc (International)");
 });
