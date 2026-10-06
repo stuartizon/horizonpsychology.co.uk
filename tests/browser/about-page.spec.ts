@@ -37,6 +37,18 @@ test("on a phone the portrait follows the introduction", async ({ page, isMobile
   expect(portrait.y).toBeGreaterThan(intro.y + intro.height);
 });
 
+test("the portrait is shown at its own proportions, uncropped", async ({ page }) => {
+  const portrait = page.getByRole("img", { name: "Dr Emma Izon" });
+  await expect(portrait).toHaveJSProperty("complete", true);
+
+  const { shown, natural } = await portrait.evaluate((img: HTMLImageElement) => ({
+    shown: img.clientWidth / img.clientHeight,
+    natural: img.naturalWidth / img.naturalHeight,
+  }));
+
+  expect(shown).toBeCloseTo(natural, 2);
+});
+
 test("the About page has no detectable accessibility violations", async ({ page }) => {
   const results = await new AxeBuilder({ page }).analyze();
 
