@@ -1,5 +1,6 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test, type Page } from "@playwright/test";
+import { baseline } from "./baseline";
 
 test.beforeEach(async ({ page }) => {
   await page.goto("/about/");
@@ -25,6 +26,34 @@ for (const width of [768, 1280]) {
     const body = (await section.getByText(/Emma believes/).boundingBox())!;
 
     expect(body.x).toBeGreaterThan(heading.x + heading.width);
+  });
+}
+
+for (const width of [768, 1280]) {
+  test(`at ${width}px the portrait's top is level with the top of the eyebrow's capitals`, async ({
+    page,
+    isMobile,
+  }) => {
+    test.skip(isMobile, "On a phone the portrait follows the introduction");
+    await page.setViewportSize({ width, height: 1024 });
+    await page.evaluate(() => document.fonts.ready);
+
+    // The font's own cap height, which doesn't vary with how each platform
+    // draws the letters.
+    const eyebrow = page.locator(".about .eyebrow");
+    const capHeight = await eyebrow.evaluate((node) => {
+      const probe = document.createElement("span");
+      probe.style.cssText = "display: inline-block; height: 1cap";
+      node.append(probe);
+      const { height } = probe.getBoundingClientRect();
+      probe.remove();
+      return height;
+    });
+    const capTop = (await baseline(eyebrow)) - capHeight;
+    const portrait = (await page.getByRole("img", { name: "Dr Emma Izon" }).boundingBox())!;
+
+    // Within a pixel, as platforms round the baseline differently.
+    expect(Math.abs(portrait.y - capTop)).toBeLessThanOrEqual(1);
   });
 }
 
