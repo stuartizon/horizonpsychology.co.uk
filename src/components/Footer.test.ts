@@ -40,7 +40,7 @@ test("Practical links to the practical pages", async () => {
 test("shows what the practice offers and the email address", async () => {
   const footer = await renderFooter();
 
-  expect(footer.textContent).toContain(
+  expect(footer.textContent?.replace(/\s+/g, " ")).toContain(
     "Psychological therapy, clinical and research supervision. Online, and face-to-face in Buckinghamshire.",
   );
   const email = footer.querySelector('a[href^="mailto:"]');

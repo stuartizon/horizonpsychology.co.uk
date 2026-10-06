@@ -29,6 +29,6 @@ test("links to the service page with Find out more", async () => {
   const link = (await renderCard()).querySelector("a")!;
 
   expect(link.getAttribute("href")).toBe("/individual-therapy/");
-  expect(link.textContent?.trim()).toMatch(/^Find out more/);
+  expect(link.textContent?.replace(/\s+/g, " ")).toMatch(/^Find out more/);
   expect(link.querySelector('[aria-hidden="true"]')?.textContent).toBe("→");
 });
