@@ -28,6 +28,19 @@ for (const width of [768, 1280]) {
   });
 }
 
+for (const width of [768, 1024, 1280]) {
+  test(`at ${width}px the approach text ends in line with the portrait`, async ({ page, isMobile }) => {
+    test.skip(isMobile, "On a phone both run the full width");
+    await page.setViewportSize({ width, height: 1024 });
+    await page.evaluate(() => document.fonts.ready);
+
+    const portrait = (await page.getByRole("img", { name: "Dr Emma Izon" }).boundingBox())!;
+    const body = (await page.locator("p", { hasText: /Emma believes/ }).boundingBox())!;
+
+    expect(body.x + body.width).toBeCloseTo(portrait.x + portrait.width, 0);
+  });
+}
+
 test("on a phone the portrait follows the introduction", async ({ page, isMobile }) => {
   test.skip(!isMobile, "Phones only");
 
