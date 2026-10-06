@@ -168,6 +168,7 @@ html {
   font-family: var(--font-body);
   font-size: 100%;
   -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
