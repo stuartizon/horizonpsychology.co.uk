@@ -35,7 +35,7 @@ const count = testimonials.length;
             aria-label={`${index + 1} of ${count}`}
             aria-hidden={index === 0 ? undefined : "true"}
             inert={index !== 0}
-            data-state={index === 0 ? "current" : "next"}
+            data-state={index === 0 ? "current" : "hidden"}
           >
             <blockquote>&ldquo;{quote}&rdquo;</blockquote>
             <figcaption>
@@ -87,11 +87,23 @@ const count = testimonials.length;
       timer = setTimeout(() => show(current + 1), INTERVAL);
     };
 
-    const show = (index: number) => {
+    // The new testimonial slides in from the right going forwards, or from the
+    // left going back, and the old one slides out the other way. After a
+    // swipe, the new one starts from where the swipe left off.
+    const show = (index: number, direction = 1, offset = 0) => {
       const previous = current;
       current = wrap(index, slides.length);
+      if (current !== previous) {
+        const incoming = slides[current];
+        incoming.style.transition = "none";
+        incoming.style.transform = `translateX(calc(${direction * 100}% + ${offset}px))`;
+        incoming.getBoundingClientRect();
+        incoming.style.transition = "";
+        incoming.style.transform = "";
+        slides[previous].style.transform = `translateX(${-direction * 100}%)`;
+      }
       slides.forEach((slide, i) => {
-        slide.dataset.state = i === current ? "current" : i === previous ? "previous" : "next";
+        slide.dataset.state = i === current ? "current" : "hidden";
         slide.inert = i !== current;
         if (i === current) slide.removeAttribute("aria-hidden");
         else slide.setAttribute("aria-hidden", "true");
@@ -104,14 +116,14 @@ const count = testimonials.length;
     };
 
     // Once the visitor moves between testimonials, each new one is announced.
-    const choose = (index: number) => {
+    const choose = (index: number, direction = 1, offset = 0) => {
       slidesBox.setAttribute("aria-live", "polite");
-      show(index);
+      show(index, direction, offset);
     };
 
-    carousel.querySelector("[data-previous]")!.addEventListener("click", () => choose(current - 1));
+    carousel.querySelector("[data-previous]")!.addEventListener("click", () => choose(current - 1, -1));
     carousel.querySelector("[data-next]")!.addEventListener("click", () => choose(current + 1));
-    dots.forEach((dot, i) => dot.addEventListener("click", () => choose(i)));
+    dots.forEach((dot, i) => dot.addEventListener("click", () => choose(i, i < current ? -1 : 1)));
 
     carousel.addEventListener("mouseenter", () => {
       hovered = true;
@@ -158,7 +170,7 @@ const count = testimonials.length;
       start = undefined;
       slides[current].style.transition = "";
       slides[current].style.transform = "";
-      if (axis === "x") choose(slideAfterSwipe(current, slides.length, dx, slidesBox.offsetWidth));
+      if (axis === "x") choose(slideAfterSwipe(current, slides.length, dx, slidesBox.offsetWidth), dx < 0 ? 1 : -1, dx);
     };
     slidesBox.addEventListener("pointerup", endSwipe);
     slidesBox.addEventListener("pointercancel", endSwipe);
@@ -217,9 +229,8 @@ const count = testimonials.length;
     touch-action: pan-y;
   }
 
-  /* The slide coming in starts a little to the right, and the one leaving
-     moves a little to the left as it fades. A shorter quote sits halfway
-     down the space the longest needs. */
+  /* A shorter quote sits halfway down the space the longest needs. A
+     slide stays visible while it slides out. */
   .carousel__slide {
     display: flex;
     grid-area: 1 / 1;
@@ -228,23 +239,25 @@ const count = testimonials.length;
     align-items: center;
     gap: var(--space-5);
     margin: 0;
-    opacity: 0;
     pointer-events: none;
     text-align: center;
-    transform: translateX(32px);
+    visibility: hidden;
     transition:
-      opacity 380ms var(--ease-calm),
-      transform 380ms var(--ease-calm);
+      transform var(--duration-slow) var(--ease-calm),
+      visibility 0s linear var(--duration-slow);
   }
 
   .carousel__slide[data-state="current"] {
-    opacity: 1;
     pointer-events: auto;
+    visibility: visible;
     transform: none;
+    transition: transform var(--duration-slow) var(--ease-calm);
   }
 
-  .carousel__slide[data-state="previous"] {
-    transform: translateX(-32px);
+  /* Smaller than the site's quote style, as some testimonials are long:
+     16px on the smallest phones, growing to 1.3rem by tablet width. */
+  blockquote {
+    font-size: clamp(1rem, 0.75rem + 1.1vw, 1.3rem);
   }
 
   figcaption {
@@ -278,11 +291,13 @@ const count = testimonials.length;
     cursor: pointer;
   }
 
+  /* As light as it can be while keeping 3:1 contrast with both the sage band
+     and the current testimonial's dot. */
   .carousel__dot::after {
     width: 9px;
     height: 9px;
     border-radius: var(--radius-pill);
-    background: var(--color-sage-600);
+    background: color-mix(in srgb, var(--color-sage-600) 60%, var(--color-sage-300));
     content: "";
     transition: background-color var(--duration-base) var(--ease-calm);
   }
@@ -294,13 +309,6 @@ const count = testimonials.length;
   @media (min-width: 48rem) {
     .carousel__arrow {
       display: flex;
-    }
-  }
-
-  /* Fades without moving. */
-  @media (prefers-reduced-motion: reduce) {
-    .carousel__slide[data-state] {
-      transform: none;
     }
   }
 </style>
