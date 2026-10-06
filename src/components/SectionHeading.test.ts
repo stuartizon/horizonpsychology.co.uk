@@ -33,3 +33,12 @@ test("leaves out the eyebrow when there isn't one", async () => {
   expect([...group.children].map((child) => child.tagName)).toEqual(["H2"]);
   expect(group.querySelector(".eyebrow")).toBeNull();
 });
+
+test("follows the heading with a one-line subtitle when there is one", async () => {
+  const subtitle = "Clinical Psychologist · PhD, DClinPsych, MSc, BSc (International)";
+  const group = (await render(SectionHeading, { eyebrow: "About Emma", title: "Dr Emma Izon", level: "h1", subtitle }))
+    .firstElementChild!;
+
+  expect([...group.children].map((child) => child.tagName)).toEqual(["P", "H1", "P"]);
+  expect(group.lastElementChild?.textContent).toBe(subtitle);
+});

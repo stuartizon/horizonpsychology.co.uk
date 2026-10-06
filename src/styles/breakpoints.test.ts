@@ -9,7 +9,6 @@ const notYetRedesigned: Record<string, number> = {
   "src/components/CredentialBadge.astro": 13,
   "src/components/TestimonialCard.astro": 7,
   "src/pages/404.astro": 13,
-  "src/pages/about.astro": 7,
   "src/pages/index.astro": 5,
 };
 
