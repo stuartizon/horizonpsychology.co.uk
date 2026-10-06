@@ -1,6 +1,7 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 import { faqGroups, faqs } from "@/data/faqs";
+import { baseline } from "./baseline";
 
 test.beforeEach(async ({ page }) => {
   await page.goto("/faqs/");
@@ -63,18 +64,6 @@ for (const width of [768, 1280]) {
       const topBorder = await lists.nth(i).locator(".faq").first().evaluate((faq) => getComputedStyle(faq).borderTopWidth);
       expect(topBorder, faqGroups[i].title).toBe("0px");
     }
-  });
-}
-
-/** Where the first line of text in each element sits, measured from a marker at its start. */
-async function baseline(element: import("@playwright/test").Locator) {
-  return element.evaluate((node) => {
-    const marker = document.createElement("span");
-    marker.style.display = "inline-block";
-    node.prepend(marker);
-    const { top } = marker.getBoundingClientRect();
-    marker.remove();
-    return top;
   });
 }
 
