@@ -64,10 +64,15 @@ for (const width of [320, 700]) {
     await narrow(page, isMobile, width);
 
     const body = (await page.locator("p", { hasText: /Emma believes/ }).boundingBox())!;
-    for (const name of ["Get in touch", "See publications"]) {
-      const button = (await page.getByRole("link", { name, exact: true }).last().boundingBox())!;
-      expect(button.x + button.width / 2, name).toBeCloseTo(body.x + body.width / 2, 0);
-    }
+    const buttons = await Promise.all(
+      ["Get in touch", "See publications"].map(
+        async (name) => (await page.getByRole("link", { name, exact: true }).last().boundingBox())!,
+      ),
+    );
+    const left = Math.min(...buttons.map((button) => button.x));
+    const right = Math.max(...buttons.map((button) => button.x + button.width));
+
+    expect((left + right) / 2).toBeCloseTo(body.x + body.width / 2, 0);
   });
 }
 

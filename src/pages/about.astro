@@ -94,7 +94,6 @@ import portrait from "@/photos/about.jpg";
 
   .about__intro {
     display: flex;
-    max-width: var(--measure-prose);
     flex-direction: column;
     gap: var(--space-6);
   }
@@ -127,7 +126,6 @@ import portrait from "@/photos/about.jpg";
 
   .approach__body {
     display: flex;
-    max-width: var(--measure-prose);
     flex-direction: column;
     gap: var(--space-5);
   }
@@ -135,15 +133,26 @@ import portrait from "@/photos/about.jpg";
   .approach__actions {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     gap: var(--space-3);
     margin-top: var(--space-5);
   }
 
   /* From a tablet up, the portrait sits beside the introduction, and the
-     approach beside its heading. */
+     approach beside its heading, with its text kept to a readable measure
+     and the buttons under its start. */
   @media (min-width: 48rem) {
     .about {
       grid-template-columns: 1fr 1fr;
+    }
+
+    .about__intro,
+    .approach__body {
+      max-width: var(--measure-prose);
+    }
+
+    .approach__actions {
+      justify-content: flex-start;
     }
 
     .approach__columns {
