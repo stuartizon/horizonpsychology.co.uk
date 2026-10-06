@@ -1,4 +1,5 @@
 export interface Testimonial {
+  /** Word for word. An excerpt marks where it's cut with an ellipsis. */
   quote: string;
   /** First name only. */
   name: string;
@@ -7,7 +8,7 @@ export interface Testimonial {
 export const testimonials: Testimonial[] = [
   {
     quote:
-      "I thoroughly enjoyed working with Emma and found her help invaluable. When I came to Emma, I was looking for someone with whom I could team up with on my journey of self understanding, who could provide suitable guidance along the way. Emma definitely provided what I was looking for. She was understanding, insightful and brought relevant, clinical knowledge based on what could be applied to me. She worked with me, at my pace, allowing me to evaluate and observe myself with her professional guidance along the way. She helped me to establish mechanisms and habits that can be used in future situations, as well as enlightening me of different psychological theories that have led to a deeper sense of self-understanding.",
+      "I thoroughly enjoyed working with Emma and found her help invaluable. … She was understanding, insightful and brought relevant, clinical knowledge based on what could be applied to me. She worked with me, at my pace, allowing me to evaluate and observe myself with her professional guidance along the way.",
     name: "James",
   },
   {
