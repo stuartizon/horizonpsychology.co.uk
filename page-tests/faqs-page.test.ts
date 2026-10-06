@@ -1,6 +1,6 @@
 import { faqGroups, faqs } from "@/data/faqs";
 import { expect, test } from "vitest";
-import { labelled, page, texts } from "./site";
+import { labelled, page, texts } from "./pages";
 
 const document = page("/faqs/");
 

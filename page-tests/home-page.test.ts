@@ -1,7 +1,7 @@
 import { services } from "@/data/services";
 import { testimonials } from "@/data/testimonials";
 import { expect, test } from "vitest";
-import { link, page, text, texts } from "./site";
+import { link, page, text, texts } from "./pages";
 
 const document = page("/");
 

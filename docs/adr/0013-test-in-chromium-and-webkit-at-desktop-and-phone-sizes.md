@@ -4,7 +4,7 @@ Date: 2026-10-04
 
 Supersedes [0011](0011-vitest-and-playwright-for-tests.md).
 
-Superseded by [0018](0018-test-the-built-site-without-a-browser.md).
+Superseded by [0018](0018-unit-page-and-browser-tests.md).
 
 ## Context
 

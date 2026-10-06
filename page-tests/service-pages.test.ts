@@ -1,7 +1,7 @@
 import { faqs } from "@/data/faqs";
 import { services } from "@/data/services";
 import { describe, expect, test } from "vitest";
-import { labelled, link, page, text, texts } from "./site";
+import { labelled, link, page, text, texts } from "./pages";
 
 for (const service of services) {
   describe(`the ${service.name} page`, () => {

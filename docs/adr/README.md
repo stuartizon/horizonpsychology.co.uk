@@ -21,4 +21,4 @@ One file per decision, numbered in sequence. See [0001](0001-record-architecture
 | [0015](0015-host-on-cloudflare-pages-deployed-from-github-actions.md) | Host on Cloudflare Pages, deployed with Wrangler from GitHub Actions |
 | [0016](0016-phosphor-icons-from-the-npm-package.md) | Use Phosphor icons from the npm package |
 | [0017](0017-keep-a-snapshot-of-the-design-in-the-repo.md) | Keep a snapshot of the design in the repo |
-| [0018](0018-test-the-built-site-without-a-browser.md) | Test components, the built site and the browser separately, keeping the browser for what needs one |
+| [0018](0018-unit-page-and-browser-tests.md) | Test with unit, page and browser tests, keeping the browser for what needs one |

@@ -1,6 +1,6 @@
 import { existsSync } from "node:fs";
 import { expect, test } from "vitest";
-import { page, pages } from "./site";
+import { page, pages } from "./pages";
 
 // Links to pages that don't exist, with the issue that fixes each one by building the page or
 // removing the link. Remove a link from this list when its test starts passing.

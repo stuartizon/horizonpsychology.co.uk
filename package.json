@@ -8,8 +8,9 @@
     "build": "ASTRO_TELEMETRY_DISABLED=1 astro check && ASTRO_TELEMETRY_DISABLED=1 astro build",
     "preview": "ASTRO_TELEMETRY_DISABLED=1 astro preview",
     "check": "ASTRO_TELEMETRY_DISABLED=1 astro check",
-    "test": "vitest run --project components",
-    "test:site": "vitest run --project site",
+    "test": "npm run test:unit && npm run test:pages && npm run test:e2e",
+    "test:unit": "vitest run --project unit",
+    "test:pages": "vitest run --project pages",
     "test:e2e": "playwright test"
   },
   "engines": {

@@ -32,7 +32,7 @@ jobs:
       - run: npm run check
 
   unit:
-    name: Component tests
+    name: Unit tests
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -42,7 +42,7 @@ jobs:
           node-version-file: .nvmrc
           cache: npm
       - run: npm ci
-      - run: npm test
+      - run: npm run test:unit
 
   build:
     name: Build
@@ -65,8 +65,8 @@ jobs:
 
   # Reads the uploaded build, so the files that get deployed are the ones that
   # were tested.
-  site:
-    name: Site tests
+  pages:
+    name: Page tests
     needs: build
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -81,7 +81,7 @@ jobs:
         with:
           name: dist
           path: dist/
-      - run: npm run test:site
+      - run: npm run test:pages
 
   # Runs against the uploaded build, so the files that get deployed are the
   # ones that were tested. One job per browser, each at desktop and phone sizes.
@@ -124,7 +124,7 @@ jobs:
   # deployed.
   deploy:
     name: Deploy
-    needs: [check, unit, build, site, e2e]
+    needs: [check, unit, build, pages, e2e]
     if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     timeout-minutes: 10

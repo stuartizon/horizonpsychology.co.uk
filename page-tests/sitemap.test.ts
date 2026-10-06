@@ -1,6 +1,6 @@
 import { services } from "@/data/services";
 import { expect, test } from "vitest";
-import { file } from "./site";
+import { file } from "./pages";
 
 const site = "https://horizonpsychology.co.uk";
 
