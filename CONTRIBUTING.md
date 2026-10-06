@@ -72,6 +72,5 @@ Headings are statements, not labels: the eyebrow above them carries the label.
 - Use non-pathologising language: people *have experiences of* psychosis. Prefer "difficulties", "lived experience" and "neurodivergent".
 - Only claim what the practice can stand behind and attribute, especially credentials.
 - Wherever confidentiality is mentioned, say what its limits are.
-- Quote testimonials word for word, with first names only.
 
 **Style.** UK English. Sentence case everywhere, including headings, buttons and card titles. The eyebrow is the only uppercase text, and CSS sets it. No exclamation marks, no emoji, and no rhetorical questions as headings. Write fees as "£100 · 50 minutes". Give a registration body's name in full the first time, with its acronym in brackets.

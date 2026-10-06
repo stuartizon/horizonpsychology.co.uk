@@ -1,0 +1,314 @@
+---
+// One testimonial at a time, moving on by itself, with arrows either side and
+// a button for each testimonial underneath. Every slide sits in the same grid
+// cell, so the carousel is as tall as the longest and doesn't jump.
+import type { Testimonial } from "@/data/testimonials";
+import caretLeft from "@phosphor-icons/core/regular/caret-left.svg?raw";
+import caretRight from "@phosphor-icons/core/regular/caret-right.svg?raw";
+import StarRating from "./StarRating.astro";
+
+interface Props {
+  testimonials: Testimonial[];
+}
+
+const { testimonials } = Astro.props;
+const count = testimonials.length;
+---
+
+<div
+  class="carousel"
+  role="group"
+  aria-roledescription="carousel"
+  aria-label="Testimonials"
+  data-testimonial-carousel
+>
+  <div class="carousel__row">
+    <button class="carousel__arrow" type="button" aria-label="Previous testimonial" data-previous>
+      <span aria-hidden="true" set:html={caretLeft} />
+    </button>
+    <div class="carousel__slides" aria-live="off">
+      {
+        testimonials.map(({ quote, name }, index) => (
+          <figure
+            class="carousel__slide"
+            aria-roledescription="slide"
+            aria-label={`${index + 1} of ${count}`}
+            aria-hidden={index === 0 ? undefined : "true"}
+            inert={index !== 0}
+            data-state={index === 0 ? "current" : "hidden"}
+          >
+            <blockquote>&ldquo;{quote}&rdquo;</blockquote>
+            <figcaption>
+              <StarRating />
+              {name}
+            </figcaption>
+          </figure>
+        ))
+      }
+    </div>
+    <button class="carousel__arrow" type="button" aria-label="Next testimonial" data-next>
+      <span aria-hidden="true" set:html={caretRight} />
+    </button>
+  </div>
+  <div class="carousel__dots" role="group" aria-label="Choose a testimonial">
+    {
+      testimonials.map((_, index) => (
+        <button
+          class="carousel__dot"
+          type="button"
+          aria-label={`Testimonial ${index + 1} of ${count}`}
+          aria-current={index === 0 ? "true" : undefined}
+        />
+      ))
+    }
+  </div>
+</div>
+
+<script>
+  import { dragAxis, slideAfterSwipe, wrap } from "./carousel";
+
+  const INTERVAL = 7000;
+  const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  for (const carousel of document.querySelectorAll<HTMLElement>("[data-testimonial-carousel]")) {
+    const slidesBox = carousel.querySelector<HTMLElement>(".carousel__slides")!;
+    const slides = [...carousel.querySelectorAll<HTMLElement>(".carousel__slide")];
+    const dots = [...carousel.querySelectorAll<HTMLButtonElement>(".carousel__dot")];
+    let current = 0;
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    let hovered = false;
+    let focused = false;
+
+    // Moves on by itself every few seconds, unless the visitor is reading or
+    // using it, or prefers less motion.
+    const schedule = () => {
+      clearTimeout(timer);
+      if (reducedMotion || hovered || focused || slides.length < 2) return;
+      timer = setTimeout(() => show(current + 1), INTERVAL);
+    };
+
+    // The new testimonial slides in from the right going forwards, or from the
+    // left going back, and the old one slides out the other way. After a
+    // swipe, the new one starts from where the swipe left off.
+    const show = (index: number, direction = 1, offset = 0) => {
+      const previous = current;
+      current = wrap(index, slides.length);
+      if (current !== previous) {
+        const incoming = slides[current];
+        incoming.style.transition = "none";
+        incoming.style.transform = `translateX(calc(${direction * 100}% + ${offset}px))`;
+        incoming.getBoundingClientRect();
+        incoming.style.transition = "";
+        incoming.style.transform = "";
+        slides[previous].style.transform = `translateX(${-direction * 100}%)`;
+      }
+      slides.forEach((slide, i) => {
+        slide.dataset.state = i === current ? "current" : "hidden";
+        slide.inert = i !== current;
+        if (i === current) slide.removeAttribute("aria-hidden");
+        else slide.setAttribute("aria-hidden", "true");
+      });
+      dots.forEach((dot, i) => {
+        if (i === current) dot.setAttribute("aria-current", "true");
+        else dot.removeAttribute("aria-current");
+      });
+      schedule();
+    };
+
+    // Once the visitor moves between testimonials, each new one is announced.
+    const choose = (index: number, direction = 1, offset = 0) => {
+      slidesBox.setAttribute("aria-live", "polite");
+      show(index, direction, offset);
+    };
+
+    carousel.querySelector("[data-previous]")!.addEventListener("click", () => choose(current - 1, -1));
+    carousel.querySelector("[data-next]")!.addEventListener("click", () => choose(current + 1));
+    dots.forEach((dot, i) => dot.addEventListener("click", () => choose(i, i < current ? -1 : 1)));
+
+    carousel.addEventListener("mouseenter", () => {
+      hovered = true;
+      schedule();
+    });
+    carousel.addEventListener("mouseleave", () => {
+      hovered = false;
+      schedule();
+    });
+    carousel.addEventListener("focusin", () => {
+      focused = true;
+      schedule();
+    });
+    carousel.addEventListener("focusout", (event) => {
+      focused = carousel.contains(event.relatedTarget as Node | null);
+      schedule();
+    });
+
+    // The testimonial follows a horizontal swipe, and moves on if it goes far
+    // enough. A vertical drag is left to scroll the page.
+    let start: { x: number; y: number } | undefined;
+    let axis: "x" | "y" | undefined;
+    let dx = 0;
+
+    slidesBox.addEventListener("pointerdown", (event) => {
+      start = { x: event.clientX, y: event.clientY };
+      axis = undefined;
+      dx = 0;
+      slidesBox.setPointerCapture(event.pointerId);
+    });
+
+    slidesBox.addEventListener("pointermove", (event) => {
+      if (!start) return;
+      dx = event.clientX - start.x;
+      axis ??= dragAxis(dx, event.clientY - start.y);
+      if (axis !== "x") return;
+      event.preventDefault();
+      slides[current].style.transition = "none";
+      slides[current].style.transform = `translateX(${dx}px)`;
+    });
+
+    const endSwipe = () => {
+      if (!start) return;
+      start = undefined;
+      slides[current].style.transition = "";
+      slides[current].style.transform = "";
+      if (axis === "x") choose(slideAfterSwipe(current, slides.length, dx, slidesBox.offsetWidth), dx < 0 ? 1 : -1, dx);
+    };
+    slidesBox.addEventListener("pointerup", endSwipe);
+    slidesBox.addEventListener("pointercancel", endSwipe);
+
+    schedule();
+  }
+</script>
+
+<style>
+  .carousel {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .carousel__row {
+    display: flex;
+    align-items: stretch;
+    gap: clamp(6px, 2vw, 20px);
+  }
+
+  /* Phones have no room for the arrows beside the quote, so they move
+     between testimonials with the buttons underneath, or by swiping. */
+  .carousel__arrow {
+    display: none;
+    width: 44px;
+    height: 44px;
+    flex: none;
+    align-items: center;
+    align-self: center;
+    justify-content: center;
+    border: 0;
+    background: transparent;
+    padding: 0;
+    color: var(--color-sage-600);
+    cursor: pointer;
+    transition: color var(--duration-base) var(--ease-calm);
+  }
+
+  .carousel__arrow:hover {
+    color: var(--color-sage-800);
+  }
+
+  .carousel__arrow :global(svg) {
+    display: block;
+    width: 22px;
+    height: 22px;
+  }
+
+  .carousel__slides {
+    display: grid;
+    min-width: 0;
+    flex: 1;
+    overflow: hidden;
+    padding-block: clamp(8px, 2vw, 20px);
+    touch-action: pan-y;
+  }
+
+  /* A shorter quote sits halfway down the space the longest needs. A
+     slide stays visible while it slides out. */
+  .carousel__slide {
+    display: flex;
+    grid-area: 1 / 1;
+    align-self: center;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-5);
+    margin: 0;
+    pointer-events: none;
+    text-align: center;
+    visibility: hidden;
+    transition:
+      transform var(--duration-slow) var(--ease-calm),
+      visibility 0s linear var(--duration-slow);
+  }
+
+  .carousel__slide[data-state="current"] {
+    pointer-events: auto;
+    visibility: visible;
+    transform: none;
+    transition: transform var(--duration-slow) var(--ease-calm);
+  }
+
+  /* Smaller than the site's quote style, as some testimonials are long:
+     16px on the smallest phones, growing to 1.3rem by tablet width. */
+  blockquote {
+    font-size: clamp(1rem, 0.75rem + 1.1vw, 1.3rem);
+  }
+
+  figcaption {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    color: var(--color-ink-soft);
+    font-size: 0.78rem;
+    font-weight: var(--weight-semibold);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .carousel__dots {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-3);
+  }
+
+  /* A 9px dot in a 22px button, so it's easier to hit. */
+  .carousel__dot {
+    display: grid;
+    width: 22px;
+    height: 22px;
+    place-items: center;
+    border: 0;
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+  }
+
+  /* Light, so the current testimonial's dot stands out: 4.1:1 against it,
+     though only 2.2:1 against the sage band. */
+  .carousel__dot::after {
+    width: 9px;
+    height: 9px;
+    border-radius: var(--radius-pill);
+    background: color-mix(in srgb, var(--color-sage-600) 30%, var(--color-sage-300));
+    content: "";
+    transition: background-color var(--duration-base) var(--ease-calm);
+  }
+
+  .carousel__dot[aria-current="true"]::after {
+    background: var(--color-sage-800);
+  }
+
+  @media (min-width: 48rem) {
+    .carousel__arrow {
+      display: flex;
+    }
+  }
+</style>

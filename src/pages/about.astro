@@ -1,10 +1,9 @@
 ---
 import { Image } from "astro:assets";
 import Button from "@/components/Button.astro";
-import Carousel from "@/components/Carousel.astro";
 import Container from "@/components/Container.astro";
 import SectionHeading from "@/components/SectionHeading.astro";
-import TestimonialCard from "@/components/TestimonialCard.astro";
+import TestimonialCarousel from "@/components/TestimonialCarousel.astro";
 import { testimonials } from "@/data/testimonials";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import portrait from "@/photos/about.jpg";
@@ -48,9 +47,7 @@ import portrait from "@/photos/about.jpg";
     <Container>
       <SectionHeading eyebrow="Client experience" title="What people have said" id="testimonials-heading" />
       <div class="testimonials__carousel">
-        <Carousel label="Client testimonials">
-          {testimonials.map(({ quote, name }) => <TestimonialCard quote={quote} name={name} />)}
-        </Carousel>
+        <TestimonialCarousel testimonials={testimonials} />
       </div>
     </Container>
   </section>
