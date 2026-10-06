@@ -76,7 +76,10 @@
   --measure-prose: 64ch;
   --measure-feature: 820px;
   --gutter: clamp(20px, 5vw, 48px);
-  --section-y: clamp(72px, 10vw, 128px);
+  /* Vertical padding between sections, and the tighter space below a
+     dividing line: under the nav, and at the top of the footer. */
+  --section-y: clamp(56px, 7vw, 96px);
+  --section-y-tight: clamp(36px, 5vw, 72px);
   --card-pad: clamp(24px, 2.4vw, 32px);
   --panel-pad: clamp(24px, 2.8vw, 40px);
 
