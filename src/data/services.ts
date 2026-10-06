@@ -101,6 +101,6 @@ export const services: Service[] = [
       "One-off or ongoing",
     ],
     faqs: ["researchWho", "researchStage", "researchEthics", "researchPublication"],
-    photoAlt: "Emma talking with a client in armchairs, notes on the table between them",
+    photoAlt: "Emma talking with someone in armchairs, notes on the table between them",
   },
 ];
