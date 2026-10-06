@@ -49,8 +49,17 @@ const { eyebrow, title, id } = Astro.props;
     }
 
     .faq-section__heading {
+      position: relative;
       flex: 1 1 0;
       min-width: 200px;
+    }
+
+    /* An eyebrow hangs above the heading, at its usual gap, so it's the
+       heading that lines up with the first question. */
+    .faq-section__heading :global(hgroup > p) {
+      position: absolute;
+      bottom: calc(100% + var(--space-3));
+      left: 0;
     }
 
     .faq-section__list {
