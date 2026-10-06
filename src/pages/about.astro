@@ -74,11 +74,11 @@ import portrait from "@/photos/about.jpg";
             culturally sensitive practice, she combines compassionate honesty with evidence-based care to help clients
             build resilience, deepen self-understanding, and create meaningful, sustainable change.
           </p>
-          <div class="approach__actions">
-            <Button href="/contact/" label="Get in touch" />
-            <Button href="/projects/" label="See publications" type="secondary" />
-          </div>
         </div>
+      </div>
+      <div class="approach__actions">
+        <Button href="/contact/" label="Get in touch" />
+        <Button href="/projects/" label="See publications" type="secondary" />
       </div>
     </Container>
   </section>
@@ -139,12 +139,11 @@ import portrait from "@/photos/about.jpg";
     flex-wrap: wrap;
     justify-content: center;
     gap: var(--space-3);
-    margin-top: var(--space-5);
+    margin-top: var(--space-10);
   }
 
   /* From a tablet up, the portrait sits beside the introduction, and the
-     approach beside its heading, with its text kept to a readable measure
-     and the buttons under its start. */
+     approach beside its heading, with its text kept to a readable measure. */
   @media (min-width: 48rem) {
     .about {
       grid-template-columns: 1fr 1fr;
@@ -153,10 +152,6 @@ import portrait from "@/photos/about.jpg";
     .about__intro,
     .approach__body {
       max-width: var(--measure-prose);
-    }
-
-    .approach__actions {
-      justify-content: flex-start;
     }
 
     /* The text takes up to its measure, so it ends in line with the
