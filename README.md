@@ -23,8 +23,10 @@ The dev server runs on <http://127.0.0.1:4321>.
 | `npm run check` | Astro and TypeScript checks |
 | `npm run build` | Checks, then builds the static site to `dist/` |
 | `npm run preview` | Serves the production build locally |
-| `npm test` | Component tests |
-| `npm run test:e2e` | Browser and accessibility tests. Install the browsers once first with `npx playwright install chromium webkit` |
+| `npm test` | All the tests below, one after the other |
+| `npm run test:unit` | Unit tests |
+| `npm run test:pages` | Builds the site, then tests its pages, links and sitemap |
+| `npm run test:browser` | Browser and accessibility tests. Install the browsers once first with `npx playwright install chromium webkit` |
 
 ## Stack
 
@@ -38,7 +40,7 @@ The dev server runs on <http://127.0.0.1:4321>.
 | Fonts | Lora and Source Sans 3, served from the site with [Fontsource](https://fontsource.org) ([ADR 0004](docs/adr/0004-self-host-fonts-with-fontsource.md)) |
 | Icons | [Phosphor](https://phosphoricons.com), imported from `@phosphor-icons/core` ([ADR 0016](docs/adr/0016-phosphor-icons-from-the-npm-package.md)), and the service icons in `src/icons/` |
 | SEO | `sitemap-index.xml` built by [`@astrojs/sitemap`](https://docs.astro.build/en/guides/integrations-guide/sitemap/) and linked from `robots.txt` |
-| Testing | [Vitest](https://vitest.dev) for components, [Playwright](https://playwright.dev) with [axe](https://github.com/dequelabs/axe-core-npm) in the browser ([ADR 0013](docs/adr/0013-test-in-chromium-and-webkit-at-desktop-and-phone-sizes.md)) |
+| Testing | [Vitest](https://vitest.dev) for unit and page tests, [Playwright](https://playwright.dev) with [axe](https://github.com/dequelabs/axe-core-npm) for browser tests ([ADR 0018](docs/adr/0018-unit-page-and-browser-tests.md)) |
 | CI | GitHub Actions on every pull request and push to `main` |
 | Hosting | [Cloudflare Pages](https://pages.cloudflare.com), deployed with Wrangler from GitHub Actions ([ADR 0015](docs/adr/0015-host-on-cloudflare-pages-deployed-from-github-actions.md)) |
 
@@ -53,9 +55,11 @@ src/
   icons/        # the service icons, named by service id, imported with ?raw
   photos/       # site photos, named by the page they appear on, loaded with astro:assets
   styles/       # global.css: colour palette, shared scales and base element styles
-  test/         # test helpers (render.ts renders a component to a queryable DOM)
+  test/         # unit test helpers (render.ts renders a component to a queryable DOM)
   consts.ts     # site title and description
-e2e/            # Playwright browser and accessibility tests
+tests/
+  pages/        # Vitest tests of the built pages in dist/
+  browser/      # Playwright browser and accessibility tests
 public/         # static assets served as-is (images, favicon, robots.txt)
 docs/adr/       # architecture decision records
 docs/design/    # dated snapshot of the design from Claude Design
@@ -65,12 +69,13 @@ Import from `src` with the `@/` alias, for example `@/components/Button.astro`.
 
 ## Testing
 
-Work is test-first ([ADR 0007](docs/adr/0007-test-driven-development.md)), with two kinds of automated test ([ADR 0013](docs/adr/0013-test-in-chromium-and-webkit-at-desktop-and-phone-sizes.md)):
+Work is test-first ([ADR 0007](docs/adr/0007-test-driven-development.md)), with three kinds of automated test ([ADR 0018](docs/adr/0018-unit-page-and-browser-tests.md)). Each check goes in the fastest one that can make it:
 
-- **Component tests** (`npm test`, Vitest) render a component and check its output: content, links, attributes and ARIA. They sit next to the component they test.
-- **Browser tests** (`npm run test:e2e`, Playwright) run in Chromium and WebKit, at desktop and 320px phone sizes, against a production build. They cover smoke checks that pages load and navigation works, interactive behaviour (scripts, keyboard and focus, responsive layout), and automated accessibility checks with axe. They live in `e2e/`.
+- **Unit tests** (`npm run test:unit`, Vitest) render a component and check its output: content, links, attributes and ARIA. They sit next to the code they test. Tests of the typed content in `src/data/`, and checks over source files such as which breakpoints the styles use, go here too.
+- **Page tests** (`npm run test:pages`, Vitest) build the site and read its pages from `dist/`. They check what's in the built files: each page's content, images and metadata, the sitemap and `robots.txt`, and that every internal link opens a page. They live in `tests/pages/`.
+- **Browser tests** (`npm run test:browser`, Playwright) run in Chromium and WebKit, at desktop and 320px phone sizes, against a production build. They're for what needs a browser: responsive layout, scripts, keyboard and focus, and automated accessibility checks with axe. They live in `tests/browser/`.
 
-CI runs the build and both test suites on every pull request and push to `main`.
+`npm test` runs all three. CI runs the build and all three on every pull request and push to `main`.
 
 ## Deployment
 

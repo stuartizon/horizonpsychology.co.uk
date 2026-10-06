@@ -1,14 +1,9 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
-import { faqGroups, faqs } from "../src/data/faqs";
+import { faqGroups, faqs } from "@/data/faqs";
 
 test.beforeEach(async ({ page }) => {
   await page.goto("/faqs/");
-});
-
-test("the FAQs page has its title and heading", async ({ page }) => {
-  await expect(page).toHaveTitle(/^FAQs \| /);
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Frequently asked questions");
 });
 
 test("on a wide screen the heading and intro each fit on one line", async ({ page, isMobile }) => {
@@ -23,17 +18,6 @@ test("on a wide screen the heading and intro each fit on one line", async ({ pag
       return new Set([...range.getClientRects()].map((rect) => Math.round(rect.top))).size;
     });
     expect(lines).toBe(1);
-  }
-});
-
-test("each group is a section of its questions, in order", async ({ page }) => {
-  for (const group of faqGroups) {
-    const section = page.getByRole("region", { name: group.title });
-    await expect(section.getByRole("heading", { level: 2 })).toHaveText(group.title);
-    await expect(section.locator(".eyebrow")).toHaveCount(0);
-
-    const questions = section.getByRole("heading", { level: 3 }).getByRole("button");
-    await expect(questions).toHaveText(group.faqs.map((id) => faqs[id].question));
   }
 });
 

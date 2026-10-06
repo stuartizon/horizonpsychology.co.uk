@@ -32,7 +32,7 @@ jobs:
       - run: npm run check
 
   unit:
-    name: Component tests
+    name: Unit tests
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -42,7 +42,7 @@ jobs:
           node-version-file: .nvmrc
           cache: npm
       - run: npm ci
-      - run: npm test
+      - run: npm run test:unit
 
   build:
     name: Build
@@ -63,9 +63,29 @@ jobs:
           path: dist/
           retention-days: 7
 
+  # Reads the uploaded build, so the files that get deployed are the ones that
+  # were tested.
+  pages:
+    name: Page tests
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - uses: actions/download-artifact@v8
+        with:
+          name: dist
+          path: dist/
+      - run: npm run test:pages
+
   # Runs against the uploaded build, so the files that get deployed are the
   # ones that were tested. One job per browser, each at desktop and phone sizes.
-  e2e:
+  browser:
     name: Browser tests (${{ matrix.browser }})
     needs: build
     runs-on: ubuntu-latest
@@ -104,7 +124,7 @@ jobs:
   # deployed.
   deploy:
     name: Deploy
-    needs: [check, unit, build, e2e]
+    needs: [check, unit, build, pages, browser]
     if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     timeout-minutes: 10

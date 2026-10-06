@@ -3,7 +3,7 @@ import { defineConfig, devices } from "@playwright/test";
 const port = 4322;
 
 export default defineConfig({
-  testDir: "e2e",
+  testDir: "tests/browser",
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 1 : 0,
   reporter: process.env.CI ? [["github"], ["list"]] : "list",
@@ -18,7 +18,7 @@ export default defineConfig({
     { name: "webkit-phone", use: { ...devices["iPhone SE"] } },
   ],
   webServer: {
-    // CI serves the build the tests ran against, which the e2e job downloads
+    // CI serves the build the tests ran against, which the browser tests job downloads
     // from the build job. Locally, build first so a stale dist/ is never tested.
     command: `${process.env.CI ? "" : "astro build && "}astro preview --host 127.0.0.1 --port ${port}`,
     env: { ASTRO_TELEMETRY_DISABLED: "1" },

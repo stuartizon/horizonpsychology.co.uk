@@ -4,6 +4,8 @@ Date: 2026-10-04
 
 Supersedes [0011](0011-vitest-and-playwright-for-tests.md).
 
+Superseded by [0018](0018-unit-page-and-browser-tests.md).
+
 ## Context
 
 [0011](0011-vitest-and-playwright-for-tests.md) set up Vitest for components and Playwright with axe for the browser, running in Chromium only at a desktop size. The redesign's layout shell (#2) brings a header that collapses into a mobile menu, and the site must work from 320px wide. Many visitors will arrive on an iPhone, where every browser uses WebKit, so a desktop Chromium run alone can miss both layout problems at narrow widths and Safari-specific behaviour.

@@ -24,13 +24,14 @@ The test-first commit is part of the history on the branch, so reviewers can see
 
 Pure visual styling with no testable behaviour (e.g. adjusting a token value) doesn't need a contrived test. Say so in the PR description and include before/after screenshots instead.
 
-Where tests go ([ADR 0013](docs/adr/0013-test-in-chromium-and-webkit-at-desktop-and-phone-sizes.md)):
+Where tests go ([ADR 0018](docs/adr/0018-unit-page-and-browser-tests.md)). Put each check in the fastest kind of test that can make it:
 
-- **Component tests** (`npm test`): `Component.test.ts` next to the component. Render it with `render()` from `@/test/render` and query the returned DOM. Use these for rendered output: content, links, attributes, ARIA.
-- **Browser tests** (`npm run test:e2e`): `e2e/*.spec.ts`. Use these for anything that needs a browser: scripts, keyboard and focus, navigation, responsive layout, and axe accessibility checks. Each runs in Chromium and WebKit at desktop and 320px phone sizes; skip a size a test doesn't apply to with `test.skip(isMobile, reason)`. Move focus with `pressTab()` from `e2e/keyboard.ts`, not `keyboard.press("Tab")`, so links are reachable in WebKit.
-- A test for a known bug that won't be fixed in the current PR is marked `test.fail()` with a comment linking the issue. Remove the marker in the PR that fixes it.
+- **Unit tests** (`npm run test:unit`): `Component.test.ts` next to the component. Render it with `render()` from `@/test/render` and query the returned DOM. Use these for rendered output: content, links, attributes, ARIA.
+- **Page tests** (`npm run test:pages`): `tests/pages/*.test.ts`. Read a built page with `page()` from `tests/pages/pages.ts` and query its DOM. Use these for what's on a page: content, images, metadata and the sitemap. Don't write a test that a link opens a page: `links.test.ts` checks every internal link on every page.
+- **Browser tests** (`npm run test:browser`): `tests/browser/*.spec.ts`. Use these only for what needs a browser: scripts, keyboard and focus, responsive layout and computed styles, and axe accessibility checks. Each runs in Chromium and WebKit at desktop and 320px phone sizes; skip a size a test doesn't apply to with `test.skip(isMobile, reason)`. Move focus with `pressTab()` from `tests/browser/keyboard.ts`, not `keyboard.press("Tab")`, so links are reachable in WebKit.
+- A test for a known bug that won't be fixed in the current PR is marked `test.fail()` (or `test.fails` in Vitest) with a comment linking the issue. Remove the marker in the PR that fixes it.
 
-Run `npm run build`, `npm test` and `npm run test:e2e` before opening a PR.
+Run `npm run build` and `npm test`, which runs all three kinds of test, before opening a PR.
 
 ## Other guidance
 

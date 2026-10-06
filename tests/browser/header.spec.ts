@@ -1,6 +1,6 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test, type Page } from "@playwright/test";
-import { services } from "../src/data/services";
+import { services } from "@/data/services";
 import { pressShiftTab, pressTab } from "./keyboard";
 
 const header = (page: Page) => page.getByRole("banner");
@@ -101,16 +101,6 @@ test.describe("on a phone", () => {
     expect(Math.abs((await rightGap(menuButton(page))) - margin)).toBeLessThanOrEqual(1);
     await menuButton(page).click();
     expect(Math.abs((await rightGap(closeButton(page))) - margin)).toBeLessThanOrEqual(1);
-  });
-
-  test("every menu link opens a page", async ({ page }) => {
-    await page.goto("/");
-    await menuButton(page).click();
-
-    for (const href of await menuLinks(page).evaluateAll((links) => links.map((link) => link.getAttribute("href")))) {
-      const response = await page.request.get(href!);
-      expect(response.status(), href!).toBe(200);
-    }
   });
 
   test("the menu closes if the window widens to tablet width", async ({ page }) => {

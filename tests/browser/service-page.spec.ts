@@ -1,6 +1,6 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
-import { services } from "../src/data/services";
+import { services } from "@/data/services";
 
 const [service] = services;
 
@@ -47,15 +47,6 @@ test("the service icon is sized to the page title", async ({ page }) => {
 });
 
 for (const { id, name } of services) {
-  test(`the ${name} page shows its own photo, resized, with alt text`, async ({ page }) => {
-    await page.goto(`/${id}/`);
-    const photo = page.locator(".service__image");
-
-    await expect(photo).toHaveAttribute("src", new RegExp(`^/_astro/${id}\\.`));
-    await expect(photo).toHaveAttribute("srcset", /\d+w/);
-    await expect(photo).toHaveAttribute("alt", /\S/);
-  });
-
   test(`the ${name} photo keeps its own proportions`, async ({ page }) => {
     await page.goto(`/${id}/`);
     const photo = page.locator(".service__image");
