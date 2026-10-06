@@ -1,7 +1,7 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
-import { faqs } from "../src/data/faqs";
-import { services } from "../src/data/services";
+import { faqs } from "@/data/faqs";
+import { services } from "@/data/services";
 
 const [service] = services;
 const [first, second] = service.faqs.map((id) => faqs[id]);

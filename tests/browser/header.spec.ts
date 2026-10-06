@@ -1,6 +1,6 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test, type Page } from "@playwright/test";
-import { services } from "../src/data/services";
+import { services } from "@/data/services";
 import { pressShiftTab, pressTab } from "./keyboard";
 
 const header = (page: Page) => page.getByRole("banner");

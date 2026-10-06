@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { services } from "../src/data/services";
+import { services } from "@/data/services";
 
 test("clicking anywhere on a service card opens its page", async ({ page }) => {
   await page.goto("/");

@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { services } from "../src/data/services";
+import { services } from "@/data/services";
 
 const pages = ["/", "/about/", "/contact/", "/projects/", ...services.map(({ id }) => `/${id}/`), "/404/"];
 

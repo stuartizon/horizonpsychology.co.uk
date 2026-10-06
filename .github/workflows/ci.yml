@@ -85,7 +85,7 @@ jobs:
 
   # Runs against the uploaded build, so the files that get deployed are the
   # ones that were tested. One job per browser, each at desktop and phone sizes.
-  e2e:
+  browser:
     name: Browser tests (${{ matrix.browser }})
     needs: build
     runs-on: ubuntu-latest
@@ -124,7 +124,7 @@ jobs:
   # deployed.
   deploy:
     name: Deploy
-    needs: [check, unit, build, pages, e2e]
+    needs: [check, unit, build, pages, browser]
     if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     timeout-minutes: 10

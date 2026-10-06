@@ -1,6 +1,6 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
-import { faqGroups, faqs } from "../src/data/faqs";
+import { faqGroups, faqs } from "@/data/faqs";
 
 test.beforeEach(async ({ page }) => {
   await page.goto("/faqs/");

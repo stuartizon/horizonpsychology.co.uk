@@ -26,7 +26,7 @@ The dev server runs on <http://127.0.0.1:4321>.
 | `npm test` | All the tests below, one after the other |
 | `npm run test:unit` | Unit tests |
 | `npm run test:pages` | Builds the site, then tests its pages, links and sitemap |
-| `npm run test:e2e` | Browser and accessibility tests. Install the browsers once first with `npx playwright install chromium webkit` |
+| `npm run test:browser` | Browser and accessibility tests. Install the browsers once first with `npx playwright install chromium webkit` |
 
 ## Stack
 
@@ -55,10 +55,11 @@ src/
   icons/        # the service icons, named by service id, imported with ?raw
   photos/       # site photos, named by the page they appear on, loaded with astro:assets
   styles/       # global.css: colour palette, shared scales and base element styles
-  test/         # test helpers (render.ts renders a component to a queryable DOM)
+  test/         # unit test helpers (render.ts renders a component to a queryable DOM)
   consts.ts     # site title and description
-page-tests/     # Vitest tests of the built pages in dist/
-e2e/            # Playwright browser and accessibility tests
+tests/
+  pages/        # Vitest tests of the built pages in dist/
+  browser/      # Playwright browser and accessibility tests
 public/         # static assets served as-is (images, favicon, robots.txt)
 docs/adr/       # architecture decision records
 docs/design/    # dated snapshot of the design from Claude Design
@@ -71,8 +72,8 @@ Import from `src` with the `@/` alias, for example `@/components/Button.astro`.
 Work is test-first ([ADR 0007](docs/adr/0007-test-driven-development.md)), with three kinds of automated test ([ADR 0018](docs/adr/0018-unit-page-and-browser-tests.md)). Each check goes in the fastest one that can make it:
 
 - **Unit tests** (`npm run test:unit`, Vitest) render a component and check its output: content, links, attributes and ARIA. They sit next to the code they test. Tests of the typed content in `src/data/`, and checks over source files such as which breakpoints the styles use, go here too.
-- **Page tests** (`npm run test:pages`, Vitest) build the site and read its pages from `dist/`. They check what's in the built files: each page's content, images and metadata, the sitemap and `robots.txt`, and that every internal link opens a page. They live in `page-tests/`.
-- **Browser tests** (`npm run test:e2e`, Playwright) run in Chromium and WebKit, at desktop and 320px phone sizes, against a production build. They're for what needs a browser: responsive layout, scripts, keyboard and focus, and automated accessibility checks with axe. They live in `e2e/`.
+- **Page tests** (`npm run test:pages`, Vitest) build the site and read its pages from `dist/`. They check what's in the built files: each page's content, images and metadata, the sitemap and `robots.txt`, and that every internal link opens a page. They live in `tests/pages/`.
+- **Browser tests** (`npm run test:browser`, Playwright) run in Chromium and WebKit, at desktop and 320px phone sizes, against a production build. They're for what needs a browser: responsive layout, scripts, keyboard and focus, and automated accessibility checks with axe. They live in `tests/browser/`.
 
 `npm test` runs all three. CI runs the build and all three on every pull request and push to `main`.
 
