@@ -50,15 +50,15 @@ test("on a phone the portrait follows the introduction", async ({ page, isMobile
   expect(portrait.y).toBeGreaterThan(intro.y + intro.height);
 });
 
-/** Sets a width below the tablet breakpoint on the desktop browsers, or keeps the phone's own. */
-async function narrow(page: Page, isMobile: boolean, width: number) {
+/** Sets the width on the desktop browsers, or keeps the phone's own. */
+async function atWidth(page: Page, isMobile: boolean, width: number) {
   if (!isMobile) await page.setViewportSize({ width, height: 1024 });
 }
 
 for (const width of [320, 700]) {
   test(`below tablet width, at ${width}px, the text runs the full width of the page`, async ({ page, isMobile }) => {
     test.skip(isMobile && width !== 320, "Phones are 320px");
-    await narrow(page, isMobile, width);
+    await atWidth(page, isMobile, width);
 
     const content = await page.locator("main .container").first().evaluate((container) => {
       const style = getComputedStyle(container);
@@ -71,21 +71,26 @@ for (const width of [320, 700]) {
       expect(paragraph.width, String(text)).toBeCloseTo(content, 0);
     }
   });
+}
 
-  test(`below tablet width, at ${width}px, the buttons are centred`, async ({ page, isMobile }) => {
+for (const width of [320, 700, 768, 1280]) {
+  test(`at ${width}px the buttons are centred on the page, below both columns`, async ({ page, isMobile }) => {
     test.skip(isMobile && width !== 320, "Phones are 320px");
-    await narrow(page, isMobile, width);
+    await atWidth(page, isMobile, width);
 
-    const body = (await page.locator("p", { hasText: /Emma believes/ }).boundingBox())!;
+    const section = page.getByRole("region", { name: "How Emma works" });
+    const content = (await section.locator(".container").boundingBox())!;
+    const text = (await section.locator("p", { hasText: /Her work is grounded/ }).boundingBox())!;
     const buttons = await Promise.all(
       ["Get in touch", "See publications"].map(
-        async (name) => (await page.getByRole("link", { name, exact: true }).last().boundingBox())!,
+        async (name) => (await section.getByRole("link", { name, exact: true }).boundingBox())!,
       ),
     );
     const left = Math.min(...buttons.map((button) => button.x));
     const right = Math.max(...buttons.map((button) => button.x + button.width));
 
-    expect((left + right) / 2).toBeCloseTo(body.x + body.width / 2, 0);
+    expect((left + right) / 2).toBeCloseTo(content.x + content.width / 2, 0);
+    expect(Math.min(...buttons.map((button) => button.y))).toBeGreaterThan(text.y + text.height);
   });
 }
 
