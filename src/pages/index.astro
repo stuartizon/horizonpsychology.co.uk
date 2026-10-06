@@ -2,9 +2,8 @@
 import ServiceCard from "../components/ServiceCard.astro";
 import Button from "../components/Button.astro";
 import CredentialBadge from "../components/CredentialBadge.astro";
-import Carousel from "../components/Carousel.astro";
 import IntroCallPanel from "@/components/IntroCallPanel.astro";
-import TestimonialCard from "../components/TestimonialCard.astro";
+import TestimonialCarousel from "@/components/TestimonialCarousel.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Container from "@/components/Container.astro";
 import { services } from "@/data/services";
@@ -89,13 +88,7 @@ import { testimonials } from "@/data/testimonials";
 
     <section class="testimonials-section" aria-labelledby="testimonials-heading">
       <h2 id="testimonials-heading">Testimonials</h2>
-      <Carousel label="Client testimonials">
-        {
-          testimonials.map((testimonial) => (
-            <TestimonialCard quote={testimonial.quote} name={testimonial.name} />
-          ))
-        }
-      </Carousel>
+      <TestimonialCarousel testimonials={testimonials} />
     </section>
 
     <div class="intro-call-section">
