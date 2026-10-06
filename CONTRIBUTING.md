@@ -30,7 +30,8 @@ The browser tests check pages with axe and cover keyboard and focus behaviour. N
 - Commit little and often, one small, coherent step per commit.
 - Pull requests are squash merged, so the title becomes the commit on `main` and follows the commit style below. The description says what changed, why, how it was tested, and `Closes #<issue>`.
 - Keep pull requests small enough to review in one sitting. Split large issues into several.
-- The build and all three test suites must pass. CI runs them on every pull request.
+- Format with `npm run format`, or let your editor format on save with Prettier.
+- The build, lint, format check and all three test suites must pass. CI runs them on every pull request.
 - CI deploys each pull request to its own preview, linked from the pull request. Check the change there before merging: merging to `main` puts it live straight away.
 - Update the README, this file and the ADRs in the same pull request as the change they describe.
 
@@ -69,7 +70,7 @@ Headings are statements, not labels: the eyebrow above them carries the label.
 **What we say.**
 
 - Never guarantee or imply an outcome. Describe what happens in sessions, not what they'll fix.
-- Use non-pathologising language: people *have experiences of* psychosis. Prefer "difficulties", "lived experience" and "neurodivergent".
+- Use non-pathologising language: people _have experiences of_ psychosis. Prefer "difficulties", "lived experience" and "neurodivergent".
 - Only claim what the practice can stand behind and attribute, especially credentials.
 - Wherever confidentiality is mentioned, say what its limits are.
 

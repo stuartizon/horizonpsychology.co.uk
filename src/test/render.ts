@@ -9,5 +9,6 @@ export async function render(
 ) {
   const container = await AstroContainer.create();
   const html = await container.renderToString(component, { props });
-  return parseHTML(`<!doctype html><html><body>${html}</body></html>`).document.body;
+  return parseHTML(`<!doctype html><html><body>${html}</body></html>`).document
+    .body;
 }

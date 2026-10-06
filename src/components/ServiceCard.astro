@@ -7,7 +7,11 @@ interface Props {
 
 const { service } = Astro.props;
 
-const icons = import.meta.glob<string>("../icons/*.svg", { query: "?raw", import: "default", eager: true });
+const icons = import.meta.glob<string>("../icons/*.svg", {
+  query: "?raw",
+  import: "default",
+  eager: true,
+});
 const icon = icons[`../icons/${service.id}.svg`];
 ---
 
@@ -16,7 +20,10 @@ const icon = icons[`../icons/${service.id}.svg`];
   <h3>{service.name}</h3>
   <p class="service-card__summary">{service.summary}</p>
   <p class="service-card__meta">£{service.price} · {service.minutes} minutes</p>
-  <a href={`/${service.id}/`}>Find out more<span class="service-card__arrow" aria-hidden="true">→</span></a>
+  <a href={`/${service.id}/`}
+    >Find out
+    more<span class="service-card__arrow" aria-hidden="true">→</span></a
+  >
 </article>
 
 <style>

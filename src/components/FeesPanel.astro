@@ -19,16 +19,10 @@ const labelId = `${service.id}-fees`;
     <p class="fees-panel__duration">{service.minutes}-minute session</p>
   </div>
   <ul>
-    {
-      service.practical.map((point) => (
-        <li>
-          <span class="fees-panel__dash" aria-hidden="true">
-            &mdash;
-          </span>
-          <span>{point}</span>
-        </li>
-      ))
-    }
+    {service.practical.map((point) => <li>
+      <span class="fees-panel__dash" aria-hidden="true"> &mdash; </span>
+      <span>{point}</span>
+    </li>)}
   </ul>
   <Button href={`/contact/?topic=${service.id}`} label="Schedule" />
 </aside>

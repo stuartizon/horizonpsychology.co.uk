@@ -5,10 +5,14 @@ import { render } from "@/test/render";
 import { expect, test } from "vitest";
 import ServiceCard from "./ServiceCard.astro";
 
-const individual = services.find((service) => service.id === "individual-therapy")!;
+const individual = services.find(
+  (service) => service.id === "individual-therapy",
+)!;
 
 async function renderCard() {
-  return (await render(ServiceCard, { service: individual })).querySelector("article")!;
+  return (await render(ServiceCard, { service: individual })).querySelector(
+    "article",
+  )!;
 }
 
 test("shows the service's name, summary, and price and session length", async () => {
@@ -29,6 +33,6 @@ test("links to the service page with Find out more", async () => {
   const link = (await renderCard()).querySelector("a")!;
 
   expect(link.getAttribute("href")).toBe("/individual-therapy/");
-  expect(link.textContent?.trim()).toMatch(/^Find out more/);
+  expect(link.textContent?.replace(/\s+/g, " ")).toMatch(/^Find out more/);
   expect(link.querySelector('[aria-hidden="true"]')?.textContent).toBe("→");
 });

@@ -30,12 +30,10 @@ const projects = [
         returning to.
       </p>
       <ul class="list" aria-label="Projects">
-        {projects.map((project) => (
-          <li>
-            <h2>{project.name}</h2>
-            <p>{project.description}</p>
-          </li>
-        ))}
+        {projects.map((project) => <li>
+          <h2>{project.name}</h2>
+          <p>{project.description}</p>
+        </li>)}
       </ul>
     </div>
   </section>

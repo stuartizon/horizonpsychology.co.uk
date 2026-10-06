@@ -5,9 +5,15 @@ test("body text is set in Source Sans 3", async ({ page }) => {
   await page.goto("/");
   await page.evaluate(() => document.fonts.ready);
 
-  const fontFamily = await page.locator("body").evaluate((el) => getComputedStyle(el).fontFamily);
+  const fontFamily = await page
+    .locator("body")
+    .evaluate((el) => getComputedStyle(el).fontFamily);
   expect(fontFamily).toMatch(/^"Source Sans 3/);
-  expect(await page.evaluate(() => document.fonts.check('16px "Source Sans 3 Variable"'))).toBe(true);
+  expect(
+    await page.evaluate(() =>
+      document.fonts.check('16px "Source Sans 3 Variable"'),
+    ),
+  ).toBe(true);
 });
 
 test("headings are set in Lora at regular weight", async ({ page }) => {
@@ -26,7 +32,9 @@ test("Inter is no longer loaded", async ({ page }) => {
   await page.goto("/");
   await page.evaluate(() => document.fonts.ready);
 
-  const families = await page.evaluate(() => [...document.fonts].map((font) => font.family));
+  const families = await page.evaluate(() =>
+    [...document.fonts].map((font) => font.family),
+  );
   expect(families.some((family) => /inter/i.test(family))).toBe(false);
 });
 
@@ -35,7 +43,9 @@ test("keyboard focus shows a ring and a soft halo", async ({ page }) => {
   await pressTab(page);
 
   const style = await page.evaluate(() => {
-    const { outlineStyle, outlineWidth, boxShadow } = getComputedStyle(document.activeElement!);
+    const { outlineStyle, outlineWidth, boxShadow } = getComputedStyle(
+      document.activeElement!,
+    );
     return { outlineStyle, outlineWidth, boxShadow };
   });
   expect(style.outlineStyle).toBe("solid");
@@ -43,12 +53,16 @@ test("keyboard focus shows a ring and a soft halo", async ({ page }) => {
   expect(style.boxShadow).toContain("5px");
 });
 
-test("link transitions are switched off when reduced motion is preferred", async ({ page }) => {
+test("link transitions are switched off when reduced motion is preferred", async ({
+  page,
+}) => {
   await page.goto("/");
   const link = page.locator("main a").first();
   const longestTransition = () =>
     link.evaluate((el) =>
-      Math.max(...getComputedStyle(el).transitionDuration.split(", ").map(parseFloat)),
+      Math.max(
+        ...getComputedStyle(el).transitionDuration.split(", ").map(parseFloat),
+      ),
     );
 
   expect(await longestTransition()).toBeGreaterThan(0);

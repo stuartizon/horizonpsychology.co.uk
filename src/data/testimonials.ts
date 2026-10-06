@@ -37,7 +37,8 @@ export const testimonials: Testimonial[] = [
     name: "Rachel",
   },
   {
-    quote: "All the sessions were helpful because they were done to fit me specifically.",
+    quote:
+      "All the sessions were helpful because they were done to fit me specifically.",
     name: "Tom",
   },
   {

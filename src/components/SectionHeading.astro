@@ -17,7 +17,9 @@ const { eyebrow, title, level: Heading = "h2", id, subtitle } = Astro.props;
 ---
 
 <hgroup class="section-heading">
-  {eyebrow && <p class="section-heading__eyebrow"><Eyebrow>{eyebrow}</Eyebrow></p>}
+  {eyebrow && <p class="section-heading__eyebrow">
+    <Eyebrow>{eyebrow}</Eyebrow>
+  </p>}
   <Heading id={id}>{title}</Heading>
   {subtitle && <p class="section-heading__subtitle">{subtitle}</p>}
 </hgroup>

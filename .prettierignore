@@ -1,0 +1,3 @@
+# A dated snapshot of the design, kept as exported (ADR 0017)
+docs/design/
+package-lock.json

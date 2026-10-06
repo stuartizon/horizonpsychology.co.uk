@@ -19,7 +19,9 @@ const contentEdges = (locator: Locator) =>
   });
 
 for (const { width, margin } of margins) {
-  test(`the header and page content share the same width at ${width}px`, async ({ page }) => {
+  test(`the header and page content share the same width at ${width}px`, async ({
+    page,
+  }) => {
     await page.setViewportSize({ width, height: 800 });
     await page.goto("/about/");
 

@@ -5,13 +5,16 @@ import { pressTab } from "./keyboard";
 const [first, second] = testimonials;
 const last = testimonials.at(-1)!;
 
-const carousel = (page: Page) => page.getByRole("group", { name: "Testimonials", exact: true });
+const carousel = (page: Page) =>
+  page.getByRole("group", { name: "Testimonials", exact: true });
 
 /** The testimonial showing: hidden slides are out of the accessibility tree. */
 const showing = (page: Page) => carousel(page).getByRole("figure");
 
 const dot = (page: Page, n: number) =>
-  carousel(page).getByRole("button", { name: `Testimonial ${n} of ${testimonials.length}` });
+  carousel(page).getByRole("button", {
+    name: `Testimonial ${n} of ${testimonials.length}`,
+  });
 
 // The clock only moves when a test runs it on, so time spent loading the page
 // doesn't count towards moving on.
@@ -31,22 +34,32 @@ test("Next shows the next testimonial, and Previous goes round from the first to
   isMobile,
 }) => {
   test.skip(isMobile, "Phones have no arrows");
-  await carousel(page).getByRole("button", { name: "Next testimonial" }).click();
+  await carousel(page)
+    .getByRole("button", { name: "Next testimonial" })
+    .click();
   await expect(showing(page)).toContainText(second.name);
 
-  await carousel(page).getByRole("button", { name: "Previous testimonial" }).click();
-  await carousel(page).getByRole("button", { name: "Previous testimonial" }).click();
+  await carousel(page)
+    .getByRole("button", { name: "Previous testimonial" })
+    .click();
+  await carousel(page)
+    .getByRole("button", { name: "Previous testimonial" })
+    .click();
   await expect(showing(page)).toContainText(last.name);
 });
 
-test("a testimonial's button shows it and is marked current", async ({ page }) => {
+test("a testimonial's button shows it and is marked current", async ({
+  page,
+}) => {
   await dot(page, 3).click();
   await expect(showing(page)).toContainText(testimonials[2].name);
   await expect(dot(page, 3)).toHaveAttribute("aria-current", "true");
   await expect(dot(page, 1)).not.toHaveAttribute("aria-current");
 });
 
-test("announces the testimonial once someone moves between them", async ({ page }) => {
+test("announces the testimonial once someone moves between them", async ({
+  page,
+}) => {
   const slides = carousel(page).locator("[aria-live]");
   await expect(slides).toHaveAttribute("aria-live", "off");
 
@@ -54,7 +67,9 @@ test("announces the testimonial once someone moves between them", async ({ page 
   await expect(slides).toHaveAttribute("aria-live", "polite");
 });
 
-test("stays the same height whichever testimonial is showing", async ({ page }) => {
+test("stays the same height whichever testimonial is showing", async ({
+  page,
+}) => {
   await expect(carousel(page)).toBeVisible();
   const height = async () => (await carousel(page).boundingBox())!.height;
   const start = await height();
@@ -65,7 +80,9 @@ test("stays the same height whichever testimonial is showing", async ({ page }) 
   }
 });
 
-test("moves on to the next testimonial by itself every 7 seconds", async ({ page }) => {
+test("moves on to the next testimonial by itself every 7 seconds", async ({
+  page,
+}) => {
   await page.clock.runFor(6900);
   await expect(showing(page)).toContainText(first.name);
 
@@ -73,7 +90,10 @@ test("moves on to the next testimonial by itself every 7 seconds", async ({ page
   await expect(showing(page)).toContainText(second.name);
 });
 
-test("doesn't move on by itself while the pointer is over it", async ({ page, isMobile }) => {
+test("doesn't move on by itself while the pointer is over it", async ({
+  page,
+  isMobile,
+}) => {
   test.skip(isMobile, "Phones have no pointer to hover");
   await carousel(page).hover();
 
@@ -88,7 +108,9 @@ test("doesn't move on by itself while focus is in it", async ({ page }) => {
   await expect(showing(page)).toContainText(first.name);
 });
 
-test("doesn't move on by itself when reduced motion is preferred", async ({ page }) => {
+test("doesn't move on by itself when reduced motion is preferred", async ({
+  page,
+}) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/about/");
 
@@ -96,21 +118,33 @@ test("doesn't move on by itself when reduced motion is preferred", async ({ page
   await expect(showing(page)).toContainText(first.name);
 });
 
-test("Tab moves from Previous to Next to each testimonial's button", async ({ page, isMobile }) => {
+test("Tab moves from Previous to Next to each testimonial's button", async ({
+  page,
+  isMobile,
+}) => {
   test.skip(isMobile, "Phones have no arrows");
-  await carousel(page).getByRole("button", { name: "Previous testimonial" }).focus();
+  await carousel(page)
+    .getByRole("button", { name: "Previous testimonial" })
+    .focus();
 
   await pressTab(page);
-  await expect(carousel(page).getByRole("button", { name: "Next testimonial" })).toBeFocused();
+  await expect(
+    carousel(page).getByRole("button", { name: "Next testimonial" }),
+  ).toBeFocused();
   await pressTab(page);
   await expect(dot(page, 1)).toBeFocused();
 });
 
-test("swiping left shows the next testimonial, and swiping right goes back", async ({ page }) => {
+test("swiping left shows the next testimonial, and swiping right goes back", async ({
+  page,
+}) => {
   // Halfway down the part on screen, as a long quote can be taller than a phone's screen.
   await showing(page).scrollIntoViewIfNeeded();
   const box = (await showing(page).boundingBox())!;
-  const y = (Math.max(box.y, 0) + Math.min(box.y + box.height, page.viewportSize()!.height)) / 2;
+  const y =
+    (Math.max(box.y, 0) +
+      Math.min(box.y + box.height, page.viewportSize()!.height)) /
+    2;
   const swipe = async (from: number, to: number) => {
     await page.mouse.move(from, y);
     await page.mouse.down();
@@ -125,35 +159,56 @@ test("swiping left shows the next testimonial, and swiping right goes back", asy
   await expect(showing(page)).toContainText(first.name);
 });
 
-test("on a phone the arrows are hidden, and the testimonial runs the full width", async ({ page, isMobile }) => {
+test("on a phone the arrows are hidden, and the testimonial runs the full width", async ({
+  page,
+  isMobile,
+}) => {
   test.skip(!isMobile, "Phones only");
 
-  await expect(carousel(page).getByRole("button", { name: "Next testimonial" })).toBeHidden();
-  await expect(carousel(page).getByRole("button", { name: "Previous testimonial" })).toBeHidden();
+  await expect(
+    carousel(page).getByRole("button", { name: "Next testimonial" }),
+  ).toBeHidden();
+  await expect(
+    carousel(page).getByRole("button", { name: "Previous testimonial" }),
+  ).toBeHidden();
   const width = (await carousel(page).boundingBox())!.width;
   expect((await showing(page).boundingBox())!.width).toBeCloseTo(width, 0);
 });
 
 for (const width of [768, 1280]) {
-  test(`at ${width}px the arrows sit either side of the testimonial`, async ({ page, isMobile }) => {
+  test(`at ${width}px the arrows sit either side of the testimonial`, async ({
+    page,
+    isMobile,
+  }) => {
     test.skip(isMobile, "Phones have no arrows");
     await page.setViewportSize({ width, height: 1024 });
 
     const quote = (await showing(page).boundingBox())!;
-    const previous = (await carousel(page).getByRole("button", { name: "Previous testimonial" }).boundingBox())!;
-    const next = (await carousel(page).getByRole("button", { name: "Next testimonial" }).boundingBox())!;
+    const previous = (await carousel(page)
+      .getByRole("button", { name: "Previous testimonial" })
+      .boundingBox())!;
+    const next = (await carousel(page)
+      .getByRole("button", { name: "Next testimonial" })
+      .boundingBox())!;
     expect(previous.x + previous.width).toBeLessThanOrEqual(quote.x);
     expect(next.x).toBeGreaterThanOrEqual(quote.x + quote.width);
   });
 }
 
-test("a shorter testimonial sits halfway down the space the longest needs", async ({ page }) => {
-  const shortest = testimonials.reduce((a, b) => (b.quote.length < a.quote.length ? b : a));
+test("a shorter testimonial sits halfway down the space the longest needs", async ({
+  page,
+}) => {
+  const shortest = testimonials.reduce((a, b) =>
+    b.quote.length < a.quote.length ? b : a,
+  );
   await dot(page, testimonials.indexOf(shortest) + 1).click();
   await expect(showing(page)).toContainText(shortest.name);
 
   const space = (await carousel(page).locator("[aria-live]").boundingBox())!;
   const top = (await showing(page).locator("blockquote").boundingBox())!.y;
   const name = (await showing(page).locator("figcaption").boundingBox())!;
-  expect((top + name.y + name.height) / 2).toBeCloseTo(space.y + space.height / 2, 0);
+  expect((top + name.y + name.height) / 2).toBeCloseTo(
+    space.y + space.height / 2,
+    0,
+  );
 });

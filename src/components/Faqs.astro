@@ -18,31 +18,32 @@ const answerId = (question: string) =>
 ---
 
 <div class="faqs">
-  {
-    faqs.map(({ question, answer }) => (
-      <div class="faq" data-open="false">
-        <h3>
-          <button type="button" aria-expanded="false" aria-controls={answerId(question)} data-faq-toggle>
-            <span class="faq__question">{question}</span>
-            <span class="faq__toggle-line" aria-hidden="true">
-              <span class="faq__toggle" set:html={plusIcon} />
-            </span>
-          </button>
-        </h3>
-        <div class="faq__answer" id={answerId(question)}>
-          <div class="faq__answer-inner">
-            {answer.map((paragraph) => (
-              <p>{paragraph}</p>
-            ))}
-          </div>
-        </div>
+  {faqs.map(({ question, answer }) => <div class="faq" data-open="false">
+    <h3>
+      <button
+        type="button"
+        aria-expanded="false"
+        aria-controls={answerId(question)}
+        data-faq-toggle
+      >
+        <span class="faq__question">{question}</span>
+        <span class="faq__toggle-line" aria-hidden="true">
+          <span class="faq__toggle" set:html={plusIcon} />
+        </span>
+      </button>
+    </h3>
+    <div class="faq__answer" id={answerId(question)}>
+      <div class="faq__answer-inner">
+        {answer.map((paragraph) => <p>{paragraph}</p>)}
       </div>
-    ))
-  }
+    </div>
+  </div>)}
 </div>
 
 <script>
-  for (const toggle of document.querySelectorAll<HTMLButtonElement>("[data-faq-toggle]")) {
+  for (const toggle of document.querySelectorAll<HTMLButtonElement>(
+    "[data-faq-toggle]",
+  )) {
     toggle.addEventListener("click", () => {
       const item = toggle.closest<HTMLElement>(".faq");
       if (!item) return;

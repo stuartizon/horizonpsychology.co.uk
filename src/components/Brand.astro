@@ -14,7 +14,11 @@ interface Props {
 const { full = false } = Astro.props;
 ---
 
-<a class:list={["brand", { "brand--full": full }]} href="/" aria-label="Horizon Psychology, home">
+<a
+  class:list={["brand", { "brand--full": full }]}
+  href="/"
+  aria-label="Horizon Psychology, home"
+>
   <Logo variant={full ? "full" : "wordmark"} />
 </a>
 

@@ -15,10 +15,14 @@ test("the logo links home and is the HORIZON wordmark, drawn inline", async () =
 
 test("each logo on a page uses its own gradient", async () => {
   const body = await render(Navbar);
-  const logos = [...body.querySelectorAll('a[aria-label="Horizon Psychology, home"] svg')];
+  const logos = [
+    ...body.querySelectorAll('a[aria-label="Horizon Psychology, home"] svg'),
+  ];
   expect(logos).toHaveLength(2);
 
-  const ids = logos.flatMap((svg) => [...svg.querySelectorAll("[id]")].map((element) => element.id));
+  const ids = logos.flatMap((svg) =>
+    [...svg.querySelectorAll("[id]")].map((element) => element.id),
+  );
   expect(new Set(ids).size).toBe(ids.length);
   for (const svg of logos) {
     for (const [, id] of svg.outerHTML.matchAll(/url\(#([^)]+)\)/g)) {
