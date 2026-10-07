@@ -4,7 +4,8 @@ export interface Publication {
   title: string;
   /** Journal, with volume and pages where known. */
   journal: string;
-  href?: string;
+  /** The paper's DOI link. */
+  href: string;
 }
 
 /** Newest first. */
@@ -31,6 +32,7 @@ export const publications: Publication[] = [
     title:
       "The psychosocial stressors of siblings of people with experiences of psychosis (SOPEP): A systematic narrative review across cultures.",
     journal: "Clinical Psychology & Psychotherapy",
+    href: "https://doi.org/10.1002/cpp.2921",
   },
   {
     authors: "Radez, J., Waite, F., Izon, E., & Johns, L.",
@@ -38,6 +40,7 @@ export const publications: Publication[] = [
     title:
       "Identifying individuals at risk of developing psychosis: A systematic review of the literature in primary care services.",
     journal: "Early Intervention in Psychiatry, 17(5), 429–446",
+    href: "https://doi.org/10.1111/eip.13365",
   },
   {
     authors: "Izon, E., Au-Yeung, K., Berry, K., & French, P.",
@@ -45,6 +48,7 @@ export const publications: Publication[] = [
     title:
       "Service User Perceived Criticism and Warmth (SU-PCaW) Questionnaire.",
     journal: "Psychosis, 15(2), 201–210",
+    href: "https://doi.org/10.1080/17522439.2022.2038254",
   },
   {
     authors: "Izon, E., & Dow, R.",
@@ -60,6 +64,7 @@ export const publications: Publication[] = [
     title:
       "‘If he feels better I'll feel better’: relationships with individuals at high-risk of developing psychosis.",
     journal: "Early Intervention in Psychiatry, 16(3), 231–238",
+    href: "https://doi.org/10.1111/eip.13146",
   },
   {
     authors:
@@ -68,6 +73,7 @@ export const publications: Publication[] = [
     title:
       "Investigating Expressed Emotion (EE) in individuals at-risk of developing psychosis and their families over 12 months.",
     journal: "Clinical Psychology & Psychotherapy",
+    href: "https://doi.org/10.1002/cpp.2576",
   },
   {
     authors: "Izon, E., Berry, K., Law, H., Au-Yeung, K., & French, P.",
@@ -75,6 +81,7 @@ export const publications: Publication[] = [
     title:
       "“I don't know how to fix it and sometimes it's so overwhelming”: Identifying the barriers and facilitators for family caregivers supporting someone at high-risk of psychosis: A qualitative study.",
     journal: "Psychosis, 12(1), 57–67",
+    href: "https://doi.org/10.1080/17522439.2019.1688858",
   },
   {
     authors: "Izon, E., Berry, K., Law, H., Shiers, D., & French, P.",
@@ -82,6 +89,7 @@ export const publications: Publication[] = [
     title:
       "“I don't think I took her fears seriously.” Exploring the experiences of family members of individuals at-risk of developing psychosis over 12 months.",
     journal: "Clinical Psychology & Psychotherapy",
+    href: "https://doi.org/10.1002/cpp.2483",
   },
   {
     authors: "Izon, E., Au-Yeung, K., & Jones, W.",
@@ -89,6 +97,7 @@ export const publications: Publication[] = [
     title:
       "The challenges of engaging individuals at high-risk of developing psychosis: reflections from research assistants within a randomised control trial.",
     journal: "Psychosis, 1–9",
+    href: "https://doi.org/10.1080/17522439.2020.1779795",
   },
   {
     authors:
@@ -97,6 +106,7 @@ export const publications: Publication[] = [
     title:
       "Combined individual and family therapy in comparison to treatment as usual for people at-risk of psychosis: A feasibility study (IF CBT).",
     journal: "Trial rationale, methodology and baseline characteristics",
+    href: "https://doi.org/10.1111/eip.12922",
   },
   {
     authors: "Izon, E., Berry, K., Law, H., & French, P.",
@@ -104,5 +114,6 @@ export const publications: Publication[] = [
     title:
       "Expressed emotion (EE) in families of individuals at-risk of developing psychosis: A systematic review.",
     journal: "Psychiatry Research, 270, 661–672",
+    href: "https://doi.org/10.1016/j.psychres.2018.10.065",
   },
 ];
