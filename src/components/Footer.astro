@@ -7,11 +7,12 @@ import {
   research,
   serviceLinks,
 } from "@/data/navigation";
+import { CONTACT_EMAIL } from "@/consts";
 import Brand from "./Brand.astro";
 import Container from "./Container.astro";
 import Eyebrow from "./Eyebrow.astro";
 
-const email = "hello@horizonpsychology.co.uk";
+const email = CONTACT_EMAIL;
 
 const groups = [
   { title: "Work together", links: serviceLinks },

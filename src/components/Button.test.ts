@@ -4,14 +4,18 @@ import Button from "./Button.astro";
 
 test.each(["primary", "secondary", "link"] as const)(
   "the %s variant renders a link with its class",
-  async (type) => {
+  async (variant) => {
     const link = (
-      await render(Button, { href: "/about/", label: "More about Emma", type })
+      await render(Button, {
+        href: "/about/",
+        label: "More about Emma",
+        variant,
+      })
     ).querySelector("a");
 
     expect(link?.getAttribute("href")).toBe("/about/");
     expect(link?.textContent).toBe("More about Emma");
-    expect(link?.classList.contains(`button--${type}`)).toBe(true);
+    expect(link?.classList.contains(`button--${variant}`)).toBe(true);
   },
 );
 
@@ -21,4 +25,22 @@ test("is primary by default", async () => {
   ).querySelector("a");
 
   expect(link?.classList.contains("button--primary")).toBe(true);
+});
+
+test("without an href it renders a submit button", async () => {
+  const button = (
+    await render(Button, { label: "Send enquiry" })
+  ).querySelector("button");
+
+  expect(button?.getAttribute("type")).toBe("submit");
+  expect(button?.textContent?.trim()).toBe("Send enquiry");
+  expect(button?.classList.contains("button--primary")).toBe(true);
+});
+
+test("its type can make it a plain button rather than a submit button", async () => {
+  const button = (
+    await render(Button, { label: "Send another enquiry", type: "button" })
+  ).querySelector("button");
+
+  expect(button?.getAttribute("type")).toBe("button");
 });

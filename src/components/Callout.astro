@@ -1,0 +1,56 @@
+---
+// A panel set apart from the page: green for information, such as a service's
+// fees, or amber for a warning, such as where to get help in an emergency.
+// With a title it's an aside labelled by it; without one, a plain panel.
+import Eyebrow from "./Eyebrow.astro";
+
+interface Props {
+  variant: "info" | "warning";
+  title?: string;
+}
+
+const { variant, title } = Astro.props;
+const id =
+  title && `callout-${title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
+const Element = title ? "aside" : "div";
+---
+
+<Element class:list={["callout", `callout--${variant}`]} aria-labelledby={id}>
+  {title && (
+    <p class="callout__title" id={id}>
+      <Eyebrow>{title}</Eyebrow>
+    </p>
+  )}
+  <slot />
+</Element>
+
+<style>
+  .callout {
+    font-size: var(--text-small);
+  }
+
+  .callout--info {
+    border-radius: var(--radius-panel);
+    padding: var(--panel-pad);
+    background: var(--color-sage-50);
+  }
+
+  .callout--warning {
+    border: 1px solid var(--color-amber-300);
+    border-radius: var(--radius-card);
+    padding: var(--card-pad);
+    background: var(--color-amber-100);
+    color: var(--color-amber-800);
+    line-height: 1.6;
+  }
+
+  /* So the paragraph is only as tall as the eyebrow, not a line of body text. */
+  .callout__title {
+    display: flex;
+    margin: 0 0 var(--space-2);
+  }
+
+  .callout--warning .callout__title :global(.eyebrow) {
+    color: inherit;
+  }
+</style>

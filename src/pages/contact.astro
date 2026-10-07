@@ -1,19 +1,103 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
+import Callout from "@/components/Callout.astro";
+import Container from "@/components/Container.astro";
+import EnquiryForm from "@/components/EnquiryForm.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
+import { CONTACT_EMAIL } from "@/consts";
+import BaseLayout from "@/layouts/BaseLayout.astro";
 ---
 
 <BaseLayout
   title="Contact"
-  description="Contact information for HorIZON Psychology."
+  description="Get in touch with Horizon Psychology about therapy or supervision."
 >
-  <section class="page-section split">
-    <p class="section-label">Contact</p>
-    <div>
-      <h1>Get in touch</h1>
-      <p class="lede">
-        Add the preferred contact route here, such as an email address, social
-        profile, or professional link.
-      </p>
+  <Container>
+    <div class="contact">
+      <div class="contact__intro">
+        <SectionHeading eyebrow="Contact us" title="Get in touch" level="h1" />
+        <p>
+          You don’t need to have everything figured out. Tell us a little about
+          what’s bringing you here and we can take it from there.
+        </p>
+      </div>
+      <div class="contact__form">
+        <EnquiryForm />
+      </div>
+      <div class="contact__aside">
+        <Callout variant="info">
+          <div class="contact__details">
+            <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
+            <p>
+              Sessions are available online, delivered securely by video call,
+              or face-to-face in Buckinghamshire. Both formats carry the same
+              care and confidentiality.
+            </p>
+          </div>
+        </Callout>
+        <Callout variant="warning" title="If you need help now">
+          <p>
+            Therapy is not an emergency service. If you need support today,
+            contact your GP, call NHS 111, or call the Samaritans free on 116
+            123.
+          </p>
+        </Callout>
+      </div>
     </div>
-  </section>
+  </Container>
 </BaseLayout>
+
+<style>
+  p {
+    margin: 0;
+  }
+
+  .contact {
+    display: grid;
+    gap: clamp(28px, 5vw, 64px);
+    padding-block: var(--section-y-tight) var(--section-y);
+  }
+
+  .contact__intro {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  .contact__aside {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .contact__details {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .contact__details p {
+    color: var(--color-ink-soft);
+  }
+
+  /* From a tablet up, the form sits beside the introduction, with the email
+     address and the help notice below the introduction. */
+  @media (min-width: 48rem) {
+    .contact {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr);
+      grid-template-rows: auto 1fr;
+      align-items: start;
+    }
+
+    .contact__intro {
+      grid-area: 1 / 1;
+    }
+
+    .contact__aside {
+      grid-area: 2 / 1;
+    }
+
+    .contact__form {
+      grid-area: 1 / 2 / 3 / 3;
+    }
+  }
+</style>

@@ -1,0 +1,290 @@
+---
+// The enquiry form on the contact page. Without JavaScript the browser checks
+// the required fields and posts the form; with it, the script checks them,
+// shows errors beside each field, and sends the enquiry without leaving the page.
+import { CONTACT_EMAIL, ENQUIRY_ENDPOINT } from "@/consts";
+import { services } from "@/data/services";
+import Button from "./Button.astro";
+import FormField from "./FormField.astro";
+
+const topics = [
+  ...services.map(({ id, name }) => ({ value: id, label: name })),
+  { value: "other", label: "Other" },
+];
+const formats = ["Online", "Face-to-face in Buckinghamshire", "Not sure yet"];
+---
+
+<div class="enquiry">
+  <form class="enquiry__form" method="post" action={ENQUIRY_ENDPOINT}>
+    <FormField id="name" label="Your name" required>
+      <input
+        id="name"
+        name="name"
+        autocomplete="name"
+        placeholder="First name is fine"
+        required
+      />
+    </FormField>
+    <FormField id="email" label="Email" required>
+      <input
+        id="email"
+        name="email"
+        type="email"
+        autocomplete="email"
+        placeholder="you@example.com"
+        required
+      />
+    </FormField>
+    <FormField id="topic" label="What are you enquiring about?">
+      <select id="topic" name="topic">
+        {topics.map(({ value, label }) => (
+          <option value={value}>{label}</option>
+        ))}
+      </select>
+    </FormField>
+    <FormField id="format" label="Online or face-to-face?">
+      <select id="format" name="format">
+        {formats.map((format) => (
+          <option>{format}</option>
+        ))}
+      </select>
+    </FormField>
+    <FormField
+      id="message"
+      label="Write a message"
+      hint="Only as much as you feel comfortable sharing."
+    >
+      <textarea
+        id="message"
+        name="message"
+        rows="5"
+        aria-describedby="message-hint"
+      ></textarea>
+    </FormField>
+    <div class="enquiry__consent">
+      <label for="consent">
+        <input
+          id="consent"
+          name="consent"
+          type="checkbox"
+          value="yes"
+          required
+        />
+        <span>
+          I have read the <a href="/privacy-policy/">privacy policy</a>.
+          <span class="required" aria-hidden="true">
+            {" "}
+            *
+          </span>
+        </span>
+      </label>
+      <p class="enquiry__error" id="consent-error" hidden></p>
+    </div>
+    <div class="enquiry__failure" role="alert"></div>
+    <template class="enquiry__failure-message">
+      <p>
+        Sorry, your enquiry couldn’t be sent. Please try again, or email{" "}
+        <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.
+      </p>
+    </template>
+    <div class="enquiry__send">
+      <Button label="Send enquiry" />
+    </div>
+  </form>
+  <div class="enquiry__sent" hidden>
+    <h2 tabindex="-1">Thank you — your enquiry has been sent</h2>
+    <div>
+      <Button
+        label="Send another enquiry"
+        variant="secondary"
+        type="button"
+        class="enquiry__again"
+      />
+    </div>
+  </div>
+</div>
+
+<script>
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  /** The error for each required field's value, or "" if it's fine. */
+  const checks: Record<string, (field: HTMLInputElement) => string> = {
+    name: ({ value }) => (value.trim() ? "" : "Please enter your name."),
+    email: ({ value }) =>
+      !value.trim()
+        ? "Please enter your email address."
+        : emailPattern.test(value.trim())
+          ? ""
+          : "Please enter a valid email address, like you@example.com.",
+    consent: ({ checked }) =>
+      checked ? "" : "Please confirm you have read the privacy policy.",
+  };
+
+  for (const enquiry of document.querySelectorAll(".enquiry")) {
+    const form = enquiry.querySelector("form")!;
+    const send = form.querySelector<HTMLButtonElement>('[type="submit"]')!;
+    const failure = form.querySelector(".enquiry__failure")!;
+    const failureMessage = form.querySelector<HTMLTemplateElement>(
+      ".enquiry__failure-message",
+    )!;
+    const sent = enquiry.querySelector<HTMLElement>(".enquiry__sent")!;
+    const fields = Object.keys(checks).map(
+      (name) => form.elements.namedItem(name) as HTMLInputElement,
+    );
+    form.noValidate = true;
+
+    /** Shows or clears a field's error, and says whether it's valid. */
+    const check = (field: HTMLInputElement) => {
+      const error = checks[field.name](field);
+      const message = document.getElementById(`${field.id}-error`)!;
+      message.textContent = error;
+      message.hidden = !error;
+      if (error) {
+        field.setAttribute("aria-invalid", "true");
+        field.setAttribute("aria-describedby", message.id);
+      } else {
+        field.removeAttribute("aria-invalid");
+        field.removeAttribute("aria-describedby");
+      }
+      return !error;
+    };
+
+    for (const field of fields) {
+      const recheck = () => {
+        if (field.getAttribute("aria-invalid") === "true") check(field);
+      };
+      field.addEventListener("input", recheck);
+      field.addEventListener("change", recheck);
+    }
+
+    // A link from a service page, such as /contact/?topic=couples-therapy,
+    // picks what the enquiry is about.
+    const topic = new URLSearchParams(location.search).get("topic");
+    const topics = form.elements.namedItem("topic") as HTMLSelectElement;
+    if ([...topics.options].some(({ value }) => value === topic)) {
+      topics.value = topic!;
+    }
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const invalid = fields.filter((field) => !check(field));
+      if (invalid.length) {
+        invalid[0].focus();
+        return;
+      }
+
+      failure.replaceChildren();
+      send.disabled = true;
+      try {
+        const response = await fetch(form.action, {
+          method: "POST",
+          headers: { Accept: "application/json" },
+          body: new URLSearchParams(
+            [...new FormData(form)].map(([name, value]) => [
+              name,
+              String(value),
+            ]),
+          ),
+        });
+        if (!response.ok) throw new Error(`Status ${response.status}`);
+        form.reset();
+        form.hidden = true;
+        sent.hidden = false;
+        sent.querySelector("h2")!.focus();
+      } catch {
+        failure.replaceChildren(failureMessage.content.cloneNode(true));
+      } finally {
+        send.disabled = false;
+      }
+    });
+
+    sent.querySelector(".enquiry__again")!.addEventListener("click", () => {
+      sent.hidden = true;
+      form.hidden = false;
+      fields[0].focus();
+    });
+  }
+</script>
+
+<style>
+  .enquiry {
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-panel);
+    padding: var(--panel-pad);
+    background: var(--color-panel);
+    box-shadow: var(--shadow-rest);
+  }
+
+  .enquiry__form,
+  .enquiry__sent {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+  }
+
+  .enquiry__sent {
+    gap: 18px;
+  }
+
+  .enquiry [hidden] {
+    display: none;
+  }
+
+  .enquiry__send {
+    display: flex;
+    justify-content: center;
+  }
+
+  .enquiry__consent {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  .enquiry__consent label {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    color: var(--color-ink-soft);
+    font-size: var(--text-small);
+    line-height: 1.55;
+    cursor: pointer;
+  }
+
+  .enquiry__consent input {
+    flex: none;
+    width: 18px;
+    height: 18px;
+    margin: 2px 0 0;
+    accent-color: var(--color-sage-600);
+  }
+
+  .required {
+    color: var(--color-amber-800);
+  }
+
+  .enquiry__error {
+    margin: 0;
+    color: var(--color-error);
+    font-size: var(--text-caption);
+  }
+
+  .enquiry__failure:empty {
+    display: none;
+  }
+
+  .enquiry__failure {
+    border-left: 3px solid var(--color-error);
+    padding-left: var(--space-3);
+    color: var(--color-error);
+    font-size: var(--text-small);
+  }
+
+  .enquiry__failure a {
+    color: inherit;
+  }
+
+  .enquiry__sent h2:focus {
+    outline: none;
+  }
+</style>
