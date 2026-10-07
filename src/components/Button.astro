@@ -5,20 +5,20 @@ import type { HTMLAttributes } from "astro/types";
 interface Props extends Omit<HTMLAttributes<"button">, "type"> {
   href?: string;
   label: string;
-  type?: "primary" | "secondary" | "link";
+  variant?: "primary" | "secondary" | "link";
   /** Without an href, what the button does: submits its form by default. */
-  buttonType?: "submit" | "button";
+  type?: "submit" | "button";
 }
 
 const {
   href,
   label,
-  type = "primary",
-  buttonType = "submit",
+  variant = "primary",
+  type = "submit",
   class: className,
   ...attributes
 } = Astro.props;
-const classes = ["button", `button--${type}`, className];
+const classes = ["button", `button--${variant}`, className];
 ---
 
 {href ? (
@@ -26,7 +26,7 @@ const classes = ["button", `button--${type}`, className];
     {label}
   </a>
 ) : (
-  <button class:list={classes} type={buttonType} {...attributes}>
+  <button class:list={classes} type={type} {...attributes}>
     {label}
   </button>
 )}
