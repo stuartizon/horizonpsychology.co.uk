@@ -1,7 +1,8 @@
 ---
-import Callout from "@/components/Callout.astro";
 import Container from "@/components/Container.astro";
 import EnquiryForm from "@/components/EnquiryForm.astro";
+import HelpNowNotice from "@/components/HelpNowNotice.astro";
+import Panel from "@/components/Panel.astro";
 import SectionHeading from "@/components/SectionHeading.astro";
 import { CONTACT_EMAIL } from "@/consts";
 import BaseLayout from "@/layouts/BaseLayout.astro";
@@ -24,7 +25,7 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
         <EnquiryForm />
       </div>
       <div class="contact__aside">
-        <Callout variant="info">
+        <Panel variant="sage">
           <div class="contact__details">
             <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
             <p>
@@ -33,14 +34,8 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
               care and confidentiality.
             </p>
           </div>
-        </Callout>
-        <Callout variant="warning" title="If you need help now">
-          <p>
-            Therapy is not an emergency service. If you need support today,
-            contact your GP, call NHS 111, or call the Samaritans free on 116
-            123.
-          </p>
-        </Callout>
+        </Panel>
+        <HelpNowNotice />
       </div>
     </div>
   </Container>
@@ -73,6 +68,7 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
     display: flex;
     flex-direction: column;
     gap: 14px;
+    font-size: var(--text-small);
   }
 
   .contact__details p {
