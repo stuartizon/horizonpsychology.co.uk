@@ -1,0 +1,23 @@
+# Weekly pull requests for dependency updates. Minor and patch updates come
+# grouped in one pull request per ecosystem; each major update gets its own.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    commit-message:
+      prefix: "⬆️"
+    groups:
+      minor-and-patch:
+        update-types: [minor, patch]
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    commit-message:
+      prefix: "⬆️"
+    groups:
+      minor-and-patch:
+        update-types: [minor, patch]

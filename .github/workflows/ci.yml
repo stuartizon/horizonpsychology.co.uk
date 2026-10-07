@@ -146,12 +146,12 @@ jobs:
 
   # Deploys the tested build to Cloudflare Pages (ADR 0015): main to
   # production, and each pull request to a preview named after its branch.
-  # Pull requests from forks don't get the Cloudflare secrets, so they aren't
-  # deployed.
+  # Pull requests from forks and from Dependabot don't get the Cloudflare
+  # secrets, so they aren't deployed.
   deploy:
     name: Deploy
     needs: [check, lint, format, unit, build, pages, browser]
-    if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository
+    if: github.event_name == 'push' || (github.event.pull_request.head.repo.full_name == github.repository && github.actor != 'dependabot[bot]')
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
