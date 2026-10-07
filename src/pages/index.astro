@@ -1,286 +1,189 @@
 ---
-import ServiceCard from "../components/ServiceCard.astro";
-import Button from "../components/Button.astro";
-import CredentialBadge from "../components/CredentialBadge.astro";
-import IntroCallPanel from "@/components/IntroCallPanel.astro";
-import TestimonialCarousel from "@/components/TestimonialCarousel.astro";
-import BaseLayout from "../layouts/BaseLayout.astro";
+import { Image } from "astro:assets";
+import Button from "@/components/Button.astro";
 import Container from "@/components/Container.astro";
+import IntroCallPanel from "@/components/IntroCallPanel.astro";
+import QuoteBand from "@/components/QuoteBand.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
+import ServiceCard from "@/components/ServiceCard.astro";
 import { services } from "@/data/services";
-import { testimonials } from "@/data/testimonials";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import portrait from "@/photos/home.jpg";
 ---
 
 <BaseLayout wideHeader>
   <Container>
-    <section class="home-intro" aria-label="HorIZON Psychology">
-      <img
-        class="home-intro__logo"
-        src="/images/logo.png"
-        alt="HorIZON Psychology logo"
-        width="681"
-        height="374"
-      />
-
-      <p class="home-intro__tagline">
-        Psychological Therapy <span aria-hidden="true">|</span> Research
-        <span aria-hidden="true">|</span> Supervision
-      </p>
-
-      <blockquote>
-        &ldquo;A space for support, understanding, and change. Helping you move
-        through difficult times, one step at a time.&rdquo;
-      </blockquote>
-
-      <h2 class="home-intro__heading">What we offer</h2>
-
-      <div class="home-intro__media-row">
-        <div class="home-intro__image-wrap">
-          <img
-            src="/images/emma-portrait.png"
-            alt="Dr Emma Izon"
-            width="208"
-            height="208"
-          />
+    <div class="hero">
+      <div class="hero__text">
+        <SectionHeading
+          eyebrow="Dr Emma Izon · Clinical Psychologist"
+          title="A space for support, understanding, and change"
+          level="h1"
+        />
+        <p>
+          Psychological therapy, clinical and research supervision for adults.
+          Online, or face-to-face in Buckinghamshire. Helping you move through
+          difficult times, one step at a time.
+        </p>
+        <div>
+          <Button href="/contact/" label="Get in touch" />
         </div>
-        <div class="home-intro__copy">
+      </div>
+      <Image
+        class="hero__portrait"
+        src={portrait}
+        alt="Dr Emma Izon"
+        widths={[480, 800, 1200]}
+        sizes="(min-width: 64rem) 512px, (min-width: 48rem) 50vw, 100vw"
+        loading="eager"
+      />
+    </div>
+  </Container>
+
+  <section class="offer" aria-labelledby="offer-heading">
+    <Container>
+      <div class="offer__columns">
+        <SectionHeading
+          eyebrow="What we offer"
+          title="Evidence-based therapy, delivered with warmth"
+          id="offer-heading"
+        />
+        <div class="offer__body">
           <p>
-            HorIZON Psychology is led by Dr Emma Izon. She provides
+            Horizon Psychology is led by Dr Emma Izon. She provides
             evidence-based psychological therapy tailored to each person's
-            individual needs and goals. Drawing on approaches including
-            cognitive behavioural therapy (CBT), acceptance and commitment
-            therapy (ACT), compassion focused therapy (CFT), systemic approaches
-            and narrative therapies. She works collaboratively and integratively
-            to offer thoughtful, flexible, and meaningful support. Her practice
-            is compassionate, neurodiversity-affirming, and grounded in creating
-            a safe, non-judgemental space for lasting understanding, resilience,
-            and change.
+            individual needs and goals, drawing on cognitive behavioural therapy
+            (CBT), acceptance and commitment therapy (ACT), compassion-focused
+            therapy (CFT), systemic approaches and narrative therapies. Her
+            practice is compassionate, neurodiversity-affirming, and grounded in
+            creating a safe, non-judgemental space for lasting understanding,
+            resilience, and change.
           </p>
-          <div class="home-intro__badges">
-            <CredentialBadge
-              label="HCPC registered"
-              tooltip="Health Care Professions Council (HCPC) registered"
-            />
-            <CredentialBadge
-              label="BABCP accredited"
-              tooltip="British Association of Behavioural and Cognitive Psychotherapies (BABCP) accredited"
-            />
-            <CredentialBadge
-              label="NICE evidence based practice"
-              tooltip="Evidence based practice following the National Institute of Health and Care Excellence (NICE) guidelines for diagnostic assessments and therapy."
-            />
-          </div>
-          <div class="home-intro__action">
-            <Button href="/about/" label="More about me" type="primary" />
+          <p class="offer__note">
+            Diagnostic assessment and therapy follow National Institute for
+            Health and Care Excellence (NICE) guidelines.
+          </p>
+          <div>
+            <Button href="/about/" label="More about Emma" type="link" />
           </div>
         </div>
       </div>
-    </section>
+    </Container>
+  </section>
 
-    <section class="services-section" aria-labelledby="services-heading">
-      <h2 id="services-heading">Services</h2>
-      <div class="services-section__grid">
+  <section class="services" aria-labelledby="services-heading">
+    <Container>
+      <SectionHeading
+        eyebrow="Services"
+        title="Four ways of working together"
+        id="services-heading"
+      />
+      <p class="services__lead">
+        Every service begins with a free 15-minute call, so you can ask
+        questions and decide whether it feels right.
+      </p>
+      <div class="services__grid">
         {services.map((service) => (
           <ServiceCard service={service} />
         ))}
       </div>
-    </section>
+    </Container>
+  </section>
 
-    <section
-      class="testimonials-section"
-      aria-labelledby="testimonials-heading"
-    >
-      <h2 id="testimonials-heading">Testimonials</h2>
-      <TestimonialCarousel testimonials={testimonials} />
-    </section>
+  <QuoteBand
+    quote="A space for support, understanding, and change. Helping you move through difficult times, one step at a time."
+  />
 
-    <div class="intro-call-section">
+  <div class="intro-call">
+    <Container>
       <IntroCallPanel />
-    </div>
-  </Container>
+    </Container>
+  </div>
 </BaseLayout>
 
 <style>
-  .home-intro {
-    padding-block: 18px 26px;
+  p {
+    margin: 0;
   }
 
-  .home-intro__logo {
-    display: block;
+  /* From a tablet up, the text sits beside the portrait. */
+  .hero {
+    display: grid;
+    gap: clamp(32px, 5vw, 72px);
+    align-items: center;
+    padding-block: var(--section-y-tight) var(--section-y);
+  }
+
+  .hero__text {
+    display: flex;
+    max-width: 46ch;
+    flex-direction: column;
+    gap: 26px;
+  }
+
+  .hero__text :global(h1) {
+    font-size: var(--text-hero);
+  }
+
+  .hero__portrait {
     width: 100%;
-    max-width: 480px;
     height: auto;
-    margin: 0 auto;
+    aspect-ratio: 4 / 5;
+    border-radius: var(--radius-image);
+    object-fit: cover;
+    box-shadow: var(--shadow-rest);
   }
 
-  .home-intro__tagline {
-    margin: 12px 0 0;
-    color: var(--color-grey-100);
-    font-size: 0.68rem;
-    font-weight: 500;
-    font-style: italic;
-    text-align: center;
+  .offer,
+  .services {
+    padding-bottom: var(--section-y);
   }
 
-  .home-intro__tagline span {
-    color: var(--color-grey-50);
+  .offer__columns {
+    display: grid;
+    gap: clamp(28px, 5vw, 72px);
   }
 
-  .home-intro__media-row {
+  .offer__body {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 18px;
+    gap: var(--space-5);
   }
 
-  .home-intro__image-wrap {
+  .offer__note {
+    color: var(--color-ink-soft);
+    font-size: var(--text-small);
+  }
+
+  .services__lead {
+    margin-top: var(--space-3);
+    color: var(--color-ink-soft);
+  }
+
+  .services__grid {
     display: grid;
-    width: 208px;
-    aspect-ratio: 1;
-    flex-shrink: 0;
-    place-items: center;
-    overflow: hidden;
-    border-radius: 14px;
-    background:
-      linear-gradient(var(--color-line), var(--color-line)),
-      var(--color-sage-100);
+    gap: var(--space-5);
+    margin-top: var(--space-10);
   }
 
-  .home-intro__image-wrap img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  .intro-call {
+    padding-block: var(--section-y);
   }
 
-  .home-intro__heading {
-    margin: 0 0 18px;
-    text-transform: uppercase;
-  }
-
-  .home-intro__copy p {
-    margin: 0;
-    line-height: 1.5;
-  }
-
-  .home-intro__badges {
-    display: flex;
-    flex-wrap: wrap;
-    row-gap: 14px;
-    column-gap: 8px;
-    margin: 14px 0 0;
-  }
-
-  .home-intro__action {
-    display: table;
-    margin: 32px auto 0;
-  }
-
-  @media (min-width: 761px) {
-    .home-intro {
-      display: grid;
-      grid-template-columns: 280px minmax(280px, 1fr);
-      column-gap: clamp(28px, 4vw, 48px);
-      padding-block: 56px 18px;
+  @media (min-width: 48rem) {
+    .hero {
+      grid-template-columns: 1fr 1fr;
     }
 
-    .home-intro__logo {
-      grid-column: 1 / -1;
-      width: 480px;
-      margin-bottom: 0;
-    }
-
-    .home-intro__tagline {
-      grid-column: 1 / -1;
-      margin: 16px 0 0;
-      font-size: 0.95rem;
-    }
-
-    .home-intro__heading {
-      grid-column: 1 / -1;
-    }
-
-    .home-intro__media-row {
-      grid-column: 1 / -1;
-      display: grid;
-      grid-template-columns: subgrid;
+    /* The text takes up to its measure and the heading takes the rest, as on
+       the About page. */
+    .offer__columns {
+      grid-template-columns: minmax(14rem, 1fr) minmax(0, var(--measure-prose));
       align-items: start;
-      gap: 0;
     }
 
-    .home-intro__image-wrap {
-      width: min(100%, 280px);
-    }
-
-    .home-intro blockquote {
-      grid-column: 1 / -1;
-      max-width: none;
-    }
-
-    .home-intro__copy {
-      max-width: none;
-    }
-
-    .home-intro__copy p {
-      max-width: none;
-    }
-  }
-
-  .services-section {
-    padding-block: 42px var(--section-y);
-  }
-
-  .services-section h2 {
-    margin: 0 0 16px;
-    text-transform: uppercase;
-  }
-
-  .services-section__grid {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 20px;
-  }
-
-  @media (max-width: 960px) {
-    .services-section__grid {
+    .services__grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-  }
-
-  @media (max-width: 760px) {
-    .services-section {
-      padding-block: 28px 64px;
-    }
-
-    .services-section h2 {
-      margin-bottom: 18px;
-    }
-
-    .services-section__grid {
-      grid-template-columns: 1fr;
-      gap: 20px;
-    }
-  }
-
-  .testimonials-section {
-    padding-block: 0 var(--section-y);
-  }
-
-  .intro-call-section {
-    padding-block-end: var(--section-y);
-  }
-
-  .testimonials-section h2 {
-    margin: 0 0 16px;
-    text-transform: uppercase;
-  }
-
-  @media (max-width: 760px) {
-    .testimonials-section {
-      padding-block: 0 64px;
-    }
-
-    .testimonials-section h2 {
-      margin-bottom: 18px;
     }
   }
 </style>

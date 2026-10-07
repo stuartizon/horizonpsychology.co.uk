@@ -35,7 +35,7 @@ Where the site departs from the design on purpose. A pull request that departs f
 - **Fonts** are self-hosted with Fontsource, not loaded from Google Fonts ([ADR 0004](../../adr/0004-self-host-fonts-with-fontsource.md)).
 - **Icons** are imported from the `@phosphor-icons/core` package ([ADR 0016](../../adr/0016-phosphor-icons-from-the-npm-package.md)).
 - **Lead text.** The home page intro, each service's summary and the FAQs page intro are normal body text, not the design's larger, softer lead style (#5, #6, #8).
-- **Home page.** Testimonials move to the About page (#5, #7).
+- **Home page.** Testimonials move to the About page (#5, #7). The hero and "What we offer" go into two columns at the tablet breakpoint, rather than when the design's auto-fitting grid has room, and the service cards are stacked on a phone and 2×2 from tablet width (#77). "What we offer" is also normal body text, and its columns match the About page's "How Emma works".
 - **Service card.** Fixed 24px padding rather than `clamp(24px, 2.4vw, 32px)`, so titles fit on one line on wide screens; and its "Find out more →" is its own small semibold link, not the link button (#67).
 - **Intro call panel** (the design's "Start with a free 15-minute call" panel). The heading has its own row, and the button sits beside the paragraph from tablet up, or centred below it on a phone, rather than centred across the heading and paragraph and wrapping at about 700px (#68).
 - **FAQ answers** line up with the question text, running up to the toggle's column, rather than stopping at the prose measure (#73).
