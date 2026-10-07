@@ -6,3 +6,9 @@ test("publications are listed newest first", () => {
 
   expect(years).toEqual(years.toSorted((a, b) => b - a));
 });
+
+test("every publication links to its DOI", () => {
+  for (const { title, href } of publications) {
+    expect(href, title).toMatch(/^https:\/\/doi\.org\/10\.\d+\//);
+  }
+});
