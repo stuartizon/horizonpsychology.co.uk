@@ -7,7 +7,7 @@ export interface Link {
 }
 
 export const about: Link = { label: "About Emma", href: "/about/" };
-export const research: Link = { label: "Research", href: "/projects/" };
+export const research: Link = { label: "Research", href: "/research/" };
 export const faqs: Link = { label: "FAQs", href: "/faqs/" };
 export const contact: Link = { label: "Contact Us", href: "/contact/" };
 
