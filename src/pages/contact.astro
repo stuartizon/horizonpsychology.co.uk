@@ -24,15 +24,17 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
         <EnquiryForm />
       </div>
       <div class="contact__aside">
-        <div class="contact__details">
-          <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
-          <p>
-            Sessions are available online, delivered securely by video call, or
-            face-to-face in Buckinghamshire. Both formats carry the same care
-            and confidentiality.
-          </p>
-        </div>
-        <Callout title="If you need help now">
+        <Callout type="info">
+          <div class="contact__details">
+            <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
+            <p>
+              Sessions are available online, delivered securely by video call,
+              or face-to-face in Buckinghamshire. Both formats carry the same
+              care and confidentiality.
+            </p>
+          </div>
+        </Callout>
+        <Callout type="warning" title="If you need help now">
           <p>
             Therapy is not an emergency service. If you need support today,
             contact your GP, call NHS 111, or call the Samaritans free on 116
@@ -71,10 +73,6 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
     display: flex;
     flex-direction: column;
     gap: 14px;
-    border-radius: var(--radius-panel);
-    padding: var(--panel-pad);
-    background: var(--color-sage-50);
-    font-size: var(--text-small);
   }
 
   .contact__details p {

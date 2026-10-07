@@ -1,46 +1,60 @@
 ---
-// A note set apart in amber, such as where to get help in an emergency.
+// A panel set apart from the page: green for information, such as a service's
+// fees, or amber for a warning, such as where to get help in an emergency.
+// With a title it's an aside labelled by it; without one, a plain panel.
+import Eyebrow from "./Eyebrow.astro";
+
 interface Props {
-  title: string;
+  type: "info" | "warning";
+  title?: string;
 }
 
-const { title } = Astro.props;
-const id = `callout-${title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
+const { type, title } = Astro.props;
+const id =
+  title && `callout-${title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
+const Element = title ? "aside" : "div";
 ---
 
-<aside class="callout" aria-labelledby={id}>
-  <p class="callout__title" id={id}>
-    {title}
-  </p>
-  <div class="callout__body">
-    <slot />
-  </div>
-</aside>
+<Element class:list={["callout", `callout--${type}`]} aria-labelledby={id}>
+  {title && (
+    <p class="callout__title" id={id}>
+      <Eyebrow>{title}</Eyebrow>
+    </p>
+  )}
+  <slot />
+</Element>
 
 <style>
   .callout {
+    font-size: var(--text-small);
+  }
+
+  .callout--info {
+    border-radius: var(--radius-panel);
+    padding: var(--panel-pad);
+    background: var(--color-sage-50);
+  }
+
+  .callout--warning {
     border: 1px solid var(--color-amber-300);
     border-radius: var(--radius-card);
     padding: var(--card-pad);
     background: var(--color-amber-100);
     color: var(--color-amber-800);
-  }
-
-  .callout__title {
-    margin: 0 0 var(--space-2);
-    font-size: 0.78rem;
-    font-weight: var(--weight-semibold);
-    letter-spacing: 0.14em;
-    line-height: var(--leading-tight);
-    text-transform: uppercase;
-  }
-
-  .callout__body {
-    font-size: var(--text-small);
     line-height: 1.6;
   }
 
-  .callout__body :global(p) {
+  /* So the paragraph is only as tall as the eyebrow, not a line of body text. */
+  .callout__title {
+    display: flex;
+    margin: 0 0 var(--space-2);
+  }
+
+  .callout--warning .callout__title :global(.eyebrow) {
+    color: inherit;
+  }
+
+  .callout :global(p) {
     margin: 0;
   }
 </style>
