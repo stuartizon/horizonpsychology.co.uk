@@ -111,10 +111,14 @@ jobs:
 
   # Runs against the uploaded build, so the files that get deployed are the
   # ones that were tested. One job per browser, each at desktop and phone sizes.
+  # The Playwright image comes with the browsers and their system libraries, so
+  # nothing is installed with apt. Its version matches @playwright/test in
+  # package-lock.json, which a unit test checks: a Playwright upgrade updates both.
   browser:
     name: Browser tests (${{ matrix.browser }})
     needs: build
     runs-on: ubuntu-latest
+    container: mcr.microsoft.com/playwright:v1.63.0-noble
     timeout-minutes: 15
     strategy:
       fail-fast: false
@@ -131,8 +135,6 @@ jobs:
         with:
           name: dist
           path: dist/
-      - name: Install Playwright browser
-        run: npx playwright install --with-deps ${{ matrix.browser }}
       - name: Browser and accessibility tests
         run: npx playwright test --project="${{ matrix.browser }}*"
       - uses: actions/upload-artifact@v7
