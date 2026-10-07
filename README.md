@@ -45,7 +45,7 @@ The dev server runs on <http://127.0.0.1:4321>.
 | SEO                    | `sitemap-index.xml` built by [`@astrojs/sitemap`](https://docs.astro.build/en/guides/integrations-guide/sitemap/) and linked from `robots.txt`                                                                                                                                  |
 | Testing                | [Vitest](https://vitest.dev) for unit and page tests, [Playwright](https://playwright.dev) with [axe](https://github.com/dequelabs/axe-core-npm) for browser tests ([ADR 0018](docs/adr/0018-unit-page-and-browser-tests.md))                                                   |
 | Linting and formatting | [ESLint](https://eslint.org), with accessibility rules for Astro templates, and [Prettier](https://prettier.io) ([ADR 0019](docs/adr/0019-lint-with-eslint-and-format-with-prettier.md))                                                                                        |
-| CI                     | GitHub Actions on every pull request and push to `main`                                                                                                                                                                                                                         |
+| CI                     | GitHub Actions on every pull request and push to `main`, with weekly dependency updates from Dependabot                                                                                                                                                                         |
 | Hosting                | [Cloudflare Pages](https://pages.cloudflare.com), deployed with Wrangler from GitHub Actions ([ADR 0015](docs/adr/0015-host-on-cloudflare-pages-deployed-from-github-actions.md))                                                                                               |
 
 ## Repo structure
@@ -85,7 +85,7 @@ Work is test-first ([ADR 0007](docs/adr/0007-test-driven-development.md)), with 
 
 Once the tests pass, CI deploys the build to Cloudflare Pages ([ADR 0015](docs/adr/0015-host-on-cloudflare-pages-deployed-from-github-actions.md)):
 
-- each pull request to a preview at `<branch>.horizonpsychology.pages.dev`, linked from the pull request
+- each pull request to a preview at `<branch>.horizonpsychology.pages.dev`, linked from the pull request, except pull requests from forks and Dependabot, which don't get the Cloudflare secrets
 - every push to `main` to production at <https://horizonpsychology.co.uk>
 
 There's no separate staging site. Check changes on the pull request's preview before merging.
