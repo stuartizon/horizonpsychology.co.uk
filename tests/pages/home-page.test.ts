@@ -18,6 +18,9 @@ test("the hero introduces Emma and the practice, and invites you to get in touch
   expect(texts(document, "h1")).toEqual([
     "A space for support, understanding, and change",
   ]);
+  expect(text(hero.querySelector(".section-heading__subtitle"))).toBe(
+    "Psychological therapy, clinical and research supervision for adults. Online, or face-to-face in Buckinghamshire. Helping you move through difficult times, one step at a time.",
+  );
   expect(link(document, "Get in touch").getAttribute("href")).toBe("/contact/");
 });
 
