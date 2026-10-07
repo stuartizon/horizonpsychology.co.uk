@@ -5,10 +5,6 @@ import { describe, expect, test } from "vitest";
 // --section-y or --section-y-tight in global.css rather than each file's own value.
 const sectionSize = 36;
 
-// Files from before the redesign that still use their own section spacing, with the
-// issue that redesigns each one. Remove a file from this list when its test starts passing.
-const notYetRedesigned: Record<string, number> = {};
-
 const stylesheets = readdirSync("src", { recursive: true, encoding: "utf8" })
   .filter((path) => /\.(astro|css)$/.test(path))
   .map((path) => `src/${path}`)
@@ -43,8 +39,7 @@ function sectionSizedPadding(path: string) {
 
 describe("vertical section padding uses the section spacing tokens", () => {
   for (const path of stylesheets) {
-    const issue = notYetRedesigned[path];
-    (issue ? test.fails : test)(issue ? `${path} (#${issue})` : path, () => {
+    test(path, () => {
       expect(sectionSizedPadding(path)).toEqual([]);
     });
   }
