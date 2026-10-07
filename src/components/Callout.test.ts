@@ -4,7 +4,7 @@ import Callout from "./Callout.astro";
 
 test("with a title, is an aside labelled by it", async () => {
   const aside = (
-    await render(Callout, { type: "warning", title: "If you need help now" })
+    await render(Callout, { variant: "warning", title: "If you need help now" })
   ).querySelector("aside")!;
   const title = aside.querySelector(
     `#${aside.getAttribute("aria-labelledby")}`,
@@ -15,7 +15,7 @@ test("with a title, is an aside labelled by it", async () => {
 
 test("its title is an eyebrow", async () => {
   const aside = (
-    await render(Callout, { type: "info", title: "Fees and practicalities" })
+    await render(Callout, { variant: "info", title: "Fees and practicalities" })
   ).querySelector("aside")!;
 
   expect(
@@ -24,19 +24,19 @@ test("its title is an eyebrow", async () => {
 });
 
 test("without a title, is a plain panel rather than an aside", async () => {
-  const body = await render(Callout, { type: "info" });
+  const body = await render(Callout, { variant: "info" });
 
   expect(body.querySelector("aside")).toBeNull();
   expect(body.querySelector("div.callout")).not.toBeNull();
 });
 
 test.each(["info", "warning"] as const)(
-  "the %s type has its class",
-  async (type) => {
-    const callout = (await render(Callout, { type })).querySelector(
+  "the %s variant has its class",
+  async (variant) => {
+    const callout = (await render(Callout, { variant })).querySelector(
       ".callout",
     )!;
 
-    expect(callout.classList.contains(`callout--${type}`)).toBe(true);
+    expect(callout.classList.contains(`callout--${variant}`)).toBe(true);
   },
 );

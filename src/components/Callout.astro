@@ -5,17 +5,17 @@
 import Eyebrow from "./Eyebrow.astro";
 
 interface Props {
-  type: "info" | "warning";
+  variant: "info" | "warning";
   title?: string;
 }
 
-const { type, title } = Astro.props;
+const { variant, title } = Astro.props;
 const id =
   title && `callout-${title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
 const Element = title ? "aside" : "div";
 ---
 
-<Element class:list={["callout", `callout--${type}`]} aria-labelledby={id}>
+<Element class:list={["callout", `callout--${variant}`]} aria-labelledby={id}>
   {title && (
     <p class="callout__title" id={id}>
       <Eyebrow>{title}</Eyebrow>
