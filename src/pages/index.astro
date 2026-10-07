@@ -19,13 +19,9 @@ import portrait from "@/photos/home.jpg";
           eyebrow="Dr Emma Izon · Clinical Psychologist"
           title="A space for support, understanding, and change"
           level="h1"
+          subtitle="Psychological therapy, clinical and research supervision for adults. Online, or face-to-face in Buckinghamshire. Helping you move through difficult times, one step at a time."
         />
-        <p>
-          Psychological therapy, clinical and research supervision for adults.
-          Online, or face-to-face in Buckinghamshire. Helping you move through
-          difficult times, one step at a time.
-        </p>
-        <div>
+        <div class="action">
           <Button href="/contact/" label="Get in touch" />
         </div>
       </div>
@@ -63,7 +59,7 @@ import portrait from "@/photos/home.jpg";
             Diagnostic assessment and therapy follow National Institute for
             Health and Care Excellence (NICE) guidelines.
           </p>
-          <div>
+          <div class="action">
             <Button href="/about/" label="More about Emma" type="link" />
           </div>
         </div>
@@ -110,13 +106,12 @@ import portrait from "@/photos/home.jpg";
   .hero {
     display: grid;
     gap: clamp(32px, 5vw, 72px);
-    align-items: center;
+    align-items: start;
     padding-block: var(--section-y-tight) var(--section-y);
   }
 
   .hero__text {
     display: flex;
-    max-width: 46ch;
     flex-direction: column;
     gap: 26px;
   }
@@ -132,6 +127,12 @@ import portrait from "@/photos/home.jpg";
     border-radius: var(--radius-image);
     object-fit: cover;
     box-shadow: var(--shadow-rest);
+  }
+
+  /* Centred under full-width text on a phone. */
+  .action {
+    display: flex;
+    justify-content: center;
   }
 
   .offer,
@@ -171,8 +172,25 @@ import portrait from "@/photos/home.jpg";
   }
 
   @media (min-width: 48rem) {
+    /* The home header is taller than the others, with its links lower by half
+       of its --shrink, so this takes that off the space above the hero. The
+       portrait then starts as far below the links as the About page's. */
     .hero {
       grid-template-columns: 1fr 1fr;
+      padding-top: calc(var(--section-y-tight) - var(--shrink, 0px) / 2);
+    }
+
+    .hero__text {
+      max-width: 46ch;
+    }
+
+    /* Level with the top of the eyebrow's capitals, as on the About page. */
+    .hero__portrait {
+      margin-top: calc(0.78rem * 0.385);
+    }
+
+    .action {
+      justify-content: flex-start;
     }
 
     /* The text takes up to its measure and the heading takes the rest, as on
@@ -184,6 +202,13 @@ import portrait from "@/photos/home.jpg";
 
     .services__grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  /* All four services in a row on a desktop. #77 settles the grid. */
+  @media (min-width: 64rem) {
+    .services__grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
     }
   }
 </style>
