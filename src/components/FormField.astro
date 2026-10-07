@@ -1,0 +1,100 @@
+---
+// A form control with its label, an optional hint, and a place for its error.
+// The control goes in the slot, with the id given here, and is described by
+// `${id}-hint`; the form's script shows errors in `${id}-error`.
+interface Props {
+  id: string;
+  label: string;
+  hint?: string;
+  required?: boolean;
+}
+
+const { id, label, hint, required = false } = Astro.props;
+---
+
+<div class="form-field">
+  <label for={id}>
+    {label}
+    {required && (
+      <span class="required" aria-hidden="true">
+        *
+      </span>
+    )}
+  </label>
+  {hint && (
+    <p class="form-field__hint" id={`${id}-hint`}>
+      {hint}
+    </p>
+  )}
+  <slot />
+  <p class="form-field__error" id={`${id}-error`} hidden></p>
+</div>
+
+<style>
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  label {
+    color: var(--color-sage-800);
+    font-size: var(--text-small);
+    font-weight: var(--weight-semibold);
+  }
+
+  .required {
+    margin-left: 0.25em;
+    color: var(--color-amber-800);
+  }
+
+  p {
+    margin: 0;
+    font-size: var(--text-caption);
+  }
+
+  .form-field__hint {
+    color: var(--color-ink-soft);
+  }
+
+  .form-field__error {
+    color: var(--color-error);
+  }
+
+  .form-field__error[hidden] {
+    display: none;
+  }
+
+  .form-field :global(:is(input, select, textarea)) {
+    width: 100%;
+    border: 1px solid var(--color-line-strong);
+    border-radius: var(--radius-sm);
+    padding: 12px 15px;
+    background: var(--color-panel);
+    color: var(--color-ink);
+    font: inherit;
+    line-height: 1.5;
+    transition: var(--transition-quiet);
+  }
+
+  .form-field :global([aria-invalid="true"]) {
+    border-color: var(--color-error);
+  }
+
+  .form-field :global(textarea) {
+    resize: vertical;
+  }
+
+  .form-field :global(select) {
+    appearance: none;
+    padding-right: 40px;
+    background-image:
+      linear-gradient(45deg, transparent 50%, var(--color-sage-600) 50%),
+      linear-gradient(135deg, var(--color-sage-600) 50%, transparent 50%);
+    background-position:
+      calc(100% - 21px) calc(50% + 2px),
+      calc(100% - 15px) calc(50% + 2px);
+    background-size: 6px 6px;
+    background-repeat: no-repeat;
+  }
+</style>

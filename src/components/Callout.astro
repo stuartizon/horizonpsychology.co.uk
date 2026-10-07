@@ -1,0 +1,46 @@
+---
+// A note set apart in amber, such as where to get help in an emergency.
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+const id = `callout-${title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
+---
+
+<aside class="callout" aria-labelledby={id}>
+  <p class="callout__title" id={id}>
+    {title}
+  </p>
+  <div class="callout__body">
+    <slot />
+  </div>
+</aside>
+
+<style>
+  .callout {
+    border: 1px solid var(--color-amber-300);
+    border-radius: var(--radius-card);
+    padding: var(--card-pad);
+    background: var(--color-amber-100);
+    color: var(--color-amber-800);
+  }
+
+  .callout__title {
+    margin: 0 0 var(--space-2);
+    font-size: 0.78rem;
+    font-weight: var(--weight-semibold);
+    letter-spacing: 0.14em;
+    line-height: var(--leading-tight);
+    text-transform: uppercase;
+  }
+
+  .callout__body {
+    font-size: var(--text-small);
+    line-height: 1.6;
+  }
+
+  .callout__body :global(p) {
+    margin: 0;
+  }
+</style>

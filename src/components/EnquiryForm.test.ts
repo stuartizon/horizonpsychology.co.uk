@@ -83,11 +83,9 @@ test("asks the visitor to confirm they've read the privacy policy", () => {
 test("marks the required fields, hiding the marker from screen readers", () => {
   const markers = [...form.querySelectorAll("label .required")];
 
-  expect(markers.map((marker) => marker.closest("label")?.htmlFor)).toEqual([
-    "name",
-    "email",
-    "consent",
-  ]);
+  expect(
+    markers.map((marker) => marker.closest("label")?.getAttribute("for")),
+  ).toEqual(["name", "email", "consent"]);
   for (const marker of markers) {
     expect(marker.getAttribute("aria-hidden")).toBe("true");
   }

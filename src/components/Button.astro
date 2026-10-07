@@ -1,16 +1,35 @@
 ---
-interface Props {
-  href: string;
+// A link styled as a button, or, without an href, a button for a form.
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends Omit<HTMLAttributes<"button">, "type"> {
+  href?: string;
   label: string;
   type?: "primary" | "secondary" | "link";
+  /** Without an href, what the button does: submits its form by default. */
+  buttonType?: "submit" | "button";
 }
 
-const { href, label, type = "primary" } = Astro.props;
+const {
+  href,
+  label,
+  type = "primary",
+  buttonType = "submit",
+  class: className,
+  ...attributes
+} = Astro.props;
+const classes = ["button", `button--${type}`, className];
 ---
 
-<a class:list={["button", `button--${type}`]} href={href}>
-  {label}
-</a>
+{href ? (
+  <a class:list={classes} href={href}>
+    {label}
+  </a>
+) : (
+  <button class:list={classes} type={buttonType} {...attributes}>
+    {label}
+  </button>
+)}
 
 <style>
   .button {
@@ -22,6 +41,7 @@ const { href, label, type = "primary" } = Astro.props;
     border: 1px solid transparent;
     border-radius: var(--radius-pill);
     padding: 12px 26px;
+    font-family: inherit;
     font-size: 1rem;
     font-weight: var(--weight-semibold);
     line-height: 1.2;
@@ -29,6 +49,7 @@ const { href, label, type = "primary" } = Astro.props;
     text-decoration: none;
     white-space: nowrap;
     transition: var(--transition-quiet);
+    cursor: pointer;
   }
 
   .button--primary,
