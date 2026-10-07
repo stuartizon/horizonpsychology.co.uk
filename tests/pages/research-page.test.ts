@@ -24,6 +24,15 @@ test("the Research page lists each publication, newest first, linking to it in a
   }
 });
 
+test("each publication reads as a citation, with spaces between its parts", () => {
+  expect(texts(main, "li.publication")).toEqual(
+    publications.map(
+      ({ authors, year, title, journal }) =>
+        `${authors} · ${year} ${title} (opens in a new tab) ${journal}`,
+    ),
+  );
+});
+
 test("the Research page links to Emma's ResearchGate and Academia.edu profiles in new tabs", () => {
   for (const [name, href] of [
     ["ResearchGate", "https://www.researchgate.net/profile/Emma-Izon"],
@@ -34,6 +43,11 @@ test("the Research page links to Emma's ResearchGate and Academia.edu profiles i
     expect(profile.getAttribute("href")).toBe(href);
     expect(profile.getAttribute("target")).toBe("_blank");
   }
+  expect(
+    text(link(main, "Academia.edu (opens in a new tab)").parentElement),
+  ).toBe(
+    "ResearchGate (opens in a new tab) · Academia.edu (opens in a new tab)",
+  );
 });
 
 test("the Research page links to an enquiry about research supervision", () => {
