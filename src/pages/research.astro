@@ -1,0 +1,140 @@
+---
+import { Image } from "astro:assets";
+import Button from "@/components/Button.astro";
+import Container from "@/components/Container.astro";
+import ExternalLink from "@/components/ExternalLink.astro";
+import Publication from "@/components/Publication.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
+import { publications } from "@/data/publications";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import thesis from "@/photos/research.jpg";
+---
+
+<BaseLayout
+  title="Research"
+  description="Dr Emma Izon's research, published in peer-reviewed journals."
+>
+  <Container>
+    <div class="research">
+      <div class="research__intro">
+        <SectionHeading eyebrow="Research" title="Published work" level="h1" />
+        <p>
+          Dr Izon publishes in peer-reviewed journals and brings that evidence
+          directly into clinical practice.
+        </p>
+        <Image
+          class="research__photo"
+          src={thesis}
+          alt="Emma's Doctor of Clinical Psychology thesis on a bookshelf"
+          widths={[480, 800, 1200]}
+          sizes="(min-width: 64rem) 340px, (min-width: 48rem) 30vw, 100vw"
+        />
+        <p class="research__note">
+          Areas of research: at-risk mental states and psychosis, expressed
+          emotion, family and sibling experience, older adults' access to
+          psychological intervention, and service-user measures.
+        </p>
+        <p class="research__note">
+          <ExternalLink
+            href="https://www.researchgate.net/profile/Emma-Izon"
+            label="ResearchGate"
+          />
+          ·
+          <ExternalLink
+            href="https://manchester.academia.edu/EmmaIzon"
+            label="Academia.edu"
+          />
+        </p>
+        <div class="research__enquire">
+          <Button
+            href="/contact/?topic=research-supervision"
+            label="Enquire about research supervision"
+            type="secondary"
+          />
+        </div>
+      </div>
+      <ul class="research__publications" aria-label="Publications">
+        {publications.map((publication) => (
+          <Publication publication={publication} />
+        ))}
+      </ul>
+    </div>
+  </Container>
+</BaseLayout>
+
+<style>
+  p {
+    margin: 0;
+  }
+
+  .research {
+    display: grid;
+    gap: var(--space-10);
+    padding-block: var(--section-y-tight) var(--section-y);
+  }
+
+  .research__intro {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  /* On a phone, each line fills the width. Safari's pretty wrapping evens
+     out the lines and leaves them well short of it. */
+  .research__intro > p {
+    text-wrap: wrap;
+  }
+
+  .research__note {
+    color: var(--color-ink-soft);
+    font-size: var(--text-small);
+  }
+
+  /* Centred on a phone, where its label wraps if the screen is too narrow
+     for it. */
+  .research__enquire {
+    display: flex;
+    justify-content: center;
+  }
+
+  .research__enquire :global(.button) {
+    white-space: normal;
+    text-align: center;
+  }
+
+  .research__photo {
+    width: 100%;
+    height: auto;
+    margin-block: var(--space-2) var(--space-4);
+    border-radius: var(--radius-image);
+    box-shadow: var(--shadow-rest);
+  }
+
+  .research__publications {
+    margin: 0;
+    padding: 0;
+  }
+
+  /* From a tablet up, the publications sit beside the introduction, with the
+     first one's authors on the same baseline as the eyebrow. The introduction
+     takes a third of the width, or more if its button needs it. */
+  @media (min-width: 48rem) {
+    .research {
+      grid-template-columns: minmax(min-content, 1fr) 2fr;
+      gap: clamp(28px, 5vw, 72px);
+      align-items: baseline;
+    }
+
+    .research__intro > p {
+      text-wrap: pretty;
+    }
+
+    .research__enquire {
+      justify-content: flex-start;
+    }
+
+    .research__enquire :global(.button) {
+      white-space: nowrap;
+    }
+  }
+</style>

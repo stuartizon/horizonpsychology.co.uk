@@ -1,0 +1,59 @@
+---
+// One paper in a list of publications: authors and year, the title linking to
+// the paper, and the journal.
+import type { Publication } from "@/data/publications";
+import ExternalLink from "./ExternalLink.astro";
+
+interface Props {
+  publication: Publication;
+}
+
+const { authors, year, title, journal, href } = Astro.props.publication;
+---
+
+<li class="publication">
+  <span class="publication__meta">{authors} · {year}</span>
+  <span class="publication__title"
+    ><ExternalLink href={href} label={title}
+  /></span>
+  <span class="publication__meta publication__journal">{journal}</span>
+</li>
+
+<style>
+  .publication {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding-block: var(--space-5);
+    list-style: none;
+  }
+
+  /* A line between papers, but not above the first or below the last. */
+  .publication + .publication {
+    border-top: 1px solid var(--color-line);
+  }
+
+  .publication:first-child {
+    padding-top: 0;
+  }
+
+  .publication:last-child {
+    padding-bottom: 0;
+  }
+
+  .publication__meta {
+    color: var(--color-ink-soft);
+    font-size: var(--text-caption);
+  }
+
+  .publication__title {
+    color: var(--color-sage-800);
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    line-height: 1.4;
+  }
+
+  .publication__journal {
+    font-style: italic;
+  }
+</style>

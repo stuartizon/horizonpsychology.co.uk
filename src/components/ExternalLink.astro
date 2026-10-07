@@ -1,0 +1,48 @@
+---
+// A link to another site, which opens in a new tab: an arrow shows it, and
+// screen readers are told.
+import arrowIcon from "@phosphor-icons/core/regular/arrow-up-right.svg?raw";
+
+interface Props {
+  href: string;
+  label: string;
+}
+
+const { href, label } = Astro.props;
+// The last word goes with the arrow, so the arrow never wraps on its own.
+const start = label.slice(0, label.lastIndexOf(" ") + 1);
+const end = label.slice(start.length);
+---
+
+<a href={href} target="_blank" rel="noopener"
+  >{start}<span class="external-link__end"
+    >{end}<span
+      class="external-link__icon"
+      aria-hidden="true"
+      set:html={arrowIcon}
+  /></span
+  ><span class="visually-hidden"> (opens in a new tab)</span></a
+>
+
+<style>
+  .external-link__end {
+    white-space: nowrap;
+  }
+
+  .external-link__icon :global(svg) {
+    width: 0.8em;
+    height: 0.8em;
+    margin-left: 0.15em;
+    vertical-align: -0.05em;
+    fill: currentColor;
+  }
+
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+</style>

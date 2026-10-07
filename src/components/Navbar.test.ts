@@ -29,7 +29,7 @@ test("the primary navigation has About Emma, Services and Research", async () =>
   ]);
   expect(links).toEqual([
     ["About Emma", "/about/"],
-    ["Research", "/projects/"],
+    ["Research", "/research/"],
   ]);
   expect(nav.querySelector("button")?.textContent?.trim()).toBe("Services");
 });
@@ -99,7 +99,7 @@ test("the menu links to the home page, About Emma, each service, Research and Co
     "/",
     "/about/",
     ...services.map((service) => `/${service.id}/`),
-    "/projects/",
+    "/research/",
     "/contact/",
   ]);
   const navLinks = [...menu.querySelectorAll("nav a")].map((link) =>
