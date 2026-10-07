@@ -14,15 +14,14 @@ const start = label.slice(0, label.lastIndexOf(" ") + 1);
 const end = label.slice(start.length);
 ---
 
-<a href={href} target="_blank" rel="noopener"
-  >{start}<span class="external-link__end"
-    >{end}<span
-      class="external-link__icon"
-      aria-hidden="true"
-      set:html={arrowIcon}
-  /></span
-  ><span class="visually-hidden"> (opens in a new tab)</span></a
->
+<a href={href} target="_blank" rel="noopener">
+  {start}
+  <span class="external-link__end">
+    {end}
+    <span class="external-link__icon" aria-hidden="true" set:html={arrowIcon} />
+  </span>
+  <span class="visually-hidden"> (opens in a new tab)</span>
+</a>
 
 <style>
   .external-link__end {

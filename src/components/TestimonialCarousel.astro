@@ -32,20 +32,22 @@ const count = testimonials.length;
       <span aria-hidden="true" set:html={caretLeft} />
     </button>
     <div class="carousel__slides" aria-live="off">
-      {testimonials.map(({ quote, name }, index) => <figure
-        class="carousel__slide"
-        aria-roledescription="slide"
-        aria-label={`${index + 1} of ${count}`}
-        aria-hidden={index === 0 ? undefined : "true"}
-        inert={index !== 0}
-        data-state={index === 0 ? "current" : "hidden"}
-      >
-        <blockquote>&ldquo;{quote}&rdquo;</blockquote>
-        <figcaption>
-          <StarRating />
-          {name}
-        </figcaption>
-      </figure>)}
+      {testimonials.map(({ quote, name }, index) => (
+        <figure
+          class="carousel__slide"
+          aria-roledescription="slide"
+          aria-label={`${index + 1} of ${count}`}
+          aria-hidden={index === 0 ? undefined : "true"}
+          inert={index !== 0}
+          data-state={index === 0 ? "current" : "hidden"}
+        >
+          <blockquote>&ldquo;{quote}&rdquo;</blockquote>
+          <figcaption>
+            <StarRating />
+            {name}
+          </figcaption>
+        </figure>
+      ))}
     </div>
     <button
       class="carousel__arrow"

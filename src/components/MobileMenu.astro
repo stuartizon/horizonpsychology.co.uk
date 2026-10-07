@@ -34,9 +34,11 @@ const { links } = Astro.props;
   <Container>
     <nav aria-label="Menu">
       <ul>
-        {links.map((link) => <li>
-          <a href={link.href}>{link.label}</a>
-        </li>)}
+        {links.map((link) => (
+          <li>
+            <a href={link.href}>{link.label}</a>
+          </li>
+        ))}
       </ul>
     </nav>
   </Container>

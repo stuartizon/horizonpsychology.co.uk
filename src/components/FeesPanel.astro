@@ -14,15 +14,22 @@ const labelId = `${service.id}-fees`;
 
 <aside class="fees-panel" aria-labelledby={labelId}>
   <div>
-    <p id={labelId}><Eyebrow>Fees and practicalities</Eyebrow></p>
+    <p id={labelId}>
+      <Eyebrow>Fees and practicalities</Eyebrow>
+    </p>
     <p class="fees-panel__fee">£{service.price}</p>
     <p class="fees-panel__duration">{service.minutes}-minute session</p>
   </div>
   <ul>
-    {service.practical.map((point) => <li>
-      <span class="fees-panel__dash" aria-hidden="true"> &mdash; </span>
-      <span>{point}</span>
-    </li>)}
+    {service.practical.map((point) => (
+      <li>
+        <span class="fees-panel__dash" aria-hidden="true">
+          {" "}
+          &mdash;{" "}
+        </span>
+        <span>{point}</span>
+      </li>
+    ))}
   </ul>
   <Button href={`/contact/?topic=${service.id}`} label="Schedule" />
 </aside>

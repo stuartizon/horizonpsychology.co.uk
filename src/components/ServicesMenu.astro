@@ -21,9 +21,11 @@ const { links } = Astro.props;
   </button>
   <div class="services__panel" id="services-menu">
     <ul>
-      {links.map((link) => <li>
-        <a href={link.href}>{link.label}</a>
-      </li>)}
+      {links.map((link) => (
+        <li>
+          <a href={link.href}>{link.label}</a>
+        </li>
+      ))}
     </ul>
   </div>
 </div>
