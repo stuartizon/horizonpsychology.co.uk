@@ -87,7 +87,7 @@ const formats = ["Online", "Face-to-face in Buckinghamshire", "Not sure yet"];
         <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.
       </p>
     </template>
-    <div>
+    <div class="enquiry__send">
       <Button label="Send enquiry" />
     </div>
   </form>
@@ -228,6 +228,11 @@ const formats = ["Online", "Face-to-face in Buckinghamshire", "Not sure yet"];
 
   .enquiry [hidden] {
     display: none;
+  }
+
+  .enquiry__send {
+    display: flex;
+    justify-content: center;
   }
 
   .enquiry__consent {
