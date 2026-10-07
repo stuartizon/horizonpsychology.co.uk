@@ -8,7 +8,7 @@ The site is a small marketing site for a private psychology practice: a handful 
 
 ## Decision
 
-Use [Astro](https://astro.build) (currently v5) with its default static output, TypeScript in strict mode (`astro/tsconfigs/strict`), and Node 22 or later. Pages are `.astro` files in `src/pages/`. Repeated pages such as the four service pages use dynamic routes with `getStaticPaths`.
+Use [Astro](https://astro.build) (currently v7) with its default static output, TypeScript in strict mode (`astro/tsconfigs/strict`), and Node 22.12 or later. Pages are `.astro` files in `src/pages/`. Repeated pages such as the four service pages use dynamic routes with `getStaticPaths`.
 
 ## Consequences
 

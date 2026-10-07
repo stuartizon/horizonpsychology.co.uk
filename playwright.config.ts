@@ -23,7 +23,9 @@ export default defineConfig({
   webServer: {
     // CI serves the build the tests ran against, which the browser tests job downloads
     // from the build job. Locally, build first so a stale dist/ is never tested.
-    command: `${process.env.CI ? "" : "astro build && "}astro preview --host 127.0.0.1 --port ${port}`,
+    // --ignore-lock keeps the server in the foreground, where Playwright can stop it: run by
+    // a coding agent, astro preview otherwise starts it in the background and exits.
+    command: `${process.env.CI ? "" : "astro build && "}astro preview --host 127.0.0.1 --port ${port} --ignore-lock`,
     env: { ASTRO_TELEMETRY_DISABLED: "1" },
     url: `http://127.0.0.1:${port}`,
     reuseExistingServer: !process.env.CI,

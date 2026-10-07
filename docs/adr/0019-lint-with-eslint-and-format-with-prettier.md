@@ -12,7 +12,7 @@ Lint with [ESLint](https://eslint.org), using the recommended rules from `@eslin
 
 Format TypeScript, JavaScript, Astro, CSS, Markdown, JSON and YAML with [Prettier](https://prettier.io) and [prettier-plugin-astro](https://github.com/withastro/prettier-plugin-astro), on Prettier's default options. The design snapshot in `docs/design/` isn't formatted, because it's kept as exported ([ADR 0017](0017-keep-a-snapshot-of-the-design-in-the-repo.md)).
 
-`astroCompressHTML` is set to `"html"`, to match how Astro 5 handles whitespace in templates. With that setting, the plugin only wraps lines where the whitespace it adds doesn't change what's rendered.
+`astroCompressHTML` is set to `"html"`, to match how Astro handles whitespace in templates with `compressHTML: true`, which `astro.config.mjs` sets because Astro 7's default is `"jsx"`. With that setting, the plugin only wraps lines where the whitespace it adds doesn't change what's rendered.
 
 `npm run lint` and `npm run format:check` run as separate jobs in CI, in parallel with the other checks, and the deploy needs both to pass. `npm run format` formats the repo.
 
