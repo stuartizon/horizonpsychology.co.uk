@@ -8,7 +8,6 @@ const breakpoints = ["(min-width: 48rem)", "(min-width: 64rem)"];
 const notYetRedesigned: Record<string, number> = {
   "src/components/CredentialBadge.astro": 13,
   "src/pages/404.astro": 13,
-  "src/pages/index.astro": 5,
 };
 
 const stylesheets = readdirSync("src", { recursive: true, encoding: "utf8" })
