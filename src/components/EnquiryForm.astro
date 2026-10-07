@@ -6,6 +6,7 @@ import { CONTACT_EMAIL, ENQUIRY_ENDPOINT } from "@/consts";
 import { services } from "@/data/services";
 import Button from "./Button.astro";
 import FormField from "./FormField.astro";
+import Panel from "./Panel.astro";
 
 const topics = [
   ...services.map(({ id, name }) => ({ value: id, label: name })),
@@ -14,95 +15,97 @@ const topics = [
 const formats = ["Online", "Face-to-face in Buckinghamshire", "Not sure yet"];
 ---
 
-<div class="enquiry">
-  <form class="enquiry__form" method="post" action={ENQUIRY_ENDPOINT}>
-    <FormField id="name" label="Your name" required>
-      <input
-        id="name"
-        name="name"
-        autocomplete="name"
-        placeholder="First name is fine"
-        required
-      />
-    </FormField>
-    <FormField id="email" label="Email" required>
-      <input
-        id="email"
-        name="email"
-        type="email"
-        autocomplete="email"
-        placeholder="you@example.com"
-        required
-      />
-    </FormField>
-    <FormField id="topic" label="What are you enquiring about?">
-      <select id="topic" name="topic">
-        {topics.map(({ value, label }) => (
-          <option value={value}>{label}</option>
-        ))}
-      </select>
-    </FormField>
-    <FormField id="format" label="Online or face-to-face?">
-      <select id="format" name="format">
-        {formats.map((format) => (
-          <option>{format}</option>
-        ))}
-      </select>
-    </FormField>
-    <FormField
-      id="message"
-      label="Write a message"
-      hint="Only as much as you feel comfortable sharing."
-    >
-      <textarea
-        id="message"
-        name="message"
-        rows="5"
-        aria-describedby="message-hint"
-      ></textarea>
-    </FormField>
-    <div class="enquiry__consent">
-      <label for="consent">
+<Panel variant="white">
+  <div class="enquiry">
+    <form class="enquiry__form" method="post" action={ENQUIRY_ENDPOINT}>
+      <FormField id="name" label="Your name" required>
         <input
-          id="consent"
-          name="consent"
-          type="checkbox"
-          value="yes"
+          id="name"
+          name="name"
+          autocomplete="name"
+          placeholder="First name is fine"
           required
         />
-        <span>
-          I have read the <a href="/privacy-policy/">privacy policy</a>.
-          <span class="required" aria-hidden="true">
-            {" "}
-            *
+      </FormField>
+      <FormField id="email" label="Email" required>
+        <input
+          id="email"
+          name="email"
+          type="email"
+          autocomplete="email"
+          placeholder="you@example.com"
+          required
+        />
+      </FormField>
+      <FormField id="topic" label="What are you enquiring about?">
+        <select id="topic" name="topic">
+          {topics.map(({ value, label }) => (
+            <option value={value}>{label}</option>
+          ))}
+        </select>
+      </FormField>
+      <FormField id="format" label="Online or face-to-face?">
+        <select id="format" name="format">
+          {formats.map((format) => (
+            <option>{format}</option>
+          ))}
+        </select>
+      </FormField>
+      <FormField
+        id="message"
+        label="Write a message"
+        hint="Only as much as you feel comfortable sharing."
+      >
+        <textarea
+          id="message"
+          name="message"
+          rows="5"
+          aria-describedby="message-hint"
+        ></textarea>
+      </FormField>
+      <div class="enquiry__consent">
+        <label for="consent">
+          <input
+            id="consent"
+            name="consent"
+            type="checkbox"
+            value="yes"
+            required
+          />
+          <span>
+            I have read the <a href="/privacy-policy/">privacy policy</a>.
+            <span class="required" aria-hidden="true">
+              {" "}
+              *
+            </span>
           </span>
-        </span>
-      </label>
-      <p class="enquiry__error" id="consent-error" hidden></p>
-    </div>
-    <div class="enquiry__failure" role="alert"></div>
-    <template class="enquiry__failure-message">
-      <p>
-        Sorry, your enquiry couldn’t be sent. Please try again, or email{" "}
-        <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.
-      </p>
-    </template>
-    <div class="enquiry__send">
-      <Button label="Send enquiry" />
-    </div>
-  </form>
-  <div class="enquiry__sent" hidden>
-    <h2 tabindex="-1">Thank you — your enquiry has been sent</h2>
-    <div>
-      <Button
-        label="Send another enquiry"
-        variant="secondary"
-        type="button"
-        class="enquiry__again"
-      />
+        </label>
+        <p class="enquiry__error" id="consent-error" hidden></p>
+      </div>
+      <div class="enquiry__failure" role="alert"></div>
+      <template class="enquiry__failure-message">
+        <p>
+          Sorry, your enquiry couldn’t be sent. Please try again, or email{" "}
+          <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.
+        </p>
+      </template>
+      <div class="enquiry__send">
+        <Button label="Send enquiry" />
+      </div>
+    </form>
+    <div class="enquiry__sent" hidden>
+      <h2 tabindex="-1">Thank you — your enquiry has been sent</h2>
+      <div>
+        <Button
+          label="Send another enquiry"
+          variant="secondary"
+          type="button"
+          class="enquiry__again"
+        />
+      </div>
     </div>
   </div>
-</div>
+</Panel>
 
 <script>
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -207,14 +210,6 @@ const formats = ["Online", "Face-to-face in Buckinghamshire", "Not sure yet"];
 </script>
 
 <style>
-  .enquiry {
-    border: 1px solid var(--color-line);
-    border-radius: var(--radius-panel);
-    padding: var(--panel-pad);
-    background: var(--color-panel);
-    box-shadow: var(--shadow-rest);
-  }
-
   .enquiry__form,
   .enquiry__sent {
     display: flex;

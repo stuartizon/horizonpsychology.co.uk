@@ -4,17 +4,19 @@ import Eyebrow from "./Eyebrow.astro";
 import Panel from "./Panel.astro";
 ---
 
-<Panel variant="amber">
-  <aside class="help-now" aria-labelledby="help-now-title">
-    <p class="help-now__title" id="help-now-title">
-      <Eyebrow>If you need help now</Eyebrow>
-    </p>
-    <p>
-      Therapy is not an emergency service. If you need support today, contact
-      your GP, call NHS 111, or call the Samaritans free on 116 123.
-    </p>
-  </aside>
-</Panel>
+<aside aria-labelledby="help-now-title">
+  <Panel variant="amber">
+    <div class="help-now">
+      <p class="help-now__title" id="help-now-title">
+        <Eyebrow>If you need help now</Eyebrow>
+      </p>
+      <p>
+        Therapy is not an emergency service. If you need support today, contact
+        your GP, call NHS 111, or call the Samaritans free on 116 123.
+      </p>
+    </div>
+  </Panel>
+</aside>
 
 <style>
   .help-now {

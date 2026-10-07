@@ -25,5 +25,5 @@ test("says where to get help in an emergency", () => {
 });
 
 test("sits on an amber panel", () => {
-  expect(aside.closest(".panel--amber")).not.toBeNull();
+  expect(aside.querySelector(".panel--amber")).not.toBeNull();
 });
