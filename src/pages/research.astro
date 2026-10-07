@@ -97,10 +97,11 @@ import thesis from "@/photos/research.jpg";
   }
 
   /* From a tablet up, the publications sit beside the introduction, with the
-     first one's authors on the same baseline as the eyebrow. */
+     first one's authors on the same baseline as the eyebrow. The introduction
+     takes a third of the width, or more if its button needs it. */
   @media (min-width: 48rem) {
     .research {
-      grid-template-columns: minmax(14rem, 1fr) 2fr;
+      grid-template-columns: minmax(min-content, 1fr) 2fr;
       align-items: baseline;
     }
   }
