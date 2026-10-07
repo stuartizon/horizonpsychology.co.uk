@@ -8,7 +8,9 @@ interface Props {
 const { href, label, type = "primary" } = Astro.props;
 ---
 
-<a class:list={["button", `button--${type}`]} href={href}>{label}</a>
+<a class:list={["button", `button--${type}`]} href={href}>
+  {label}
+</a>
 
 <style>
   .button {

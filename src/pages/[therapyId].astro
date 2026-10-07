@@ -55,7 +55,9 @@ const photo = photos[`../photos/${service.id}.jpg`].default;
           widths={[480, 800, 1200, 1600]}
           sizes="(min-width: 48rem) 640px, 100vw"
         />
-        {service.description.map((paragraph) => <p>{paragraph}</p>)}
+        {service.description.map((paragraph) => (
+          <p>{paragraph}</p>
+        ))}
       </div>
       <div class="service__fees">
         <FeesPanel service={service} />

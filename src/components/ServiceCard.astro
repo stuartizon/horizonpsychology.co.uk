@@ -19,11 +19,15 @@ const icon = icons[`../icons/${service.id}.svg`];
   <span class="service-card__icon" aria-hidden="true" set:html={icon} />
   <h3>{service.name}</h3>
   <p class="service-card__summary">{service.summary}</p>
-  <p class="service-card__meta">£{service.price} · {service.minutes} minutes</p>
-  <a href={`/${service.id}/`}
-    >Find out
-    more<span class="service-card__arrow" aria-hidden="true">→</span></a
-  >
+  <p class="service-card__meta">
+    £{service.price} · {service.minutes} minutes
+  </p>
+  <a href={`/${service.id}/`}>
+    Find out more
+    <span class="service-card__arrow" aria-hidden="true">
+      →
+    </span>
+  </a>
 </article>
 
 <style>

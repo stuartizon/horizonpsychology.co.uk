@@ -12,10 +12,12 @@ const { authors, year, title, journal, href } = Astro.props.publication;
 ---
 
 <li class="publication">
-  <span class="publication__meta">{authors} · {year}</span>
-  <span class="publication__title"
-    ><ExternalLink href={href} label={title}
-  /></span>
+  <span class="publication__meta">
+    {authors} · {year}
+  </span>{" "}
+  <span class="publication__title">
+    <ExternalLink href={href} label={title} />
+  </span>{" "}
   <span class="publication__meta publication__journal">{journal}</span>
 </li>
 

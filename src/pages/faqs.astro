@@ -29,12 +29,11 @@ const headingId = (title: string) =>
       </div>
 
       <div class="faqs-page__groups">
-        {faqGroups.map((group) => <FaqSection
-          title={group.title}
-          id={headingId(group.title)}
-        >
-          <Faqs faqs={group.faqs.map((id) => faqs[id])} />
-        </FaqSection>)}
+        {faqGroups.map((group) => (
+          <FaqSection title={group.title} id={headingId(group.title)}>
+            <Faqs faqs={group.faqs.map((id) => faqs[id])} />
+          </FaqSection>
+        ))}
       </div>
     </div>
   </Container>

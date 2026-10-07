@@ -29,19 +29,22 @@ const groups = [
           Psychological therapy, clinical and research supervision. Online, and
           face-to-face in Buckinghamshire.
         </p>
-        <a class="footer__email" href={`mailto:${email}`}>{email}</a>
+        <a class="footer__email" href={`mailto:${email}`}>
+          {email}
+        </a>
       </div>
-      {groups.map((group) => <nav
-        class="footer__group"
-        aria-label={group.title}
-      >
-        <Eyebrow>{group.title}</Eyebrow>
-        <ul>
-          {group.links.map((link) => <li>
-            <a href={link.href}>{link.label}</a>
-          </li>)}
-        </ul>
-      </nav>)}
+      {groups.map((group) => (
+        <nav class="footer__group" aria-label={group.title}>
+          <Eyebrow>{group.title}</Eyebrow>
+          <ul>
+            {group.links.map((link) => (
+              <li>
+                <a href={link.href}>{link.label}</a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      ))}
     </div>
     <p class="footer__note">
       Dr Emma Izon is registered with the Health and Care Professions Council
