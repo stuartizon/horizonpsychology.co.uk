@@ -11,6 +11,10 @@ updates:
     groups:
       minor-and-patch:
         update-types: [minor, patch]
+    ignore:
+      # The types match the Node version in .nvmrc, so their major version moves with it, by hand.
+      - dependency-name: "@types/node"
+        update-types: ["version-update:semver-major"]
 
   - package-ecosystem: github-actions
     directory: /
