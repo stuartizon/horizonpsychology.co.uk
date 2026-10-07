@@ -1,19 +1,24 @@
 ---
 // Invites visitors to book the free introductory call.
 import Button from "./Button.astro";
+import Panel from "./Panel.astro";
 ---
 
-<section class="intro-call-panel">
-  <h2>Start with a free 15-minute call</h2>
-  <div class="intro-call-panel__body">
-    <p>
-      A short, no-obligation conversation to ask questions and see whether
-      working together feels right.
-    </p>
-    <div class="intro-call-panel__action">
-      <Button href="/contact/" label="Book a free call" />
+<section>
+  <Panel variant="white">
+    <div class="intro-call-panel">
+      <h2>Start with a free 15-minute call</h2>
+      <div class="intro-call-panel__body">
+        <p>
+          A short, no-obligation conversation to ask questions and see whether
+          working together feels right.
+        </p>
+        <div class="intro-call-panel__action">
+          <Button href="/contact/" label="Book a free call" />
+        </div>
+      </div>
     </div>
-  </div>
+  </Panel>
 </section>
 
 <style>
@@ -21,11 +26,6 @@ import Button from "./Button.astro";
     display: flex;
     flex-direction: column;
     gap: 14px;
-    border: 1px solid var(--color-line);
-    border-radius: var(--radius-panel);
-    background: var(--color-panel);
-    padding: var(--panel-pad);
-    box-shadow: var(--shadow-rest);
   }
 
   /* On a phone the button sits centred under the paragraph. */
