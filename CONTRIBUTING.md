@@ -35,6 +35,7 @@ The browser tests check pages with axe and cover keyboard and focus behaviour. N
 - CI deploys each pull request to its own preview, linked from the pull request. Check the change there before merging: merging to `main` puts it live straight away.
 - Update the README, this file and the ADRs in the same pull request as the change they describe.
 - Dependabot opens a pull request each week for minor and patch dependency updates, and one for each major update. Major updates, such as a new Astro version, often need code changes and get their own issue.
+- The browser tests run in CI in the Playwright container image, whose version must match `@playwright/test`. Dependabot updates only the package, so a Playwright update fails the unit tests until the image tag in `.github/workflows/ci.yml` is updated to match.
 
 ## Commit messages
 

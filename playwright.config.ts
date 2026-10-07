@@ -5,6 +5,8 @@ const port = 4322;
 export default defineConfig({
   testDir: "tests/browser",
   forbidOnly: !!process.env.CI,
+  // Tests within a file run in parallel too.
+  fullyParallel: true,
   retries: process.env.CI ? 1 : 0,
   reporter: process.env.CI ? [["github"], ["list"]] : "list",
   use: {
