@@ -79,6 +79,12 @@ import thesis from "@/photos/research.jpg";
     gap: var(--space-6);
   }
 
+  /* On a phone, each line fills the width. Safari's pretty wrapping evens
+     out the lines and leaves them well short of it. */
+  .research__intro > p {
+    text-wrap: wrap;
+  }
+
   .research__note {
     color: var(--color-ink-soft);
     font-size: var(--text-small);
@@ -98,8 +104,8 @@ import thesis from "@/photos/research.jpg";
 
   .research__photo {
     width: 100%;
-    margin-top: var(--space-4);
     height: auto;
+    margin-block: var(--space-4) var(--space-3);
     border-radius: var(--radius-image);
     box-shadow: var(--shadow-rest);
   }
@@ -118,8 +124,16 @@ import thesis from "@/photos/research.jpg";
       align-items: baseline;
     }
 
+    .research__intro > p {
+      text-wrap: pretty;
+    }
+
     .research__enquire {
       justify-content: flex-start;
+    }
+
+    .research__photo {
+      margin-bottom: 0;
     }
 
     .research__enquire :global(.button) {
