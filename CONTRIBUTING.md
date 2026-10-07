@@ -25,7 +25,7 @@ The browser tests check pages with axe and cover keyboard and focus behaviour. N
 
 ## Branches and pull requests
 
-- Nothing is committed directly to `main`; every change goes through a pull request ([ADR 0008](docs/adr/0008-pull-requests-and-squash-merge.md)).
+- Nothing is committed directly to `main`; every change goes through a pull request ([ADR 0008](docs/adr/0008-pull-requests-and-squash-merge.md)). A ruleset on `main` enforces this, along with squash merging and passing CI.
 - Branch from `main` with a short descriptive name, such as `services-dropdown`.
 - Commit little and often, one small, coherent step per commit.
 - Pull requests are squash merged, so the title becomes the commit on `main` and follows the commit style below. The description says what changed, why, how it was tested, and `Closes #<issue>`.
@@ -34,6 +34,7 @@ The browser tests check pages with axe and cover keyboard and focus behaviour. N
 - The build, lint, format check and all three test suites must pass. CI runs them on every pull request.
 - CI deploys each pull request to its own preview, linked from the pull request. Check the change there before merging: merging to `main` puts it live straight away.
 - Update the README, this file and the ADRs in the same pull request as the change they describe.
+- Dependabot opens a pull request each week for minor and patch dependency updates, and one for each major update. Major updates, such as a new Astro version, often need code changes and get their own issue.
 
 ## Commit messages
 
