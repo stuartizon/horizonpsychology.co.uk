@@ -170,6 +170,23 @@ test("an enquiry that fails to send says so, and keeps what was written", async 
   ).toBeHidden();
 });
 
+for (const width of [320, 768, 1280]) {
+  test(`at ${width}px the send button is centred in the form`, async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width, height: 1024 });
+
+    const form = (await page.locator("main form").boundingBox())!;
+    const button = (await page
+      .getByRole("button", { name: "Send enquiry" })
+      .boundingBox())!;
+
+    expect(
+      Math.abs(button.x + button.width / 2 - (form.x + form.width / 2)),
+    ).toBeLessThanOrEqual(1);
+  });
+}
+
 test("at tablet width and up the form sits beside the heading", async ({
   page,
   isMobile,
