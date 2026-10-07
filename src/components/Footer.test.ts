@@ -27,7 +27,7 @@ test("Work together links to each service", async () => {
 test("Practice links to About Emma, Research, FAQs and Contact Us, with no blog", async () => {
   expect(await groupLinks("Practice")).toEqual([
     ["About Emma", "/about/"],
-    ["Research", "/projects/"],
+    ["Research", "/research/"],
     ["FAQs", "/faqs/"],
     ["Contact Us", "/contact/"],
   ]);

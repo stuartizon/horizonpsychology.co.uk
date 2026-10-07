@@ -40,6 +40,6 @@ test("the About page describes how Emma works", () => {
 test("the About page links to the contact page and Emma's publications", () => {
   expect(link(document, "Get in touch").getAttribute("href")).toBe("/contact/");
   expect(link(document, "See publications").getAttribute("href")).toBe(
-    "/projects/",
+    "/research/",
   );
 });

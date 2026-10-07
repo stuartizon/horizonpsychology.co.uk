@@ -5,7 +5,7 @@ const pages = [
   "/",
   "/about/",
   "/contact/",
-  "/projects/",
+  "/research/",
   ...services.map(({ id }) => `/${id}/`),
   "/404/",
 ];
