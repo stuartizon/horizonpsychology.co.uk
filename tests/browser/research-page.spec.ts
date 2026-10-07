@@ -25,6 +25,25 @@ for (const width of [768, 1280]) {
     expect(publications.x).toBeGreaterThan(heading.x + heading.width);
   });
 
+  test(`at ${width}px the enquiry button stays clear of the publications`, async ({
+    page,
+    isMobile,
+  }) => {
+    test.skip(isMobile, "On a phone the publications follow the introduction");
+    await page.setViewportSize({ width, height: 1024 });
+    await page.evaluate(() => document.fonts.ready);
+
+    const button = (await page
+      .getByRole("link", { name: "Enquire about research supervision" })
+      .boundingBox())!;
+    const publications = (await page
+      .getByRole("list")
+      .filter({ has: page.locator(".publication") })
+      .boundingBox())!;
+
+    expect(button.x + button.width).toBeLessThan(publications.x);
+  });
+
   test(`at ${width}px the first publication's authors line up with the eyebrow`, async ({
     page,
     isMobile,
