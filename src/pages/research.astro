@@ -38,7 +38,7 @@ import thesis from "@/photos/research.jpg";
             label="Academia.edu"
           />
         </p>
-        <div>
+        <div class="research__enquire">
           <Button
             href="/contact/?topic=research-supervision"
             label="Enquire about research supervision"
@@ -84,8 +84,21 @@ import thesis from "@/photos/research.jpg";
     font-size: var(--text-small);
   }
 
+  /* Centred on a phone, where its label wraps if the screen is too narrow
+     for it. */
+  .research__enquire {
+    display: flex;
+    justify-content: center;
+  }
+
+  .research__enquire :global(.button) {
+    white-space: normal;
+    text-align: center;
+  }
+
   .research__photo {
     width: 100%;
+    margin-top: var(--space-4);
     height: auto;
     border-radius: var(--radius-image);
     box-shadow: var(--shadow-rest);
@@ -103,6 +116,14 @@ import thesis from "@/photos/research.jpg";
     .research {
       grid-template-columns: minmax(min-content, 1fr) 2fr;
       align-items: baseline;
+    }
+
+    .research__enquire {
+      justify-content: flex-start;
+    }
+
+    .research__enquire :global(.button) {
+      white-space: nowrap;
     }
   }
 </style>
