@@ -1,3 +1,24 @@
 ---
+// A link to another site, which opens in a new tab and tells screen readers so.
+interface Props {
+  href: string;
+  label: string;
+}
+
+const { href, label } = Astro.props;
 ---
 
+<a href={href} target="_blank" rel="noopener"
+  >{label}<span class="visually-hidden"> (opens in a new tab)</span></a
+>
+
+<style>
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+</style>
