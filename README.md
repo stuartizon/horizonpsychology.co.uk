@@ -6,7 +6,7 @@ It's a static site built with [Astro](https://astro.build), TypeScript and plain
 
 ## Getting started
 
-Requires Node 22 or later (see `.nvmrc`).
+Requires Node 22.12 or later (see `.nvmrc`).
 
 ```sh
 npm install
@@ -35,7 +35,7 @@ The dev server runs on <http://127.0.0.1:4321>.
 
 | Layer                  | Choice                                                                                                                                                                                                                                                                          |
 | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Framework              | [Astro](https://astro.build) 5, static output ([ADR 0002](docs/adr/0002-astro-static-site.md))                                                                                                                                                                                  |
+| Framework              | [Astro](https://astro.build) 7, static output ([ADR 0002](docs/adr/0002-astro-static-site.md))                                                                                                                                                                                  |
 | Language               | TypeScript, strict mode                                                                                                                                                                                                                                                         |
 | Styling                | Plain CSS: a small set of global tokens, with each component's styles in its own file ([ADR 0012](docs/adr/0012-small-global-token-set-and-component-owned-styles.md)), and two breakpoints, tablet and desktop ([ADR 0014](docs/adr/0014-two-site-wide-breakpoints-in-rem.md)) |
 | Interactivity          | Small vanilla TypeScript scripts in components, no UI framework ([ADR 0005](docs/adr/0005-no-client-side-ui-framework.md))                                                                                                                                                      |
