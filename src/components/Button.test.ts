@@ -22,3 +22,13 @@ test("is primary by default", async () => {
 
   expect(link?.classList.contains("button--primary")).toBe(true);
 });
+
+test("without an href it renders a submit button", async () => {
+  const button = (
+    await render(Button, { label: "Send enquiry" })
+  ).querySelector("button");
+
+  expect(button?.getAttribute("type")).toBe("submit");
+  expect(button?.textContent?.trim()).toBe("Send enquiry");
+  expect(button?.classList.contains("button--primary")).toBe(true);
+});
