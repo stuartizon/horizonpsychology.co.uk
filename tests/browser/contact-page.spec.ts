@@ -15,6 +15,23 @@ async function answerEnquiries(page: Page, status: number) {
   return requests;
 }
 
+/**
+ * Like `answerEnquiries`, but holds each submission unanswered until
+ * `release` is called, so a test can see the form while it's sending.
+ */
+async function holdEnquiries(page: Page, status: number) {
+  const requests: Request[] = [];
+  let release!: () => void;
+  const released = new Promise<void>((resolve) => (release = resolve));
+  await page.route("**/*", async (route) => {
+    if (route.request().method() !== "POST") return route.fallback();
+    requests.push(route.request());
+    await released;
+    await route.fulfill({ status, json: {} });
+  });
+  return { requests, release };
+}
+
 async function fillIn(page: Page) {
   await page.getByLabel("Your name").fill("Sam");
   await page.getByLabel("Email").fill("sam@example.com");
@@ -247,4 +264,107 @@ test("the Contact page has no detectable accessibility violations once sent", as
   const results = await new AxeBuilder({ page }).analyze();
 
   expect(results.violations).toEqual([]);
+});
+
+const sendButton = (page: Page) =>
+  page.getByRole("button", { name: "Send enquiry" });
+const sending = (page: Page) => page.getByText("Sending…", { exact: true });
+
+test("while an enquiry sends, the button says so and doesn't send it twice", async ({
+  page,
+}) => {
+  const { requests, release } = await holdEnquiries(page, 200);
+  await fillIn(page);
+  await send(page);
+
+  await expect(sendButton(page)).toHaveAttribute("aria-disabled", "true");
+  await expect(sending(page)).toHaveCSS("opacity", "1");
+  await expect(page.getByRole("status")).toHaveText("Sending your enquiry…");
+  await sendButton(page).click({ force: true });
+  expect(requests).toHaveLength(1);
+
+  release();
+  await expect(
+    page.getByRole("heading", {
+      name: "Thank you — your enquiry has been sent",
+    }),
+  ).toBeVisible();
+});
+
+test("the button keeps focus while the enquiry sends", async ({ page }) => {
+  const { release } = await holdEnquiries(page, 200);
+  await fillIn(page);
+  await sendButton(page).focus();
+  await page.keyboard.press("Enter");
+
+  await expect(sendButton(page)).toHaveAttribute("aria-disabled", "true");
+  await expect(sendButton(page)).toBeFocused();
+  release();
+});
+
+test("the spinner turns while sending, and stays still with reduced motion", async ({
+  page,
+}) => {
+  const { release } = await holdEnquiries(page, 200);
+  await fillIn(page);
+  await send(page);
+  await expect(sending(page).locator("svg")).not.toHaveCSS(
+    "animation-name",
+    "none",
+  );
+
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await expect(sending(page).locator("svg")).toHaveCSS(
+    "animation-name",
+    "none",
+  );
+  release();
+});
+
+test("after an enquiry fails to send, the button can send it again", async ({
+  page,
+}) => {
+  const { requests, release } = await holdEnquiries(page, 500);
+  await fillIn(page);
+  await send(page);
+  release();
+
+  await expect(page.getByRole("alert")).toContainText(
+    "Sorry, your enquiry couldn’t be sent.",
+  );
+  await expect(sendButton(page)).not.toHaveAttribute("aria-disabled");
+  await expect(sending(page)).toHaveCSS("opacity", "0");
+  await send(page);
+  await expect.poll(() => requests.length).toBe(2);
+});
+
+test("the Contact page has no detectable accessibility violations while sending", async ({
+  page,
+}) => {
+  const { release } = await holdEnquiries(page, 200);
+  await fillIn(page);
+  await send(page);
+  await expect(sendButton(page)).toHaveAttribute("aria-disabled", "true");
+
+  const results = await new AxeBuilder({ page }).analyze();
+
+  expect(results.violations).toEqual([]);
+  release();
+});
+
+test("once sent, the button to send another is centred in the panel", async ({
+  page,
+}) => {
+  await answerEnquiries(page, 200);
+  await fillIn(page);
+  await send(page);
+
+  const again = page.getByRole("button", { name: "Send another enquiry" });
+  await expect(again).toBeVisible();
+  const button = (await again.boundingBox())!;
+  const panel = (await page.locator(".enquiry").boundingBox())!;
+
+  expect(
+    Math.abs(button.x + button.width / 2 - (panel.x + panel.width / 2)),
+  ).toBeLessThanOrEqual(1);
 });

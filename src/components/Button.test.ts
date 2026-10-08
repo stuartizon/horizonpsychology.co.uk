@@ -44,3 +44,23 @@ test("its type can make it a plain button rather than a submit button", async ()
 
   expect(button?.getAttribute("type")).toBe("button");
 });
+
+test("with a busy label it has a spinner and that label, hidden until it's busy", async () => {
+  const button = (
+    await render(Button, { label: "Send enquiry", busyLabel: "Sending…" })
+  ).querySelector("button")!;
+  const busy = [...button.querySelectorAll('[aria-hidden="true"]')].find(
+    (element) => element.textContent?.trim() === "Sending…",
+  );
+
+  expect(busy?.querySelector("svg")).toBeTruthy();
+  expect(button.hasAttribute("data-busy")).toBe(false);
+});
+
+test("without a busy label it has no busy state", async () => {
+  const button = (
+    await render(Button, { label: "Send enquiry" })
+  ).querySelector("button")!;
+
+  expect(button.querySelector("svg")).toBeNull();
+});
