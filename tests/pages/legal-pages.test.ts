@@ -114,4 +114,14 @@ describe("the Privacy policy page", () => {
       "Enquiries that do not lead to work together are deleted.",
     );
   });
+
+  test("names the services that handle an enquiry, and says the website keeps none", () => {
+    expect(text(main)).toContain(
+      "Enquiries from the contact form are delivered by Cloudflare, which also hosts this website.",
+    );
+    expect(text(main)).toContain(
+      "The website itself does not store or log what you send.",
+    );
+    expect(text(main)).toContain("provided by Google");
+  });
 });
