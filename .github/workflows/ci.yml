@@ -170,6 +170,20 @@ jobs:
         with:
           name: dist
           path: dist/
+      # The Worker that emails contact form enquiries (ADR 0020). Pull requests
+      # deploy its preview environment, which never emails Emma. The address
+      # it delivers to is personal, so it's uploaded from a secret.
+      - name: Deploy the enquiry email Worker
+        working-directory: workers/enquiry-email
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+          ENVIRONMENT: ${{ github.event_name == 'pull_request' && 'preview' || '' }}
+          DELIVER_TO: ${{ github.event_name == 'pull_request' && secrets.ENQUIRY_PREVIEW_DELIVER_TO || secrets.ENQUIRY_DELIVER_TO }}
+        run: |
+          test -n "$DELIVER_TO" || { echo "::error::The enquiry email address secret isn't set"; exit 1; }
+          printf 'DELIVER_TO=%s\n' "$DELIVER_TO" > "$RUNNER_TEMP/secrets.env"
+          npx wrangler deploy --env="$ENVIRONMENT" --secrets-file="$RUNNER_TEMP/secrets.env"
       - name: Deploy to Cloudflare Pages
         id: deploy
         uses: cloudflare/wrangler-action@v4
