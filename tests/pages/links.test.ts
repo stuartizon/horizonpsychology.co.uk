@@ -7,7 +7,6 @@ import { page, pages } from "./pages";
 const broken: Record<string, number> = {
   "/terms-and-conditions/": 10,
   "/privacy-policy/": 10,
-  "/complaints/": 10,
 };
 
 /** Each internal link's path, without any query or fragment, and the pages that link to it. */
