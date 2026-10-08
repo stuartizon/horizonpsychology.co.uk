@@ -4,7 +4,17 @@ import { getViteConfig } from "astro/config";
 export default getViteConfig({
   test: {
     projects: [
-      { test: { name: "unit", include: ["src/**/*.test.ts"] } },
+      {
+        // Workers import the runtime's `cloudflare:email`, which a stub
+        // stands in for.
+        resolve: {
+          alias: { "cloudflare:email": "/src/test/cloudflare-email.ts" },
+        },
+        test: {
+          name: "unit",
+          include: ["src/**/*.test.ts", "workers/**/*.test.ts"],
+        },
+      },
       {
         test: {
           name: "pages",
