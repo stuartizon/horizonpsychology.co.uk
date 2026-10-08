@@ -24,6 +24,7 @@ test("the sitemap lists every page on the site's domain", () => {
       "/contact/",
       "/faqs/",
       "/research/",
+      "/terms-and-conditions/",
       ...services.map((service) => `/${service.id}/`),
     ]
       .map((path) => site + path)
