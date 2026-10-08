@@ -14,7 +14,7 @@ The domain's email already runs through Cloudflare Email Routing, which forwards
 - The email is from `noreply@horizonpsychology.co.uk`, with the visitor's address as Reply-To. It's delivered to Emma's verified personal address but addressed in its `To:` header to `emma@horizonpsychology.co.uk`, so her email program replies from that address.
 - The personal address it's delivered to is a GitHub Actions secret, never in the repo, and CI uploads it with each deploy.
 - CI deploys the Worker before the Pages site. Pull requests deploy a separate preview Worker, `horizonpsychology-enquiry-email-preview`, which emails Stuart, never Emma. Every pull request shares it, so it runs the code from whichever pull request deployed last.
-- The `CLOUDFLARE_API_TOKEN` secret can now edit Workers scripts as well as Pages.
+- The `CLOUDFLARE_API_TOKEN` secret also has the Workers Editor role, limited to the two enquiry Workers. It can deploy them but not create Workers, so each was first deployed by hand.
 
 ## Alternatives considered
 

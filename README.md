@@ -102,8 +102,9 @@ A few things in the Cloudflare account aren't in the repo, because Wrangler can'
 - **Email Routing** for `horizonpsychology.co.uk`: a catch-all rule forwarding the domain's email to Emma, a rule forwarding `stuart@` to Stuart, and their personal inboxes as verified destination addresses. The enquiry Worker can only deliver to verified destinations.
 - **DNS**: Email Routing's MX records, an SPF record that also allows Google (so Gmail can send as addresses on the domain), and a DMARC record.
 - **The Pages project**, its custom domain, and the redirect rule from `www` to the apex domain.
+- **The enquiry Workers**, `horizonpsychology-enquiry-email` and `horizonpsychology-enquiry-email-preview`, were first deployed by hand. CI's token can edit them but not create Workers, so a new Worker needs a first deploy with `wrangler deploy` and its own Editor permission on the token.
 
-The CI secrets are `CLOUDFLARE_API_TOKEN`, which can edit Pages and Workers scripts, and `ENQUIRY_DELIVER_TO` and `ENQUIRY_PREVIEW_DELIVER_TO`, the addresses enquiries are delivered to in production and on previews. The variable `CLOUDFLARE_ACCOUNT_ID` names the account.
+The CI secrets are `CLOUDFLARE_API_TOKEN`, which can edit Cloudflare Pages and has the Workers Editor role on the two enquiry Workers only, and `ENQUIRY_DELIVER_TO` and `ENQUIRY_PREVIEW_DELIVER_TO`, the addresses enquiries are delivered to in production and on previews. The variable `CLOUDFLARE_ACCOUNT_ID` names the account.
 
 ## Contributing
 
