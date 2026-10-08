@@ -12,7 +12,11 @@ export default getViteConfig({
         },
         test: {
           name: "unit",
-          include: ["src/**/*.test.ts", "workers/**/*.test.ts"],
+          include: [
+            "src/**/*.test.ts",
+            "workers/**/*.test.ts",
+            "functions/**/*.test.ts",
+          ],
         },
       },
       {

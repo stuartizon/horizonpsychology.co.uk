@@ -101,3 +101,11 @@ test("posts the enquiry", () => {
   expect(form.getAttribute("method")).toBe("post");
   expect(form.getAttribute("action")).toBeTruthy();
 });
+
+test("has an empty field for spam bots to fill in, labelled for people to leave", () => {
+  const trap = field("Leave this empty");
+
+  expect(trap.getAttribute("name")).toBe("leave_empty");
+  expect(trap.getAttribute("autocomplete")).toBe("off");
+  expect(trap.getAttribute("value") ?? "").toBe("");
+});
