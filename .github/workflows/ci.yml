@@ -180,10 +180,15 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
           ENVIRONMENT: ${{ github.event_name == 'pull_request' && 'preview' || '' }}
           DELIVER_TO: ${{ github.event_name == 'pull_request' && secrets.ENQUIRY_PREVIEW_DELIVER_TO || secrets.ENQUIRY_DELIVER_TO }}
+          # Shown against the deploy in Cloudflare's dashboard. Passed through
+          # the environment, never into the script, as titles are untrusted.
+          SUMMARY: ${{ github.event_name == 'pull_request' && format('#{0} {1}', github.event.pull_request.number, github.event.pull_request.title) || github.event.head_commit.message }}
+          SHA: ${{ github.event.pull_request.head.sha || github.sha }}
         run: |
           test -n "$DELIVER_TO" || { echo "::error::The enquiry email address secret isn't set"; exit 1; }
           printf 'DELIVER_TO=%s\n' "$DELIVER_TO" > "$RUNNER_TEMP/secrets.env"
-          npx wrangler deploy --env="$ENVIRONMENT" --secrets-file="$RUNNER_TEMP/secrets.env"
+          message="${SHA::7} ${SUMMARY%%$'\n'*}"
+          npx wrangler deploy --env="$ENVIRONMENT" --secrets-file="$RUNNER_TEMP/secrets.env" --message="${message::100}"
       - name: Deploy to Cloudflare Pages
         id: deploy
         uses: cloudflare/wrangler-action@v4
