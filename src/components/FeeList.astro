@@ -1,0 +1,50 @@
+---
+// Each service's fee and session length, with its name linking to its page.
+import { services } from "@/data/services";
+---
+
+<dl class="fee-list">
+  {services.map((service) => (
+    <div class="fee-list__row">
+      <dt>
+        <a href={`/${service.id}/`}>{service.name}</a>
+      </dt>
+      <dd>
+        £{service.price} · {service.minutes} minutes
+      </dd>
+    </div>
+  ))}
+</dl>
+
+<style>
+  .fee-list {
+    margin: 0;
+  }
+
+  /* On a phone each fee sits under its service's name, so every row looks
+     the same; from a tablet up it sits at the end of the row. */
+  .fee-list__row {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    padding-block: var(--space-3);
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  @media (min-width: 48rem) {
+    .fee-list__row {
+      flex-direction: row;
+      justify-content: space-between;
+      gap: var(--space-4);
+    }
+  }
+
+  .fee-list__row:first-child {
+    border-top: 1px solid var(--color-line);
+  }
+
+  dd {
+    margin: 0;
+    font-weight: var(--weight-semibold);
+  }
+</style>

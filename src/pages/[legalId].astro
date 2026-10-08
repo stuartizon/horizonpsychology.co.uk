@@ -15,12 +15,12 @@ interface Props {
 }
 
 const { entry } = Astro.props;
-const { title, lead, draft } = entry.data;
+const { title, lead, draft, fees } = entry.data;
 const { Content } = await render(entry);
 ---
 
 <BaseLayout title={title} description={lead}>
-  <LegalPage title={title} lead={lead} draft={draft}>
+  <LegalPage title={title} lead={lead} draft={draft} fees={fees}>
     <Content />
   </LegalPage>
 </BaseLayout>

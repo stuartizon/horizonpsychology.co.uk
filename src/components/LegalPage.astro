@@ -2,6 +2,7 @@
 // The body of a legal or practical page, such as the confidentiality statement.
 import { CONTACT_EMAIL } from "@/consts";
 import Container from "./Container.astro";
+import FeeList from "./FeeList.astro";
 import SectionHeading from "./SectionHeading.astro";
 
 interface Props {
@@ -9,9 +10,11 @@ interface Props {
   lead: string;
   /** Shows a note that the wording isn't final. */
   draft: boolean;
+  /** Lists each service's fee after the lead. */
+  fees?: boolean;
 }
 
-const { title, lead, draft } = Astro.props;
+const { title, lead, draft, fees = false } = Astro.props;
 ---
 
 <Container>
@@ -22,6 +25,7 @@ const { title, lead, draft } = Astro.props;
     </div>
     <div class="legal-page__body">
       <p>{lead}</p>
+      {fees && <FeeList />}
       <slot />
       <p class="legal-page__note">
         Questions about this page can go to{" "}
