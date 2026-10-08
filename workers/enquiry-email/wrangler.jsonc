@@ -1,0 +1,28 @@
+// The Worker that emails contact form enquiries (ADR 0020). Deployed from
+// GitHub Actions: pull requests deploy the preview environment, and main
+// deploys production. Neither has a public URL; the site's Pages Function
+// calls it through a service binding.
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  "name": "horizonpsychology-enquiry-email",
+  "main": "index.ts",
+  "compatibility_date": "2026-10-01",
+  "workers_dev": false,
+  "preview_urls": false,
+  "send_email": [{ "name": "EMAIL" }],
+  "vars": { "ADDRESSED_TO": "emma@horizonpsychology.co.uk" },
+  // DELIVER_TO, the verified Email Routing address the email is delivered
+  // to, is personal, so CI uploads it from a GitHub Actions secret.
+  "secrets": { "required": ["DELIVER_TO"] },
+  "env": {
+    // Pull request previews email Stuart, never Emma.
+    "preview": {
+      "name": "horizonpsychology-enquiry-email-preview",
+      "workers_dev": false,
+      "preview_urls": false,
+      "send_email": [{ "name": "EMAIL" }],
+      "vars": { "ADDRESSED_TO": "stuart@horizonpsychology.co.uk" },
+      "secrets": { "required": ["DELIVER_TO"] },
+    },
+  },
+}

@@ -1,4 +1,12 @@
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import {
+  afterEach,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  vi,
+  type Mock,
+} from "vitest";
 import type { EmailMessage } from "@/test/cloudflare-email";
 import { parseEmail } from "@/test/email";
 import worker from "./index";
@@ -11,7 +19,7 @@ const enquiry = {
   message: "Something private about my health.",
 };
 
-let send: ReturnType<typeof vi.fn>;
+let send: Mock<(message: EmailMessage) => Promise<unknown>>;
 let logged: unknown[][];
 
 const env = () => ({
@@ -20,18 +28,17 @@ const env = () => ({
   ADDRESSED_TO: "emma@horizonpsychology.co.uk",
 });
 
-const post = (body: unknown, init: RequestInit = {}) =>
+const post = (body: unknown) =>
   worker.fetch(
     new Request("https://enquiry-email/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: typeof body === "string" ? body : JSON.stringify(body),
-      ...init,
     }),
     env(),
   );
 
-const sent = () => send.mock.calls.map(([message]) => message as EmailMessage);
+const sent = () => send.mock.calls.map(([message]) => message);
 
 beforeEach(() => {
   send = vi.fn().mockResolvedValue(undefined);
