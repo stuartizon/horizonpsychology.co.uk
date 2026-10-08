@@ -6,7 +6,6 @@ import { page, pages } from "./pages";
 // removing the link. Remove a link from this list when its test starts passing.
 const broken: Record<string, number> = {
   "/terms-and-conditions/": 10,
-  "/privacy-policy/": 10,
   "/complaints/": 10,
 };
 
