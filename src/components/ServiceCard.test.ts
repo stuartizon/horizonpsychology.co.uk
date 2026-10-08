@@ -15,12 +15,12 @@ async function renderCard() {
   )!;
 }
 
-test("shows the service's name, summary, and price and session length", async () => {
+test("shows the service's name, summary and session length, without its price", async () => {
   const card = await renderCard();
 
   expect(card.querySelector("h3")?.textContent).toBe("Individual Therapy");
   const text = [...card.querySelectorAll("p")].map((p) => p.textContent);
-  expect(text).toEqual([individual.summary, "£100 · 50 minutes"]);
+  expect(text).toEqual([individual.summary, "50 minutes"]);
 });
 
 test("shows the service's icon", async () => {
