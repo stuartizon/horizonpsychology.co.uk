@@ -1,5 +1,8 @@
 ---
-// A link styled as a button, or, without an href, a button for a form.
+// A link styled as a button, or, without an href, a button for a form. A form
+// button with a busyLabel can show that it's busy: a script sets data-busy on
+// it, and the label gives way to a spinner and the busy label, in the same
+// space so the button keeps its width.
 import type { HTMLAttributes } from "astro/types";
 
 interface Props extends Omit<HTMLAttributes<"button">, "type"> {
@@ -8,6 +11,8 @@ interface Props extends Omit<HTMLAttributes<"button">, "type"> {
   variant?: "primary" | "secondary" | "link";
   /** Without an href, what the button does: submits its form by default. */
   type?: "submit" | "button";
+  /** What a form button says while it's busy, such as "Sending…". */
+  busyLabel?: string;
 }
 
 const {
@@ -15,6 +20,7 @@ const {
   label,
   variant = "primary",
   type = "submit",
+  busyLabel,
   class: className,
   ...attributes
 } = Astro.props;
@@ -27,7 +33,38 @@ const classes = ["button", `button--${variant}`, className];
   </a>
 ) : (
   <button class:list={classes} type={type} {...attributes}>
-    {label}
+    {busyLabel ? (
+      <span class="button__labels">
+        <span class="button__label">{label}</span>
+        <span class="button__label button__busy" aria-hidden="true">
+          <svg
+            class="button__spinner"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+          >
+            <circle
+              cx="12"
+              cy="12"
+              r="9"
+              stroke="currentColor"
+              stroke-opacity="0.28"
+              stroke-width="2"
+            />
+            <path
+              d="M12 3a9 9 0 0 1 9 9"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            />
+          </svg>
+          {busyLabel}
+        </span>
+      </span>
+    ) : (
+      label
+    )}
   </button>
 )}
 
@@ -91,5 +128,53 @@ const classes = ["button", `button--${variant}`, className];
   .button--link:hover {
     color: var(--color-sage-800);
     text-decoration-color: var(--color-sage-800);
+  }
+
+  .button__labels {
+    display: grid;
+  }
+
+  .button__label {
+    display: inline-flex;
+    grid-area: 1 / 1;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    transition: opacity var(--duration-base) var(--ease-calm);
+  }
+
+  .button__busy,
+  .button[data-busy] .button__label:not(.button__busy) {
+    opacity: 0;
+  }
+
+  .button[data-busy] .button__busy {
+    opacity: 1;
+  }
+
+  .button[data-busy] {
+    cursor: progress;
+  }
+
+  .button--primary[data-busy]:hover {
+    background: var(--color-sage-600);
+  }
+
+  .button__spinner {
+    animation: button-spin 0.9s linear infinite;
+  }
+
+  @keyframes button-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* The site shortens animations for reduced motion, which would make a
+     spinner that turns forever flicker, so it stops instead. */
+  @media (prefers-reduced-motion: reduce) {
+    .button__spinner {
+      animation: none;
+    }
   }
 </style>

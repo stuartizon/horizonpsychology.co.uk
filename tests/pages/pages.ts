@@ -39,6 +39,15 @@ export function text(element: Element | null | undefined) {
   return element?.textContent?.replace(/\s+/g, " ").trim();
 }
 
+/** An element's text without what's hidden from screen readers, as they read it. */
+export function spokenText(element: Element | null | undefined) {
+  const copy = element?.cloneNode(true) as Element | undefined;
+  for (const hidden of copy?.querySelectorAll('[aria-hidden="true"]') ?? []) {
+    hidden.remove();
+  }
+  return text(copy);
+}
+
 /** The text of each element matching `selector` in `root`. */
 export function texts(root: ParentNode, selector: string) {
   return [...root.querySelectorAll(selector)].map(text);

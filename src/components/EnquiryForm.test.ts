@@ -92,9 +92,24 @@ test("marks the required fields, hiding the marker from screen readers", () => {
 });
 
 test("has a button to send the enquiry", () => {
-  const button = form.querySelector('button[type="submit"]');
+  // Its text without what's hidden from screen readers: the label it shows
+  // while sending.
+  const button = form.querySelector('button[type="submit"]')!.cloneNode(true);
+  for (const hidden of (button as Element).querySelectorAll(
+    '[aria-hidden="true"]',
+  )) {
+    hidden.remove();
+  }
 
-  expect(text(button)).toBe("Send enquiry");
+  expect(text(button as Element)).toBe("Send enquiry");
+});
+
+test("says it's sending while the enquiry sends", () => {
+  const button = form.querySelector('button[type="submit"]');
+  const busy = button?.querySelector('[aria-hidden="true"]');
+
+  expect(text(busy)).toBe("Sending…");
+  expect(form.querySelector('[role="status"]')).toBeTruthy();
 });
 
 test("posts the enquiry", () => {

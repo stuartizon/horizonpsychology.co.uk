@@ -82,6 +82,7 @@ import Panel from "./Panel.astro";
         <label for="leave_empty">Leave this empty</label>
         <input id="leave_empty" name="leave_empty" autocomplete="off" />
       </div>
+      <p class="enquiry__status" role="status"></p>
       <div class="enquiry__failure" role="alert"></div>
       <template class="enquiry__failure-message">
         <p>
@@ -89,13 +90,13 @@ import Panel from "./Panel.astro";
           <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.
         </p>
       </template>
-      <div class="enquiry__send">
-        <Button label="Send enquiry" />
+      <div class="enquiry__button">
+        <Button label="Send enquiry" busyLabel="Sending…" />
       </div>
     </form>
     <div class="enquiry__sent" hidden>
       <h2 tabindex="-1">Thank you — your enquiry has been sent</h2>
-      <div>
+      <div class="enquiry__button">
         <Button
           label="Send another enquiry"
           variant="secondary"
@@ -126,6 +127,7 @@ import Panel from "./Panel.astro";
   for (const enquiry of document.querySelectorAll(".enquiry")) {
     const form = enquiry.querySelector("form")!;
     const send = form.querySelector<HTMLButtonElement>('[type="submit"]')!;
+    const status = form.querySelector(".enquiry__status")!;
     const failure = form.querySelector(".enquiry__failure")!;
     const failureMessage = form.querySelector<HTMLTemplateElement>(
       ".enquiry__failure-message",
@@ -168,8 +170,21 @@ import Panel from "./Panel.astro";
       topics.value = topic!;
     }
 
+    /**
+     * Shows that the enquiry is sending, or has stopped. The button stays
+     * focusable, so keyboard focus isn't lost, and pressing it again while
+     * it's sending does nothing.
+     */
+    const showSending = (sending: boolean) => {
+      send.toggleAttribute("data-busy", sending);
+      if (sending) send.setAttribute("aria-disabled", "true");
+      else send.removeAttribute("aria-disabled");
+      status.textContent = sending ? "Sending your enquiry…" : "";
+    };
+
     form.addEventListener("submit", async (event) => {
       event.preventDefault();
+      if (send.hasAttribute("data-busy")) return;
       const invalid = fields.filter((field) => !check(field));
       if (invalid.length) {
         invalid[0].focus();
@@ -177,7 +192,7 @@ import Panel from "./Panel.astro";
       }
 
       failure.replaceChildren();
-      send.disabled = true;
+      showSending(true);
       try {
         const response = await fetch(form.action, {
           method: "POST",
@@ -197,7 +212,7 @@ import Panel from "./Panel.astro";
       } catch {
         failure.replaceChildren(failureMessage.content.cloneNode(true));
       } finally {
-        send.disabled = false;
+        showSending(false);
       }
     });
 
@@ -229,7 +244,16 @@ import Panel from "./Panel.astro";
     display: none;
   }
 
-  .enquiry__send {
+  .enquiry__status {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .enquiry__button {
     display: flex;
     justify-content: center;
   }
