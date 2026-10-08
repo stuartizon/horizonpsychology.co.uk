@@ -5,4 +5,23 @@
   "name": "horizonpsychology",
   "pages_build_output_dir": "./dist",
   "compatibility_date": "2026-10-01",
+  // functions/api/enquiry.ts passes enquiries to the Worker that emails them
+  // (ADR 0020). Pull request previews use the preview Worker, which never
+  // emails Emma.
+  "services": [
+    {
+      "binding": "ENQUIRY_EMAIL",
+      "service": "horizonpsychology-enquiry-email",
+    },
+  ],
+  "env": {
+    "preview": {
+      "services": [
+        {
+          "binding": "ENQUIRY_EMAIL",
+          "service": "horizonpsychology-enquiry-email-preview",
+        },
+      ],
+    },
+  },
 }

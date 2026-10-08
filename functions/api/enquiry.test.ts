@@ -81,8 +81,11 @@ describe("POST /api/enquiry", () => {
   });
 
   it("sends an enquiry without a message", async () => {
-    const { message: _, ...rest } = form;
-    const response = await post(rest);
+    const response = await post(
+      Object.fromEntries(
+        Object.entries(form).filter(([name]) => name !== "message"),
+      ),
+    );
     expect(response.status).toBe(204);
     expect((await forwarded()).message).toBe("");
   });

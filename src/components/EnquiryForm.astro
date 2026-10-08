@@ -3,16 +3,10 @@
 // the required fields and posts the form; with it, the script checks them,
 // shows errors beside each field, and sends the enquiry without leaving the page.
 import { CONTACT_EMAIL, ENQUIRY_ENDPOINT } from "@/consts";
-import { services } from "@/data/services";
+import { formats, topics } from "@/data/enquiry";
 import Button from "./Button.astro";
 import FormField from "./FormField.astro";
 import Panel from "./Panel.astro";
-
-const topics = [
-  ...services.map(({ id, name }) => ({ value: id, label: name })),
-  { value: "other", label: "Other" },
-];
-const formats = ["Online", "Face-to-face in Buckinghamshire", "Not sure yet"];
 ---
 
 <Panel variant="white">
@@ -81,6 +75,12 @@ const formats = ["Online", "Face-to-face in Buckinghamshire", "Not sure yet"];
           </span>
         </label>
         <p class="enquiry__error" id="consent-error" hidden></p>
+      </div>
+      {/* A field for spam bots. It's hidden from people, so anything in it
+           means a bot filled in the form, and the enquiry is dropped. */}
+      <div class="enquiry__trap">
+        <label for="leave_empty">Leave this empty</label>
+        <input id="leave_empty" name="leave_empty" autocomplete="off" />
       </div>
       <div class="enquiry__failure" role="alert"></div>
       <template class="enquiry__failure-message">
@@ -210,6 +210,10 @@ const formats = ["Online", "Face-to-face in Buckinghamshire", "Not sure yet"];
 </script>
 
 <style>
+  .enquiry__trap {
+    display: none;
+  }
+
   .enquiry__form,
   .enquiry__sent {
     display: flex;
