@@ -177,6 +177,18 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
           command: pages deploy --branch=${{ github.head_ref || github.ref_name }}
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
-      - name: Report the deployment URL
-        run: echo "Deployed to ${{ steps.deploy.outputs.pages-deployment-alias-url || steps.deploy.outputs.deployment-url }}" >> "$GITHUB_STEP_SUMMARY"
+      # wrangler-action's own GitHub deployment links to the per-deployment
+      # URL, so this links to the branch preview or the live site instead.
+      - name: Link the deployment from GitHub
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REF: ${{ github.head_ref || github.ref_name }}
+          ENVIRONMENT: ${{ github.event_name == 'push' && 'production' || 'preview' }}
+          URL: ${{ github.event_name == 'push' && 'https://horizonpsychology.co.uk' || steps.deploy.outputs.pages-deployment-alias-url }}
+        run: |
+          id=$(jq -n --arg ref "$REF" --arg environment "$ENVIRONMENT" \
+            '{ref: $ref, environment: $environment, auto_merge: false, required_contexts: []}' |
+            gh api "repos/$GITHUB_REPOSITORY/deployments" --input - --jq .id)
+          gh api "repos/$GITHUB_REPOSITORY/deployments/$id/statuses" \
+            -f state=success -f environment_url="$URL" --silent
+          echo "Deployed to $URL" >> "$GITHUB_STEP_SUMMARY"
