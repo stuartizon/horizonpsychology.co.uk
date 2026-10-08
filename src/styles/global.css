@@ -24,7 +24,6 @@
   /* ---- Ink ---- */
   --color-ink: #23302c;
   --color-ink-soft: #5c6b64;
-  --color-ink-faint: #8b978f;
 
   /* ---- Feedback ---- */
   --color-error: #9c4a3f;
@@ -80,7 +79,6 @@
      dividing line: under the nav, and at the top of the footer. */
   --section-y: clamp(56px, 7vw, 96px);
   --section-y-tight: clamp(36px, 5vw, 72px);
-  --card-pad: clamp(24px, 2.4vw, 32px);
   --panel-pad: clamp(24px, 2.8vw, 40px);
 
   /* ---- Shape ---- */
