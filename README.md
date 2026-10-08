@@ -66,6 +66,7 @@ src/
 tests/
   pages/        # Vitest tests of the built pages in dist/
   browser/      # Playwright browser and accessibility tests
+functions/      # Cloudflare Pages Functions, one file per route, such as api/enquiry.ts
 workers/        # Cloudflare Workers, each with its own wrangler.jsonc, such as enquiry-email/
 public/         # static assets served as-is (images, favicon, robots.txt)
 docs/adr/       # architecture decision records
@@ -78,7 +79,7 @@ Import from `src` with the `@/` alias, for example `@/components/Button.astro`.
 
 Work is test-first ([ADR 0007](docs/adr/0007-test-driven-development.md)), with three kinds of automated test ([ADR 0018](docs/adr/0018-unit-page-and-browser-tests.md)). Each check goes in the fastest one that can make it:
 
-- **Unit tests** (`npm run test:unit`, Vitest) render a component and check its output: content, links, attributes and ARIA. They sit next to the code they test. Tests of the typed content in `src/data/`, of the Workers in `workers/`, and checks over source files such as which breakpoints the styles use, go here too.
+- **Unit tests** (`npm run test:unit`, Vitest) render a component and check its output: content, links, attributes and ARIA. They sit next to the code they test. Tests of the typed content in `src/data/`, of the Pages Functions in `functions/` and the Workers in `workers/`, and checks over source files such as which breakpoints the styles use, go here too.
 - **Page tests** (`npm run test:pages`, Vitest) build the site and read its pages from `dist/`. They check what's in the built files: each page's content, images and metadata, the sitemap and `robots.txt`, and that every internal link opens a page. They live in `tests/pages/`.
 - **Browser tests** (`npm run test:browser`, Playwright) run in Chromium and WebKit, at desktop and 320px phone sizes, against a production build. They're for what needs a browser: responsive layout, scripts, keyboard and focus, and automated accessibility checks with axe. They live in `tests/browser/`.
 

@@ -16,9 +16,9 @@ const email = (overrides: Partial<Enquiry> = {}) =>
   );
 
 describe("enquiryEmail", () => {
-  it("is from the website's no-reply address", () => {
-    expect(email().headers.get("from")).toMatch(
-      /<noreply@horizonpsychology\.co\.uk>$/,
+  it("is from Horizon Psychology, at the website's no-reply address", () => {
+    expect(email().headers.get("from")).toBe(
+      "Horizon Psychology <noreply@horizonpsychology.co.uk>",
     );
   });
 

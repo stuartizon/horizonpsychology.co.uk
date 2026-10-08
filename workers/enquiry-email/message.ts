@@ -30,7 +30,7 @@ export function enquiryEmail(enquiry: Enquiry, addressedTo: string) {
     : details;
 
   return [
-    `From: Horizon Psychology website <${FROM}>`,
+    `From: Horizon Psychology <${FROM}>`,
     `To: ${addressedTo}`,
     `Reply-To: ${encodeWords(name)} <${email}>`,
     `Subject: ${encodeWords(`Website enquiry from ${name}`)}`,

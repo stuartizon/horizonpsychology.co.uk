@@ -134,7 +134,15 @@ test("a sent enquiry posts the form and says thank you", async ({ page }) => {
     format: "Not sure yet",
     message: "Hello",
     consent: "yes",
+    leave_empty: "",
   });
+});
+
+test("the field for spam bots is hidden from people", async ({ page }) => {
+  const trap = page.locator('[name="leave_empty"]');
+  await expect(trap).toHaveCount(1);
+  await expect(trap).toBeHidden();
+  await expect(page.getByLabel("Leave this empty")).toBeHidden();
 });
 
 test("after sending, another enquiry starts from an empty form", async ({
