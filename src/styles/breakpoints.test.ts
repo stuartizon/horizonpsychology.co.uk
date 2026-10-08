@@ -6,7 +6,6 @@ const breakpoints = ["(min-width: 48rem)", "(min-width: 64rem)"];
 // Files from before the redesign that still use their own widths, with the issue that
 // redesigns each one. Remove a file from this list when its test starts passing.
 const notYetRedesigned: Record<string, number> = {
-  "src/components/CredentialBadge.astro": 13,
   "src/pages/404.astro": 13,
 };
 
