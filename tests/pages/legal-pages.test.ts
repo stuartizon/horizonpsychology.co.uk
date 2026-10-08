@@ -50,9 +50,9 @@ describe("the Fees and cancellations page", () => {
   });
 
   test("sets out the notice needed to cancel and what a late cancellation costs", () => {
-    expect(text(main)).toContain("at least 48 hours' notice");
+    expect(text(main)).toContain("at least 48 hours’ notice");
     expect(text(main)).toContain(
-      "Cancellations with less than 48 hours' notice are charged at 50% of the session fee",
+      "Cancellations with less than 48 hours’ notice are charged at 50% of the session fee",
     );
   });
 });

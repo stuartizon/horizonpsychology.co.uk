@@ -11,6 +11,8 @@ const legal = defineCollection({
     lead: z.string(),
     /** True until Dr Izon has signed off the wording. */
     draft: z.boolean(),
+    /** Lists each service's fee from `src/data/services.ts` after the lead. */
+    fees: z.boolean().default(false),
   }),
 });
 

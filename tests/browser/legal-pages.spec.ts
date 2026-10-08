@@ -38,3 +38,22 @@ for (const path of ["/confidentiality/", "/terms-and-conditions/"]) {
     expect(results.violations).toEqual([]);
   });
 }
+
+for (const width of [320, 768]) {
+  test(`at ${width}px every fee sits ${width < 768 ? "under" : "beside"} its service's name`, async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width, height: 1024 });
+    await page.goto("/terms-and-conditions/");
+
+    const rows = await page.locator("dl > div").evaluateAll((rows) =>
+      rows.map((row) => {
+        const name = row.querySelector("dt")!.getBoundingClientRect();
+        const fee = row.querySelector("dd")!.getBoundingClientRect();
+        return fee.top >= name.bottom ? "under" : "beside";
+      }),
+    );
+
+    expect(rows).toEqual(Array(4).fill(width < 768 ? "under" : "beside"));
+  });
+}
