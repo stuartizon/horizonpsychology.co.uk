@@ -21,7 +21,7 @@ test("has the title as an h1 under a Practical eyebrow", async () => {
   );
 });
 
-test("starts with the lead, then the page's text", async () => {
+test("starts with the lead, then the page's text, then the note about questions", async () => {
   const page = await render(LegalPage, props, {
     default: "<p>Everything you share is treated with care.</p>",
   });
@@ -31,6 +31,7 @@ test("starts with the lead, then the page's text", async () => {
   ).toEqual([
     "What you share stays between us.",
     "Everything you share is treated with care.",
+    `Questions about this page can go to ${CONTACT_EMAIL}.`,
   ]);
 });
 
