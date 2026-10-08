@@ -5,7 +5,6 @@ import { page, pages } from "./pages";
 // Links to pages that don't exist, with the issue that fixes each one by building the page or
 // removing the link. Remove a link from this list when its test starts passing.
 const broken: Record<string, number> = {
-  "/terms-and-conditions/": 10,
   "/privacy-policy/": 10,
 };
 

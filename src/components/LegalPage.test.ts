@@ -56,3 +56,17 @@ test("doesn't mention a draft once the wording is final", async () => {
 
   expect(page.textContent).not.toContain("Draft");
 });
+
+test("lists the fees after the lead when asked", async () => {
+  const page = await render(LegalPage, { ...props, fees: true });
+  const list = page.querySelector(".legal-page__body > dl");
+
+  expect(list).not.toBeNull();
+  expect(textOf(list?.previousElementSibling)).toBe(props.lead);
+});
+
+test("doesn't list the fees otherwise", async () => {
+  const page = await render(LegalPage, props);
+
+  expect(page.querySelector("dl")).toBeNull();
+});
