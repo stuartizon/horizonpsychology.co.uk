@@ -1,5 +1,5 @@
 import { expect, test } from "vitest";
-import { labelled, page, text, texts } from "./pages";
+import { labelled, page, spokenText, text, texts } from "./pages";
 
 const document = page("/contact/");
 const main = document.querySelector("main")!;
@@ -36,7 +36,7 @@ test("the Contact page says where to get help now", () => {
 
 test("the Contact page has the enquiry form", () => {
   expect(main.querySelectorAll("form")).toHaveLength(1);
-  expect(text(main.querySelector('form button[type="submit"]'))).toBe(
+  expect(spokenText(main.querySelector('form button[type="submit"]'))).toBe(
     "Send enquiry",
   );
 });
