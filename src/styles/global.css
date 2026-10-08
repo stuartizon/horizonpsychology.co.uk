@@ -125,25 +125,6 @@
      Custom properties can't be used in media queries, so write these out
      mobile-first: @media (min-width: 48rem) for tablet, (min-width: 64rem)
      for desktop. src/styles/breakpoints.test.ts fails on any other width. */
-
-  /* ---- Legacy ----
-     Names the current components still use, pointed at the new palette.
-     Remove each one as its component moves to the tokens above (#4 to #10). */
-  --color-primary-50: var(--color-sage-50);
-  --color-primary-100: var(--color-sage-100);
-  --color-primary-300: var(--color-sage-300);
-  --color-primary-600: var(--color-sage-600);
-  --color-primary-800: var(--color-sage-800);
-  --color-grey-50: var(--color-ink-faint);
-  --color-grey-100: var(--color-ink-soft);
-  --color-grey-600: var(--color-ink-soft);
-  --color-nav-action: var(--color-sage-600);
-  --color-nav-action-text: var(--color-panel);
-  --color-testimonial-surface: var(--color-cream);
-  --color-testimonial-border: var(--color-line);
-  --color-button-surface-hover: var(--color-ink-soft);
-  --color-button-text: var(--color-panel);
-  --font-sans: var(--font-body);
 }
 
 @media (prefers-reduced-motion: reduce) {
