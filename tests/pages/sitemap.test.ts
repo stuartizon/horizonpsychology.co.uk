@@ -20,6 +20,7 @@ test("the sitemap lists every page on the site's domain", () => {
     [
       "/",
       "/about/",
+      "/complaints/",
       "/confidentiality/",
       "/contact/",
       "/faqs/",

@@ -28,7 +28,11 @@ for (const width of [768, 1280]) {
   });
 }
 
-for (const path of ["/confidentiality/", "/terms-and-conditions/"]) {
+for (const path of [
+  "/confidentiality/",
+  "/complaints/",
+  "/terms-and-conditions/",
+]) {
   test(`${path} has no detectable accessibility violations`, async ({
     page,
   }) => {

@@ -6,7 +6,6 @@ import { page, pages } from "./pages";
 // removing the link. Remove a link from this list when its test starts passing.
 const broken: Record<string, number> = {
   "/privacy-policy/": 10,
-  "/complaints/": 10,
 };
 
 /** Each internal link's path, without any query or fragment, and the pages that link to it. */
