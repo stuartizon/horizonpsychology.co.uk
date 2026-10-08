@@ -32,6 +32,7 @@ for (const path of [
   "/confidentiality/",
   "/complaints/",
   "/terms-and-conditions/",
+  "/privacy-policy/",
 ]) {
   test(`${path} has no detectable accessibility violations`, async ({
     page,

@@ -90,3 +90,28 @@ describe("the Fees and cancellations page", () => {
     );
   });
 });
+
+describe("the Privacy policy page", () => {
+  const document = page("/privacy-policy/");
+  const main = document.querySelector("main")!;
+
+  test("has its title, heading and description", () => {
+    expect(document.title).toMatch(/^Privacy policy \| /);
+    expect(texts(document, "h1")).toEqual(["Privacy policy"]);
+    expect(
+      document
+        .querySelector('meta[name="description"]')
+        ?.getAttribute("content"),
+    ).toMatch(/^How enquiry and client information is collected/);
+  });
+
+  test("is marked as a draft", () => {
+    expect(text(main)).toContain("Draft — to be confirmed");
+  });
+
+  test("says what happens to an enquiry", () => {
+    expect(text(main)).toContain(
+      "Enquiries that do not lead to work together are deleted.",
+    );
+  });
+});
