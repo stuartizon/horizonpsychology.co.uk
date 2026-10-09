@@ -5,9 +5,7 @@ const breakpoints = ["(min-width: 48rem)", "(min-width: 64rem)"];
 
 // Files from before the redesign that still use their own widths, with the issue that
 // redesigns each one. Remove a file from this list when its test starts passing.
-const notYetRedesigned: Record<string, number> = {
-  "src/pages/404.astro": 13,
-};
+const notYetRedesigned: Record<string, number> = {};
 
 const stylesheets = readdirSync("src", { recursive: true, encoding: "utf8" })
   .filter((path) => /\.(astro|css)$/.test(path))
