@@ -172,7 +172,7 @@ jobs:
           path: dist/
       # The Worker that emails contact form enquiries (ADR 0020). Pull requests
       # deploy its preview environment, which never emails Emma. The address
-      # it delivers to is personal, so it's uploaded from a secret.
+      # it delivers to is private, so it's uploaded from a secret.
       - name: Deploy the enquiry email Worker
         working-directory: workers/enquiry-email
         env:

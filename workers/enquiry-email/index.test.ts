@@ -25,7 +25,7 @@ let logged: unknown[][];
 const env = () => ({
   EMAIL: { send },
   DELIVER_TO: "inbox@example.net",
-  ADDRESSED_TO: "emma@horizonpsychology.co.uk",
+  ADDRESSED_TO: "hello@horizonpsychology.co.uk",
 });
 
 const post = (body: unknown) =>
@@ -71,7 +71,7 @@ describe("enquiry email Worker", () => {
   it("addresses the email to the configured address on the domain", async () => {
     await post(enquiry);
     const { headers } = parseEmail(sent()[0].raw);
-    expect(headers.get("to")).toBe("emma@horizonpsychology.co.uk");
+    expect(headers.get("to")).toBe("hello@horizonpsychology.co.uk");
     expect(headers.get("reply-to")).toBe("Jane Doe <jane@example.com>");
   });
 
