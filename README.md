@@ -99,9 +99,9 @@ There's no separate staging site. Check changes on the pull request's preview be
 
 ### Set up by hand
 
-A few things in the Cloudflare account aren't in the repo, because Wrangler can't manage them or they name personal email addresses:
+A few things in the Cloudflare account aren't in the repo, because Wrangler can't manage them or they name private email addresses:
 
-- **Email Routing** for `horizonpsychology.co.uk`: a catch-all rule forwarding the domain's email to Emma, a rule forwarding `stuart@` to Stuart, and their personal inboxes as verified destination addresses. The enquiry Worker can only deliver to verified destinations.
+- **Email Routing** for `horizonpsychology.co.uk`: a catch-all rule forwarding the domain's email to Emma, a rule forwarding `stuart@` to Stuart, and their Gmail inboxes as verified destination addresses. The enquiry Worker can only deliver to verified destinations.
 - **DNS**: Email Routing's MX records, an SPF record that also allows Google (so Gmail can send as addresses on the domain), and a DMARC record.
 - **The Pages project**, its custom domain, and the redirect rule from `www` to the apex domain.
 - **The enquiry Workers**, `horizonpsychology-enquiry-email` and `horizonpsychology-enquiry-email-preview`, were first deployed by hand. CI's token can edit them but not create Workers, so a new Worker needs a first deploy with `wrangler deploy` and its own Editor permission on the token.

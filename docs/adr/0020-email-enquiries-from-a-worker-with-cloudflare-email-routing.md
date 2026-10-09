@@ -6,13 +6,13 @@ Date: 2026-10-08
 
 The contact form posts to `/api/enquiry`, and something outside the static build has to email the enquiry to Emma. Enquiries may contain health information, which is special-category data under UK GDPR, so as few services as possible should handle them and none should keep them.
 
-The domain's email already runs through Cloudflare Email Routing, which forwards mail for the domain to Emma's personal inbox. A Worker's `send_email` binding can send email through Email Routing for free, but only to a verified destination address. Pages Functions can't use that binding ([0015](0015-host-on-cloudflare-pages-deployed-from-github-actions.md)), but they can call a Worker through a service binding.
+The domain's email already runs through Cloudflare Email Routing, which forwards mail for the domain to Emma's Gmail inbox. A Worker's `send_email` binding can send email through Email Routing for free, but only to a verified destination address. Pages Functions can't use that binding ([0015](0015-host-on-cloudflare-pages-deployed-from-github-actions.md)), but they can call a Worker through a service binding.
 
 ## Decision
 
 - A Worker, `horizonpsychology-enquiry-email` in `workers/enquiry-email/`, sends each enquiry as one plain-text email through the `send_email` binding. It has no public URL; the site's Pages Function calls it through a service binding. It doesn't store enquiries or log what they say.
-- The email is from `noreply@horizonpsychology.co.uk`, with the visitor's address as Reply-To. It's delivered to Emma's verified personal address but addressed in its `To:` header to `emma@horizonpsychology.co.uk`, so her email program replies from that address.
-- The personal address it's delivered to is a GitHub Actions secret, never in the repo, and CI uploads it with each deploy.
+- The email is from `noreply@horizonpsychology.co.uk`, with the visitor's address as Reply-To. It's delivered to Emma's verified address but addressed in its `To:` header to `hello@horizonpsychology.co.uk`, the address the site shows, so it arrives the same way as an email sent there.
+- The Gmail address it's delivered to isn't published, so it's a GitHub Actions secret, never in the repo, and CI uploads it with each deploy.
 - CI deploys the Worker before the Pages site. Pull requests deploy a separate preview Worker, `horizonpsychology-enquiry-email-preview`, which emails Stuart, never Emma. Every pull request shares it, so it runs the code from whichever pull request deployed last.
 - The `CLOUDFLARE_API_TOKEN` secret also has the Workers Editor role, limited to the two enquiry Workers. It can deploy them but not create Workers, so each was first deployed by hand.
 
@@ -28,4 +28,4 @@ The domain's email already runs through Cloudflare Email Routing, which forwards
 - Sending enquiries is free, and Cloudflare is the only service that handles them. It already hosts the site and routes the domain's email.
 - The Worker can only email verified Email Routing addresses. Emailing visitors, such as an automatic acknowledgement, would mean Email Sending on the paid plan or another provider.
 - Some Cloudflare setup is done by hand, outside the repo, and listed in the README, such as Email Routing and DNS.
-- Replying from `emma@` needs Gmail set up to send as that address, which the domain's SPF record allows.
+- Replies come from `emma@`, Emma's default address in Gmail, which needs Gmail set up to send as that address. The domain's SPF record allows it.

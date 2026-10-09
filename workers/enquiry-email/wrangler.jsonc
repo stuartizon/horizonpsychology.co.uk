@@ -12,7 +12,7 @@
   "send_email": [{ "name": "EMAIL" }],
   "vars": { "ADDRESSED_TO": "hello@horizonpsychology.co.uk" },
   // DELIVER_TO, the verified Email Routing address the email is delivered
-  // to, is personal, so CI uploads it from a GitHub Actions secret.
+  // to, is private, so CI uploads it from a GitHub Actions secret.
   "secrets": { "required": ["DELIVER_TO"] },
   "env": {
     // Pull request previews email Stuart, never Emma.
