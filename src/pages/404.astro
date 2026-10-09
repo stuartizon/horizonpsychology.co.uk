@@ -1,41 +1,75 @@
 ---
-import Container from "@/components/Container.astro";
-import BaseLayout from "../layouts/BaseLayout.astro";
+import { Image } from "astro:assets";
 import Button from "@/components/Button.astro";
+import Container from "@/components/Container.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import hourglass from "@/photos/404.jpg";
 ---
 
-<BaseLayout title="Page not found" description="Page not found">
+<BaseLayout
+  title="Page not found"
+  description="The page you were looking for isn't on the Horizon Psychology website."
+>
   <Container>
-    <h1>404</h1>
-    This page isn't here right now.
-  </Container>
-  <img class="error__image" src="/images/404.png" alt="A spilled cup of tea" />
-  <Container>
-    But support, clarity, and conversation still are.
-    <div class="error__action">
-      <Button href="/" variant="primary" label="Return home" />
+    <div class="not-found">
+      <div class="not-found__text">
+        <SectionHeading
+          eyebrow="Page not found"
+          title="This page isn't here"
+          level="h1"
+          subtitle="But support, clarity and conversation still are."
+        />
+        <div class="not-found__action">
+          <Button href="/" label="Return home" />
+        </div>
+      </div>
+      <Image
+        class="not-found__photo"
+        src={hourglass}
+        alt="An hourglass on a table"
+        widths={[480, 800, 1200]}
+        sizes="(min-width: 64rem) 512px, (min-width: 48rem) 50vw, 100vw"
+        loading="eager"
+      />
     </div>
   </Container>
 </BaseLayout>
 
 <style>
-  .error__action {
-    margin-top: 1em;
+  .not-found {
+    display: grid;
+    gap: clamp(32px, 5vw, 72px);
+    align-items: center;
+    padding-block: var(--section-y-tight) var(--section-y);
+  }
+
+  .not-found__text {
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+  }
+
+  /* Centred under full-width text on a phone. */
+  .not-found__action {
+    display: flex;
+    justify-content: center;
+  }
+
+  .not-found__photo {
     width: 100%;
-    text-align: center;
+    height: auto;
+    border-radius: var(--radius-image);
+    box-shadow: var(--shadow-rest);
   }
 
-  .error__image {
-    width: 500px;
-    height: 347px;
-    display: block;
-    margin: 0 auto;
-  }
+  @media (min-width: 48rem) {
+    .not-found {
+      grid-template-columns: 1fr 1fr;
+    }
 
-  @media (max-width: 640px) {
-    .error__image {
-      width: 360px;
-      height: 250px;
+    .not-found__action {
+      justify-content: flex-start;
     }
   }
 </style>
