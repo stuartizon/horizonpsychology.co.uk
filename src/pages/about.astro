@@ -2,10 +2,13 @@
 import { Image } from "astro:assets";
 import Button from "@/components/Button.astro";
 import Container from "@/components/Container.astro";
+import CredentialLogo from "@/components/CredentialLogo.astro";
 import SectionHeading from "@/components/SectionHeading.astro";
 import TestimonialCarousel from "@/components/TestimonialCarousel.astro";
 import { testimonials } from "@/data/testimonials";
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import babcpAccredited from "@/logos/babcp-accredited.png";
+import hcpcRegistered from "@/logos/hcpc-registered.webp";
 import portrait from "@/photos/about.jpg";
 ---
 
@@ -35,6 +38,18 @@ import portrait from "@/photos/about.jpg";
           them understand their experiences, make sense of difficult emotions,
           and develop meaningful, lasting change.
         </p>
+        <div class="about__credentials">
+          <CredentialLogo
+            href="https://www.hcpc-uk.org/check-the-register/professional-registration-detail/?query=PYL043541&profession=PYL"
+            src={hcpcRegistered}
+            name="Health and Care Professions Council (HCPC) registered"
+          />
+          <CredentialLogo
+            href="https://www.babcp.com/"
+            src={babcpAccredited}
+            name="British Association for Behavioural and Cognitive Psychotherapies (BABCP) accredited"
+          />
+        </div>
       </div>
       <Image
         class="about__portrait"
@@ -117,6 +132,12 @@ import portrait from "@/photos/about.jpg";
   .about__intro {
     display: flex;
     flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  .about__credentials {
+    display: flex;
+    flex-wrap: wrap;
     gap: var(--space-6);
   }
 

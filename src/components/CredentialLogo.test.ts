@@ -1,4 +1,4 @@
-import babcpAccredited from "@/logos/babcp-accredited.jpg";
+import babcpAccredited from "@/logos/babcp-accredited.png";
 import { render } from "@/test/render";
 import { expect, test } from "vitest";
 import CredentialLogo from "./CredentialLogo.astro";
