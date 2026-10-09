@@ -13,17 +13,12 @@ import hourglass from "@/photos/404.jpg";
 >
   <Container>
     <div class="not-found">
-      <div class="not-found__text">
-        <SectionHeading
-          eyebrow="Page not found"
-          title="This page isn't here"
-          level="h1"
-          subtitle="But support, clarity and conversation still are."
-        />
-        <div class="not-found__action">
-          <Button href="/" label="Return home" />
-        </div>
-      </div>
+      <SectionHeading
+        eyebrow="Page not found"
+        title="This page isn't here"
+        level="h1"
+        subtitle="But support, clarity and conversation still are."
+      />
       <Image
         class="not-found__photo"
         src={hourglass}
@@ -32,25 +27,21 @@ import hourglass from "@/photos/404.jpg";
         sizes="(min-width: 64rem) 512px, (min-width: 48rem) 50vw, 100vw"
         loading="eager"
       />
+      <div class="not-found__action">
+        <Button href="/" label="Return home" />
+      </div>
     </div>
   </Container>
 </BaseLayout>
 
 <style>
+  /* The heading, photo and button stack on a phone, with the button last. */
   .not-found {
     display: grid;
     gap: clamp(32px, 5vw, 72px);
-    align-items: center;
     padding-block: var(--section-y-tight) var(--section-y);
   }
 
-  .not-found__text {
-    display: flex;
-    flex-direction: column;
-    gap: 26px;
-  }
-
-  /* Centred under full-width text on a phone. */
   .not-found__action {
     display: flex;
     justify-content: center;
@@ -63,13 +54,33 @@ import hourglass from "@/photos/404.jpg";
     box-shadow: var(--shadow-rest);
   }
 
+  /* From tablet width, the photo takes the right column, with the heading and
+     button together, centred down its left. */
   @media (min-width: 48rem) {
     .not-found {
       grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr auto auto 1fr;
+      grid-template-areas:
+        ". photo"
+        "heading photo"
+        "action photo"
+        ". photo";
+      row-gap: 0;
+    }
+
+    .not-found > :global(.section-heading) {
+      grid-area: heading;
+    }
+
+    .not-found__photo {
+      grid-area: photo;
+      align-self: center;
     }
 
     .not-found__action {
+      grid-area: action;
       justify-content: flex-start;
+      margin-top: 26px;
     }
   }
 </style>
