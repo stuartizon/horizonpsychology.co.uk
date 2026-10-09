@@ -9,7 +9,7 @@ interface Env {
   EMAIL: { send(message: EmailMessage): Promise<unknown> };
   /** The verified address the email is delivered to. It's personal, so it's a secret. */
   DELIVER_TO: string;
-  /** The address on the domain the email is addressed to, which replies are sent from. */
+  /** The address on the domain the email is addressed to: the one the site shows. */
   ADDRESSED_TO: string;
 }
 
