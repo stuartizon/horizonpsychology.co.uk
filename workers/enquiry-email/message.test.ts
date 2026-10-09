@@ -12,7 +12,7 @@ const enquiry: Enquiry = {
 
 const email = (overrides: Partial<Enquiry> = {}) =>
   parseEmail(
-    enquiryEmail({ ...enquiry, ...overrides }, "emma@horizonpsychology.co.uk"),
+    enquiryEmail({ ...enquiry, ...overrides }, "hello@horizonpsychology.co.uk"),
   );
 
 describe("enquiryEmail", () => {
@@ -23,7 +23,7 @@ describe("enquiryEmail", () => {
   });
 
   it("is addressed to the given address", () => {
-    expect(email().headers.get("to")).toBe("emma@horizonpsychology.co.uk");
+    expect(email().headers.get("to")).toBe("hello@horizonpsychology.co.uk");
   });
 
   it("is replied to at the visitor's name and email address", () => {
@@ -76,7 +76,7 @@ describe("enquiryEmail", () => {
   it("can't be given extra headers through the visitor's name", () => {
     const raw = enquiryEmail(
       { ...enquiry, name: "Jane\r\nBcc: someone@example.com" },
-      "emma@horizonpsychology.co.uk",
+      "hello@horizonpsychology.co.uk",
     );
     const head = raw.split("\r\n\r\n")[0];
     expect(head).not.toMatch(/^Bcc:/im);
@@ -85,7 +85,7 @@ describe("enquiryEmail", () => {
   it("keeps every line short enough for mail servers", () => {
     const raw = enquiryEmail(
       { ...enquiry, name: "Ä".repeat(200), message: "word ".repeat(2000) },
-      "emma@horizonpsychology.co.uk",
+      "hello@horizonpsychology.co.uk",
     );
     for (const line of raw.split("\r\n")) {
       expect(line.length).toBeLessThanOrEqual(78);
