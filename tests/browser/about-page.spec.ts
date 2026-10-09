@@ -112,6 +112,31 @@ async function atWidth(page: Page, isMobile: boolean, width: number) {
   if (!isMobile) await page.setViewportSize({ width, height: 1024 });
 }
 
+for (const width of [320, 768, 1280]) {
+  test(`at ${width}px the HCPC and BABCP logos are centred in the introduction's column`, async ({
+    page,
+    isMobile,
+  }) => {
+    test.skip(isMobile && width !== 320, "Phones are 320px");
+    await atWidth(page, isMobile, width);
+
+    const intro = (await page.locator(".about__intro").boundingBox())!;
+    const hcpc = (await page
+      .getByRole("link", { name: /^Health and Care Professions Council/ })
+      .boundingBox())!;
+    const babcp = (await page
+      .getByRole("link", { name: /^British Association/ })
+      .boundingBox())!;
+
+    expect(babcp.y).toBeCloseTo(hcpc.y, 0);
+    expect(
+      Math.abs(
+        (hcpc.x + babcp.x + babcp.width) / 2 - (intro.x + intro.width / 2),
+      ),
+    ).toBeLessThanOrEqual(1);
+  });
+}
+
 for (const width of [320, 700]) {
   test(`below tablet width, at ${width}px, the text runs the full width of the page`, async ({
     page,
