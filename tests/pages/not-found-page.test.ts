@@ -1,5 +1,5 @@
 import { expect, test } from "vitest";
-import { link, page, pages, text, texts } from "./pages";
+import { link, page, pages, texts } from "./pages";
 
 const document = page("/404.html");
 
