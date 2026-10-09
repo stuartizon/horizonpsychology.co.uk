@@ -19,6 +19,29 @@ test("the About page shows Emma's portrait, optimised by Astro", () => {
   expect(portrait?.getAttribute("srcset")).toBeTruthy();
 });
 
+test("the About page links to Emma's registration and accreditation, with their logos", () => {
+  const credentials = [...document.querySelectorAll(".about__intro a")].map(
+    (link) => ({
+      href: link.getAttribute("href"),
+      name: `${link.querySelector("img")?.getAttribute("alt")} ${text(link)}`,
+      logo: link.querySelector("img")?.getAttribute("src"),
+    }),
+  );
+
+  expect(credentials).toEqual([
+    {
+      href: "https://www.hcpc-uk.org/check-the-register/professional-registration-detail/?query=PYL043541&profession=PYL",
+      name: "Health and Care Professions Council (HCPC) registered (opens in a new tab)",
+      logo: expect.stringMatching(/^\/_astro\/hcpc-registered\..+\.webp$/),
+    },
+    {
+      href: "https://www.babcp.com/",
+      name: "British Association for Behavioural and Cognitive Psychotherapies (BABCP) accredited (opens in a new tab)",
+      logo: expect.stringMatching(/^\/_astro\/babcp-accredited\..+\.webp$/),
+    },
+  ]);
+});
+
 test("the About page shows each testimonial with its name", () => {
   const section = labelled(document, "What people have said");
   const cards = [...section.querySelectorAll("figure")];
