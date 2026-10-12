@@ -24,8 +24,8 @@ test("Work together links to each service", async () => {
   );
 });
 
-test("Practice links to About Emma, Research, FAQs and Contact Us, with no blog", async () => {
-  expect(await groupLinks("Practice")).toEqual([
+test("About Horizon links to About Emma, Research, FAQs and Contact Us, with no blog", async () => {
+  expect(await groupLinks("About Horizon")).toEqual([
     ["About Emma", "/about/"],
     ["Research", "/research/"],
     ["FAQs", "/faqs/"],
@@ -33,8 +33,8 @@ test("Practice links to About Emma, Research, FAQs and Contact Us, with no blog"
   ]);
 });
 
-test("Practical links to the practical pages", async () => {
-  expect(await groupLinks("Practical")).toEqual([
+test("Information links to the practical pages", async () => {
+  expect(await groupLinks("Information")).toEqual([
     ["Fees and cancellations", "/fees-and-cancellations/"],
     ["Confidentiality", "/confidentiality/"],
     ["Privacy policy", "/privacy-policy/"],
@@ -55,12 +55,9 @@ test("shows what the practice offers and the email address", async () => {
   expect(email?.textContent?.trim()).toBe("hello@horizonpsychology.co.uk");
 });
 
-test("signposts that therapy isn't an emergency service, and gives registration", async () => {
-  const text = (await renderFooter()).textContent!.replace(/\s+/g, " ");
+test("has no registration or emergency line", async () => {
+  const text = (await renderFooter()).textContent!;
 
-  expect(text).toContain(
-    "registered with the Health and Care Professions Council and accredited by the BABCP",
-  );
-  expect(text).toContain("Therapy is not an emergency service");
-  expect(text).toContain("contact your GP or call NHS 111");
+  expect(text).not.toContain("Health and Care Professions Council");
+  expect(text).not.toContain("NHS 111");
 });
