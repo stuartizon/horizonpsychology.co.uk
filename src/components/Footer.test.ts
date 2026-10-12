@@ -35,7 +35,7 @@ test("Practice links to About Emma, Research, FAQs and Contact Us, with no blog"
 
 test("Practical links to the practical pages", async () => {
   expect(await groupLinks("Practical")).toEqual([
-    ["Fees and cancellations", "/terms-and-conditions/"],
+    ["Fees and cancellations", "/fees-and-cancellations/"],
     ["Confidentiality", "/confidentiality/"],
     ["Privacy policy", "/privacy-policy/"],
     ["Complaints", "/complaints/"],

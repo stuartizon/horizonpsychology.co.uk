@@ -1,4 +1,3 @@
-import { CONTACT_EMAIL } from "@/consts";
 import { render } from "@/test/render";
 import { expect, test } from "vitest";
 import LegalPage from "./LegalPage.astro";
@@ -21,7 +20,7 @@ test("has the title as an h1 under a Practical eyebrow", async () => {
   );
 });
 
-test("starts with the lead, then the page's text, then the note about questions", async () => {
+test("starts with the lead, then the page's text", async () => {
   const page = await render(LegalPage, props, {
     default: "<p>Everything you share is treated with care.</p>",
   });
@@ -31,18 +30,7 @@ test("starts with the lead, then the page's text, then the note about questions"
   ).toEqual([
     "What you share stays between us.",
     "Everything you share is treated with care.",
-    `Questions about this page can go to ${CONTACT_EMAIL}.`,
   ]);
-});
-
-test("ends by saying where to send questions about the page", async () => {
-  const page = await render(LegalPage, props);
-  const link = page.querySelector(`a[href="mailto:${CONTACT_EMAIL}"]`);
-
-  expect(textOf(link)).toBe(CONTACT_EMAIL);
-  expect(textOf(link?.parentElement)).toBe(
-    `Questions about this page can go to ${CONTACT_EMAIL}.`,
-  );
 });
 
 test("says the wording is a draft while it is one", async () => {
@@ -57,12 +45,14 @@ test("doesn't mention a draft once the wording is final", async () => {
   expect(page.textContent).not.toContain("Draft");
 });
 
-test("lists the fees after the lead when asked", async () => {
+test("lists the fees under a Session fees heading after the lead when asked", async () => {
   const page = await render(LegalPage, { ...props, fees: true });
   const list = page.querySelector(".legal-page__body > dl");
+  const heading = list?.previousElementSibling;
 
-  expect(list).not.toBeNull();
-  expect(textOf(list?.previousElementSibling)).toBe(props.lead);
+  expect(heading?.tagName).toBe("H2");
+  expect(textOf(heading)).toBe("Session fees");
+  expect(textOf(heading?.previousElementSibling)).toBe(props.lead);
 });
 
 test("doesn't list the fees otherwise", async () => {
