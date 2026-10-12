@@ -5,6 +5,7 @@
 import { CONTACT_EMAIL, ENQUIRY_ENDPOINT } from "@/consts";
 import { formats, topics } from "@/data/enquiry";
 import Button from "./Button.astro";
+import ExternalLink from "./ExternalLink.astro";
 import FormField from "./FormField.astro";
 import Panel from "./Panel.astro";
 ---
@@ -67,7 +68,8 @@ import Panel from "./Panel.astro";
             required
           />
           <span>
-            I have read the <a href="/privacy-policy/">privacy policy</a>.
+            I have read the{" "}
+            <ExternalLink href="/privacy-policy/" label="privacy policy" />.
             <span class="required" aria-hidden="true">
               {" "}
               *
