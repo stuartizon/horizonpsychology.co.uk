@@ -64,3 +64,20 @@ for (const width of [320, 768]) {
     expect(rows).toEqual(Array(4).fill(width < 768 ? "under" : "beside"));
   });
 }
+
+test("the link to section 7 of the privacy notice shows its heading below the header", async ({
+  page,
+}) => {
+  await page.goto("/privacy-policy/");
+  await page.getByRole("link", { name: "Section 7" }).click();
+  const heading = page.getByRole("heading", {
+    name: "7. How long we keep your information",
+  });
+
+  await expect(heading).toBeInViewport();
+  const headingTop = (await heading.boundingBox())!.y;
+  const headerBottom = await page
+    .locator("header")
+    .evaluate((header) => header.getBoundingClientRect().bottom);
+  expect(headingTop).toBeGreaterThanOrEqual(headerBottom);
+});
