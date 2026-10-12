@@ -17,39 +17,48 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
       <div class="contact__intro">
         <SectionHeading eyebrow="Contact us" title="Get in touch" level="h1" />
         <p>
-          You don’t need to have everything figured out. Tell us a little about
-          what’s bringing you here and we can take it from there.
+          You don’t need to have everything figured out to take the first step.
+          Whether you’re looking for psychological therapy, clinical or research
+          supervision, or simply have a question, you’re very welcome to get in
+          touch using the contact form below or by emailing{" "}
+          <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.
+        </p>
+        <p>
+          A free, no-obligation 15-minute phone consultation is available for
+          new therapy clients to discuss what’s bringing them to therapy and
+          explore how Emma might help. For supervision enquiries, please get in
+          touch to discuss your needs and how we might work together.
+        </p>
+        <p>
+          Sessions are available online via secure video call or face-to-face in
+          Buckinghamshire. Emma aims to respond to enquiries within 48 hours.
         </p>
       </div>
       <div class="contact__form">
         <EnquiryForm />
       </div>
-      <div class="contact__aside">
-        <Panel variant="sage">
-          <div class="contact__details">
-            <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
+      <aside class="contact__help" aria-labelledby="help-now-title">
+        <Panel variant="amber">
+          <div class="contact__help-text">
+            <p class="contact__help-title" id="help-now-title">
+              <Eyebrow>If you need urgent support</Eyebrow>
+            </p>
             <p>
-              Sessions are available online, delivered securely by video call,
-              or face-to-face in Buckinghamshire. Both formats carry the same
-              care and confidentiality.
+              Horizon Psychology is not an emergency or crisis service. If you
+              need urgent mental health support, please contact your local
+              healthcare provider or crisis service. If you are in immediate
+              danger or need urgent medical attention, contact your local
+              emergency services or attend the nearest emergency department.
+            </p>
+            <p>
+              If you are in the UK, you can contact your GP, call NHS 111 for
+              urgent mental health support, or call Samaritans free on 116 123,
+              at any time of day or night. If you are outside the UK, please
+              contact the relevant crisis support service in your country.
             </p>
           </div>
         </Panel>
-        <aside aria-labelledby="help-now-title">
-          <Panel variant="amber">
-            <div class="contact__help">
-              <p class="contact__help-title" id="help-now-title">
-                <Eyebrow>If you need help now</Eyebrow>
-              </p>
-              <p>
-                Therapy is not an emergency service. If you need support today,
-                contact your GP, call NHS 111, or call the Samaritans free on
-                116 123.
-              </p>
-            </div>
-          </Panel>
-        </aside>
-      </div>
+      </aside>
     </div>
   </Container>
 </BaseLayout>
@@ -71,20 +80,10 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
     gap: var(--space-6);
   }
 
-  .contact__aside {
+  .contact__help-text {
     display: flex;
     flex-direction: column;
-    gap: 28px;
-  }
-
-  .contact__details {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    font-size: var(--text-small);
-  }
-
-  .contact__help {
+    gap: var(--space-3);
     font-size: var(--text-small);
     line-height: 1.6;
   }
@@ -92,19 +91,14 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
   /* So the paragraph is only as tall as the eyebrow, not a line of body text. */
   .contact__help-title {
     display: flex;
-    margin-bottom: var(--space-2);
   }
 
   .contact__help-title :global(.eyebrow) {
     color: inherit;
   }
 
-  .contact__details p {
-    color: var(--color-ink-soft);
-  }
-
-  /* From a tablet up, the form sits beside the introduction, with the email
-     address and the help notice below the introduction. */
+  /* From a tablet up, the form sits beside the introduction, with the help
+     notice below the introduction. */
   @media (min-width: 48rem) {
     .contact {
       grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr);
@@ -116,7 +110,7 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
       grid-area: 1 / 1;
     }
 
-    .contact__aside {
+    .contact__help {
       grid-area: 2 / 1;
     }
 
