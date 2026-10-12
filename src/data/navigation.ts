@@ -16,7 +16,7 @@ export const serviceLinks: Link[] = services.map((service) => ({
   href: `/${service.id}/`,
 }));
 
-export const practicalLinks: Link[] = [
+export const informationLinks: Link[] = [
   { label: "Fees and cancellations", href: "/fees-and-cancellations/" },
   { label: "Confidentiality", href: "/confidentiality/" },
   { label: "Privacy policy", href: "/privacy-policy/" },
