@@ -1,6 +1,5 @@
 ---
 // The body of a legal or practical page, such as the confidentiality statement.
-import { CONTACT_EMAIL } from "@/consts";
 import Container from "./Container.astro";
 import FeeList from "./FeeList.astro";
 import SectionHeading from "./SectionHeading.astro";
@@ -10,7 +9,7 @@ interface Props {
   lead: string;
   /** Shows a note that the wording isn't final. */
   draft: boolean;
-  /** Lists each service's fee after the lead. */
+  /** Lists each service's fee, under a "Session fees" heading, after the lead. */
   fees?: boolean;
 }
 
@@ -25,12 +24,13 @@ const { title, lead, draft, fees = false } = Astro.props;
     </div>
     <div class="legal-page__body">
       <p>{lead}</p>
-      {fees && <FeeList />}
+      {fees && (
+        <>
+          <h2>Session fees</h2>
+          <FeeList />
+        </>
+      )}
       <slot />
-      <p class="legal-page__note">
-        Questions about this page can go to{" "}
-        <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.
-      </p>
     </div>
   </article>
 </Container>
@@ -56,8 +56,14 @@ const { title, lead, draft, fees = false } = Astro.props;
   }
 
   p,
-  .legal-page__body :global(p) {
+  .legal-page__body :global(p),
+  .legal-page__body :global(ul) {
     margin: 0;
+  }
+
+  /* More space above each heading than below, so it sits with its section. */
+  .legal-page__body :global(h2) {
+    margin-top: var(--space-4);
   }
 
   .legal-page__note {

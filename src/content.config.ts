@@ -7,8 +7,10 @@ const legal = defineCollection({
   loader: glob({ pattern: "*.md", base: "src/content/legal" }),
   schema: z.object({
     title: z.string(),
-    /** The opening paragraph, also used as the page's description. */
+    /** The opening paragraph, also used as the page's description unless it has its own. */
     lead: z.string(),
+    /** The page's description, where the lead is longer than search results show. */
+    description: z.string().optional(),
     /** True until Dr Izon has signed off the wording. */
     draft: z.boolean(),
     /** Lists each service's fee from `src/data/services.ts` after the lead. */

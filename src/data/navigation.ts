@@ -17,7 +17,7 @@ export const serviceLinks: Link[] = services.map((service) => ({
 }));
 
 export const practicalLinks: Link[] = [
-  { label: "Fees and cancellations", href: "/terms-and-conditions/" },
+  { label: "Fees and cancellations", href: "/fees-and-cancellations/" },
   { label: "Confidentiality", href: "/confidentiality/" },
   { label: "Privacy policy", href: "/privacy-policy/" },
   { label: "Complaints", href: "/complaints/" },

@@ -9,3 +9,5 @@ Everything you share is treated with care and respect, and is not discussed outs
 There are a small number of exceptions. These relate to situations where there may be a serious risk of harm to you or to another person, where a child or adult at risk may need safeguarding, or where information is required by law or a court order. If anything like this were ever to arise, it would be discussed with you first wherever possible.
 
 Emma attends her own regular clinical supervision, as required by the Health and Care Professions Council (HCPC) and the British Association for Behavioural and Cognitive Psychotherapies (BABCP). Client work is discussed there anonymously, and supervisors are bound by the same duty of confidentiality.
+
+Questions about this page can go to [hello@horizonpsychology.co.uk](mailto:hello@horizonpsychology.co.uk).
