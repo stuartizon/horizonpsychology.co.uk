@@ -28,6 +28,12 @@ describe.each(documents)("$path", ({ path, document }) => {
     expect(meta(document, '[property="og:description"]')).toBe(description);
   });
 
+  test("names the site for link previews", () => {
+    expect(meta(document, '[property="og:site_name"]')).toBe(
+      "Horizon Psychology",
+    );
+  });
+
   test("has a share image on the site's domain, with alt text", () => {
     const image = new URL(meta(document, '[property="og:image"]')!);
 
