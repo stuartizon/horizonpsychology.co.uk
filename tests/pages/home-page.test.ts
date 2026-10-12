@@ -16,7 +16,7 @@ test("the hero introduces Emma and the practice, and invites you to get in touch
     "Dr Emma Izon · Clinical Psychologist",
   );
   expect(texts(document, "h1")).toEqual([
-    "A space for support, understanding, and change",
+    "Beyond the horizon, there is space for hope, growth and new beginnings",
   ]);
   expect(text(hero.querySelector(".section-heading__subtitle"))).toBe(
     "Psychological therapy, clinical and research supervision for adults. Online, or face-to-face in Buckinghamshire. Helping you move through difficult times, one step at a time.",
@@ -34,12 +34,15 @@ test("the hero photo is Emma's portrait, served from the optimised images", () =
 test("What we offer describes the practice and links to more about Emma", () => {
   const section = labelled(
     document,
-    "Evidence-based therapy, delivered with warmth",
+    "A safe, welcoming and non-judgemental space",
   );
 
-  expect(text(section)).toContain(
-    "National Institute for Health and Care Excellence (NICE) guidelines",
-  );
+  expect(text(section.querySelector(".eyebrow"))).toBe("What we offer");
+  expect(texts(section, ".offer__body p")).toEqual([
+    "Horizon Psychology is led by Dr Emma Izon, who offers compassionate, evidence-based psychological therapy tailored to each person’s individual needs, experiences and goals.",
+    "At the heart of her approach is empathy, compassion and a genuine commitment to working collaboratively with each client to understand, process and navigate the challenges they face. Horizon Psychology aims to provide a safe, welcoming and non-judgemental space where individuals feel heard, understood and accepted, and can work towards greater self-understanding, resilience and meaningful, lasting change.",
+    "Horizon Psychology is committed to providing neurodiversity-affirming care, meeting each person with warmth, curiosity and understanding. Therapy offers an opportunity to explore difficulties at a pace that feels right, develop a kinder relationship with oneself, build on existing strengths and find a way forward that feels meaningful and sustainable.",
+  ]);
   expect(link(section, "More about Emma").getAttribute("href")).toBe("/about/");
 });
 
@@ -64,7 +67,7 @@ test("Four ways of working together links to each service with its summary", () 
 
 test("the home page has the quote band", () => {
   expect(texts(document, "blockquote")).toEqual([
-    "“A space for support, understanding, and change. Helping you move through difficult times, one step at a time.”",
+    "“You don’t have to navigate life’s challenges alone. Therapy offers a safe, supportive space to explore your experiences, find understanding and discover new perspectives, helping you move through difficult times towards meaningful change, one step at a time.”",
   ]);
 });
 
