@@ -29,10 +29,10 @@ describe.each(documents)("$path", ({ path, document }) => {
   });
 
   test("has a share image on the site's domain, with alt text", () => {
-    const image = meta(document, '[property="og:image"]');
+    const image = new URL(meta(document, '[property="og:image"]')!);
 
-    expect(image).toMatch(new RegExp(`^${site}/`));
-    expect(existsSync(`dist${new URL(image!).pathname}`)).toBe(true);
+    expect(image.origin).toBe(site);
+    expect(existsSync(`dist${image.pathname}`)).toBe(true);
     expect(meta(document, '[property="og:image:alt"]')).toBeTruthy();
     expect(meta(document, '[name="twitter:card"]')).toBe("summary_large_image");
   });
