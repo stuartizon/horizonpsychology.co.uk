@@ -1,3 +1,4 @@
+import { existsSync } from "node:fs";
 import { describe, expect, test } from "vitest";
 import { page, pages } from "./pages";
 
@@ -25,6 +26,15 @@ describe.each(documents)("$path", ({ path, document }) => {
   test("has Open Graph tags matching its title and description", () => {
     expect(meta(document, '[property="og:title"]')).toBe(document.title);
     expect(meta(document, '[property="og:description"]')).toBe(description);
+  });
+
+  test("has a share image on the site's domain, with alt text", () => {
+    const image = new URL(meta(document, '[property="og:image"]')!);
+
+    expect(image.origin).toBe(site);
+    expect(existsSync(`dist${image.pathname}`)).toBe(true);
+    expect(meta(document, '[property="og:image:alt"]')).toBeTruthy();
+    expect(meta(document, '[name="twitter:card"]')).toBe("summary_large_image");
   });
 
   if (path === "/404.html") {
