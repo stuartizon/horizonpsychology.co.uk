@@ -1,0 +1,22 @@
+/* ExternalLink's styles, shared with links to other sites in Markdown. */
+
+.external-link__end {
+  white-space: nowrap;
+}
+
+.external-link__icon svg {
+  width: 0.8em;
+  height: 0.8em;
+  margin-left: 0.15em;
+  vertical-align: -0.05em;
+  fill: currentColor;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
