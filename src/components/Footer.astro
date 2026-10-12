@@ -16,8 +16,8 @@ const email = CONTACT_EMAIL;
 
 const groups = [
   { title: "Work together", links: serviceLinks },
-  { title: "Practice", links: [about, research, faqs, contact] },
-  { title: "Practical", links: practicalLinks },
+  { title: "About Horizon", links: [about, research, faqs, contact] },
+  { title: "Information", links: practicalLinks },
 ];
 ---
 
@@ -47,11 +47,6 @@ const groups = [
         </nav>
       ))}
     </div>
-    <p class="footer__note">
-      Dr Emma Izon is registered with the Health and Care Professions Council
-      and accredited by the BABCP. Therapy is not an emergency service: if you
-      need support today, contact your GP or call NHS 111.
-    </p>
   </Container>
 </footer>
 
@@ -110,14 +105,6 @@ const groups = [
 
   .footer__group a:hover {
     color: var(--color-sage-800);
-  }
-
-  /* The export uses the faintest ink here, which is too low in contrast on cream. */
-  .footer__note {
-    max-width: 70ch;
-    margin: 28px 0 0;
-    color: var(--color-ink-soft);
-    font-size: var(--text-caption);
   }
 
   @media (min-width: 48rem) {
