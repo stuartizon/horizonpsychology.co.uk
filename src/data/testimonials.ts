@@ -9,17 +9,17 @@ export const testimonials: Testimonial[] = [
   {
     quote:
       "I thoroughly enjoyed working with Emma and found her help invaluable. … She was understanding, insightful and brought relevant, clinical knowledge based on what could be applied to me. She worked with me, at my pace, allowing me to evaluate and observe myself with her professional guidance along the way.",
-    name: "James",
+    name: "Sarah",
   },
   {
     quote:
       "I enjoyed having a space to express my feelings and thoughts that was warm and judgement free. I had been going through a period where I didn't always have that sort of space in my day to day interactions, so it was appreciated in my sessions with Emma. I also liked the professional and clinical knowledge that Emma brought and applied, within the sessions. I could really apply many of the methods and ideas she brought, to my daily interactions, and saw a positive impact.",
-    name: "Sophie",
+    name: "Aisha",
   },
   {
     quote:
       "I very much enjoyed working with Emma. I had a very positive experience and would turn to her again in future if I was seeking support through psychology.",
-    name: "Daniel",
+    name: "John",
   },
   {
     quote:
@@ -29,7 +29,7 @@ export const testimonials: Testimonial[] = [
   {
     quote:
       "Thank you very much for all of the therapy sessions, I really appreciated them and feel I have learnt so much. You lent a non judgemental ear, and safe environment whereby I felt able to express myself and open up. The advice and strategies you gave me over the course of our sessions have proved invaluable, I have already implemented some and truly they are what kept me calm in some more stressful moments.",
-    name: "Laura",
+    name: "Alex",
   },
   {
     quote:
@@ -39,7 +39,7 @@ export const testimonials: Testimonial[] = [
   {
     quote:
       "All the sessions were helpful because they were done to fit me specifically.",
-    name: "Tom",
+    name: "Patrick",
   },
   {
     quote:
