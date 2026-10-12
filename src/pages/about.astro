@@ -10,6 +10,7 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import babcpAccredited from "@/logos/babcp-accredited.png";
 import hcpcRegistered from "@/logos/hcpc-registered.webp";
 import portrait from "@/photos/about.jpg";
+import bookshelf from "@/photos/about-approach.jpg";
 ---
 
 <BaseLayout
@@ -19,24 +20,63 @@ import portrait from "@/photos/about.jpg";
   <Container>
     <div class="about">
       <div class="about__intro">
+        <Image
+          class="about__portrait"
+          src={portrait}
+          alt="Dr Emma Izon"
+          widths={[480, 800, 1200]}
+          sizes="(min-width: 48rem) 50vw, 100vw"
+        />
         <SectionHeading
           eyebrow="About Emma"
           title="Dr Emma Izon"
           level="h1"
-          subtitle="Clinical Psychologist · PhD, DClinPsych, MSc, BSc (International)"
+          subtitle="Clinical Psychologist · DClinPsych, PhD, MSc, BSc (International)"
         />
         <p>
-          Dr Emma Izon is a Clinical Psychologist, Cognitive Behavioural
-          Psychotherapist, and researcher who offers psychological therapy, as
-          well as clinical and research supervision. Trained at the University
-          of Oxford, she specialises in evidence-based, compassionate care, with
-          particular expertise in psychosis, bipolar disorder, trauma-informed
-          practice, and neurodiversity-affirming therapy.
+          Dr Emma Izon is a Clinical Psychologist who trained at the University
+          of Oxford and holds a PhD in Clinical Psychology from the University
+          of Manchester. She has extensive experience delivering psychological
+          assessment and therapy across national specialist and local NHS
+          services, as well as private healthcare.
         </p>
         <p>
-          She works collaboratively with people from all walks of life, helping
-          them understand their experiences, make sense of difficult emotions,
-          and develop meaningful, lasting change.
+          Emma has particular expertise in working with psychosis, paranoia and
+          complex psychological presentations, alongside experience supporting
+          people experiencing anxiety, depression, stress and difficulties
+          associated with life transitions. Her approach is trauma-informed and
+          neurodiversity-affirming, with a focus on helping individuals
+          understand their experiences, develop new perspectives and work
+          towards meaningful change.
+        </p>
+        <p>
+          Emma has undertaken additional training in enhanced Cognitive
+          Behavioural Therapy (CBT) for psychosis and bipolar disorder. Her
+          research interests include the at-risk mental state for psychosis and
+          the experiences, needs and wellbeing of family members and loved ones.
+          She values a systemic perspective, recognising the importance of
+          relationships, family support and the wider circumstances that shape
+          our mental health and wellbeing.
+        </p>
+        <p>
+          Emma also has a particular interest in sport and psychological
+          wellbeing. As a competitive netball player and high-level netball
+          umpire, she brings personal insight into the demands of competitive
+          sport and the psychological challenges athletes can face. She has
+          undertaken additional learning in sport and mental health, including
+          performance anxiety, the psychological impact of injury, athlete
+          wellbeing and the challenges associated with transitioning out of a
+          sporting career. She is interested in supporting athletes to navigate
+          these challenges, manage the pressures of performance and maintain
+          their psychological wellbeing both within and beyond sport.
+        </p>
+        <p>
+          Emma offers a compassionate, collaborative approach, creating a safe
+          and supportive space in which individuals can explore their
+          experiences, make sense of emotional difficulties and develop
+          strategies to support lasting change. Alongside her clinical work, she
+          provides clinical and research supervision, drawing on her experience
+          across clinical practice and research.
         </p>
         <div class="about__credentials">
           <CredentialLogo
@@ -51,20 +91,13 @@ import portrait from "@/photos/about.jpg";
           />
         </div>
       </div>
-      <Image
-        class="about__portrait"
-        src={portrait}
-        alt="Dr Emma Izon"
-        widths={[480, 800, 1200]}
-        sizes="(min-width: 64rem) 512px, (min-width: 48rem) 50vw, 100vw"
-      />
     </div>
   </Container>
 
   <section class="testimonials" aria-labelledby="testimonials-heading">
     <Container>
       <SectionHeading
-        eyebrow="Client experience"
+        eyebrow="Testimonials"
         title="What people have said"
         id="testimonials-heading"
       />
@@ -77,33 +110,41 @@ import portrait from "@/photos/about.jpg";
   <section class="approach" aria-labelledby="approach-heading">
     <Container>
       <div class="approach__columns">
+        <Image
+          class="approach__photo"
+          src={bookshelf}
+          alt="Psychology books, a trailing plant and succulents on a wooden shelf"
+          widths={[480, 800, 1200]}
+          sizes="(min-width: 48rem) 45vw, 100vw"
+        />
         <SectionHeading
           eyebrow="Therapeutic approach"
           title="How Emma works"
           id="approach-heading"
         />
-        <div class="approach__body">
-          <p>
-            Emma believes that therapy is most effective when it is built on a
-            safe, trusting, and collaborative relationship. She offers a calm,
-            confidential space where clients can explore their experiences at a
-            pace that feels right for them, without judgement or pressure.
-            Whether someone is experiencing stress, anxiety, low mood, the
-            impact of trauma, relationship difficulties, or navigating
-            significant life transitions, she works with them to make sense of
-            their experiences and develop practical tools for lasting wellbeing.
-          </p>
-          <p>
-            Her work is grounded in evidence-based psychological practice and
-            integrates Cognitive Behavioural Therapy (CBT), Acceptance and
-            Commitment Therapy (ACT), and Compassion-Focused Therapy (CFT),
-            tailoring therapy to each individual's needs, strengths, and goals.
-            Committed to trauma-informed, neurodiversity-affirming, and
-            culturally sensitive practice, she combines compassionate honesty
-            with evidence-based care to help clients build resilience, deepen
-            self-understanding, and create meaningful, sustainable change.
-          </p>
-        </div>
+        <p>
+          Emma believes that therapy is most effective when built on a safe,
+          trusting and collaborative relationship. She offers a calm,
+          confidential and non-judgemental space where clients can explore their
+          experiences at a pace that feels right for them, without pressure or
+          fear of judgement. Whether navigating stress, anxiety, low mood, the
+          impact of trauma, relationship difficulties or significant life
+          transitions, Emma works alongside clients to make sense of their
+          experiences and find a way forward that feels meaningful to them.
+        </p>
+        <p>
+          Her approach is compassionate, integrative and grounded in
+          evidence-based psychological practice. Working primarily within a
+          Cognitive Behavioural Therapy (CBT) framework, Emma draws on a range
+          of approaches, including Mindfulness-Based CBT, Compassion-Focused
+          Therapy (CFT), Acceptance and Commitment Therapy (ACT), systemic
+          practices and narrative therapies. This flexible approach allows
+          therapy to be tailored to each individual’s needs, strengths and
+          goals. Committed to trauma-informed, neurodiversity-affirming and
+          culturally sensitive practice, Emma combines warmth and compassionate
+          honesty with evidence-based care to support greater
+          self-understanding, resilience and meaningful, lasting change.
+        </p>
       </div>
       <div class="approach__actions">
         <Button href="/contact/" label="Get in touch" />
@@ -123,16 +164,25 @@ import portrait from "@/photos/about.jpg";
   }
 
   .about {
-    display: grid;
-    gap: clamp(32px, 5vw, 64px);
-    align-items: start;
     padding-block: var(--section-y-tight) var(--section-y);
   }
 
+  /* Each photo comes first, so it can float beside the text that follows.
+     On a phone it moves down to break up the text: the portrait after the
+     second paragraph, and the bookshelf after the first. */
   .about__intro {
+    --gap: clamp(32px, 5vw, 64px);
     display: flex;
     flex-direction: column;
     gap: var(--space-6);
+  }
+
+  .about__portrait {
+    order: 1;
+  }
+
+  .about__intro > p:nth-of-type(2) ~ * {
+    order: 2;
   }
 
   .about__credentials {
@@ -142,7 +192,8 @@ import portrait from "@/photos/about.jpg";
     gap: var(--space-6);
   }
 
-  .about__portrait {
+  .about__portrait,
+  .approach__photo {
     width: 100%;
     height: auto;
     border-radius: var(--radius-image);
@@ -164,14 +215,18 @@ import portrait from "@/photos/about.jpg";
   }
 
   .approach__columns {
-    display: grid;
-    gap: clamp(28px, 5vw, 72px);
-  }
-
-  .approach__body {
+    --gap: clamp(28px, 5vw, 72px);
     display: flex;
     flex-direction: column;
     gap: var(--space-5);
+  }
+
+  .approach__photo {
+    order: 1;
+  }
+
+  .approach__columns > p + p {
+    order: 2;
   }
 
   .approach__actions {
@@ -182,30 +237,67 @@ import portrait from "@/photos/about.jpg";
     margin-top: var(--space-10);
   }
 
-  /* From a tablet up, the portrait sits beside the introduction, and the
-     approach beside its heading, with its text kept to a readable measure. */
+  /* From a tablet up, the text wraps around each photo: the portrait on the
+     right and the bookshelf on the left. Each photo's top is level with the
+     top of its eyebrow's capitals, not its line: they start 0.385em down its
+     0.78rem text, below the space the font leaves above them. */
   @media (min-width: 48rem) {
-    .about {
-      grid-template-columns: 1fr 1fr;
-    }
-
-    /* Level with the top of the eyebrow's capitals, not its line: they start
-       0.385em down its 0.78rem text, below the space the font leaves above
-       them. */
-    .about__portrait {
-      margin-top: calc(0.78rem * 0.385);
-    }
-
     .about__intro,
-    .approach__body {
-      max-width: var(--measure-prose);
+    .approach__columns {
+      display: flow-root;
     }
 
-    /* The text takes up to its measure, so it ends in line with the
-       portrait, and the heading takes the rest. */
+    .about__portrait {
+      float: right;
+      width: calc(50% - var(--gap) / 2);
+      margin: calc(0.78rem * 0.385) 0 var(--space-6) var(--gap);
+    }
+
+    .about__intro > p,
+    .about__credentials {
+      margin-top: var(--space-6);
+    }
+
+    .approach__photo {
+      float: left;
+      width: 45%;
+      margin: calc(0.78rem * 0.385) var(--gap) var(--space-5) 0;
+    }
+
+    .approach__columns > p {
+      margin-top: var(--space-5);
+    }
+  }
+
+  /* On a desktop the text keeps to its own column beside each photo, at most
+     a readable measure wide, and the approach's ends in line with the
+     portrait. */
+  @media (min-width: 64rem) {
+    .about__intro > :global(:not(.about__portrait)) {
+      max-width: min(var(--measure-prose), calc(50% - var(--gap) / 2));
+    }
+
     .approach__columns {
+      display: grid;
       grid-template-columns: minmax(14rem, 1fr) minmax(0, var(--measure-prose));
+      grid-template-rows: auto auto 1fr;
+      gap: var(--space-5) var(--gap);
       align-items: start;
+    }
+
+    .approach__columns > :global(*) {
+      grid-column: 2;
+    }
+
+    .approach__columns > p {
+      margin-top: 0;
+    }
+
+    .approach__photo {
+      grid-column: 1;
+      grid-row: 1 / span 3;
+      width: 100%;
+      margin: calc(0.78rem * 0.385) 0 0;
     }
   }
 </style>

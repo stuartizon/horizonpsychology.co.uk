@@ -1,34 +1,118 @@
 import AxeBuilder from "@axe-core/playwright";
-import { expect, test, type Page } from "@playwright/test";
+import { expect, test, type Locator, type Page } from "@playwright/test";
 import { baseline } from "./baseline";
 
 test.beforeEach(async ({ page }) => {
   await page.goto("/about/");
 });
 
-for (const width of [768, 1280]) {
+/** The width of the page's content, inside the container's padding. */
+async function contentWidth(page: Page) {
+  return page
+    .locator("main .container")
+    .first()
+    .evaluate((container) => {
+      const style = getComputedStyle(container);
+      return (
+        container.clientWidth -
+        parseFloat(style.paddingLeft) -
+        parseFloat(style.paddingRight)
+      );
+    });
+}
+
+/** Each line of an element's text, as its top, left and right edges. */
+async function lines(element: Locator) {
+  return element.evaluate((node) => {
+    const range = document.createRange();
+    range.selectNodeContents(node);
+    return [...range.getClientRects()].map(({ top, left, right }) => ({
+      top,
+      left,
+      right,
+    }));
+  });
+}
+
+for (const width of [1024, 1280]) {
   test(`at ${width}px the portrait sits beside the introduction`, async ({
     page,
     isMobile,
   }) => {
-    test.skip(isMobile, "On a phone the portrait follows the introduction");
+    test.skip(isMobile, "On a phone the portrait is between the paragraphs");
     await page.setViewportSize({ width, height: 1024 });
 
-    const heading = (await page
-      .getByRole("heading", { level: 1 })
-      .boundingBox())!;
     const portrait = (await page
       .getByRole("img", { name: "Dr Emma Izon" })
       .boundingBox())!;
-
-    expect(portrait.x).toBeGreaterThan(heading.x + heading.width);
+    const intro = page.locator(".about__intro > p");
+    for (const paragraph of await intro.all()) {
+      const box = (await paragraph.boundingBox())!;
+      expect(box.x + box.width).toBeLessThan(portrait.x);
+    }
   });
+}
 
-  test(`at ${width}px the approach sits beside its heading`, async ({
+test("at 768px the introduction wraps around the portrait", async ({
+  page,
+  isMobile,
+}) => {
+  test.skip(isMobile, "On a phone the portrait is between the paragraphs");
+  await page.setViewportSize({ width: 768, height: 1024 });
+  await page.evaluate(() => document.fonts.ready);
+
+  const portrait = (await page
+    .getByRole("img", { name: "Dr Emma Izon" })
+    .boundingBox())!;
+
+  // The first paragraph's lines stop short of the portrait beside them.
+  const first = await lines(
+    page.locator("p", { hasText: /Dr Emma Izon is a Clinical/ }),
+  );
+  const beside = first.filter(
+    (line) => line.top < portrait.y + portrait.height,
+  );
+  expect(beside.length).toBeGreaterThan(0);
+  for (const line of beside) expect(line.right).toBeLessThan(portrait.x);
+
+  // The last runs the full width of the page, under it.
+  const last = (await page
+    .locator("p", { hasText: /Emma offers a compassionate/ })
+    .boundingBox())!;
+  expect(last.y).toBeGreaterThan(portrait.y + portrait.height);
+  expect(last.width).toBeCloseTo(await contentWidth(page), 0);
+});
+
+test("at 768px the approach wraps around the bookshelf photo", async ({
+  page,
+  isMobile,
+}) => {
+  test.skip(isMobile, "On a phone the photo is between the paragraphs");
+  await page.setViewportSize({ width: 768, height: 1024 });
+  await page.evaluate(() => document.fonts.ready);
+
+  const section = page.getByRole("region", { name: "How Emma works" });
+  const photo = (await section.getByRole("img").boundingBox())!;
+  const right = photo.x + photo.width;
+
+  // The heading starts beside the photo, after it.
+  const heading = await lines(section.getByRole("heading", { level: 2 }));
+  expect(heading[0]!.top).toBeLessThan(photo.y + photo.height);
+  expect(heading[0]!.left).toBeGreaterThan(right);
+
+  // The text's last lines run under it, from the left of the page.
+  const text = await lines(section.getByText(/Her approach is/));
+  const under = text.filter((line) => line.top > photo.y + photo.height);
+  expect(under.length).toBeGreaterThan(0);
+  for (const line of under) expect(line.left).toBeLessThan(photo.x + 1);
+});
+
+for (const width of [1024, 1280]) {
+  test(`at ${width}px the bookshelf photo sits beside the approach's heading and text`, async ({
     page,
     isMobile,
   }) => {
-    test.skip(isMobile, "On a phone the approach follows its heading");
+    test.skip(isMobile, "On a phone the photo is between the paragraphs");
     await page.setViewportSize({ width, height: 1024 });
 
     const section = page.getByRole("region", { name: "How Emma works" });
@@ -36,8 +120,11 @@ for (const width of [768, 1280]) {
       .getByRole("heading", { level: 2 })
       .boundingBox())!;
     const body = (await section.getByText(/Emma believes/).boundingBox())!;
+    const photo = (await section.getByRole("img").boundingBox())!;
 
-    expect(body.x).toBeGreaterThan(heading.x + heading.width);
+    expect(photo.x + photo.width).toBeLessThan(heading.x);
+    expect(photo.x + photo.width).toBeLessThan(body.x);
+    expect(body.y).toBeGreaterThan(heading.y + heading.height);
   });
 }
 
@@ -91,20 +178,24 @@ for (const width of [768, 1024, 1280]) {
   });
 }
 
-test("on a phone the portrait follows the introduction", async ({
+test("on a phone the portrait is between the second and third paragraphs", async ({
   page,
   isMobile,
 }) => {
   test.skip(!isMobile, "Phones only");
 
-  const intro = (await page
-    .getByText(/She works collaboratively/)
+  const second = (await page
+    .getByText(/Emma has particular expertise/)
+    .boundingBox())!;
+  const third = (await page
+    .getByText(/Emma has undertaken additional training/)
     .boundingBox())!;
   const portrait = (await page
     .getByRole("img", { name: "Dr Emma Izon" })
     .boundingBox())!;
 
-  expect(portrait.y).toBeGreaterThan(intro.y + intro.height);
+  expect(portrait.y).toBeGreaterThan(second.y + second.height);
+  expect(third.y).toBeGreaterThan(portrait.y + portrait.height);
 });
 
 /** Sets the width on the desktop browsers, or keeps the phone's own. */
@@ -113,14 +204,16 @@ async function atWidth(page: Page, isMobile: boolean, width: number) {
 }
 
 for (const width of [320, 768, 1280]) {
-  test(`at ${width}px the HCPC and BABCP logos are centred in the introduction's column`, async ({
+  test(`at ${width}px the HCPC and BABCP logos are centred under the introduction's text`, async ({
     page,
     isMobile,
   }) => {
     test.skip(isMobile && width !== 320, "Phones are 320px");
     await atWidth(page, isMobile, width);
 
-    const intro = (await page.locator(".about__intro").boundingBox())!;
+    const intro = (await page
+      .locator("p", { hasText: /Emma offers a compassionate/ })
+      .boundingBox())!;
     const hcpc = (await page
       .getByRole("link", { name: /^Health and Care Professions Council/ })
       .boundingBox())!;
@@ -145,23 +238,13 @@ for (const width of [320, 700]) {
     test.skip(isMobile && width !== 320, "Phones are 320px");
     await atWidth(page, isMobile, width);
 
-    const content = await page
-      .locator("main .container")
-      .first()
-      .evaluate((container) => {
-        const style = getComputedStyle(container);
-        return (
-          container.clientWidth -
-          parseFloat(style.paddingLeft) -
-          parseFloat(style.paddingRight)
-        );
-      });
+    const content = await contentWidth(page);
 
     const paragraphs = [
       /Dr Emma Izon is a Clinical/,
-      /She works collaboratively/,
+      /Emma offers a compassionate/,
       /Emma believes/,
-      /Her work is grounded/,
+      /Her approach is compassionate/,
     ];
     for (const text of paragraphs) {
       const paragraph = (await page
@@ -183,7 +266,7 @@ for (const width of [320, 700, 768, 1280]) {
     const section = page.getByRole("region", { name: "How Emma works" });
     const content = (await section.locator(".container").boundingBox())!;
     const text = (await section
-      .locator("p", { hasText: /Her work is grounded/ })
+      .locator("p", { hasText: /Her approach is compassionate/ })
       .boundingBox())!;
     const buttons = await Promise.all(
       ["Get in touch", "See publications"].map(
@@ -203,21 +286,44 @@ for (const width of [320, 700, 768, 1280]) {
   });
 }
 
-test("the portrait is shown at its own proportions, uncropped", async ({
+test("on a phone the bookshelf photo is between the approach's paragraphs", async ({
   page,
+  isMobile,
 }) => {
-  const portrait = page.getByRole("img", { name: "Dr Emma Izon" });
-  await expect(portrait).toHaveJSProperty("complete", true);
+  test.skip(!isMobile, "From a tablet up the photo sits beside the text");
 
-  const { shown, natural } = await portrait.evaluate(
-    (img: HTMLImageElement) => ({
-      shown: img.clientWidth / img.clientHeight,
-      natural: img.naturalWidth / img.naturalHeight,
-    }),
-  );
+  const section = page.getByRole("region", { name: "How Emma works" });
+  const first = (await section.getByText(/Emma believes/).boundingBox())!;
+  const second = (await section.getByText(/Her approach is/).boundingBox())!;
+  const photo = (await section.getByRole("img").boundingBox())!;
 
-  expect(shown).toBeCloseTo(natural, 2);
+  expect(photo.y).toBeGreaterThan(first.y + first.height);
+  expect(second.y).toBeGreaterThan(photo.y + photo.height);
 });
+
+for (const name of [
+  "Dr Emma Izon",
+  "Psychology books, a trailing plant and succulents on a wooden shelf",
+]) {
+  test(`the photo "${name}" is shown at its own proportions, uncropped`, async ({
+    page,
+  }) => {
+    const photo = page.getByRole("img", { name });
+    await photo.scrollIntoViewIfNeeded();
+    await expect(photo).toHaveJSProperty("complete", true);
+
+    // The height is rounded to a whole pixel, so it's within 1px of the
+    // height the photo's proportions give its width.
+    const { height, uncropped } = await photo.evaluate(
+      (img: HTMLImageElement) => ({
+        height: img.clientHeight,
+        uncropped: (img.clientWidth * img.naturalHeight) / img.naturalWidth,
+      }),
+    );
+
+    expect(Math.abs(height - uncropped)).toBeLessThanOrEqual(1);
+  });
+}
 
 test("the About page has no detectable accessibility violations", async ({
   page,
