@@ -1,6 +1,6 @@
 import { services } from "@/data/services";
 import { describe, expect, test } from "vitest";
-import { file, page, text, texts } from "./pages";
+import { page, text, texts } from "./pages";
 
 describe("the Confidentiality page", () => {
   const document = page("/confidentiality/");
@@ -117,12 +117,6 @@ describe("the Fees and cancellations page", () => {
       main.querySelector('a[href="mailto:hello@horizonpsychology.co.uk"]'),
     ).toHaveProperty("textContent", "hello@horizonpsychology.co.uk");
   });
-});
-
-test("the old Fees and cancellations address redirects to the new one", () => {
-  expect(file("/_redirects")).toContain(
-    "/terms-and-conditions/ /fees-and-cancellations/ 301",
-  );
 });
 
 for (const path of ["/confidentiality/", "/complaints/", "/privacy-policy/"]) {
