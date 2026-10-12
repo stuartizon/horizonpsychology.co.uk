@@ -24,3 +24,23 @@ for (const [href, from] of [...links].sort()) {
     );
   });
 }
+
+test("every link to another site opens in a new tab, and says so", () => {
+  const unmarked = pages().flatMap((path) =>
+    [...page(path).querySelectorAll('a[href^="http"]')]
+      .filter(
+        (link) =>
+          new URL(link.getAttribute("href")!).hostname !==
+          "horizonpsychology.co.uk",
+      )
+      .filter(
+        (link) =>
+          link.getAttribute("target") !== "_blank" ||
+          link.getAttribute("rel") !== "noopener" ||
+          !link.textContent?.includes("(opens in a new tab)"),
+      )
+      .map((link) => `${link.getAttribute("href")} on ${path}`),
+  );
+
+  expect(unmarked).toEqual([]);
+});
