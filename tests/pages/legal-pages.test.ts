@@ -76,15 +76,15 @@ describe("the Complaints page", () => {
     );
   });
 
-  test("names the HCPC, BABCP and ICO in full, linking to each", () => {
+  test("names the HCPC, BABCP and ICO in full, linking to each in a new tab", () => {
     expect(link("https://www.hcpc-uk.org/")).toBe(
-      "Health and Care Professions Council (HCPC)",
+      "Health and Care Professions Council (HCPC) (opens in a new tab)",
     );
     expect(link("https://babcp.com/")).toBe(
-      "British Association for Behavioural and Cognitive Psychotherapies (BABCP)",
+      "British Association for Behavioural and Cognitive Psychotherapies (BABCP) (opens in a new tab)",
     );
     expect(link("https://ico.org.uk/make-a-complaint/")).toBe(
-      "Information Commissioner’s Office (ICO)",
+      "Information Commissioner’s Office (ICO) (opens in a new tab)",
     );
   });
 
