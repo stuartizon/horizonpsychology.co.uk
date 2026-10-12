@@ -11,10 +11,10 @@ const props = {
 const textOf = (element: Element | null | undefined) =>
   element?.textContent?.replace(/\s+/g, " ").trim();
 
-test("has the title as an h1 under a Practical eyebrow", async () => {
+test("has the title as an h1 under an Information eyebrow", async () => {
   const page = await render(LegalPage, props);
 
-  expect(textOf(page.querySelector("hgroup .eyebrow"))).toBe("Practical");
+  expect(textOf(page.querySelector("hgroup .eyebrow"))).toBe("Information");
   expect(textOf(page.querySelector("hgroup h1"))).toBe(
     "Confidentiality statement",
   );
