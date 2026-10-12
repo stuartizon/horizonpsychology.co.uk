@@ -1,4 +1,5 @@
 import { expect, test, type Page } from "@playwright/test";
+import { pressTab } from "./keyboard";
 
 const header = (page: Page) => page.getByRole("banner");
 const nav = (page: Page) =>
@@ -33,6 +34,79 @@ const headerBottom = (page: Page) =>
 const scrollTo = async (page: Page, y: number) => {
   await page.evaluate((top) => window.scrollTo(0, top), y);
   await page.evaluate(() => new Promise(requestAnimationFrame));
+};
+
+type Box = { x: number; y: number; width: number; height: number };
+
+/**
+ * The box around what changes in the header when the logo takes focus from the keyboard, which
+ * is its focus ring as drawn. Compares screenshots before and after in the page, with a canvas.
+ */
+const focusRing = async (page: Page): Promise<Box> => {
+  const clip = { x: 0, y: 0, width: 1280, height: 200 };
+  // Waits for the header to stop changing, as it can still be catching up with a scroll.
+  let before = await page.screenshot({ clip });
+  for (let previous; !previous?.equals(before);) {
+    previous = before;
+    before = await page.screenshot({ clip });
+  }
+  await pressTab(page);
+  await expect(
+    header(page).getByRole("link", { name: "Horizon Psychology, home" }),
+  ).toBeFocused();
+  const after = await page.screenshot({ clip });
+
+  return page.evaluate(
+    async (screenshots) => {
+      const pixels = await Promise.all(
+        screenshots.map(async (base64) => {
+          const image = new Image();
+          image.src = `data:image/png;base64,${base64}`;
+          await image.decode();
+          const canvas = document.createElement("canvas");
+          canvas.width = image.width;
+          canvas.height = image.height;
+          const context = canvas.getContext("2d")!;
+          context.drawImage(image, 0, 0);
+          return context.getImageData(0, 0, image.width, image.height);
+        }),
+      );
+      const [a, b] = pixels.map((image) => image.data);
+      const { width, height } = pixels[0];
+      let [left, top, right, bottom] = [width, height, -1, -1];
+      for (let y = 0; y < height; y++) {
+        for (let x = 0; x < width; x++) {
+          const i = (y * width + x) * 4;
+          if ([0, 1, 2].some((c) => Math.abs(a[i + c] - b[i + c]) > 8)) {
+            [left, top] = [Math.min(left, x), Math.min(top, y)];
+            [right, bottom] = [Math.max(right, x), Math.max(bottom, y)];
+          }
+        }
+      }
+      const scale = devicePixelRatio;
+      return {
+        x: left / scale,
+        y: top / scale,
+        width: (right + 1 - left) / scale,
+        height: (bottom + 1 - top) / scale,
+      };
+    },
+    [before.toString("base64"), after.toString("base64")],
+  );
+};
+
+/** Checks the ring goes all the way round `logo`, with no more than `gap` around it. */
+const expectRingAround = (ring: Box, logo: Box, gap = 8) => {
+  expect(ring.x).toBeLessThan(logo.x);
+  expect(ring.y).toBeLessThan(logo.y);
+  expect(ring.x + ring.width).toBeGreaterThan(logo.x + logo.width);
+  expect(ring.y + ring.height).toBeGreaterThan(logo.y + logo.height);
+  expect(logo.x - ring.x).toBeLessThanOrEqual(gap);
+  expect(logo.y - ring.y).toBeLessThanOrEqual(gap);
+  expect(ring.x + ring.width - (logo.x + logo.width)).toBeLessThanOrEqual(gap);
+  expect(ring.y + ring.height - (logo.y + logo.height)).toBeLessThanOrEqual(
+    gap,
+  );
 };
 
 test.describe("on the home page from tablet width", () => {
@@ -110,6 +184,34 @@ test.describe("on the home page from tablet width", () => {
       await page.evaluate(() => document.documentElement.scrollWidth),
     ).toBeLessThanOrEqual(768);
   });
+
+  for (const width of [1280, 768]) {
+    test(`at ${width}px the focus ring goes round the full logo`, async ({
+      page,
+    }) => {
+      await page.setViewportSize({ width, height: 800 });
+      await page.goto("/");
+
+      const ring = await focusRing(page);
+
+      expectRingAround(ring, (await logo(page).boundingBox())!);
+    });
+
+    test(`at ${width}px the focus ring goes round the wordmark once the header has shrunk`, async ({
+      page,
+    }) => {
+      await page.setViewportSize({ width, height: 800 });
+      await page.goto("/");
+      await scrollTo(page, 500);
+
+      const ring = await focusRing(page);
+
+      const link = header(page).getByRole("link", {
+        name: "Horizon Psychology, home",
+      });
+      expectRingAround(ring, (await link.boundingBox())!);
+    });
+  }
 
   test("other pages use the regular header", async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 800 });
