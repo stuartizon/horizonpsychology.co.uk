@@ -39,7 +39,8 @@ test("Inter is no longer loaded", async ({ page }) => {
 });
 
 test("keyboard focus shows a ring and a soft halo", async ({ page }) => {
-  await page.goto("/");
+  // Not the home page, whose full logo draws its ring with the logo (see home-header.spec.ts).
+  await page.goto("/about/");
   await pressTab(page);
 
   const style = await page.evaluate(() => {
