@@ -28,7 +28,7 @@ The browser tests check pages with axe and cover keyboard and focus behaviour. N
 - Nothing is committed directly to `main`; every change goes through a pull request ([ADR 0008](docs/adr/0008-pull-requests-and-squash-merge.md)). A ruleset on `main` enforces this, along with squash merging and passing CI.
 - Branch from `main` with a short descriptive name, such as `services-dropdown`.
 - Commit little and often, one small, coherent step per commit.
-- Pull requests are squash merged, so the title becomes the commit on `main` and follows the commit style below. The description says what changed, why, how it was tested, and `Closes #<issue>`.
+- Pull requests are squash merged, so the title becomes the commit on `main` and follows the commit style below. The description says what changed, why, how it was tested, and `Closes #<issue>`. For an issue Dr Izon raised, it says `Refs #<issue>` instead: she checks the change on the site and closes the issue herself.
 - Keep pull requests small enough to review in one sitting. Split large issues into several.
 - Format with `npm run format`, or let your editor format on save with Prettier.
 - The build, lint, format check and all three test suites must pass. CI runs them on every pull request.
