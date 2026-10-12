@@ -78,7 +78,7 @@ test("the About page shows each testimonial with its name, under a Testimonials 
 test("the About page describes how Emma works", () => {
   const section = labelled(document, "How Emma works");
 
-  expect(texts(section, ".approach__body p")).toEqual([
+  expect(texts(section, ".approach__columns > p")).toEqual([
     "Emma believes that therapy is most effective when built on a safe, trusting and collaborative relationship. She offers a calm, confidential and non-judgemental space where clients can explore their experiences at a pace that feels right for them, without pressure or fear of judgement. Whether navigating stress, anxiety, low mood, the impact of trauma, relationship difficulties or significant life transitions, Emma works alongside clients to make sense of their experiences and find a way forward that feels meaningful to them.",
     "Her approach is compassionate, integrative and grounded in evidence-based psychological practice. Working primarily within a Cognitive Behavioural Therapy (CBT) framework, Emma draws on a range of approaches, including Mindfulness-Based CBT, Compassion-Focused Therapy (CFT), Acceptance and Commitment Therapy (ACT), systemic practices and narrative therapies. This flexible approach allows therapy to be tailored to each individual’s needs, strengths and goals. Committed to trauma-informed, neurodiversity-affirming and culturally sensitive practice, Emma combines warmth and compassionate honesty with evidence-based care to support greater self-understanding, resilience and meaningful, lasting change.",
   ]);
