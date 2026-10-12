@@ -11,3 +11,5 @@ Enquiries from the contact form are delivered by Cloudflare, which also hosts th
 Clinical records are kept securely, are accessible only to Dr Izon, and are held for the period set out in professional guidance. You may ask to see the information held about you, ask for it to be corrected, or ask for it to be deleted where there is no legal reason to keep it.
 
 No information is sold or shared for marketing. Where a third-party service is used to deliver sessions or store records, it is chosen for its security and data protection standards.
+
+Questions about this page can go to [hello@horizonpsychology.co.uk](mailto:hello@horizonpsychology.co.uk).

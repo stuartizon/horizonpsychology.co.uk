@@ -60,7 +60,7 @@ describe("the Complaints page", () => {
 });
 
 describe("the Fees and cancellations page", () => {
-  const document = page("/terms-and-conditions/");
+  const document = page("/fees-and-cancellations/");
   const main = document.querySelector("main")!;
 
   test("has its title, heading and description", () => {
@@ -70,26 +70,64 @@ describe("the Fees and cancellations page", () => {
       document
         .querySelector('meta[name="description"]')
         ?.getAttribute("content"),
-    ).toMatch(/^Session fees, payment, and the notice needed/);
+    ).toMatch(
+      /^At Horizon Psychology, fees and cancellation arrangements are outlined clearly from the outset/,
+    );
   });
 
-  test("is marked as a draft", () => {
-    expect(text(main)).toContain("Draft — to be confirmed");
+  test("is not marked as a draft", () => {
+    expect(text(main)).not.toContain("Draft — to be confirmed");
   });
 
-  test("lists each service's fee", () => {
+  test("has a heading for each part, in sentence case", () => {
+    expect(texts(main, "h2")).toEqual([
+      "Session fees",
+      "Payment",
+      "Cancellation and rescheduling policy",
+      "Questions about fees",
+    ]);
+  });
+
+  test("lists each service's fee under Session fees", () => {
     expect(texts(main, "dd")).toEqual(
       services.map(({ price, minutes }) => `£${price} · ${minutes} minutes`),
     );
-  });
-
-  test("sets out the notice needed to cancel and what a late cancellation costs", () => {
-    expect(text(main)).toContain("at least 48 hours’ notice");
-    expect(text(main)).toContain(
-      "Cancellations with less than 48 hours’ notice are charged at 50% of the session fee",
+    expect(text(main.querySelector("dl")?.previousElementSibling)).toBe(
+      "Session fees",
     );
   });
+
+  test("offers new therapy clients a free introductory call", () => {
+    expect(text(main)).toContain(
+      "A free, no-obligation 15-minute introductory phone consultation is available for new therapy clients.",
+    );
+  });
+
+  test("sets out what each late cancellation costs", () => {
+    expect(texts(main, "li")).toEqual([
+      "48 hours or more: No cancellation fee.",
+      "Less than 48 hours’ notice: 50% of the session fee.",
+      "Less than 24 hours’ notice: The full session fee.",
+      "Missed appointments without notice: The full session fee.",
+    ]);
+  });
+
+  test("ends with the email address for questions about fees", () => {
+    expect(
+      main.querySelector('a[href="mailto:hello@horizonpsychology.co.uk"]'),
+    ).toHaveProperty("textContent", "hello@horizonpsychology.co.uk");
+  });
 });
+
+for (const path of ["/confidentiality/", "/complaints/", "/privacy-policy/"]) {
+  test(`${path} gives the email address for questions`, () => {
+    expect(
+      page(path).querySelector(
+        'main a[href="mailto:hello@horizonpsychology.co.uk"]',
+      ),
+    ).not.toBeNull();
+  });
+}
 
 describe("the Privacy policy page", () => {
   const document = page("/privacy-policy/");

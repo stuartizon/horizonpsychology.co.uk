@@ -31,7 +31,7 @@ for (const width of [768, 1280]) {
 for (const path of [
   "/confidentiality/",
   "/complaints/",
-  "/terms-and-conditions/",
+  "/fees-and-cancellations/",
   "/privacy-policy/",
 ]) {
   test(`${path} has no detectable accessibility violations`, async ({
@@ -49,7 +49,7 @@ for (const width of [320, 768]) {
     page,
   }) => {
     await page.setViewportSize({ width, height: 1024 });
-    await page.goto("/terms-and-conditions/");
+    await page.goto("/fees-and-cancellations/");
 
     const rows = await page.locator("dl > div").evaluateAll((rows) =>
       rows.map((row) => {

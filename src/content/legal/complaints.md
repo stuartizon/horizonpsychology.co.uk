@@ -9,3 +9,5 @@ The first step is to raise it directly, either in a session or by email. Most co
 If you would prefer not to raise it directly, or you are not satisfied with the response, you can contact the Health and Care Professions Council (HCPC), which regulates practising clinical psychologists, or the British Association for Behavioural and Cognitive Psychotherapies (BABCP).
 
 Making a complaint will not affect the care you receive.
+
+Questions about this page can go to [hello@horizonpsychology.co.uk](mailto:hello@horizonpsychology.co.uk).
