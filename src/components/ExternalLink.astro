@@ -2,6 +2,7 @@
 // A link to another site, which opens in a new tab: an arrow shows it, and
 // screen readers are told.
 import arrowIcon from "@phosphor-icons/core/regular/arrow-up-right.svg?raw";
+import "./ExternalLink.css";
 
 interface Props {
   href: string;
@@ -22,26 +23,3 @@ const end = label.slice(start.length);
   </span>
   <span class="visually-hidden"> (opens in a new tab)</span>
 </a>
-
-<style>
-  .external-link__end {
-    white-space: nowrap;
-  }
-
-  .external-link__icon :global(svg) {
-    width: 0.8em;
-    height: 0.8em;
-    margin-left: 0.15em;
-    vertical-align: -0.05em;
-    fill: currentColor;
-  }
-
-  .visually-hidden {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip-path: inset(50%);
-    white-space: nowrap;
-  }
-</style>
