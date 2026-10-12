@@ -7,21 +7,41 @@ describe("the Confidentiality page", () => {
   const main = document.querySelector("main")!;
 
   test("has its title, heading and description", () => {
-    expect(document.title).toMatch(/^Confidentiality statement \| /);
-    expect(texts(document, "h1")).toEqual(["Confidentiality statement"]);
+    expect(document.title).toMatch(/^Confidentiality \| /);
+    expect(texts(document, "h1")).toEqual(["Confidentiality"]);
     expect(
       document
         .querySelector('meta[name="description"]')
         ?.getAttribute("content"),
-    ).toMatch(/^What you share in therapy or supervision stays between us/);
+    ).toBe(
+      "At Horizon Psychology, confidentiality is central to creating a safe, trusting and collaborative therapeutic relationship.",
+    );
   });
 
-  test("is marked as a draft", () => {
-    expect(text(main)).toContain("Draft — to be confirmed");
+  test("is not marked as a draft", () => {
+    expect(text(main)).not.toContain("Draft — to be confirmed");
+  });
+
+  test("has a heading for each part", () => {
+    expect(texts(main, "h2")).toEqual([
+      "When might confidentiality be limited?",
+      "Clinical supervision",
+      "Confidentiality in supervision",
+      "Confidentiality and your records",
+      "Questions",
+    ]);
   });
 
   test("says what the limits of confidentiality are", () => {
-    expect(text(main)).toContain("There are a small number of exceptions.");
+    expect(texts(main, "li")).toEqual([
+      "There is a serious concern about your safety or wellbeing, or the safety of another person.",
+      "There are safeguarding concerns involving a child or an adult at risk of abuse or neglect.",
+      "Information must be disclosed to meet a legal obligation, such as a court order, or where disclosure is otherwise justified by law or a relevant public interest.",
+    ]);
+  });
+
+  test("links to the privacy policy", () => {
+    expect(main.querySelector('a[href="/privacy-policy/"]')).not.toBeNull();
   });
 });
 
