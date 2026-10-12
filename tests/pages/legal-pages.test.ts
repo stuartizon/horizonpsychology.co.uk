@@ -166,37 +166,97 @@ for (const path of ["/confidentiality/", "/complaints/", "/privacy-policy/"]) {
   });
 }
 
-describe("the Privacy policy page", () => {
+describe("the Privacy notice page", () => {
   const document = page("/privacy-policy/");
   const main = document.querySelector("main")!;
+  const link = (href: string) => text(main.querySelector(`a[href="${href}"]`));
 
   test("has its title, heading and description", () => {
-    expect(document.title).toMatch(/^Privacy policy \| /);
-    expect(texts(document, "h1")).toEqual(["Privacy policy"]);
+    expect(document.title).toMatch(/^Privacy notice \| /);
+    expect(texts(document, "h1")).toEqual(["Privacy notice"]);
     expect(
       document
         .querySelector('meta[name="description"]')
         ?.getAttribute("content"),
-    ).toMatch(/^How enquiry and client information is collected/);
-  });
-
-  test("is marked as a draft", () => {
-    expect(text(main)).toContain("Draft — to be confirmed");
-  });
-
-  test("says what happens to an enquiry", () => {
-    expect(text(main)).toContain(
-      "Enquiries that do not lead to work together are deleted.",
+    ).toBe(
+      "Horizon Psychology is committed to protecting your privacy and handling your personal information with care, confidentiality and transparency.",
     );
+  });
+
+  test("is not marked as a draft", () => {
+    expect(text(main)).not.toContain("Draft — to be confirmed");
+  });
+
+  test("has a numbered heading for each section", () => {
+    expect(texts(main, "h2")).toEqual([
+      "1. Who is responsible for your personal information?",
+      "2. Information we collect and use",
+      "3. How enquiry and client information is collected, used and stored",
+      "4. Where your information comes from",
+      "5. Lawful bases for processing",
+      "6. Who we share your personal information with",
+      "7. How long we keep your information",
+      "8. Your data protection rights",
+      "9. How your information is protected",
+      "10. Confidentiality after death",
+      "11. Cookies and website usage",
+      "12. Changes to this Privacy Notice",
+    ]);
   });
 
   test("names the services that handle an enquiry, and says the website keeps none", () => {
     expect(text(main)).toContain(
-      "Enquiries from the contact form are delivered by Cloudflare, which also hosts this website.",
+      "When you submit the contact form, Cloudflare receives the information you enter and transmits it to Dr Emma Izon by email.",
     );
     expect(text(main)).toContain(
-      "The website itself does not store or log what you send.",
+      "The website itself does not store or log the contents of your submission.",
     );
-    expect(text(main)).toContain("provided by Google");
+    expect(text(main)).toContain(
+      "received in Dr Izon’s email account, which is provided by Google",
+    );
+  });
+
+  test("says how long each kind of information is kept", () => {
+    expect(texts(main, "li")).toEqual(
+      expect.arrayContaining([
+        "Clients and supervisees: Records are retained for seven years from the date of last contact.",
+        expect.stringMatching(
+          /^Enquiries that do not proceed: Information is retained for six months from the date of last contact/,
+        ),
+      ]),
+    );
+  });
+
+  test("links to section 7 from section 3", () => {
+    const href = main
+      .querySelector('a[href^="#"]')
+      ?.getAttribute("href")
+      ?.slice(1);
+
+    expect(text(document.getElementById(href!))).toBe(
+      "7. How long we keep your information",
+    );
+  });
+
+  test("links to the confidentiality and complaints pages", () => {
+    expect(link("/confidentiality/")).toBe(
+      "Horizon Psychology Confidentiality Statement",
+    );
+    expect(link("/complaints/")).toBe("complaints");
+  });
+
+  test("links to Articles 6 and 9 of the UK GDPR", () => {
+    expect(
+      link("https://www.legislation.gov.uk/eur/2016/679/article/6"),
+    ).toMatch(/^Article 6 of the UK GDPR/);
+    expect(
+      link("https://www.legislation.gov.uk/eur/2016/679/article/9"),
+    ).toMatch(/^Article 9/);
+  });
+
+  test("ends with when it was last updated", () => {
+    expect(text(main.querySelector(".legal-page__body > p:last-child"))).toBe(
+      "Last updated: October 2026",
+    );
   });
 });
