@@ -80,6 +80,15 @@ test("asks the visitor to confirm they've read the privacy policy", () => {
   ).toBe("/privacy-policy/");
 });
 
+test("opens the privacy policy in a new tab, so the form isn't lost", () => {
+  const link = form.querySelector('a[href="/privacy-policy/"]');
+
+  expect(link?.getAttribute("target")).toBe("_blank");
+  expect(link?.getAttribute("rel")).toBe("noopener");
+  expect(text(link)).toBe("privacy policy (opens in a new tab)");
+  expect(link?.querySelector('[aria-hidden="true"] svg')).not.toBeNull();
+});
+
 test("marks the required fields, hiding the marker from screen readers", () => {
   const markers = [...form.querySelectorAll("label .required")];
 
