@@ -72,6 +72,16 @@ const { title, lead, draft, fees = false } = Astro.props;
     margin-top: var(--space-4);
   }
 
+  .legal-page__body :global(h3) {
+    margin-top: var(--space-2);
+  }
+
+  /* A link to a heading on the page shows it below the sticky header, which
+     is at most 77px tall. */
+  .legal-page__body :global(:is(h2, h3)) {
+    scroll-margin-top: var(--space-20);
+  }
+
   .legal-page__note {
     color: var(--color-ink-soft);
     font-size: var(--text-small);
