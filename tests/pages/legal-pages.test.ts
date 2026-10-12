@@ -48,34 +48,51 @@ describe("the Confidentiality page", () => {
 describe("the Complaints page", () => {
   const document = page("/complaints/");
   const main = document.querySelector("main")!;
+  const link = (href: string) => text(main.querySelector(`a[href="${href}"]`));
 
   test("has its title, heading and description", () => {
-    expect(document.title).toMatch(/^Complaints procedure \| /);
-    expect(texts(document, "h1")).toEqual(["Complaints procedure"]);
+    expect(document.title).toMatch(/^Complaints and concerns \| /);
+    expect(texts(document, "h1")).toEqual(["Complaints and concerns"]);
     expect(
       document
         .querySelector('meta[name="description"]')
         ?.getAttribute("content"),
-    ).toMatch(/^If something about your care has not been right/);
+    ).toBe(
+      "If something about your care or experience with Horizon Psychology has not felt right, please feel able to raise it.",
+    );
   });
 
-  test("is marked as a draft", () => {
-    expect(text(main)).toContain("Draft — to be confirmed");
+  test("is not marked as a draft", () => {
+    expect(text(main)).not.toContain("Draft — to be confirmed");
+  });
+
+  test("has a heading for data protection concerns", () => {
+    expect(texts(main, "h2")).toEqual(["Privacy and data protection concerns"]);
   });
 
   test("says how long a response takes", () => {
     expect(text(main)).toContain(
-      "You will receive an acknowledgement within 5 working days and a full response within 20 working days.",
+      "You will receive an acknowledgement within ten working days and a full response within 20 working days.",
     );
   });
 
-  test("names the HCPC and BABCP in full the first time", () => {
-    expect(text(main)).toContain(
-      "the Health and Care Professions Council (HCPC)",
+  test("names the HCPC, BABCP and ICO in full, linking to each", () => {
+    expect(link("https://www.hcpc-uk.org/")).toBe(
+      "Health and Care Professions Council (HCPC)",
     );
-    expect(text(main)).toContain(
-      "the British Association for Behavioural and Cognitive Psychotherapies (BABCP)",
+    expect(link("https://babcp.com/")).toBe(
+      "British Association for Behavioural and Cognitive Psychotherapies (BABCP)",
     );
+    expect(link("https://ico.org.uk/make-a-complaint/")).toBe(
+      "Information Commissioner’s Office (ICO)",
+    );
+  });
+
+  test("gives the ICO's postal address and phone number", () => {
+    expect(text(main.querySelector("address"))).toBe(
+      "Information Commissioner’s Office Wycliffe House Water Lane Wilmslow Cheshire SK9 5AF",
+    );
+    expect(link("tel:+443031231113")).toBe("0303 123 1113");
   });
 });
 
