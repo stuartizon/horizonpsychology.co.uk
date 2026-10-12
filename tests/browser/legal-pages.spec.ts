@@ -11,7 +11,9 @@ for (const width of [768, 1280]) {
     await page.goto("/confidentiality/");
 
     const [paragraph, content] = await page
-      .getByText("There are a small number of exceptions.")
+      .getByText(
+        "Where information needs to be shared, this will be limited to what is necessary",
+      )
       .evaluate((paragraph) => {
         const container = paragraph.closest(".container")!;
         const style = getComputedStyle(container);
