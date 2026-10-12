@@ -42,6 +42,26 @@ for (const width of [768, 1280]) {
 }
 
 for (const width of [768, 1280]) {
+  test(`at ${width}px the bookshelf photo sits under the approach heading, beside the text`, async ({
+    page,
+    isMobile,
+  }) => {
+    test.skip(isMobile, "On a phone the photo follows the approach");
+    await page.setViewportSize({ width, height: 1024 });
+
+    const section = page.getByRole("region", { name: "How Emma works" });
+    const heading = (await section
+      .getByRole("heading", { level: 2 })
+      .boundingBox())!;
+    const body = (await section.getByText(/Emma believes/).boundingBox())!;
+    const photo = (await section.getByRole("img").boundingBox())!;
+
+    expect(photo.y).toBeGreaterThan(heading.y + heading.height);
+    expect(photo.x + photo.width).toBeLessThan(body.x);
+  });
+}
+
+for (const width of [768, 1280]) {
   test(`at ${width}px the portrait's top is level with the top of the eyebrow's capitals`, async ({
     page,
     isMobile,
@@ -98,7 +118,7 @@ test("on a phone the portrait follows the introduction", async ({
   test.skip(!isMobile, "Phones only");
 
   const intro = (await page
-    .getByText(/She works collaboratively/)
+    .getByText(/Emma offers a compassionate/)
     .boundingBox())!;
   const portrait = (await page
     .getByRole("img", { name: "Dr Emma Izon" })
@@ -159,9 +179,9 @@ for (const width of [320, 700]) {
 
     const paragraphs = [
       /Dr Emma Izon is a Clinical/,
-      /She works collaboratively/,
+      /Emma offers a compassionate/,
       /Emma believes/,
-      /Her work is grounded/,
+      /Her approach is compassionate/,
     ];
     for (const text of paragraphs) {
       const paragraph = (await page
@@ -183,7 +203,7 @@ for (const width of [320, 700, 768, 1280]) {
     const section = page.getByRole("region", { name: "How Emma works" });
     const content = (await section.locator(".container").boundingBox())!;
     const text = (await section
-      .locator("p", { hasText: /Her work is grounded/ })
+      .locator("p", { hasText: /Her approach is compassionate/ })
       .boundingBox())!;
     const buttons = await Promise.all(
       ["Get in touch", "See publications"].map(
@@ -203,21 +223,42 @@ for (const width of [320, 700, 768, 1280]) {
   });
 }
 
-test("the portrait is shown at its own proportions, uncropped", async ({
+test("on a phone the bookshelf photo follows the approach text", async ({
   page,
+  isMobile,
 }) => {
-  const portrait = page.getByRole("img", { name: "Dr Emma Izon" });
-  await expect(portrait).toHaveJSProperty("complete", true);
+  test.skip(!isMobile, "From a tablet up the photo sits beside the text");
 
-  const { shown, natural } = await portrait.evaluate(
-    (img: HTMLImageElement) => ({
-      shown: img.clientWidth / img.clientHeight,
-      natural: img.naturalWidth / img.naturalHeight,
-    }),
-  );
+  const section = page.getByRole("region", { name: "How Emma works" });
+  const text = (await section.getByText(/Her approach is/).boundingBox())!;
+  const photo = (await section.getByRole("img").boundingBox())!;
 
-  expect(shown).toBeCloseTo(natural, 2);
+  expect(photo.y).toBeGreaterThan(text.y + text.height);
 });
+
+for (const name of [
+  "Dr Emma Izon",
+  "Psychology books, a trailing plant and succulents on a wooden shelf",
+]) {
+  test(`the photo "${name}" is shown at its own proportions, uncropped`, async ({
+    page,
+  }) => {
+    const photo = page.getByRole("img", { name });
+    await photo.scrollIntoViewIfNeeded();
+    await expect(photo).toHaveJSProperty("complete", true);
+
+    // The height is rounded to a whole pixel, so it's within 1px of the
+    // height the photo's proportions give its width.
+    const { height, uncropped } = await photo.evaluate(
+      (img: HTMLImageElement) => ({
+        height: img.clientHeight,
+        uncropped: (img.clientWidth * img.naturalHeight) / img.naturalWidth,
+      }),
+    );
+
+    expect(Math.abs(height - uncropped)).toBeLessThanOrEqual(1);
+  });
+}
 
 test("the About page has no detectable accessibility violations", async ({
   page,
