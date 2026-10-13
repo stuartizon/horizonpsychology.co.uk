@@ -61,3 +61,11 @@ test("has no registration or emergency line", async () => {
   expect(text).not.toContain("Health and Care Professions Council");
   expect(text).not.toContain("NHS 111");
 });
+
+test("ends with a copyright line for the year it was built", async () => {
+  const copyright = (await renderFooter()).querySelector(".footer__copyright");
+
+  expect(copyright?.textContent?.replace(/\s+/g, " ").trim()).toBe(
+    `© ${new Date().getFullYear()} Horizon Psychology`,
+  );
+});
