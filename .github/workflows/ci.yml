@@ -4,6 +4,10 @@ on:
   pull_request:
   push:
     branches: [main]
+  # Rebuilds and deploys main at the start of each year, so the year in the
+  # footer's copyright line is current even if nothing is merged.
+  schedule:
+    - cron: "0 0 1 1 *"
 
 permissions:
   contents: read
@@ -153,7 +157,7 @@ jobs:
   deploy:
     name: Deploy
     needs: [check, lint, format, unit, build, pages, browser]
-    if: github.event_name == 'push' || (github.event.pull_request.head.repo.full_name == github.repository && github.actor != 'dependabot[bot]')
+    if: github.event_name != 'pull_request' || (github.event.pull_request.head.repo.full_name == github.repository && github.actor != 'dependabot[bot]')
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
@@ -182,7 +186,7 @@ jobs:
           DELIVER_TO: ${{ github.event_name == 'pull_request' && secrets.ENQUIRY_PREVIEW_DELIVER_TO || secrets.ENQUIRY_DELIVER_TO }}
           # Shown against the deploy in Cloudflare's dashboard. Passed through
           # the environment, never into the script, as titles are untrusted.
-          SUMMARY: ${{ github.event_name == 'pull_request' && format('#{0} {1}', github.event.pull_request.number, github.event.pull_request.title) || github.event.head_commit.message }}
+          SUMMARY: ${{ github.event_name == 'pull_request' && format('#{0} {1}', github.event.pull_request.number, github.event.pull_request.title) || github.event.head_commit.message || 'Scheduled rebuild' }}
           SHA: ${{ github.event.pull_request.head.sha || github.sha }}
         run: |
           test -n "$DELIVER_TO" || { echo "::error::The enquiry email address secret isn't set"; exit 1; }
@@ -202,8 +206,8 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REF: ${{ github.head_ref || github.ref_name }}
-          ENVIRONMENT: ${{ github.event_name == 'push' && 'production' || 'preview' }}
-          URL: ${{ github.event_name == 'push' && 'https://horizonpsychology.co.uk' || steps.deploy.outputs.pages-deployment-alias-url }}
+          ENVIRONMENT: ${{ github.event_name != 'pull_request' && 'production' || 'preview' }}
+          URL: ${{ github.event_name != 'pull_request' && 'https://horizonpsychology.co.uk' || steps.deploy.outputs.pages-deployment-alias-url }}
         run: |
           id=$(jq -n --arg ref "$REF" --arg environment "$ENVIRONMENT" \
             '{ref: $ref, environment: $environment, auto_merge: false, required_contexts: []}' |
