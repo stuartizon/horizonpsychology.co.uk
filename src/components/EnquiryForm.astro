@@ -67,7 +67,13 @@ import Panel from "./Panel.astro";
             required
           />
           <span>
-            I have read the <a href="/privacy-policy/">privacy policy</a>.
+            I have read the{" "}
+            {/* Opens in a new tab, so a visitor doesn't lose what they've typed. */}
+            <a href="/privacy-policy/" target="_blank" rel="noopener">
+              privacy policy
+              <span class="visually-hidden">{" (opens in a new tab)"}</span>
+            </a>
+            .
             <span class="required" aria-hidden="true">
               {" "}
               *
@@ -227,6 +233,15 @@ import Panel from "./Panel.astro";
 <style>
   .enquiry__trap {
     display: none;
+  }
+
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
   }
 
   .enquiry__form,
