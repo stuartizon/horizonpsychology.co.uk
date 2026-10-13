@@ -65,7 +65,7 @@ for (const width of [320, 768]) {
   });
 }
 
-test("the link to section 7 of the privacy notice shows its heading below the header", async ({
+test("the link to section 7 of the privacy policy shows its heading below the header", async ({
   page,
 }) => {
   await page.goto("/privacy-policy/");

@@ -1,6 +1,6 @@
 ---
-title: Privacy notice
-lead: Horizon Psychology is committed to protecting your privacy and handling your personal information with care, confidentiality and transparency. This Privacy Notice explains how personal information is collected, used, stored and shared when you contact or access services through Horizon Psychology.
+title: Privacy policy
+lead: Horizon Psychology is committed to protecting your privacy and handling your personal information with care, confidentiality and transparency. This Privacy Policy explains how personal information is collected, used, stored and shared when you contact or access services through Horizon Psychology.
 description: Horizon Psychology is committed to protecting your privacy and handling your personal information with care, confidentiality and transparency.
 draft: false
 ---
@@ -13,7 +13,7 @@ Dr Emma Izon is the data controller for Horizon Psychology. As a sole practition
 
 Contact email: [hello@horizonpsychology.co.uk](mailto:hello@horizonpsychology.co.uk)
 
-If you have questions about this Privacy Notice or how your personal information is handled, please contact the email address above.
+If you have questions about this Privacy Policy or how your personal information is handled, please contact the email address above.
 
 ## 2. Information we collect and use
 
@@ -51,7 +51,7 @@ Where clinical cases or research participants are discussed, identifying informa
 
 ### Online sessions and recordings
 
-Online therapy and supervision sessions delivered through Zoom or Google Meet are not recorded by Horizon Psychology. Audio and video recordings are not made, and sessions are not transcribed using AI tools. Information shared during sessions is treated confidentially and handled in accordance with this Privacy Notice and the [Horizon Psychology Confidentiality Statement](/confidentiality/).
+Online therapy and supervision sessions delivered through Zoom or Google Meet are not recorded by Horizon Psychology. Audio and video recordings are not made, and sessions are not transcribed using AI tools. Information shared during sessions is treated confidentially and handled in accordance with this Privacy Policy and the [Horizon Psychology Confidentiality Statement](/confidentiality/).
 
 ### Payments, queries and complaints
 
@@ -140,7 +140,7 @@ These providers may process personal information to deliver their services. Appr
 
 Personal information is not sold or shared with third parties for their own marketing purposes.
 
-If additional appointment-booking, payment-processing, clinical-record or video-conferencing services are introduced, this notice may be updated to reflect how they process personal information.
+If additional appointment-booking, payment-processing, clinical-record or video-conferencing services are introduced, this policy may be updated to reflect how they process personal information.
 
 ### Confidentiality and information sharing
 
@@ -198,12 +198,10 @@ You may express preferences about how your information is shared, including afte
 
 ## 11. Cookies and website usage
 
-The Horizon Psychology website may use cookies or similar technologies to support website functionality, security or analytics.
+Horizon Psychology does not currently use cookies or similar technologies to track visitors or analyse website usage.
 
-The specific cookies and technologies used depend on the website's configuration. Where consent is required for non-essential cookies or similar technologies, appropriate consent will be obtained.
+## 12. Changes to this Privacy Policy
 
-## 12. Changes to this Privacy Notice
-
-This Privacy Notice may be updated from time to time to reflect changes in the services provided, data protection requirements or the way personal information is handled. The latest version will be available on the Horizon Psychology website.
+This Privacy Policy may be updated from time to time to reflect changes in the services provided, data protection requirements or the way personal information is handled. The latest version will be available on the Horizon Psychology website.
 
 **Last updated:** October 2026

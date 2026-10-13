@@ -166,14 +166,14 @@ for (const path of ["/confidentiality/", "/complaints/", "/privacy-policy/"]) {
   });
 }
 
-describe("the Privacy notice page", () => {
+describe("the Privacy policy page", () => {
   const document = page("/privacy-policy/");
   const main = document.querySelector("main")!;
   const link = (href: string) => text(main.querySelector(`a[href="${href}"]`));
 
   test("has its title, heading and description", () => {
-    expect(document.title).toMatch(/^Privacy notice \| /);
-    expect(texts(document, "h1")).toEqual(["Privacy notice"]);
+    expect(document.title).toMatch(/^Privacy policy \| /);
+    expect(texts(document, "h1")).toEqual(["Privacy policy"]);
     expect(
       document
         .querySelector('meta[name="description"]')
@@ -200,8 +200,19 @@ describe("the Privacy notice page", () => {
       "9. How your information is protected",
       "10. Confidentiality after death",
       "11. Cookies and website usage",
-      "12. Changes to this Privacy Notice",
+      "12. Changes to this Privacy Policy",
     ]);
+  });
+
+  test("calls itself a privacy policy, never a notice", () => {
+    expect(text(main)).not.toMatch(/notice/i);
+  });
+
+  test("says the website uses no cookies", () => {
+    expect(text(main)).toContain(
+      "Horizon Psychology does not currently use cookies or similar technologies to track visitors or analyse website usage.",
+    );
+    expect(text(main)).not.toContain("may use cookies");
   });
 
   test("names the services that handle an enquiry, and says the website keeps none", () => {
