@@ -94,7 +94,6 @@ Once the tests pass, CI deploys the build to Cloudflare Pages ([ADR 0015](docs/a
 
 - each pull request to a preview at `<branch>.horizonpsychology.pages.dev`, linked from the pull request, except pull requests from forks and Dependabot, which don't get the Cloudflare secrets
 - every push to `main` to production at <https://horizonpsychology.co.uk>
-- `main` to production again at midnight UTC on 1 January, so the year in the footer's copyright line is current. GitHub turns off scheduled runs in a public repository after 60 days without activity, so after a quiet spell, check it's still on under the CI workflow in the Actions tab
 
 Before the site, CI deploys the Worker that emails contact form enquiries ([ADR 0020](docs/adr/0020-email-enquiries-from-a-worker-with-cloudflare-email-routing.md)). Pull requests deploy a separate preview Worker that emails Stuart, not Emma.
 
