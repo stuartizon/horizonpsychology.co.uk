@@ -12,7 +12,7 @@ test("the Contact page has its title and heading", () => {
 
 test("the Contact page introduction is Emma's", () => {
   expect(texts(main, ".contact__intro > p")).toEqual([
-    "You don’t need to have everything figured out to take the first step. Whether you’re looking for psychological therapy, clinical or research supervision, or simply have a question, you’re very welcome to get in touch using the contact form below or by emailing hello@horizonpsychology.co.uk.",
+    "You don’t need to have everything figured out to take the first step. Whether you’re looking for psychological therapy, clinical or research supervision, or simply have a question, you’re very welcome to get in touch using the contact form on this page or by emailing hello@horizonpsychology.co.uk.",
     "A free, no-obligation 15-minute phone consultation is available for new therapy clients to discuss what’s bringing them to therapy and explore how Emma might help. For supervision enquiries, please get in touch to discuss your needs and how we might work together.",
     "Sessions are available online via secure video call or face-to-face in Buckinghamshire. Emma aims to respond to enquiries within 48 hours.",
   ]);
