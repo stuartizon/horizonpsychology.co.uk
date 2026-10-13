@@ -14,6 +14,9 @@
   // DELIVER_TO, the verified Email Routing address the email is delivered
   // to, is private, so CI uploads it from a GitHub Actions secret.
   "secrets": { "required": ["DELIVER_TO"] },
+  // A failed send is kept in Workers Logs and raised as an Issue, which
+  // alerts Stuart (ADR 0021). The logs never quote an enquiry.
+  "observability": { "enabled": true, "issues": { "enabled": true } },
   "env": {
     // Pull request previews email Stuart, never Emma.
     "preview": {
