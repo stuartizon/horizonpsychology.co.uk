@@ -67,3 +67,12 @@ test("the footer has no detectable accessibility violations", async ({
 
   expect(results.violations).toEqual([]);
 });
+
+test("the copyright line shows the visitor's current year, not the year the site was built", async ({
+  page,
+}) => {
+  await page.clock.setFixedTime(new Date("2031-06-01T12:00:00Z"));
+  await page.goto("/");
+
+  await expect(footer(page)).toContainText("© 2031 Horizon Psychology");
+});
