@@ -11,7 +11,7 @@ Emma's Cloudflare account is on the Free plan. Cloudflare's custom alerts, which
 ## Decision
 
 - Both enquiry Workers, production and preview, turn on Workers Logs and Issues in `wrangler.jsonc` (`observability.enabled` and `observability.issues.enabled`). A failed send is kept in the logs for three days and grouped as an Issue. Issues records the Worker's 5xx responses and `console.error` output, so it sees a failed send without any change to the code. The logs still say only that a send failed and the error's type.
-- In the Cloudflare dashboard, an Issues automation starts a Claude Code routine on Stuart's Claude account when an issue occurs. The routine opens an issue in this repository first, so GitHub emails Stuart, then investigates and comments with what it finds.
+- In the Cloudflare dashboard, an Issues automation starts a Claude Code routine on Stuart's Claude account when an issue occurs. The routine opens an issue in this repository, emails Stuart's Gmail address through the Gmail connector with the issue's link and the error type, then investigates and comments on the issue with what it finds. The issue is opened as Stuart, and GitHub doesn't notify anyone about their own actions, so the email is the alert and the issue is the record.
 - The automation and the routine are set up by hand and listed in the README.
 
 ## Alternatives considered
@@ -23,8 +23,8 @@ Emma's Cloudflare account is on the Free plan. Cloudflare's custom alerts, which
 
 ## Consequences
 
-- Stuart hears about a failed send by email, from GitHub, with a first diagnosis, even when it's email sending that has failed.
-- The alert depends on a paid Claude plan. If it's cancelled, the routine stops and nobody is told, though failures are still listed under Issues in the Cloudflare dashboard. Move the automation to another destination before cancelling, or add the backup (#205).
+- Stuart hears about a failed send by email, through Gmail rather than Cloudflare, with a first diagnosis, even when it's the site's email sending that has failed.
+- The alert depends on a paid Claude plan. If it's cancelled, the routine stops and nobody is told, though failures are still listed under Issues in the Cloudflare dashboard. Move the automation to another destination before cancelling, or add the backup (#205). The routine also stops running while the Claude subscription is paused, or after its GitHub connection has been expired for 72 hours.
 - Issues is in open beta and free during it. If it's priced later, it's one setting per Worker to turn off.
 - The Pages Function's own failure, when it can't reach the Worker, isn't covered: the Worker never runs, and Pages Functions don't keep logs, only stream them live.
 - What Issues sends the routine includes the Worker's logs and request details. The request comes from the Pages Function, not the visitor, and the logs never quote an enquiry, so nothing from the enquiry leaves Cloudflare.
