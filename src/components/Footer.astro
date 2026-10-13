@@ -13,7 +13,7 @@ import Container from "./Container.astro";
 import Eyebrow from "./Eyebrow.astro";
 
 const email = CONTACT_EMAIL;
-// Set when the site is built. CI rebuilds it on 1 January to keep it current.
+// The year the site was built, which the script updates to the current year.
 const year = new Date().getFullYear();
 
 const groups = [
@@ -50,10 +50,15 @@ const groups = [
       ))}
     </div>
     <p class="footer__copyright">
-      © {year} {SITE_TITLE}
+      © <span data-current-year>{year}</span> {SITE_TITLE}
     </p>
   </Container>
 </footer>
+
+<script>
+  const year = document.querySelector("[data-current-year]");
+  if (year) year.textContent = String(new Date().getFullYear());
+</script>
 
 <style>
   .footer {
