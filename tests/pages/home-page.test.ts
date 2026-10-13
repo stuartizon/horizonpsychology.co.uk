@@ -15,9 +15,7 @@ test("the hero introduces Emma and the practice, and invites you to get in touch
   expect(text(hero.querySelector(".eyebrow"))).toBe(
     "Dr Emma Izon · Clinical Psychologist",
   );
-  expect(texts(document, "h1")).toEqual([
-    "Beyond the horizon, there is space for hope, growth and new beginnings",
-  ]);
+  expect(texts(document, "h1")).toEqual(["Beyond the horizon, there is hope"]);
   expect(text(hero.querySelector(".section-heading__subtitle"))).toBe(
     "Psychological therapy, clinical and research supervision for adults. Online, or face-to-face in Buckinghamshire. Helping you move through difficult times, one step at a time.",
   );
