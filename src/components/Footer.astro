@@ -7,12 +7,14 @@ import {
   research,
   serviceLinks,
 } from "@/data/navigation";
-import { CONTACT_EMAIL } from "@/consts";
+import { CONTACT_EMAIL, SITE_TITLE } from "@/consts";
 import Brand from "./Brand.astro";
 import Container from "./Container.astro";
 import Eyebrow from "./Eyebrow.astro";
 
 const email = CONTACT_EMAIL;
+// The year the site was built, which the script updates to the current year.
+const year = new Date().getFullYear();
 
 const groups = [
   { title: "Work together", links: serviceLinks },
@@ -47,8 +49,16 @@ const groups = [
         </nav>
       ))}
     </div>
+    <p class="footer__copyright">
+      © <span data-current-year>{year}</span> {SITE_TITLE}
+    </p>
   </Container>
 </footer>
+
+<script>
+  const year = document.querySelector("[data-current-year]");
+  if (year) year.textContent = String(new Date().getFullYear());
+</script>
 
 <style>
   .footer {
@@ -105,6 +115,12 @@ const groups = [
 
   .footer__group a:hover {
     color: var(--color-sage-800);
+  }
+
+  .footer__copyright {
+    margin: 28px 0 0;
+    color: var(--color-ink-soft);
+    font-size: var(--text-caption);
   }
 
   @media (min-width: 48rem) {
