@@ -11,7 +11,7 @@ test("invites a free 15-minute call", async () => {
   expect(
     panel.querySelector("p")?.textContent?.replace(/\s+/g, " ").trim(),
   ).toBe(
-    "Taking the first step can feel daunting. Emma offers a free, no-obligation call to discuss your needs, answer questions and explore how she can help.",
+    "Taking the first step can feel daunting. We offer a free, no-obligation call to discuss your needs, answer questions and explore how we can help.",
   );
 });
 
