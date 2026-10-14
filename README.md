@@ -71,7 +71,7 @@ tests/
   browser/      # Playwright browser and accessibility tests
 functions/      # Cloudflare Pages Functions, one file per route, such as api/enquiry.ts
 workers/        # Cloudflare Workers, each with its own wrangler.jsonc, such as enquiry-email/
-public/         # static assets served as-is (favicon, robots.txt)
+public/         # static assets served as-is (favicon, robots.txt), and _headers, the security headers Cloudflare Pages adds
 docs/adr/       # architecture decision records
 docs/design/    # dated snapshot of the design from Claude Design
 ```
