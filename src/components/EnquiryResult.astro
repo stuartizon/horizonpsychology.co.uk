@@ -1,0 +1,58 @@
+---
+// What happened to an enquiry sent without JavaScript, in place of the form,
+// with the same words the form's script shows.
+import { CONTACT_EMAIL } from "@/consts";
+import Button from "./Button.astro";
+import Panel from "./Panel.astro";
+
+interface Props {
+  result: "sent" | "not-sent";
+}
+
+const { result } = Astro.props;
+---
+
+<Panel variant="white">
+  <div class="enquiry-result">
+    {result === "sent" ? (
+      <h2>Thank you — your enquiry has been sent</h2>
+    ) : (
+      <>
+        <h2>Sorry, your enquiry couldn’t be sent</h2>
+        <p>
+          Please use your browser’s Back button to return to what you wrote and
+          try again, or email{" "}
+          <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.
+        </p>
+      </>
+    )}
+    <div class="enquiry-result__button">
+      <Button
+        href="/contact/"
+        label={
+          result === "sent"
+            ? "Send another enquiry"
+            : "Back to the contact form"
+        }
+        variant="secondary"
+      />
+    </div>
+  </div>
+</Panel>
+
+<style>
+  .enquiry-result {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .enquiry-result p {
+    margin: 0;
+  }
+
+  .enquiry-result__button {
+    display: flex;
+    justify-content: center;
+  }
+</style>

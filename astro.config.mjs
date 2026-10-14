@@ -5,6 +5,11 @@ import externalLinks from "./src/markdown/externalLinks";
 
 export default defineConfig({
   site: "https://horizonpsychology.co.uk",
-  integrations: [sitemap()],
+  integrations: [
+    sitemap({
+      // Pages only reached by sending the contact form without JavaScript.
+      filter: (page) => !/\/contact\/(not-)?sent\/$/.test(page),
+    }),
+  ],
   markdown: { processor: satteri({ hastPlugins: [externalLinks] }) },
 });

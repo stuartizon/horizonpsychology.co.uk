@@ -110,7 +110,10 @@ describe("POST /api/enquiry", () => {
     const response = await onRequestPost({
       request: new Request("https://horizonpsychology.co.uk/api/enquiry", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
         body: "{",
       }),
       env: { ENQUIRY_EMAIL: { fetch: worker } },

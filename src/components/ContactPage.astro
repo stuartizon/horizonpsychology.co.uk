@@ -1,0 +1,131 @@
+---
+// The Contact page: Emma's introduction and the urgent support notice, beside
+// the enquiry form. Without JavaScript, the form posts to the enquiry function,
+// which redirects to a copy of this page with the result in place of the form.
+import Container from "@/components/Container.astro";
+import EnquiryForm from "@/components/EnquiryForm.astro";
+import EnquiryResult from "@/components/EnquiryResult.astro";
+import Eyebrow from "@/components/Eyebrow.astro";
+import Panel from "@/components/Panel.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
+import { CONTACT_EMAIL } from "@/consts";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  /** What happened to an enquiry sent without JavaScript, shown instead of the form. */
+  result?: "sent" | "not-sent";
+}
+
+const { title, description, result } = Astro.props;
+---
+
+<BaseLayout {title} {description} noindex={result !== undefined}>
+  <Container>
+    <div class="contact">
+      <div class="contact__intro">
+        <SectionHeading eyebrow="Contact us" title="Get in touch" level="h1" />
+        <p>
+          You don’t need to have everything figured out to take the first step.
+          Whether you’re looking for psychological therapy, clinical or research
+          supervision, or simply have a question, you’re very welcome to get in
+          touch using the contact form on this page or by emailing{" "}
+          <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.
+        </p>
+        <p>
+          A free, no-obligation 15-minute phone consultation is available for
+          new therapy clients to discuss what’s bringing them to therapy and
+          explore how Emma might help. For supervision enquiries, please get in
+          touch to discuss your needs and how we might work together.
+        </p>
+        <p>
+          Sessions are available online via secure video call or face-to-face in
+          Buckinghamshire. Emma aims to respond to enquiries within 48 hours.
+        </p>
+      </div>
+      <div class="contact__form">
+        {result ? <EnquiryResult {result} /> : <EnquiryForm />}
+      </div>
+      <aside class="contact__help" aria-labelledby="help-now-title">
+        <Panel variant="amber">
+          <div class="contact__help-text">
+            <p class="contact__help-title" id="help-now-title">
+              <Eyebrow>If you need urgent support</Eyebrow>
+            </p>
+            <p>
+              Horizon Psychology is not an emergency or crisis service. If you
+              need urgent mental health support, please contact your local
+              healthcare provider or crisis service. If you are in immediate
+              danger or need urgent medical attention, contact your local
+              emergency services or attend the nearest emergency department.
+            </p>
+            <p>
+              If you are in the UK, you can contact your GP, call NHS 111 for
+              urgent mental health support, or call Samaritans free on 116 123,
+              at any time of day or night. If you are outside the UK, please
+              contact the relevant crisis support service in your country.
+            </p>
+          </div>
+        </Panel>
+      </aside>
+    </div>
+  </Container>
+</BaseLayout>
+
+<style>
+  p {
+    margin: 0;
+  }
+
+  .contact {
+    display: grid;
+    gap: clamp(28px, 5vw, 64px);
+    padding-block: var(--section-y-tight) var(--section-y);
+  }
+
+  .contact__intro {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  .contact__help-text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    font-size: var(--text-small);
+    line-height: 1.6;
+  }
+
+  /* So the paragraph is only as tall as the eyebrow, not a line of body text. */
+  .contact__help-title {
+    display: flex;
+  }
+
+  .contact__help-title :global(.eyebrow) {
+    color: inherit;
+  }
+
+  /* From a tablet up, the form sits beside the introduction, with the help
+     notice below the introduction. */
+  @media (min-width: 48rem) {
+    .contact {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr);
+      grid-template-rows: auto 1fr;
+      align-items: start;
+    }
+
+    .contact__intro {
+      grid-area: 1 / 1;
+    }
+
+    .contact__help {
+      grid-area: 2 / 1;
+    }
+
+    .contact__form {
+      grid-area: 1 / 2 / 3 / 3;
+    }
+  }
+</style>
