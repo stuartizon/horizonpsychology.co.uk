@@ -1,3 +1,4 @@
+import { CONTACT_EMAIL, SITE_DESCRIPTION, SITE_TITLE } from "@/consts";
 import { services } from "@/data/services";
 import { expect, test } from "vitest";
 import { labelled, link, page, text, texts } from "./pages";
@@ -80,4 +81,55 @@ test("the testimonials and credential badges are no longer on the home page", ()
   expect(document.querySelector("[data-testimonial-carousel]")).toBeNull();
   expect(texts(document, "h2")).not.toContain("Testimonials");
   expect(text(document.querySelector("main"))).not.toContain("HCPC registered");
+});
+
+test("describes the practice and Emma for search engines, with the site's details", () => {
+  const scripts = document.querySelectorAll(
+    'script[type="application/ld+json"]',
+  );
+  expect(scripts).toHaveLength(1);
+  const { "@context": context, "@graph": graph } = JSON.parse(
+    scripts[0].textContent!,
+  );
+  const practice = graph.find(
+    (node: { "@type": string }) => node["@type"] === "MedicalBusiness",
+  );
+  const emma = graph.find(
+    (node: { "@type": string }) => node["@type"] === "Person",
+  );
+
+  expect(context).toBe("https://schema.org");
+  expect(practice).toMatchObject({
+    name: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    url: "https://horizonpsychology.co.uk/",
+    email: CONTACT_EMAIL,
+    areaServed: { "@type": "AdministrativeArea", name: "Buckinghamshire" },
+    founder: { "@id": emma["@id"] },
+  });
+  expect(emma).toMatchObject({
+    name: "Emma Izon",
+    honorificPrefix: "Dr",
+    jobTitle: "Clinical Psychologist",
+    url: "https://horizonpsychology.co.uk/about/",
+    worksFor: { "@id": practice["@id"] },
+  });
+  expect(
+    emma.hasCredential.map(
+      (credential: { recognizedBy: { name: string } }) =>
+        credential.recognizedBy.name,
+    ),
+  ).toEqual([
+    "Health and Care Professions Council",
+    "British Association for Behavioural and Cognitive Psychotherapies",
+  ]);
+});
+
+test("gives no address or phone number for search engines, as the site shows neither", () => {
+  const data = document.querySelector(
+    'script[type="application/ld+json"]',
+  )?.textContent;
+
+  expect(data).toBeTruthy();
+  expect(data).not.toMatch(/"(address|telephone)"/);
 });

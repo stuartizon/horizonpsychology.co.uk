@@ -1,0 +1,58 @@
+---
+// Describes the practice and Emma to search engines, as schema.org JSON-LD.
+// The details match what the site shows: a service area, not an address,
+// and no phone number.
+import { CONTACT_EMAIL, SITE_DESCRIPTION, SITE_TITLE } from "@/consts";
+
+const site = Astro.site!;
+const practiceId = new URL("/#practice", site).href;
+const emmaId = new URL("/about/#emma", site).href;
+
+const data = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "MedicalBusiness",
+      "@id": practiceId,
+      name: SITE_TITLE,
+      description: SITE_DESCRIPTION,
+      url: new URL("/", site).href,
+      email: CONTACT_EMAIL,
+      image: new URL("/share.jpg", site).href,
+      areaServed: { "@type": "AdministrativeArea", name: "Buckinghamshire" },
+      founder: { "@id": emmaId },
+    },
+    {
+      "@type": "Person",
+      "@id": emmaId,
+      name: "Emma Izon",
+      honorificPrefix: "Dr",
+      jobTitle: "Clinical Psychologist",
+      url: new URL("/about/", site).href,
+      worksFor: { "@id": practiceId },
+      hasCredential: [
+        {
+          "@type": "EducationalOccupationalCredential",
+          credentialCategory: "Registration",
+          recognizedBy: {
+            "@type": "Organization",
+            name: "Health and Care Professions Council",
+            url: "https://www.hcpc-uk.org/",
+          },
+        },
+        {
+          "@type": "EducationalOccupationalCredential",
+          credentialCategory: "Accreditation",
+          recognizedBy: {
+            "@type": "Organization",
+            name: "British Association for Behavioural and Cognitive Psychotherapies",
+            url: "https://www.babcp.com/",
+          },
+        },
+      ],
+    },
+  ],
+};
+---
+
+<script is:inline type="application/ld+json" set:html={JSON.stringify(data)} />

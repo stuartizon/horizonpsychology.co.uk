@@ -54,6 +54,7 @@ const canonical = noCanonical
     />
     <meta name="twitter:card" content="summary_large_image" />
     <title>{pageTitle}</title>
+    <slot name="head" />
   </head>
   <body>
     <Navbar wide={wideHeader} />
