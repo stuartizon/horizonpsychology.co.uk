@@ -107,6 +107,9 @@ A few things in the Cloudflare account aren't in the repo, because Wrangler can'
 - **DNS**: Email Routing's MX records, an SPF record that also allows Google (so Gmail can send as addresses on the domain), and a DMARC record.
 - **The Pages project**, its custom domain, and the redirect rule from `www` to the apex domain.
 - **Email Address Obfuscation** (under Scrape Shield) is off. When on, Cloudflare rewrites the site's email addresses as "[email protected]" and adds a script to decode them, so visitors without JavaScript, and some crawlers, don't see the address. It protected little, as the home page's structured data has the address in plain text.
+- **DNSSEC** is on, with its DS record at the domain's registrar.
+- **A rate limiting rule** on the URI path `/api/enquiry` blocks an IP address for 10 seconds after 3 requests in 10 seconds, so the contact form can't be used to flood Emma's inbox. The free plan can't match the request method, and the rule doesn't cover `horizonpsychology.pages.dev`.
+- **Bot Fight Mode** is off, as it can challenge real visitors and the contact form's request.
 - **The enquiry Workers**, `horizonpsychology-enquiry-email` and `horizonpsychology-enquiry-email-preview`, were first deployed by hand. CI's token can edit them but not create Workers, so a new Worker needs a first deploy with `wrangler deploy` and its own Editor permission on the token.
 - **Alerts for failed enquiries** ([ADR 0021](docs/adr/0021-alert-enquiry-failures-with-workers-issues-and-a-claude-code-routine.md)): an automation under Workers > Issues in the Cloudflare dashboard starts a Claude Code routine, through the routine's API trigger, when the enquiry Worker records an issue. The routine, on Stuart's Claude account, opens an issue in this repository, emails Stuart through its Gmail connector, then investigates. It needs a paid Claude plan: if that's cancelled, failures still appear under Issues in the dashboard, but nobody is told.
 
