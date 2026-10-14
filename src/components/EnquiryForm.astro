@@ -199,8 +199,9 @@ import Panel from "./Panel.astro";
 
       failure.replaceChildren();
       showSending(true);
+      let response: Response;
       try {
-        const response = await fetch(form.action, {
+        response = await fetch(form.action, {
           method: "POST",
           headers: { Accept: "application/json" },
           body: new URLSearchParams(
@@ -210,16 +211,30 @@ import Panel from "./Panel.astro";
             ]),
           ),
         });
-        if (!response.ok) throw new Error(`Status ${response.status}`);
-        form.reset();
-        form.hidden = true;
-        sent.hidden = false;
-        sent.querySelector("h2")!.focus();
       } catch {
-        failure.replaceChildren(failureMessage.content.cloneNode(true));
-      } finally {
-        showSending(false);
+        // The request didn't reach the site, as when a web filter redirects
+        // it, which the browser won't follow for a script. An ordinary
+        // submission does follow it, so the form is sent that way instead,
+        // still showing it's sending, and the site answers with a page
+        // saying whether it was sent.
+        form.submit();
+        return;
       }
+      showSending(false);
+      if (!response.ok) {
+        failure.replaceChildren(failureMessage.content.cloneNode(true));
+        return;
+      }
+      form.reset();
+      form.hidden = true;
+      sent.hidden = false;
+      sent.querySelector("h2")!.focus();
+    });
+
+    // Coming back to the page after an ordinary submission, it may be shown
+    // as it was left, still sending.
+    addEventListener("pageshow", (event) => {
+      if (event.persisted) showSending(false);
     });
 
     sent.querySelector(".enquiry__again")!.addEventListener("click", () => {
