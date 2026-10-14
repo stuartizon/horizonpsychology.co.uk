@@ -159,6 +159,57 @@ test("swiping left shows the next testimonial, and swiping right goes back", asy
   await expect(showing(page)).toContainText(first.name);
 });
 
+const cursor = (page: Page) =>
+  showing(page)
+    .locator("blockquote")
+    .evaluate((quote) => getComputedStyle(quote).cursor);
+
+test("the testimonial shows a grab cursor, and grabbing while it's dragged", async ({
+  page,
+  isMobile,
+}) => {
+  test.skip(isMobile, "Phones have no cursor");
+  await showing(page).scrollIntoViewIfNeeded();
+  const box = (await showing(page).boundingBox())!;
+
+  expect(await cursor(page)).toBe("grab");
+  await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+  await page.mouse.down();
+  expect(await cursor(page)).toBe("grabbing");
+  await page.mouse.up();
+  expect(await cursor(page)).toBe("grab");
+
+  for (const button of await carousel(page).getByRole("button").all())
+    expect(await button.evaluate((el) => getComputedStyle(el).cursor)).toBe(
+      "pointer",
+    );
+});
+
+test("dragging the testimonial sideways doesn't select its text, but dragging down does", async ({
+  page,
+  isMobile,
+}) => {
+  test.skip(isMobile, "Phones have no mouse");
+  const quote = showing(page).locator("blockquote");
+  await quote.scrollIntoViewIfNeeded();
+  const box = (await quote.boundingBox())!;
+  const y = box.y + box.height / 2;
+  const selected = () => page.evaluate(() => getSelection()!.toString());
+
+  await page.mouse.move(box.x + box.width * 0.6, y);
+  await page.mouse.down();
+  await page.mouse.move(box.x + box.width * 0.55, y, { steps: 4 });
+  await page.mouse.up();
+  expect(await selected()).toBe("");
+
+  // Dragging down the quote with a mouse selects it, so it can be copied.
+  await page.mouse.move(box.x + box.width / 2, box.y + 4);
+  await page.mouse.down();
+  await page.mouse.move(box.x + box.width / 2, y, { steps: 4 });
+  await page.mouse.up();
+  expect(await selected()).not.toBe("");
+});
+
 test("on a phone the arrows are hidden, and the testimonial runs the full width", async ({
   page,
   isMobile,
