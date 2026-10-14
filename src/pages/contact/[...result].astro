@@ -1,7 +1,8 @@
 ---
 // The Contact page: Emma's introduction and the urgent support notice, beside
 // the enquiry form. Without JavaScript, the form posts to the enquiry function,
-// which redirects to a copy of this page with the result in place of the form.
+// which redirects to /contact/sent/ or /contact/not-sent/: this page with the
+// result in place of the form, kept out of search results and the sitemap.
 import Container from "@/components/Container.astro";
 import EnquiryForm from "@/components/EnquiryForm.astro";
 import EnquiryResult from "@/components/EnquiryResult.astro";
@@ -10,6 +11,35 @@ import Panel from "@/components/Panel.astro";
 import SectionHeading from "@/components/SectionHeading.astro";
 import { CONTACT_EMAIL } from "@/consts";
 import BaseLayout from "@/layouts/BaseLayout.astro";
+
+export function getStaticPaths() {
+  return [
+    {
+      params: { result: undefined },
+      props: {
+        title: "Contact",
+        description:
+          "Get in touch with Horizon Psychology about therapy or supervision.",
+      },
+    },
+    {
+      params: { result: "sent" },
+      props: {
+        title: "Enquiry sent",
+        description: "Your enquiry to Horizon Psychology has been sent.",
+        result: "sent",
+      },
+    },
+    {
+      params: { result: "not-sent" },
+      props: {
+        title: "Enquiry not sent",
+        description: "Your enquiry to Horizon Psychology couldn’t be sent.",
+        result: "not-sent",
+      },
+    },
+  ] as const;
+}
 
 interface Props {
   title: string;

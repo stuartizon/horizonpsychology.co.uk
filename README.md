@@ -54,7 +54,7 @@ The dev server runs on <http://127.0.0.1:4321>.
 
 ```
 src/
-  pages/        # one file per route; [therapyId].astro renders the service pages, [legalId].astro the legal pages
+  pages/        # one file per route; [therapyId].astro renders the service pages, [legalId].astro the legal pages, contact/[...result].astro the Contact page and the pages shown after sending without JavaScript
   layouts/      # BaseLayout.astro: head, header and footer
   components/   # .astro components, each with its own scoped styles and any script
   content/      # Markdown content collections, such as the legal pages, defined in content.config.ts
