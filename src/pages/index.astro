@@ -6,12 +6,14 @@ import IntroCallPanel from "@/components/IntroCallPanel.astro";
 import QuoteBand from "@/components/QuoteBand.astro";
 import SectionHeading from "@/components/SectionHeading.astro";
 import ServiceCard from "@/components/ServiceCard.astro";
+import StructuredData from "@/components/StructuredData.astro";
 import { services } from "@/data/services";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import portrait from "@/photos/home.jpg";
 ---
 
 <BaseLayout wideHeader>
+  <StructuredData slot="head" />
   <Container>
     <div class="hero">
       <div class="hero__text">
