@@ -179,7 +179,7 @@ test("after sending, another enquiry starts from an empty form", async ({
 test("an enquiry that fails to send says so, and keeps what was written", async ({
   page,
 }) => {
-  await answerEnquiries(page, 500);
+  const requests = await answerEnquiries(page, 500);
   await fillIn(page);
 
   await send(page);
@@ -193,6 +193,39 @@ test("an enquiry that fails to send says so, and keeps what was written", async 
       name: "Thank you — your enquiry has been sent",
     }),
   ).toBeHidden();
+  // The site answered, so the enquiry isn't sent again another way.
+  expect(requests).toHaveLength(1);
+});
+
+test("an enquiry that can't reach the site, such as behind a web filter, is sent again as an ordinary form, still showing it's sending", async ({
+  page,
+}) => {
+  // The script's request fails on the network. The ordinary submission is
+  // held, so the test can see the form while it's sending, then answered.
+  const requests: Request[] = [];
+  let release!: () => void;
+  const released = new Promise<void>((resolve) => (release = resolve));
+  await page.route("**/api/enquiry", async (route) => {
+    requests.push(route.request());
+    if (route.request().resourceType() === "fetch") return route.abort();
+    await released;
+    await route.fulfill({ contentType: "text/html", body: "<p>Sent</p>" });
+  });
+  await fillIn(page);
+
+  await send(page);
+
+  await expect.poll(() => requests.length).toBe(2);
+  expect(requests.map((request) => request.resourceType())).toEqual([
+    "fetch",
+    "document",
+  ]);
+  expect(requests[1].postData()).toBe(requests[0].postData());
+  await expect(page.getByRole("status")).toHaveText("Sending your enquiry…");
+  await expect(page.getByRole("alert")).toBeEmpty();
+
+  release();
+  await expect(page).toHaveURL(/\/api\/enquiry$/);
 });
 
 for (const width of [320, 768, 1280]) {
