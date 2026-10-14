@@ -168,6 +168,30 @@ test.describe("on the home page from tablet width", () => {
     expect(await mainTop()).toBe(77 - 100);
   });
 
+  test("where the browser supports it, the page follows the scroll with a scroll-driven animation, so it doesn't lag behind", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1280, height: 800 });
+    await page.goto("/");
+    test.skip(
+      !(await page.evaluate(() =>
+        CSS.supports("animation-timeline: scroll()"),
+      )),
+      "The browser doesn't support scroll-driven animations, so the script moves the page",
+    );
+
+    const timelines = await page.evaluate(() =>
+      ["main", "footer"].map((name) =>
+        document
+          .querySelector(`body > ${name}`)!
+          .getAnimations()
+          .map((animation) => animation.timeline?.constructor.name),
+      ),
+    );
+
+    expect(timelines).toEqual([["ScrollTimeline"], ["ScrollTimeline"]]);
+  });
+
   test("at 768px the full logo fits beside the navigation", async ({
     page,
   }) => {
