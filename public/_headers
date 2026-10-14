@@ -1,0 +1,7 @@
+# Headers Cloudflare Pages adds to the site's pages and files (#220).
+# They don't apply to responses from Pages Functions.
+/*
+  Strict-Transport-Security: max-age=31536000
+  X-Frame-Options: DENY
+  Content-Security-Policy: frame-ancestors 'none'
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
