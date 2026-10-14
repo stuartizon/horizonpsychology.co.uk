@@ -235,6 +235,32 @@ const { wide = false } = Astro.props;
         calc((var(--shrink) - var(--distance)) * (1 - var(--progress)))
       );
     }
+
+    /* Where it can, the browser moves the page itself, on the thread it
+       scrolls on, so the page doesn't lag a frame behind the scroll and jerk
+       as the script catches up. The script still moves the header. */
+    @supports (animation-timeline: scroll()) {
+      :global(body:has(.header--wide) > main),
+      :global(body:has(.header--wide) > footer) {
+        /* Longhands, as the build's minifier otherwise merges them into an
+           animation shorthand with the timeline in it, which isn't valid. */
+        animation-name: page-follows-header;
+        animation-timing-function: linear;
+        animation-fill-mode: both;
+        animation-timeline: scroll(root);
+        animation-range: 0 var(--distance);
+      }
+    }
+  }
+
+  @keyframes page-follows-header {
+    from {
+      transform: translateY(calc(var(--shrink) - var(--distance)));
+    }
+
+    to {
+      transform: none;
+    }
   }
 
   @media (min-width: 64rem) and (prefers-reduced-motion: no-preference) {
