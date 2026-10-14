@@ -169,6 +169,7 @@ test("the testimonial shows a grab cursor, and grabbing while it's dragged", asy
   isMobile,
 }) => {
   test.skip(isMobile, "Phones have no cursor");
+  await showing(page).scrollIntoViewIfNeeded();
   const box = (await showing(page).boundingBox())!;
 
   expect(await cursor(page)).toBe("grab");
@@ -184,12 +185,13 @@ test("the testimonial shows a grab cursor, and grabbing while it's dragged", asy
     );
 });
 
-test("dragging the testimonial doesn't select its text, but it can still be selected", async ({
+test("dragging the testimonial sideways doesn't select its text, but dragging down does", async ({
   page,
   isMobile,
 }) => {
   test.skip(isMobile, "Phones have no mouse");
   const quote = showing(page).locator("blockquote");
+  await quote.scrollIntoViewIfNeeded();
   const box = (await quote.boundingBox())!;
   const y = box.y + box.height / 2;
   const selected = () => page.evaluate(() => getSelection()!.toString());
@@ -200,7 +202,11 @@ test("dragging the testimonial doesn't select its text, but it can still be sele
   await page.mouse.up();
   expect(await selected()).toBe("");
 
-  await quote.dblclick();
+  // Dragging down the quote with a mouse selects it, so it can be copied.
+  await page.mouse.move(box.x + box.width / 2, box.y + 4);
+  await page.mouse.down();
+  await page.mouse.move(box.x + box.width / 2, y, { steps: 4 });
+  await page.mouse.up();
   expect(await selected()).not.toBe("");
 });
 
