@@ -197,12 +197,12 @@ test("an enquiry that fails to send says so, and keeps what was written", async 
   expect(requests).toHaveLength(1);
 });
 
-test("an enquiry that can't reach the site, such as behind a web filter, is sent again as an ordinary form, still showing it's sending", async ({
+test("an enquiry that can't reach the site, such as behind a web filter, is sent again as a standard form submission, still showing it's sending", async ({
   page,
 }) => {
-  // The script's request fails on the network, and the ordinary submission
-  // is answered. As the form is submitted the ordinary way, the page reports
-  // what it shows, as the page is gone once it's sent.
+  // The script's fetch fails on the network, and the standard form
+  // submission is answered. As the form is submitted, the page reports what
+  // it shows, as the page is gone once it's sent.
   const requests: Request[] = [];
   let shown: unknown;
   await page.exposeFunction("reportForm", (state: unknown) => {

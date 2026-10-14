@@ -2,7 +2,8 @@
 // The enquiry form on the contact page. Without JavaScript the browser checks
 // the required fields and posts the form; with it, the script checks them,
 // shows errors beside each field, and sends the enquiry without leaving the
-// page. If its request can't reach the site, it posts the form instead.
+// page. If its request can't reach the site, it falls back to a standard
+// form submission.
 import { CONTACT_EMAIL, ENQUIRY_ENDPOINT } from "@/consts";
 import { formats, topics } from "@/data/enquiry";
 import Button from "./Button.astro";
@@ -214,10 +215,10 @@ import Panel from "./Panel.astro";
         });
       } catch {
         // The request didn't reach the site, as when a web filter redirects
-        // it, which the browser won't follow for a script. An ordinary
-        // submission does follow it, so the form is sent that way instead,
-        // still showing it's sending, and the site answers with a page
-        // saying whether it was sent.
+        // it, which the browser won't follow for fetch. A standard HTML form
+        // submission does follow it, so the form is submitted that way
+        // instead, still showing it's sending, and the site redirects it to
+        // a page saying whether it was sent.
         form.submit();
         return;
       }
@@ -232,8 +233,8 @@ import Panel from "./Panel.astro";
       sent.querySelector("h2")!.focus();
     });
 
-    // Coming back to the page after an ordinary submission, it may be shown
-    // as it was left, still sending.
+    // Coming back to the page after a standard form submission, it may be
+    // shown as it was left, still sending.
     addEventListener("pageshow", (event) => {
       if (event.persisted) showSending(false);
     });
