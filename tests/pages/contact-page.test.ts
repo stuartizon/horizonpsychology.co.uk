@@ -1,4 +1,4 @@
-import { expect, test } from "vitest";
+import { describe, expect, test } from "vitest";
 import { labelled, page, spokenText, text, texts } from "./pages";
 
 const document = page("/contact/");
@@ -44,3 +44,58 @@ test("the Contact page has the enquiry form", () => {
     "Send enquiry",
   );
 });
+
+describe.each([
+  {
+    path: "/contact/sent/",
+    title: "Enquiry sent",
+    message: ["Thank you — your enquiry has been sent"],
+    link: ["Send another enquiry", "/contact/"],
+  },
+  {
+    path: "/contact/not-sent/",
+    title: "Enquiry not sent",
+    message: [
+      "Sorry, your enquiry couldn’t be sent",
+      "Please use your browser’s Back button to return to what you wrote and try again, or email hello@horizonpsychology.co.uk.",
+    ],
+    link: ["Back to the contact form", "/contact/"],
+  },
+])(
+  "the page shown after sending without JavaScript, $path",
+  ({ path, title, message, link }) => {
+    const document = page(path);
+    const main = document.querySelector("main")!;
+    const contactMain = page("/contact/").querySelector("main")!;
+
+    test("has its own title, and is kept out of search results", () => {
+      expect(document.title).toBe(`${title} | Horizon Psychology`);
+      expect(
+        document.querySelector('meta[name="robots"]')?.getAttribute("content"),
+      ).toBe("noindex");
+    });
+
+    test("keeps the Contact page's heading, introduction and urgent support", () => {
+      expect(texts(document, "h1")).toEqual(["Get in touch"]);
+      expect(texts(main, ".contact__intro > p")).toEqual(
+        texts(contactMain, ".contact__intro > p"),
+      );
+      expect(texts(labelled(main, "If you need urgent support"), "p")).toEqual(
+        texts(labelled(contactMain, "If you need urgent support"), "p"),
+      );
+    });
+
+    test("shows its message, and a link back to the form, in place of the form", () => {
+      const result = main.querySelector(".contact__form")!;
+
+      expect(main.querySelector("form")).toBeNull();
+      expect([text(result.querySelector("h2")), ...texts(result, "p")]).toEqual(
+        message,
+      );
+      const back = [...result.querySelectorAll("a")].find(
+        (a) => spokenText(a) === link[0],
+      );
+      expect(back?.getAttribute("href")).toBe(link[1]);
+    });
+  },
+);

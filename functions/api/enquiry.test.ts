@@ -22,11 +22,14 @@ const form = {
 let worker: Mock<(input: string, init?: RequestInit) => Promise<Response>>;
 let logged: unknown[][];
 
-const post = (fields: Record<string, string>) =>
+/** Posts `fields` as the form's script does, asking for a status, or as the browser itself does without JavaScript. */
+const post = (fields: Record<string, string>, { script = true } = {}) =>
   onRequestPost({
     request: new Request("https://horizonpsychology.co.uk/api/enquiry", {
       method: "POST",
-      headers: { Accept: "application/json" },
+      headers: script
+        ? { Accept: "application/json" }
+        : { Accept: "text/html,application/xhtml+xml,*/*;q=0.8" },
       body: new URLSearchParams(fields),
     }),
     env: { ENQUIRY_EMAIL: { fetch: worker } },
@@ -161,6 +164,49 @@ describe("POST /api/enquiry", () => {
       for (const value of [form.name, form.email, form.message]) {
         expect(output).not.toContain(value);
       }
+    },
+  );
+});
+
+describe("POST /api/enquiry from the browser itself, without JavaScript", () => {
+  const redirect = (response: Response) => [
+    response.status,
+    response.headers.get("Location"),
+  ];
+
+  it("sends the enquiry and shows the thank-you page", async () => {
+    const response = await post(form, { script: false });
+    expect(redirect(response)).toEqual([303, "/contact/sent/"]);
+    expect(worker).toHaveBeenCalledOnce();
+  });
+
+  it("shows the thank-you page to a bot that fills in the hidden field", async () => {
+    const response = await post(
+      { ...form, leave_empty: "https://spam.example" },
+      { script: false },
+    );
+    expect(redirect(response)).toEqual([303, "/contact/sent/"]);
+    expect(worker).not.toHaveBeenCalled();
+  });
+
+  it.each([
+    ["isn't valid", { ...form, consent: "" }, () => {}],
+    [
+      "is rejected by the email Worker",
+      form,
+      () => worker.mockResolvedValue(new Response(null, { status: 400 })),
+    ],
+    [
+      "can't be sent",
+      form,
+      () => worker.mockRejectedValue(new Error("Network")),
+    ],
+  ])(
+    "shows the not-sent page when the enquiry %s",
+    async (_, fields, setUp) => {
+      setUp();
+      const response = await post(fields, { script: false });
+      expect(redirect(response)).toEqual([303, "/contact/not-sent/"]);
     },
   );
 });
