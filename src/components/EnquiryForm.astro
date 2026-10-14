@@ -1,7 +1,8 @@
 ---
 // The enquiry form on the contact page. Without JavaScript the browser checks
 // the required fields and posts the form; with it, the script checks them,
-// shows errors beside each field, and sends the enquiry without leaving the page.
+// shows errors beside each field, and sends the enquiry without leaving the
+// page. If its request can't reach the site, it posts the form instead.
 import { CONTACT_EMAIL, ENQUIRY_ENDPOINT } from "@/consts";
 import { formats, topics } from "@/data/enquiry";
 import Button from "./Button.astro";
