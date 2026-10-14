@@ -170,6 +170,7 @@ const count = testimonials.length;
       start = { x: event.clientX, y: event.clientY };
       axis = undefined;
       dx = 0;
+      slidesBox.dataset.dragging = "";
       slidesBox.setPointerCapture(event.pointerId);
     });
 
@@ -186,6 +187,7 @@ const count = testimonials.length;
     const endSwipe = () => {
       if (!start) return;
       start = undefined;
+      delete slidesBox.dataset.dragging;
       slides[current].style.transition = "";
       slides[current].style.transform = "";
       if (axis === "x")
@@ -249,7 +251,12 @@ const count = testimonials.length;
     flex: 1;
     overflow: hidden;
     padding-block: clamp(8px, 2vw, 20px);
+    cursor: grab;
     touch-action: pan-y;
+  }
+
+  .carousel__slides[data-dragging] {
+    cursor: grabbing;
   }
 
   /* A shorter quote sits halfway down the space the longest needs. A
