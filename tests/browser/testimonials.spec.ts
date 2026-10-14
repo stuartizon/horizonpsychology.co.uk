@@ -202,6 +202,12 @@ test("dragging the testimonial sideways doesn't select its text, but dragging do
   await page.mouse.up();
   expect(await selected()).toBe("");
 
+  // The testimonial slides back into place before the next drag starts.
+  await expect
+    .poll(() =>
+      showing(page).evaluate((slide) => getComputedStyle(slide).transform),
+    )
+    .toBe("none");
   // Dragging down the quote with a mouse selects it, so it can be copied.
   await page.mouse.move(box.x + box.width / 2, box.y + 4);
   await page.mouse.down();
