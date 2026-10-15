@@ -28,9 +28,7 @@ const answerId = (question: string) =>
           data-faq-toggle
         >
           <span class="faq__question">{question}</span>
-          <span class="faq__toggle-line" aria-hidden="true">
-            <span class="faq__toggle" set:html={plusIcon} />
-          </span>
+          <span class="faq__toggle" aria-hidden="true" set:html={plusIcon} />
         </button>
       </h3>
       <div class="faq__answer" id={answerId(question)}>
@@ -86,7 +84,8 @@ const answerId = (question: string) =>
   button {
     display: flex;
     width: 100%;
-    align-items: baseline;
+    /* The toggle is centred on the question, however many lines it takes. */
+    align-items: center;
     gap: var(--toggle-gap);
     border: 0;
     background: transparent;
@@ -105,18 +104,10 @@ const answerId = (question: string) =>
     flex: 1;
   }
 
-  /* As tall as a line of the question, so the toggle sits level with the
-     first line when the question wraps. */
-  .faq__toggle-line {
-    display: flex;
-    height: 1.3em;
-    flex: none;
-    align-items: center;
-  }
-
   /* A plus that turns into a cross when the answer is open. */
   .faq__toggle {
     display: flex;
+    flex: none;
     width: var(--toggle-size);
     height: var(--toggle-size);
     color: var(--color-sage-600);
