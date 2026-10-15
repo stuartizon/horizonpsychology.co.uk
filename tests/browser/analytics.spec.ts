@@ -1,5 +1,5 @@
 import { expect, test, type Page } from "@playwright/test";
-import { ANALYTICS_DOMAINS, ANALYTICS_WEBSITE_ID } from "@/consts";
+import { ANALYTICS_WEBSITE_ID } from "@/consts";
 
 /**
  * Replaces Umami's script with a stub that records each event, so the tests
@@ -89,10 +89,6 @@ test("loads Umami's analytics with the site's settings, leaving out query string
   const script = page.locator('script[src="https://cloud.umami.is/script.js"]');
   await expect(script).toHaveCount(1);
   await expect(script).toHaveAttribute("data-website-id", ANALYTICS_WEBSITE_ID);
-  await expect(script).toHaveAttribute(
-    "data-domains",
-    ANALYTICS_DOMAINS.join(","),
-  );
   await expect(script).toHaveAttribute("data-exclude-search", "true");
 });
 
@@ -125,3 +121,33 @@ for (const [signal, property, value] of [
     expect(requests).toEqual([]);
   });
 }
+
+test("on the live site, the analytics aren't loaded and the privacy policy has no switch, until it describes them", async ({
+  page,
+  baseURL,
+}) => {
+  const requests: string[] = [];
+  page.on("request", (request) => {
+    if (request.url().startsWith("https://cloud.umami.is/"))
+      requests.push(request.url());
+  });
+  await page.route("https://cloud.umami.is/**", (route) =>
+    route.fulfill({ contentType: "text/javascript", body: "" }),
+  );
+  // Serves this build at the live site's address.
+  await page.route("https://horizonpsychology.co.uk/**", async (route) => {
+    const { pathname } = new URL(route.request().url());
+    route.fulfill({
+      response: await route.fetch({ url: new URL(pathname, baseURL).href }),
+    });
+  });
+
+  await page.goto("https://horizonpsychology.co.uk/privacy-policy/");
+  await page.waitForLoadState("load");
+
+  await expect(page.getByRole("switch")).toHaveCount(0);
+  await expect(
+    page.locator('script[src^="https://cloud.umami.is/"]'),
+  ).toHaveCount(0);
+  expect(requests).toEqual([]);
+});
