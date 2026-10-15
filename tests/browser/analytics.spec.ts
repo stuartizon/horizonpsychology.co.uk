@@ -18,11 +18,16 @@ async function recordEvents(page: Page) {
     page.evaluate(() => (window as unknown as { tracked: unknown[] }).tracked);
 }
 
+/** Waits for the stubbed analytics, so nothing happens before they can count it. */
+const analyticsLoaded = (page: Page) =>
+  page.waitForFunction(() => "umami" in window);
+
 async function sendEnquiry(page: Page, status: number) {
   await page.route("**/api/enquiry", (route) =>
     route.fulfill({ status, json: {} }),
   );
   await page.goto("/contact/");
+  await analyticsLoaded(page);
   await page.getByLabel("Your name").fill("Sam");
   await page.getByLabel("Email").fill("sam@example.com");
   await page.getByLabel("Write a message").fill("Something private");
@@ -56,7 +61,10 @@ test("an enquiry that fails to send isn't counted", async ({ page }) => {
 
 test("clicking an email link is counted", async ({ page }) => {
   const events = await recordEvents(page);
-  await page.goto("/");
+  // Not the home page, whose footer moves as the header shrinks, so a click
+  // there can land before the footer has settled.
+  await page.goto("/faqs/");
+  await analyticsLoaded(page);
   // Stops the click opening an email app, after the page has seen it.
   await page.evaluate(() =>
     window.addEventListener("click", (event) => event.preventDefault()),
