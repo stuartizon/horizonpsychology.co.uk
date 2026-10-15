@@ -3,6 +3,11 @@ import "@fontsource-variable/source-sans-3";
 import "@fontsource-variable/source-sans-3/wght-italic.css";
 import "@fontsource/lora/400.css";
 import "@fontsource/lora/400-italic.css";
+// The Latin files of the two fonts most text uses, preloaded so they download
+// alongside the stylesheet instead of after it, and text flashes less in a
+// fallback font. The same files the stylesheet asks for.
+import loraUrl from "@fontsource/lora/files/lora-latin-400-normal.woff2?url";
+import sourceSansUrl from "@fontsource-variable/source-sans-3/files/source-sans-3-latin-wght-normal.woff2?url";
 import Footer from "../components/Footer.astro";
 import Navbar from "../components/Navbar.astro";
 import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
@@ -40,6 +45,9 @@ const canonical = noCanonical
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
+    {[loraUrl, sourceSansUrl].map((href) => (
+      <link rel="preload" href={href} as="font" type="font/woff2" crossorigin />
+    ))}
     <meta name="description" content={description} />
     {noindex && <meta name="robots" content="noindex" />}
     {canonical && <link rel="canonical" href={canonical} />}

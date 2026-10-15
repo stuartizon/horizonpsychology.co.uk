@@ -36,3 +36,9 @@ test("every page turns off browser features the site doesn't use", () => {
     "camera=(), microphone=(), geolocation=(), payment=(), usb=()",
   );
 });
+
+test("the built files, named by their contents, are cached for a year", () => {
+  expect(headerRules()["/_astro/*"]["cache-control"]).toBe(
+    "public, max-age=31536000, immutable",
+  );
+});
