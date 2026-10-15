@@ -2,8 +2,9 @@
 // its name: nothing a visitor writes, or which service they're enquiring
 // about, is sent. A visitor can opt out (#240): the analytics aren't loaded
 // if their browser sends Global Privacy Control or Do Not Track, and the
-// privacy policy has a button that sets Umami's own opt-out marker.
-import { ANALYTICS_DOMAINS, ANALYTICS_WEBSITE_ID } from "@/consts";
+// privacy policy has a switch that sets Umami's own opt-out marker. For now,
+// only previews are counted, not the live site.
+import { ANALYTICS_WEBSITE_ID, COUNTED_HOSTNAMES } from "@/consts";
 
 type Event = "Enquiry sent" | "Email link clicked";
 
@@ -26,13 +27,17 @@ export function askedNotToTrack() {
   );
 }
 
-/** Adds Umami's script to the page, unless the browser asks not to be tracked. */
+/** Whether visits to the site at `hostname` are counted: only previews, for now. */
+export function countsVisits(hostname = location.hostname) {
+  return COUNTED_HOSTNAMES.test(hostname);
+}
+
+/** Adds Umami's script to the page, where visits are counted, unless the browser asks not to be tracked. */
 export function loadAnalytics() {
-  if (askedNotToTrack()) return;
+  if (!countsVisits() || askedNotToTrack()) return;
   const script = document.createElement("script");
   script.src = "https://cloud.umami.is/script.js";
   script.dataset.websiteId = ANALYTICS_WEBSITE_ID;
-  script.dataset.domains = ANALYTICS_DOMAINS.join(",");
   script.dataset.excludeSearch = "true";
   document.head.append(script);
 }
