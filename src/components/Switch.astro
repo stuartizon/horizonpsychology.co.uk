@@ -30,6 +30,9 @@ const { id, label, class: className } = Astro.props;
 
 <style>
   .switch {
+    /* An even ease, rather than the site's quick ease-out, so the thumb
+       slides across instead of jumping most of the way at once. */
+    --switch-motion: 180ms ease;
     display: flex;
     max-width: 100%;
     align-items: flex-start;
@@ -47,9 +50,9 @@ const { id, label, class: className } = Astro.props;
     background: var(--color-panel);
     cursor: pointer;
     transition:
-      background-color var(--duration-fast) var(--ease-calm),
-      border-color var(--duration-fast) var(--ease-calm),
-      box-shadow var(--duration-fast) var(--ease-calm);
+      background-color var(--switch-motion),
+      border-color var(--switch-motion),
+      box-shadow var(--switch-motion);
   }
 
   .switch__track:focus-visible {
@@ -65,8 +68,8 @@ const { id, label, class: className } = Astro.props;
     border-radius: 50%;
     background: var(--color-line-strong);
     transition:
-      transform var(--duration-fast) var(--ease-calm),
-      background-color var(--duration-fast) var(--ease-calm);
+      transform var(--switch-motion),
+      background-color var(--switch-motion);
   }
 
   .switch__track[aria-checked="true"] {
