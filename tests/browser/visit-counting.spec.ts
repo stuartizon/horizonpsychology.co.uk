@@ -34,7 +34,9 @@ test("stopping and restarting counting changes the sentence and the button, and 
 }) => {
   await page.goto("/privacy-policy/");
 
-  await stop(page).click();
+  // From the keyboard, as Safari doesn't focus a button that's clicked.
+  await stop(page).focus();
+  await page.keyboard.press("Enter");
   await expect(status(page)).toHaveText(
     "Your visits to this website aren’t counted in this browser.",
   );
@@ -44,7 +46,8 @@ test("stopping and restarting counting changes the sentence and the button, and 
   await page.reload();
   await expect(restart(page)).toBeVisible();
 
-  await restart(page).click();
+  await restart(page).focus();
+  await page.keyboard.press("Enter");
   await expect(status(page)).toHaveText(
     "Your visits to this website are counted anonymously.",
   );

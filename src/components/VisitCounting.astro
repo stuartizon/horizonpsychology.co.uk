@@ -1,0 +1,77 @@
+---
+// On the privacy policy, says whether this browser's visits are counted, with
+// a button to stop or restart counting them. It only works with JavaScript,
+// so it's a template, which its script adds to the end of the section on
+// cookies and website usage.
+import Button from "./Button.astro";
+---
+
+<template class="visit-counting-template">
+  <div class="visit-counting">
+    <p role="status"></p>
+    <Button label="" variant="secondary" type="button" hidden />
+  </div>
+</template>
+
+<script>
+  import { askedNotToTrack, optedOut, setOptedOut } from "@/analytics";
+
+  const template = document.querySelector<HTMLTemplateElement>(
+    ".visit-counting-template",
+  );
+  const out = optedOut();
+  const headings = [...document.querySelectorAll("h2")];
+  const section = headings.findIndex(({ id }) =>
+    id.endsWith("cookies-and-website-usage"),
+  );
+  const next = headings[section + 1];
+  // Without local storage, the button couldn't change anything.
+  if (template && out !== undefined && section >= 0 && next) {
+    const control = template.content.firstElementChild!.cloneNode(
+      true,
+    ) as HTMLElement;
+    const status = control.querySelector("p")!;
+    const button = control.querySelector("button")!;
+
+    const show = (out: boolean) => {
+      status.textContent = out
+        ? "Your visits to this website aren’t counted in this browser."
+        : "Your visits to this website are counted anonymously.";
+      button.textContent = out
+        ? "Count my visits again"
+        : "Stop counting my visits";
+    };
+
+    if (askedNotToTrack()) {
+      status.textContent =
+        "Your browser asks websites not to track you, so your visits aren’t counted.";
+    } else {
+      show(out);
+      button.hidden = false;
+      button.addEventListener("click", () => {
+        const out = !optedOut();
+        setOptedOut(out);
+        show(out);
+      });
+    }
+
+    next.before(control);
+  }
+</script>
+
+<style>
+  .visit-counting {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-3);
+  }
+
+  .visit-counting :global(button[hidden]) {
+    display: none;
+  }
+
+  p {
+    margin: 0;
+  }
+</style>

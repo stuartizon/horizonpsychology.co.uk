@@ -1,6 +1,7 @@
 ---
 import { getCollection, render, type CollectionEntry } from "astro:content";
 import LegalPage from "@/components/LegalPage.astro";
+import VisitCounting from "@/components/VisitCounting.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 
 export async function getStaticPaths() {
@@ -23,4 +24,5 @@ const { Content } = await render(entry);
   <LegalPage title={title} lead={lead} draft={draft} fees={fees}>
     <Content />
   </LegalPage>
+  {entry.id === "privacy-policy" && <VisitCounting />}
 </BaseLayout>
