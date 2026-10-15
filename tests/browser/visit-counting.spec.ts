@@ -10,48 +10,45 @@ test.beforeEach(async ({ page }) => {
 });
 
 const control = (page: Page) => page.locator(".visit-counting");
-const status = (page: Page) => control(page).getByRole("status");
-const stop = (page: Page) =>
-  page.getByRole("button", { name: "Stop counting my visits" });
-const restart = (page: Page) =>
-  page.getByRole("button", { name: "Count my visits again" });
+const toggle = (page: Page) =>
+  page.getByRole("switch", { name: "Count my visits to this website" });
+const ON =
+  "Your visits are counted anonymously. No cookies or personal details are stored.";
+const OFF = "Your visits aren’t counted on this browser.";
 const optedOut = (page: Page) =>
   page.evaluate(() => localStorage.getItem("umami.disabled"));
 
-test("says visits are counted, with a button to stop counting them", async ({
+test("has a switch, on, for counting this browser's visits", async ({
   page,
 }) => {
   await page.goto("/privacy-policy/");
 
-  await expect(status(page)).toHaveText(
-    "Your visits to this website are counted anonymously.",
-  );
-  await expect(stop(page)).toBeVisible();
+  await expect(toggle(page)).toBeVisible();
+  await expect(toggle(page)).toBeChecked();
+  await expect(toggle(page)).toBeEnabled();
+  await expect(toggle(page)).toHaveAccessibleDescription(ON);
+  await expect(control(page)).toContainText("On");
 });
 
-test("stopping and restarting counting changes the sentence and the button, and lasts across a reload", async ({
+test("switching counting off and on again changes Umami's opt-out, and lasts across a reload", async ({
   page,
 }) => {
   await page.goto("/privacy-policy/");
 
-  // From the keyboard, as Safari doesn't focus a button that's clicked.
-  await stop(page).focus();
-  await page.keyboard.press("Enter");
-  await expect(status(page)).toHaveText(
-    "Your visits to this website aren’t counted in this browser.",
-  );
-  await expect(restart(page)).toBeFocused();
+  await toggle(page).focus();
+  await page.keyboard.press("Space");
+  await expect(toggle(page)).not.toBeChecked();
+  await expect(toggle(page)).toBeFocused();
+  await expect(toggle(page)).toHaveAccessibleDescription(OFF);
+  await expect(control(page)).toContainText("Off");
   expect(await optedOut(page)).toBeTruthy();
 
   await page.reload();
-  await expect(restart(page)).toBeVisible();
+  await expect(toggle(page)).not.toBeChecked();
 
-  await restart(page).focus();
-  await page.keyboard.press("Enter");
-  await expect(status(page)).toHaveText(
-    "Your visits to this website are counted anonymously.",
-  );
-  await expect(stop(page)).toBeFocused();
+  await toggle(page).click();
+  await expect(toggle(page)).toBeChecked();
+  await expect(toggle(page)).toHaveAccessibleDescription(ON);
   expect(await optedOut(page)).toBeNull();
 });
 
@@ -81,7 +78,7 @@ test("sits at the end of the section on cookies and website usage", async ({
   expect(before).toBe(true);
 });
 
-test("when the browser asks not to be tracked, says visits aren't counted, with no button", async ({
+test("when the browser asks not to be tracked, the switch is off and can't be changed, and says why", async ({
   page,
 }) => {
   await page.addInitScript(() =>
@@ -91,21 +88,37 @@ test("when the browser asks not to be tracked, says visits aren't counted, with 
   );
   await page.goto("/privacy-policy/");
 
-  await expect(status(page)).toHaveText(
+  await expect(toggle(page)).not.toBeChecked();
+  await expect(toggle(page)).toBeDisabled();
+  await expect(toggle(page)).toHaveAccessibleDescription(
     "Your browser asks websites not to track you, so your visits aren’t counted.",
   );
-  await expect(control(page).getByRole("button")).toHaveCount(0);
 });
 
-test("has no detectable accessibility violations once counting is stopped", async ({
+test("has no detectable accessibility violations, on or off", async ({
   page,
 }) => {
   await page.goto("/privacy-policy/");
-  await stop(page).click();
-  await expect(restart(page)).toBeVisible();
+  for (const _ of [1, 2]) {
+    const results = await new AxeBuilder({ page })
+      .include(".visit-counting")
+      .analyze();
+    expect(results.violations).toEqual([]);
+    await toggle(page).click();
+  }
+});
 
-  const results = await new AxeBuilder({ page }).analyze();
-  expect(results.violations).toEqual([]);
+test("on a phone the label wraps beside the switch, inside the page", async ({
+  page,
+  isMobile,
+}) => {
+  test.skip(!isMobile, "Phones only");
+  await page.goto("/privacy-policy/");
+  const box = (await control(page).boundingBox())!;
+  const track = (await toggle(page).boundingBox())!;
+  expect(box.x + box.width).toBeLessThanOrEqual(page.viewportSize()!.width);
+  expect(track.width).toBe(44);
+  expect(track.height).toBe(26);
 });
 
 test.describe("without JavaScript", () => {
@@ -114,7 +127,6 @@ test.describe("without JavaScript", () => {
   test("isn't shown, as the button can't work", async ({ page }) => {
     await page.goto("/privacy-policy/");
 
-    await expect(stop(page)).toBeHidden();
     await expect(control(page)).toBeHidden();
   });
 });
