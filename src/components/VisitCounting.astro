@@ -1,16 +1,16 @@
 ---
-// On the privacy policy, says whether this browser's visits are counted, with
-// a button to stop or restart counting them. It only works with JavaScript,
-// so it's a template, which its script adds to the end of the section on
-// cookies and website usage.
-import Button from "./Button.astro";
+// On the privacy policy, a switch for whether this browser's visits are
+// counted. It only works with JavaScript, so it's a template, which its script
+// adds to the end of the section on cookies and website usage.
+import Switch from "./Switch.astro";
 ---
 
 <template class="visit-counting-template">
-  <div class="visit-counting">
-    <p role="status"></p>
-    <Button label="" variant="secondary" type="button" hidden />
-  </div>
+  <Switch
+    id="count-visits"
+    class="visit-counting"
+    label="Count my visits to this website"
+  />
 </template>
 
 <script>
@@ -25,53 +25,34 @@ import Button from "./Button.astro";
     id.endsWith("cookies-and-website-usage"),
   );
   const next = headings[section + 1];
-  // Without local storage, the button couldn't change anything.
+  // Without local storage, the switch couldn't change anything.
   if (template && out !== undefined && section >= 0 && next) {
     const control = template.content.firstElementChild!.cloneNode(
       true,
     ) as HTMLElement;
-    const status = control.querySelector("p")!;
-    const button = control.querySelector("button")!;
+    const toggle = control.querySelector("button")!;
+    const hint = control.querySelector(".switch__hint")!;
 
-    const show = (out: boolean) => {
-      status.textContent = out
-        ? "Your visits to this website aren’t counted in this browser."
-        : "Your visits to this website are counted anonymously.";
-      button.textContent = out
-        ? "Count my visits again"
-        : "Stop counting my visits";
+    const show = (counted: boolean) => {
+      toggle.setAttribute("aria-checked", String(counted));
+      hint.textContent = counted
+        ? "Your visits are counted anonymously. No cookies or personal details are stored."
+        : "Your visits aren’t counted on this browser.";
     };
 
     if (askedNotToTrack()) {
-      status.textContent =
+      toggle.disabled = true;
+      hint.textContent =
         "Your browser asks websites not to track you, so your visits aren’t counted.";
     } else {
-      show(out);
-      button.hidden = false;
-      button.addEventListener("click", () => {
-        const out = !optedOut();
-        setOptedOut(out);
-        show(out);
+      show(!out);
+      toggle.addEventListener("click", () => {
+        const counted = toggle.getAttribute("aria-checked") !== "true";
+        setOptedOut(!counted);
+        show(counted);
       });
     }
 
     next.before(control);
   }
 </script>
-
-<style>
-  .visit-counting {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--space-3);
-  }
-
-  .visit-counting :global(button[hidden]) {
-    display: none;
-  }
-
-  p {
-    margin: 0;
-  }
-</style>

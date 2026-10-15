@@ -1,0 +1,162 @@
+---
+// An on/off switch: a button with role="switch", its label, an "On" or "Off"
+// word after the label, and a hint below that explains the state. It's drawn
+// off; a script sets aria-checked, which moves the thumb and changes the word,
+// and sets the hint, which is announced when it changes.
+interface Props {
+  id: string;
+  label: string;
+  class?: string;
+}
+
+const { id, label, class: className } = Astro.props;
+---
+
+<div class:list={["switch", className]}>
+  <button
+    id={id}
+    class="switch__track"
+    type="button"
+    role="switch"
+    aria-checked="false"
+    aria-describedby={`${id}-hint`}
+  >
+    <span class="switch__thumb" aria-hidden="true"></span>
+  </button>
+  <div class="switch__text">
+    <label for={id}>
+      <span>{label}</span>
+      <span class="switch__state" aria-hidden="true">
+        <span class="switch__on">On</span>
+        <span class="switch__off">Off</span>
+      </span>
+    </label>
+    <span class="switch__hint" id={`${id}-hint`} aria-live="polite"></span>
+  </div>
+</div>
+
+<style>
+  .switch {
+    display: flex;
+    max-width: 100%;
+    align-items: flex-start;
+    gap: var(--space-3);
+  }
+
+  .switch__track {
+    position: relative;
+    flex: none;
+    width: 44px;
+    height: 26px;
+    border: 1px solid var(--color-line-strong);
+    border-radius: var(--radius-pill);
+    padding: 0;
+    background: var(--color-panel);
+    cursor: pointer;
+    transition:
+      background-color var(--duration-fast) var(--ease-calm),
+      border-color var(--duration-fast) var(--ease-calm),
+      box-shadow var(--duration-fast) var(--ease-calm);
+  }
+
+  .switch__track:focus-visible {
+    border-radius: var(--radius-pill);
+  }
+
+  .switch__thumb {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--color-line-strong);
+    transition:
+      transform var(--duration-fast) var(--ease-calm),
+      background-color var(--duration-fast) var(--ease-calm);
+  }
+
+  .switch__track[aria-checked="true"] {
+    border-color: var(--color-sage-600);
+    background: var(--color-sage-600);
+  }
+
+  .switch__track[aria-checked="true"] .switch__thumb {
+    background: var(--color-panel);
+    transform: translateX(18px);
+  }
+
+  /* Hovering anywhere on the switch or its label shows the halo. */
+  .switch:hover .switch__track:not(:disabled) {
+    border-color: var(--color-sage-600);
+    box-shadow: 0 0 0 5px
+      color-mix(in srgb, var(--color-sage-600) 16%, transparent);
+  }
+
+  .switch:hover .switch__track[aria-checked="true"]:not(:disabled) {
+    border-color: var(--color-sage-800);
+    background: var(--color-sage-800);
+  }
+
+  /* Disabled, the label and hint stay full contrast, so the reason can be read. */
+  .switch__track:disabled {
+    border-style: dashed;
+    border-color: var(--color-line-strong);
+    background: var(--color-sage-50);
+    cursor: not-allowed;
+  }
+
+  .switch__track:disabled .switch__thumb {
+    background: var(--color-sage-300);
+  }
+
+  .switch__text {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 2px;
+    padding-top: 2px;
+  }
+
+  label {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    column-gap: var(--space-2);
+    color: var(--color-ink);
+    font-size: var(--text-small);
+    line-height: 1.45;
+    cursor: pointer;
+  }
+
+  .switch:has(:disabled) label {
+    cursor: not-allowed;
+  }
+
+  .switch__state {
+    color: var(--color-ink-soft);
+    font-size: 0.8125em;
+    font-weight: var(--weight-semibold);
+    letter-spacing: 0.02em;
+  }
+
+  .switch__on,
+  .switch:has([aria-checked="true"]) .switch__off {
+    display: none;
+  }
+
+  .switch:has([aria-checked="true"]) .switch__on {
+    display: inline;
+  }
+
+  .switch__hint {
+    color: var(--color-ink-soft);
+    font-size: var(--text-small);
+    line-height: 1.55;
+    text-wrap: pretty;
+  }
+
+  .switch__hint:empty {
+    display: none;
+  }
+</style>

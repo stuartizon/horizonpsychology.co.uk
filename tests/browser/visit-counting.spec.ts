@@ -27,7 +27,7 @@ test("has a switch, on, for counting this browser's visits", async ({
   await expect(toggle(page)).toBeChecked();
   await expect(toggle(page)).toBeEnabled();
   await expect(toggle(page)).toHaveAccessibleDescription(ON);
-  await expect(control(page)).toContainText("On");
+  await expect(control(page)).toContainText("On", { useInnerText: true });
 });
 
 test("switching counting off and on again changes Umami's opt-out, and lasts across a reload", async ({
@@ -40,7 +40,7 @@ test("switching counting off and on again changes Umami's opt-out, and lasts acr
   await expect(toggle(page)).not.toBeChecked();
   await expect(toggle(page)).toBeFocused();
   await expect(toggle(page)).toHaveAccessibleDescription(OFF);
-  await expect(control(page)).toContainText("Off");
+  await expect(control(page)).toContainText("Off", { useInnerText: true });
   expect(await optedOut(page)).toBeTruthy();
 
   await page.reload();
@@ -98,14 +98,15 @@ test("when the browser asks not to be tracked, the switch is off and can't be ch
 test("has no detectable accessibility violations, on or off", async ({
   page,
 }) => {
+  const violations = async () =>
+    (await new AxeBuilder({ page }).include(".visit-counting").analyze())
+      .violations;
   await page.goto("/privacy-policy/");
-  for (const _ of [1, 2]) {
-    const results = await new AxeBuilder({ page })
-      .include(".visit-counting")
-      .analyze();
-    expect(results.violations).toEqual([]);
-    await toggle(page).click();
-  }
+
+  expect(await violations()).toEqual([]);
+  await toggle(page).click();
+  await expect(toggle(page)).not.toBeChecked();
+  expect(await violations()).toEqual([]);
 });
 
 test("on a phone the label wraps beside the switch, inside the page", async ({
