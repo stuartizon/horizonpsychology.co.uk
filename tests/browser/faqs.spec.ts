@@ -2,6 +2,7 @@ import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 import { faqs } from "@/data/faqs";
 import { services } from "@/data/services";
+import { baseline } from "./baseline";
 
 const [service] = services;
 const [first, second] = service.faqs.map((id) => faqs[id]);
@@ -82,4 +83,28 @@ test("an open answer lines up with its question, leaving the toggle's column cle
     expect(box.x).toBeCloseTo(row.x, 0);
     expect(box.width).toBeCloseTo(row.width, 0);
   }
+});
+
+test("each question's plus is level with the middle of its first line's capitals", async ({
+  page,
+}) => {
+  await page.evaluate(() => document.fonts.ready);
+  const text = page.locator(".faq__question").first();
+  // The font's own cap height, which doesn't vary with how each platform
+  // draws the letters.
+  const capHeight = await text.evaluate((node) => {
+    const probe = document.createElement("span");
+    probe.style.cssText = "display: inline-block; height: 1cap";
+    node.append(probe);
+    const { height } = probe.getBoundingClientRect();
+    probe.remove();
+    return height;
+  });
+  const capMiddle = (await baseline(text)) - capHeight / 2;
+  const toggle = (await page.locator(".faq__toggle").first().boundingBox())!;
+
+  // Within a pixel, as platforms round the baseline differently.
+  expect(
+    Math.abs(toggle.y + toggle.height / 2 - capMiddle),
+  ).toBeLessThanOrEqual(1);
 });
