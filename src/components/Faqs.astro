@@ -105,13 +105,16 @@ const answerId = (question: string) =>
     flex: 1;
   }
 
-  /* As tall as a line of the question, so the toggle sits level with the
-     first line when the question wraps. */
+  /* As tall as the question's capitals, with its bottom on the first line's
+     baseline, so the toggle is centred on the capitals, even when the
+     question wraps. Layout containment stops it taking its baseline from the
+     toggle inside it, so its own bottom edge is its baseline. */
   .faq__toggle-line {
     display: flex;
-    height: 1.3em;
+    height: 1cap;
     flex: none;
     align-items: center;
+    contain: layout;
   }
 
   /* A plus that turns into a cross when the answer is open. */
