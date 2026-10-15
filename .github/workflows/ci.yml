@@ -118,7 +118,7 @@ jobs:
     name: Browser tests (${{ matrix.browser }})
     needs: build
     runs-on: ubuntu-latest
-    container: mcr.microsoft.com/playwright:v1.63.0-noble
+    container: mcr.microsoft.com/playwright:v1.64.0-noble
     timeout-minutes: 15
     strategy:
       fail-fast: false
