@@ -85,11 +85,34 @@ test("an open answer lines up with its question, leaving the toggle's column cle
   }
 });
 
-test("each question's plus is level with the middle of its first line's capitals", async ({
+/** The vertical middle of a box. */
+const middle = (box: { y: number; height: number }) => box.y + box.height / 2;
+
+test("each question's plus is centred on the question, even when it wraps", async ({
   page,
 }) => {
   await page.evaluate(() => document.fonts.ready);
-  const text = page.locator(".faq__question").first();
+  const faqs = page.locator(".faq");
+
+  for (const faq of await faqs.all()) {
+    const question = (await faq.locator(".faq__question").boundingBox())!;
+    const toggle = (await faq.locator(".faq__toggle").boundingBox())!;
+
+    expect(Math.abs(middle(toggle) - middle(question))).toBeLessThanOrEqual(1);
+  }
+});
+
+test("a one-line question's plus is level with the middle of its capitals", async ({
+  page,
+}) => {
+  await page.evaluate(() => document.fonts.ready);
+  // The shortest question, which fits on one line at every width.
+  const questions = page.locator(".faq__question");
+  const heights = await questions.evaluateAll((nodes) =>
+    nodes.map((node) => node.getBoundingClientRect().height),
+  );
+  const shortest = heights.indexOf(Math.min(...heights));
+  const text = questions.nth(shortest);
   // The font's own cap height, which doesn't vary with how each platform
   // draws the letters.
   const capHeight = await text.evaluate((node) => {
@@ -101,10 +124,11 @@ test("each question's plus is level with the middle of its first line's capitals
     return height;
   });
   const capMiddle = (await baseline(text)) - capHeight / 2;
-  const toggle = (await page.locator(".faq__toggle").first().boundingBox())!;
+  const toggle = (await page
+    .locator(".faq__toggle")
+    .nth(shortest)
+    .boundingBox())!;
 
   // Within a pixel, as platforms round the baseline differently.
-  expect(
-    Math.abs(toggle.y + toggle.height / 2 - capMiddle),
-  ).toBeLessThanOrEqual(1);
+  expect(Math.abs(middle(toggle) - capMiddle)).toBeLessThanOrEqual(1);
 });
