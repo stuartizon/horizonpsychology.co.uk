@@ -2,6 +2,8 @@
 // the Worker that emails it (ADR 0020), through a service binding, because
 // Pages Functions can't send email themselves. The form's script reads only
 // the status: 204 when sent, 400 when the enquiry isn't valid, 502 otherwise.
+// Without JavaScript, the browser posts the form itself, and is redirected to
+// a page that says whether it was sent.
 import { formats, topics } from "../../src/data/enquiry";
 
 interface Env {
@@ -21,6 +23,19 @@ export async function onRequestPost({
   request: Request;
   env: Env;
 }) {
+  const fromScript = request.headers
+    .get("Accept")
+    ?.includes("application/json");
+  const status = (code: number) =>
+    fromScript
+      ? new Response(null, { status: code })
+      : new Response(null, {
+          status: 303,
+          headers: {
+            Location: code < 300 ? "/contact/sent/" : "/contact/not-sent/",
+          },
+        });
+
   const form = await request.formData().catch(() => undefined);
   if (!form) return status(400);
   const field = (name: string) => String(form.get(name) ?? "").trim();
@@ -66,5 +81,3 @@ export async function onRequestPost({
     return status(502);
   }
 }
-
-const status = (code: number) => new Response(null, { status: code });

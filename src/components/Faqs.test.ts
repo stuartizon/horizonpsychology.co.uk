@@ -45,7 +45,7 @@ test("the toggle is Phosphor's plus, hidden from screen readers", async () => {
   const list = await render(Faqs, { faqs });
 
   for (const button of list.querySelectorAll("button")) {
-    const toggle = button.querySelector(".faq__toggle-line");
+    const toggle = button.querySelector(".faq__toggle");
     expect(toggle?.getAttribute("aria-hidden")).toBe("true");
     expect(toggle?.textContent?.trim()).toBe("");
     expect(iconPath(toggle?.querySelector("svg"))).toBe(iconPath(plusIcon));

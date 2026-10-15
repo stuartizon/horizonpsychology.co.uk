@@ -1,7 +1,9 @@
 ---
 // The enquiry form on the contact page. Without JavaScript the browser checks
 // the required fields and posts the form; with it, the script checks them,
-// shows errors beside each field, and sends the enquiry without leaving the page.
+// shows errors beside each field, and sends the enquiry without leaving the
+// page. If its request can't reach the site, it falls back to a standard
+// form submission.
 import { CONTACT_EMAIL, ENQUIRY_ENDPOINT } from "@/consts";
 import { formats, topics } from "@/data/enquiry";
 import Button from "./Button.astro";
@@ -199,8 +201,9 @@ import Panel from "./Panel.astro";
 
       failure.replaceChildren();
       showSending(true);
+      let response: Response;
       try {
-        const response = await fetch(form.action, {
+        response = await fetch(form.action, {
           method: "POST",
           headers: { Accept: "application/json" },
           body: new URLSearchParams(
@@ -210,16 +213,30 @@ import Panel from "./Panel.astro";
             ]),
           ),
         });
-        if (!response.ok) throw new Error(`Status ${response.status}`);
-        form.reset();
-        form.hidden = true;
-        sent.hidden = false;
-        sent.querySelector("h2")!.focus();
       } catch {
-        failure.replaceChildren(failureMessage.content.cloneNode(true));
-      } finally {
-        showSending(false);
+        // The request didn't reach the site, as when a web filter redirects
+        // it, which the browser won't follow for fetch. A standard HTML form
+        // submission does follow it, so the form is submitted that way
+        // instead, still showing it's sending, and the site redirects it to
+        // a page saying whether it was sent.
+        form.submit();
+        return;
       }
+      showSending(false);
+      if (!response.ok) {
+        failure.replaceChildren(failureMessage.content.cloneNode(true));
+        return;
+      }
+      form.reset();
+      form.hidden = true;
+      sent.hidden = false;
+      sent.querySelector("h2")!.focus();
+    });
+
+    // Coming back to the page after a standard form submission, it may be
+    // shown as it was left, still sending.
+    addEventListener("pageshow", (event) => {
+      if (event.persisted) showSending(false);
     });
 
     sent.querySelector(".enquiry__again")!.addEventListener("click", () => {
