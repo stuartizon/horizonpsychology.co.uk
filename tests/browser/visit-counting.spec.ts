@@ -27,7 +27,6 @@ test("has a switch, on, for counting this browser's visits", async ({
   await expect(toggle(page)).toBeChecked();
   await expect(toggle(page)).toBeEnabled();
   await expect(toggle(page)).toHaveAccessibleDescription(ON);
-  await expect(control(page)).toContainText("On", { useInnerText: true });
 });
 
 test("switching counting off and on again changes Umami's opt-out, and lasts across a reload", async ({
@@ -40,7 +39,6 @@ test("switching counting off and on again changes Umami's opt-out, and lasts acr
   await expect(toggle(page)).not.toBeChecked();
   await expect(toggle(page)).toBeFocused();
   await expect(toggle(page)).toHaveAccessibleDescription(OFF);
-  await expect(control(page)).toContainText("Off", { useInnerText: true });
   expect(await optedOut(page)).toBeTruthy();
 
   await page.reload();

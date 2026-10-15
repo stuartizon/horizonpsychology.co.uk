@@ -1,8 +1,7 @@
 ---
-// An on/off switch: a button with role="switch", its label, an "On" or "Off"
-// word after the label, and a hint below that explains the state. It's drawn
-// off; a script sets aria-checked, which moves the thumb and changes the word,
-// and sets the hint, which is announced when it changes.
+// An on/off switch: a button with role="switch", its label, and a hint below
+// that explains the state. It's drawn off; a script sets aria-checked, which
+// moves the thumb, and sets the hint, which is announced when it changes.
 interface Props {
   id: string;
   label: string;
@@ -24,13 +23,7 @@ const { id, label, class: className } = Astro.props;
     <span class="switch__thumb" aria-hidden="true"></span>
   </button>
   <div class="switch__text">
-    <label for={id}>
-      <span>{label}</span>
-      <span class="switch__state" aria-hidden="true">
-        <span class="switch__on">On</span>
-        <span class="switch__off">Off</span>
-      </span>
-    </label>
+    <label for={id}>{label}</label>
     <span class="switch__hint" id={`${id}-hint`} aria-live="polite"></span>
   </div>
 </div>
@@ -119,10 +112,6 @@ const { id, label, class: className } = Astro.props;
   }
 
   label {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    column-gap: var(--space-2);
     color: var(--color-ink);
     font-size: var(--text-small);
     line-height: 1.45;
@@ -131,22 +120,6 @@ const { id, label, class: className } = Astro.props;
 
   .switch:has(:disabled) label {
     cursor: not-allowed;
-  }
-
-  .switch__state {
-    color: var(--color-ink-soft);
-    font-size: 0.8125em;
-    font-weight: var(--weight-semibold);
-    letter-spacing: 0.02em;
-  }
-
-  .switch__on,
-  .switch:has([aria-checked="true"]) .switch__off {
-    display: none;
-  }
-
-  .switch:has([aria-checked="true"]) .switch__on {
-    display: inline;
   }
 
   .switch__hint {
