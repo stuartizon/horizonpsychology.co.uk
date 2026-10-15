@@ -106,13 +106,18 @@ test("a one-line question's plus is level with the middle of its capitals", asyn
   page,
 }) => {
   await page.evaluate(() => document.fonts.ready);
-  // The shortest question, which fits on one line at every width.
+  // A question that fits on one line. At phone width every question on the
+  // page wraps, which the centring test covers.
   const questions = page.locator(".faq__question");
-  const heights = await questions.evaluateAll((nodes) =>
-    nodes.map((node) => node.getBoundingClientRect().height),
+  const lines = await questions.evaluateAll((nodes) =>
+    nodes.map((node) => {
+      const { height } = node.getBoundingClientRect();
+      return Math.round(height / parseFloat(getComputedStyle(node).lineHeight));
+    }),
   );
-  const shortest = heights.indexOf(Math.min(...heights));
-  const text = questions.nth(shortest);
+  const oneLine = lines.indexOf(1);
+  test.skip(oneLine < 0, "Every question on the page wraps at this width");
+  const text = questions.nth(oneLine);
   // The font's own cap height, which doesn't vary with how each platform
   // draws the letters.
   const capHeight = await text.evaluate((node) => {
@@ -126,7 +131,7 @@ test("a one-line question's plus is level with the middle of its capitals", asyn
   const capMiddle = (await baseline(text)) - capHeight / 2;
   const toggle = (await page
     .locator(".faq__toggle")
-    .nth(shortest)
+    .nth(oneLine)
     .boundingBox())!;
 
   // Within a pixel, as platforms round the baseline differently.
