@@ -1,12 +1,13 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test, type Page } from "@playwright/test";
+import { PREVIEW, serveAt } from "./preview";
 
 // The privacy policy's control for whether this browser's visits are counted
-// (#240). Umami's script is stubbed out, so the tests send nothing.
-test.beforeEach(async ({ page }) => {
-  await page.route("https://cloud.umami.is/**", (route) =>
-    route.fulfill({ contentType: "text/javascript", body: "" }),
-  );
+// (#240). It's only shown where visits are counted, on previews for now, so
+// the tests serve the build at a preview's address, with Umami's script
+// stubbed out.
+test.beforeEach(async ({ page, baseURL }) => {
+  await serveAt(page, baseURL);
 });
 
 const control = (page: Page) => page.locator(".visit-counting");
@@ -21,7 +22,7 @@ const optedOut = (page: Page) =>
 test("has a switch, on, for counting this browser's visits", async ({
   page,
 }) => {
-  await page.goto("/privacy-policy/");
+  await page.goto(`${PREVIEW}/privacy-policy/`);
 
   await expect(toggle(page)).toBeVisible();
   await expect(toggle(page)).toBeChecked();
@@ -32,7 +33,7 @@ test("has a switch, on, for counting this browser's visits", async ({
 test("switching counting off and on again changes Umami's opt-out, and lasts across a reload", async ({
   page,
 }) => {
-  await page.goto("/privacy-policy/");
+  await page.goto(`${PREVIEW}/privacy-policy/`);
 
   await toggle(page).focus();
   await page.keyboard.press("Space");
@@ -53,7 +54,7 @@ test("switching counting off and on again changes Umami's opt-out, and lasts acr
 test("sits at the end of the section on cookies and website usage", async ({
   page,
 }) => {
-  await page.goto("/privacy-policy/");
+  await page.goto(`${PREVIEW}/privacy-policy/`);
   await expect(control(page)).toBeVisible();
 
   const [after, before] = await control(page).evaluate((control) => {
@@ -84,7 +85,7 @@ test("when the browser asks not to be tracked, the switch is off and can't be ch
       get: () => true,
     }),
   );
-  await page.goto("/privacy-policy/");
+  await page.goto(`${PREVIEW}/privacy-policy/`);
 
   await expect(toggle(page)).not.toBeChecked();
   await expect(toggle(page)).toBeDisabled();
@@ -99,7 +100,7 @@ test("has no detectable accessibility violations, on or off", async ({
   const violations = async () =>
     (await new AxeBuilder({ page }).include(".visit-counting").analyze())
       .violations;
-  await page.goto("/privacy-policy/");
+  await page.goto(`${PREVIEW}/privacy-policy/`);
 
   expect(await violations()).toEqual([]);
   await toggle(page).click();
@@ -112,7 +113,7 @@ test("on a phone the label wraps beside the switch, inside the page", async ({
   isMobile,
 }) => {
   test.skip(!isMobile, "Phones only");
-  await page.goto("/privacy-policy/");
+  await page.goto(`${PREVIEW}/privacy-policy/`);
   const box = (await control(page).boundingBox())!;
   const track = (await toggle(page).boundingBox())!;
   expect(box.x + box.width).toBeLessThanOrEqual(page.viewportSize()!.width);
@@ -124,7 +125,7 @@ test.describe("without JavaScript", () => {
   test.use({ javaScriptEnabled: false });
 
   test("isn't shown, as the button can't work", async ({ page }) => {
-    await page.goto("/privacy-policy/");
+    await page.goto(`${PREVIEW}/privacy-policy/`);
 
     await expect(control(page)).toBeHidden();
   });

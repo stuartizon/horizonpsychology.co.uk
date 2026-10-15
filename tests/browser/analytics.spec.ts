@@ -1,16 +1,20 @@
 import { expect, test, type Page } from "@playwright/test";
 import { ANALYTICS_WEBSITE_ID } from "@/consts";
+import { PREVIEW, serveAt } from "./preview";
+
+// Visits are only counted on previews for now, so these tests serve the
+// build at a preview's address, with Umami's script stubbed.
 
 /**
- * Replaces Umami's script with a stub that records each event, so the tests
- * send nothing, and returns the events recorded so far.
+ * Serves the build at a preview's address, with a stub of Umami's script that
+ * records each event, and returns the events recorded so far.
  */
-async function recordEvents(page: Page) {
-  await page.route("https://cloud.umami.is/**", (route) =>
-    route.fulfill({
-      contentType: "text/javascript",
-      body: "window.umami = { track: (...args) => window.tracked.push(args) };",
-    }),
+async function recordEvents(page: Page, baseURL: string | undefined) {
+  await serveAt(
+    page,
+    baseURL,
+    PREVIEW,
+    "window.umami = { track: (...args) => window.tracked.push(args) };",
   );
   await page.addInitScript(() => {
     (window as unknown as { tracked: unknown[] }).tracked = [];
@@ -23,11 +27,24 @@ async function recordEvents(page: Page) {
 const analyticsLoaded = (page: Page) =>
   page.waitForFunction(() => "umami" in window);
 
+/** Records requests for Umami's script, stubbed or not. */
+function umamiRequests(page: Page) {
+  const requests: string[] = [];
+  page.on("request", (request) => {
+    if (request.url().startsWith("https://cloud.umami.is/"))
+      requests.push(request.url());
+  });
+  return requests;
+}
+
+const umamiScript = (page: Page) =>
+  page.locator('script[src^="https://cloud.umami.is/"]');
+
 async function sendEnquiry(page: Page, status: number) {
-  await page.route("**/api/enquiry", (route) =>
+  await page.route(`${PREVIEW}/api/enquiry`, (route) =>
     route.fulfill({ status, json: {} }),
   );
-  await page.goto("/contact/");
+  await page.goto(`${PREVIEW}/contact/`);
   await analyticsLoaded(page);
   await page.getByLabel("Your name").fill("Sam");
   await page.getByLabel("Email").fill("sam@example.com");
@@ -38,8 +55,9 @@ async function sendEnquiry(page: Page, status: number) {
 
 test("a sent enquiry is counted, with nothing from the form", async ({
   page,
+  baseURL,
 }) => {
-  const events = await recordEvents(page);
+  const events = await recordEvents(page, baseURL);
 
   await sendEnquiry(page, 204);
 
@@ -51,8 +69,11 @@ test("a sent enquiry is counted, with nothing from the form", async ({
   expect(await events()).toEqual([["Enquiry sent"]]);
 });
 
-test("an enquiry that fails to send isn't counted", async ({ page }) => {
-  const events = await recordEvents(page);
+test("an enquiry that fails to send isn't counted", async ({
+  page,
+  baseURL,
+}) => {
+  const events = await recordEvents(page, baseURL);
 
   await sendEnquiry(page, 502);
 
@@ -60,11 +81,11 @@ test("an enquiry that fails to send isn't counted", async ({ page }) => {
   expect(await events()).toEqual([]);
 });
 
-test("clicking an email link is counted", async ({ page }) => {
-  const events = await recordEvents(page);
+test("clicking an email link is counted", async ({ page, baseURL }) => {
+  const events = await recordEvents(page, baseURL);
   // Not the home page, whose footer moves as the header shrinks, so a click
   // there can land before the footer has settled.
-  await page.goto("/faqs/");
+  await page.goto(`${PREVIEW}/faqs/`);
   await analyticsLoaded(page);
   // Stops the click opening an email app, after the page has seen it.
   await page.evaluate(() =>
@@ -81,15 +102,21 @@ test("clicking an email link is counted", async ({ page }) => {
 
 test("loads Umami's analytics with the site's settings, leaving out query strings", async ({
   page,
+  baseURL,
 }) => {
-  await recordEvents(page);
-  await page.goto("/faqs/");
+  await recordEvents(page, baseURL);
+  await page.goto(`${PREVIEW}/faqs/`);
   await analyticsLoaded(page);
 
-  const script = page.locator('script[src="https://cloud.umami.is/script.js"]');
-  await expect(script).toHaveCount(1);
-  await expect(script).toHaveAttribute("data-website-id", ANALYTICS_WEBSITE_ID);
-  await expect(script).toHaveAttribute("data-exclude-search", "true");
+  await expect(umamiScript(page)).toHaveCount(1);
+  await expect(umamiScript(page)).toHaveAttribute(
+    "data-website-id",
+    ANALYTICS_WEBSITE_ID,
+  );
+  await expect(umamiScript(page)).toHaveAttribute(
+    "data-exclude-search",
+    "true",
+  );
 });
 
 for (const [signal, property, value] of [
@@ -98,12 +125,10 @@ for (const [signal, property, value] of [
 ] as const) {
   test(`doesn't load the analytics when the browser sends ${signal}`, async ({
     page,
+    baseURL,
   }) => {
-    const requests: string[] = [];
-    page.on("request", (request) => {
-      if (request.url().startsWith("https://cloud.umami.is/"))
-        requests.push(request.url());
-    });
+    const requests = umamiRequests(page);
+    await serveAt(page, baseURL);
     await page.addInitScript(
       ([property, value]) =>
         Object.defineProperty(Navigator.prototype, property, {
@@ -112,42 +137,31 @@ for (const [signal, property, value] of [
       [property, value] as const,
     );
 
-    await page.goto("/faqs/");
+    await page.goto(`${PREVIEW}/faqs/`);
     await page.waitForLoadState("load");
 
-    await expect(
-      page.locator('script[src^="https://cloud.umami.is/"]'),
-    ).toHaveCount(0);
+    await expect(umamiScript(page)).toHaveCount(0);
     expect(requests).toEqual([]);
   });
 }
 
-test("on the live site, the analytics aren't loaded and the privacy policy has no switch, until it describes them", async ({
-  page,
-  baseURL,
-}) => {
-  const requests: string[] = [];
-  page.on("request", (request) => {
-    if (request.url().startsWith("https://cloud.umami.is/"))
-      requests.push(request.url());
-  });
-  await page.route("https://cloud.umami.is/**", (route) =>
-    route.fulfill({ contentType: "text/javascript", body: "" }),
-  );
-  // Serves this build at the live site's address.
-  await page.route("https://horizonpsychology.co.uk/**", async (route) => {
-    const { pathname } = new URL(route.request().url());
-    route.fulfill({
-      response: await route.fetch({ url: new URL(pathname, baseURL).href }),
-    });
-  });
+for (const [where, origin] of [
+  ["the live site", "https://horizonpsychology.co.uk"],
+  ["the live site's Pages address", "https://horizonpsychology.pages.dev"],
+  ["a local build", undefined],
+] as const) {
+  test(`on ${where}, the analytics aren't loaded and the privacy policy has no switch, until it describes them`, async ({
+    page,
+    baseURL,
+  }) => {
+    const requests = umamiRequests(page);
+    await serveAt(page, baseURL, origin);
 
-  await page.goto("https://horizonpsychology.co.uk/privacy-policy/");
-  await page.waitForLoadState("load");
+    await page.goto(`${origin ?? ""}/privacy-policy/`);
+    await page.waitForLoadState("load");
 
-  await expect(page.getByRole("switch")).toHaveCount(0);
-  await expect(
-    page.locator('script[src^="https://cloud.umami.is/"]'),
-  ).toHaveCount(0);
-  expect(requests).toEqual([]);
-});
+    await expect(page.getByRole("switch")).toHaveCount(0);
+    await expect(umamiScript(page)).toHaveCount(0);
+    expect(requests).toEqual([]);
+  });
+}
