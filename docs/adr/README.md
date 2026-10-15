@@ -25,3 +25,4 @@ One file per decision, numbered in sequence. See [0001](0001-record-architecture
 | [0019](0019-lint-with-eslint-and-format-with-prettier.md)                            | Lint with ESLint and format with Prettier                                                                            |
 | [0020](0020-email-enquiries-from-a-worker-with-cloudflare-email-routing.md)          | Email contact form enquiries from a Worker with Cloudflare Email Routing                                             |
 | [0021](0021-alert-enquiry-failures-with-workers-issues-and-a-claude-code-routine.md) | Alert Stuart to enquiry failures with Workers Issues and a Claude Code routine                                       |
+| [0022](0022-count-visits-with-umami-cloud-in-the-eu.md)                              | Count visits with Umami Cloud, with its data in the EU                                                               |
