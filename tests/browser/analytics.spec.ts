@@ -1,4 +1,5 @@
 import { expect, test, type Page } from "@playwright/test";
+import { ANALYTICS_DOMAINS, ANALYTICS_WEBSITE_ID } from "@/consts";
 
 /**
  * Replaces Umami's script with a stub that records each event, so the tests
@@ -77,3 +78,50 @@ test("clicking an email link is counted", async ({ page }) => {
 
   await expect.poll(events).toEqual([["Email link clicked"]]);
 });
+
+test("loads Umami's analytics with the site's settings, leaving out query strings", async ({
+  page,
+}) => {
+  await recordEvents(page);
+  await page.goto("/faqs/");
+  await analyticsLoaded(page);
+
+  const script = page.locator('script[src="https://cloud.umami.is/script.js"]');
+  await expect(script).toHaveCount(1);
+  await expect(script).toHaveAttribute("data-website-id", ANALYTICS_WEBSITE_ID);
+  await expect(script).toHaveAttribute(
+    "data-domains",
+    ANALYTICS_DOMAINS.join(","),
+  );
+  await expect(script).toHaveAttribute("data-exclude-search", "true");
+});
+
+for (const [signal, property, value] of [
+  ["Global Privacy Control", "globalPrivacyControl", true],
+  ["Do Not Track", "doNotTrack", "1"],
+] as const) {
+  test(`doesn't load the analytics when the browser sends ${signal}`, async ({
+    page,
+  }) => {
+    const requests: string[] = [];
+    page.on("request", (request) => {
+      if (request.url().startsWith("https://cloud.umami.is/"))
+        requests.push(request.url());
+    });
+    await page.addInitScript(
+      ([property, value]) =>
+        Object.defineProperty(Navigator.prototype, property, {
+          get: () => value,
+        }),
+      [property, value] as const,
+    );
+
+    await page.goto("/faqs/");
+    await page.waitForLoadState("load");
+
+    await expect(
+      page.locator('script[src^="https://cloud.umami.is/"]'),
+    ).toHaveCount(0);
+    expect(requests).toEqual([]);
+  });
+}
