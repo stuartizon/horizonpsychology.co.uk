@@ -1,8 +1,9 @@
 ---
 // On the privacy policy, a switch for whether this browser's visits are
 // counted. It only works with JavaScript, so it's a template, which its script
-// adds to the end of the section on cookies and website usage. It's only shown
-// where visits are counted.
+// adds to the end of the section on cookies and website usage. It's shown
+// wherever the privacy policy describes it, including the live site before
+// its visits are counted, so an opt-out made now is kept for then.
 import Switch from "./Switch.astro";
 ---
 
@@ -15,12 +16,7 @@ import Switch from "./Switch.astro";
 </template>
 
 <script>
-  import {
-    askedNotToTrack,
-    countsVisits,
-    optedOut,
-    setOptedOut,
-  } from "@/analytics";
+  import { askedNotToTrack, optedOut, setOptedOut } from "@/analytics";
 
   const template = document.querySelector<HTMLTemplateElement>(
     ".visit-counting-template",
@@ -32,7 +28,7 @@ import Switch from "./Switch.astro";
   );
   const next = headings[section + 1];
   // Without local storage, the switch couldn't change anything.
-  if (countsVisits() && template && out !== undefined && section >= 0 && next) {
+  if (template && out !== undefined && section >= 0 && next) {
     const control = template.content.firstElementChild!.cloneNode(
       true,
     ) as HTMLElement;

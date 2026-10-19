@@ -208,11 +208,32 @@ describe("the Privacy policy page", () => {
     expect(text(main)).not.toMatch(/notice/i);
   });
 
-  test("says the website uses no cookies", () => {
+  test("says the website uses no cookies, and counts visits anonymously with Umami", () => {
     expect(text(main)).toContain(
-      "Horizon Psychology does not currently use cookies or similar technologies to track visitors or analyse website usage.",
+      "Horizon Psychology does not use cookies on its website, and does not store anything on your device to track you.",
     );
-    expect(text(main)).not.toContain("may use cookies");
+    expect(text(main)).toContain(
+      "Horizon Psychology counts visits to the website using Umami, a privacy-focused analytics service, with the information stored in the European Union.",
+    );
+    expect(text(main)).toContain("It is kept for six months.");
+    expect(text(main)).not.toContain("does not currently use cookies");
+  });
+
+  test("says visitors can stop their visits being counted with the switch", () => {
+    expect(text(main)).toContain(
+      "You can stop your visits being counted at any time:",
+    );
+    expect(text(main)).toContain("using the switch below,");
+    expect(text(main)).not.toContain("button");
+  });
+
+  test("names Umami among the website providers, and understanding the website among the legitimate interests", () => {
+    expect(text(main)).toContain(
+      "Umami: Counting visits to the website anonymously, with the information stored in the European Union.",
+    );
+    expect(text(main)).toContain(
+      "administer the practice, understand how the website is used, and address complaints or legal claims",
+    );
   });
 
   test("names the services that handle an enquiry, and says the website keeps none", () => {

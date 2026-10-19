@@ -3,9 +3,8 @@ import { expect, test, type Page } from "@playwright/test";
 import { PREVIEW, serveAt } from "./preview";
 
 // The privacy policy's control for whether this browser's visits are counted
-// (#240). It's only shown where visits are counted, on previews for now, so
-// the tests serve the build at a preview's address, with Umami's script
-// stubbed out.
+// (#240). The tests serve the build at a preview's address, where visits are
+// counted, with Umami's script stubbed out.
 test.beforeEach(async ({ page, baseURL }) => {
   await serveAt(page, baseURL);
 });
