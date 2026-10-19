@@ -29,6 +29,14 @@ test("the About page shows Emma's portrait, optimised by Astro", () => {
   expect(portrait?.getAttribute("srcset")).toBeTruthy();
 });
 
+test("the About page's portrait is the standing one, taller than it is wide, to sit beside the long biography", () => {
+  const portrait = document.querySelector('img[alt="Dr Emma Izon"]');
+
+  expect(Number(portrait?.getAttribute("height"))).toBeGreaterThan(
+    Number(portrait?.getAttribute("width")),
+  );
+});
+
 test("the About page links to Emma's registration and accreditation, with their logos", () => {
   const credentials = [...document.querySelectorAll(".about__intro a")].map(
     (link) => ({
