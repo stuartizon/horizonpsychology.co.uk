@@ -30,6 +30,24 @@ test("has a switch, on, for counting this browser's visits", async ({
   await expect(toggle(page)).toHaveAccessibleDescription(ON);
 });
 
+test("shows only the hint, which changes with the switch, beside it", async ({
+  page,
+}) => {
+  await page.goto(`${PREVIEW}/privacy-policy/`);
+  const text = async () =>
+    (await control(page).innerText()).replace(/\s+/g, " ").trim();
+
+  expect(await text()).toBe(ON);
+  await toggle(page).click();
+  await expect(toggle(page)).not.toBeChecked();
+  expect(await text()).toBe(OFF);
+
+  const track = (await toggle(page).boundingBox())!;
+  const hint = (await control(page).locator(".switch__hint").boundingBox())!;
+  expect(hint.x).toBeGreaterThan(track.x + track.width);
+  expect(hint.y).toBeLessThan(track.y + track.height);
+});
+
 test("switching counting off and on again changes Umami's opt-out, and lasts across a reload", async ({
   page,
 }) => {
