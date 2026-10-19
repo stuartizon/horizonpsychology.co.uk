@@ -1,6 +1,6 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
-import { baseline } from "./baseline";
+import { capTop } from "./baseline";
 
 test.beforeEach(async ({ page }) => {
   await page.goto("/research/");
@@ -44,7 +44,7 @@ for (const width of [768, 1280]) {
     expect(button.x + button.width).toBeLessThan(publications.x);
   });
 
-  test(`at ${width}px the first publication's authors line up with the eyebrow`, async ({
+  test(`at ${width}px the first publication's authors start level with the top of the heading's capitals`, async ({
     page,
     isMobile,
   }) => {
@@ -52,11 +52,11 @@ for (const width of [768, 1280]) {
     await page.setViewportSize({ width, height: 1024 });
     await page.evaluate(() => document.fonts.ready);
 
-    const eyebrow = await baseline(page.locator("main .eyebrow"));
-    const authors = await baseline(page.locator(".publication__meta").first());
+    const heading = await capTop(page.getByRole("heading", { level: 1 }));
+    const authors = await capTop(page.locator(".publication__meta").first());
 
     // Within a pixel, as platforms round the baseline differently.
-    expect(Math.abs(authors - eyebrow)).toBeLessThanOrEqual(1);
+    expect(Math.abs(authors - heading)).toBeLessThanOrEqual(1);
   });
 }
 

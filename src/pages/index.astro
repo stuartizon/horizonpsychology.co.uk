@@ -177,7 +177,7 @@ import portrait from "@/photos/home.jpg";
   @media (min-width: 48rem) {
     /* The home header is taller than the others, with its links lower by half
        of its --shrink, so this takes that off the space above the hero. The
-       portrait then starts as far below the links as the About page's. */
+       eyebrow then starts as far below the links as the About page's. */
     .hero {
       grid-template-columns: 1fr 1fr;
       padding-top: calc(var(--section-y-tight) - var(--shrink, 0px) / 2);
@@ -187,9 +187,12 @@ import portrait from "@/photos/home.jpg";
       max-width: 46ch;
     }
 
-    /* Level with the top of the eyebrow's capitals, as on the About page. */
+    /* Level with the top of the heading's capitals: below the eyebrow's
+       line and the gap after it, then 0.236em down the heading's line. */
     .hero__portrait {
-      margin-top: calc(0.78rem * 0.385);
+      margin-top: calc(
+        0.78rem * 1.45 + var(--space-3) + var(--text-hero) * 0.236
+      );
     }
 
     .action {
@@ -203,13 +206,27 @@ import portrait from "@/photos/home.jpg";
       align-items: start;
     }
 
+    /* The first line's capitals, 0.477em down its line, are level with the
+       heading's, as the hero photo is. */
+    .offer__body {
+      margin-top: calc(
+        0.78rem * 1.45 + var(--space-3) + var(--text-h2) * 0.236 -
+          var(--text-body) * 0.477
+      );
+    }
+
     .services__grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
 
-  /* All four services in a row on a desktop. #77 settles the grid. */
+  /* All four services in a row on a desktop. #77 settles the grid. What we
+     offer splits in half, like the hero, so their columns line up. */
   @media (min-width: 64rem) {
+    .offer__columns {
+      grid-template-columns: 1fr 1fr;
+    }
+
     .services__grid {
       grid-template-columns: repeat(4, minmax(0, 1fr));
     }
