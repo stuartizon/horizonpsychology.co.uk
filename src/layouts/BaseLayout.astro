@@ -74,5 +74,14 @@ const canonical = noCanonical
       <slot />
     </main>
     <Footer />
+    <script>
+      import { loadAnalytics, track } from "@/analytics";
+
+      loadAnalytics();
+      document.addEventListener("click", (event) => {
+        if ((event.target as Element).closest?.('a[href^="mailto:"]'))
+          track("Email link clicked");
+      });
+    </script>
   </body>
 </html>
