@@ -179,3 +179,22 @@ test("on a phone Get in touch and More about Emma are centred", async ({
     expect(Math.abs(link.x + link.width / 2 - middle)).toBeLessThanOrEqual(1);
   }
 });
+
+test("the hero photo is shown at its own proportions, uncropped", async ({
+  page,
+}) => {
+  await page.goto("/");
+  const photo = page.getByRole("img", { name: "Dr Emma Izon" });
+  await expect(photo).toHaveJSProperty("complete", true);
+
+  // The height is rounded to a whole pixel, so it's within 1px of the
+  // height the photo's proportions give its width.
+  const { height, uncropped } = await photo.evaluate(
+    (img: HTMLImageElement) => ({
+      height: img.clientHeight,
+      uncropped: (img.clientWidth * img.naturalHeight) / img.naturalWidth,
+    }),
+  );
+
+  expect(Math.abs(height - uncropped)).toBeLessThanOrEqual(1);
+});
