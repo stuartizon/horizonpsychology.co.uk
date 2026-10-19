@@ -43,7 +43,7 @@ const { id, label, class: className } = Astro.props;
     flex: none;
     width: 44px;
     height: 26px;
-    border: 1px solid var(--color-sage-600);
+    border: 1px solid var(--color-line-strong);
     border-radius: var(--radius-pill);
     padding: 0;
     background: var(--color-panel);
@@ -64,13 +64,15 @@ const { id, label, class: className } = Astro.props;
     width: 18px;
     height: 18px;
     border-radius: 50%;
-    background: var(--color-line-strong);
+    /* Off, the dark thumb gives the switch 3:1 contrast against the page. */
+    background: var(--color-ink-soft);
     transition:
       transform var(--switch-motion),
       background-color var(--switch-motion);
   }
 
   .switch__track[aria-checked="true"] {
+    border-color: var(--color-sage-600);
     background: var(--color-sage-600);
   }
 
@@ -80,18 +82,23 @@ const { id, label, class: className } = Astro.props;
   }
 
   .switch__track:hover:not(:disabled) {
-    border-color: var(--color-sage-800);
+    border-color: var(--color-ink);
   }
 
   .switch__track[aria-checked="true"]:hover:not(:disabled) {
+    border-color: var(--color-sage-800);
     background: var(--color-sage-800);
   }
 
-  /* Disabled, it's drawn off but grey, and the hint stays full contrast, so
-     the reason can be read. */
+  /* Disabled, it's drawn off in paler greys, and the hint stays full
+     contrast, so the reason can be read. */
   .switch__track:disabled {
-    border-color: var(--color-line-strong);
+    border-color: var(--color-line);
     cursor: not-allowed;
+  }
+
+  .switch__track:disabled .switch__thumb {
+    background: var(--color-line-strong);
   }
 
   .switch__hint {
