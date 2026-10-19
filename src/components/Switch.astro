@@ -1,6 +1,7 @@
 ---
-// An on/off switch: a button with role="switch", its label, and a hint below
-// that explains the state. It's drawn off; a script sets aria-checked, which
+// An on/off switch: a button with role="switch", named by its label, and a
+// hint beside it that says what the state means. Only the hint is shown, as it
+// changes with the switch. It's drawn off; a script sets aria-checked, which
 // moves the thumb, and sets the hint, which is announced when it changes.
 interface Props {
   id: string;
@@ -18,14 +19,12 @@ const { id, label, class: className } = Astro.props;
     type="button"
     role="switch"
     aria-checked="false"
+    aria-label={label}
     aria-describedby={`${id}-hint`}
   >
     <span class="switch__thumb" aria-hidden="true"></span>
   </button>
-  <div class="switch__text">
-    <label for={id}>{label}</label>
-    <span class="switch__hint" id={`${id}-hint`} aria-live="polite"></span>
-  </div>
+  <span class="switch__hint" id={`${id}-hint`} aria-live="polite"></span>
 </div>
 
 <style>
@@ -44,15 +43,14 @@ const { id, label, class: className } = Astro.props;
     flex: none;
     width: 44px;
     height: 26px;
-    border: 1px solid var(--color-line-strong);
+    border: 1px solid var(--color-sage-600);
     border-radius: var(--radius-pill);
     padding: 0;
     background: var(--color-panel);
     cursor: pointer;
     transition:
       background-color var(--switch-motion),
-      border-color var(--switch-motion),
-      box-shadow var(--switch-motion);
+      border-color var(--switch-motion);
   }
 
   .switch__track:focus-visible {
@@ -73,7 +71,6 @@ const { id, label, class: className } = Astro.props;
   }
 
   .switch__track[aria-checked="true"] {
-    border-color: var(--color-sage-600);
     background: var(--color-sage-600);
   }
 
@@ -82,50 +79,25 @@ const { id, label, class: className } = Astro.props;
     transform: translateX(18px);
   }
 
-  /* Hovering anywhere on the switch or its label shows the halo. */
-  .switch:hover .switch__track:not(:disabled) {
-    border-color: var(--color-sage-600);
-    box-shadow: 0 0 0 5px
-      color-mix(in srgb, var(--color-sage-600) 16%, transparent);
+  .switch__track:hover:not(:disabled) {
+    border-color: var(--color-sage-800);
   }
 
-  .switch:hover .switch__track[aria-checked="true"]:not(:disabled) {
-    border-color: var(--color-sage-800);
+  .switch__track[aria-checked="true"]:hover:not(:disabled) {
     background: var(--color-sage-800);
   }
 
-  /* Disabled, the label and hint stay full contrast, so the reason can be read. */
+  /* Disabled, it's drawn off but grey, and the hint stays full contrast, so
+     the reason can be read. */
   .switch__track:disabled {
-    border-style: dashed;
     border-color: var(--color-line-strong);
-    background: var(--color-sage-50);
-    cursor: not-allowed;
-  }
-
-  .switch__track:disabled .switch__thumb {
-    background: var(--color-sage-300);
-  }
-
-  .switch__text {
-    display: flex;
-    min-width: 0;
-    flex-direction: column;
-    gap: 2px;
-    padding-top: 2px;
-  }
-
-  label {
-    color: var(--color-ink);
-    font-size: var(--text-small);
-    line-height: 1.45;
-    cursor: pointer;
-  }
-
-  .switch:has(:disabled) label {
     cursor: not-allowed;
   }
 
   .switch__hint {
+    min-width: 0;
+    /* Centres a line of the hint on the track. */
+    padding-top: 1px;
     color: var(--color-ink-soft);
     font-size: var(--text-small);
     line-height: 1.55;
