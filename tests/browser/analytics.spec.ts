@@ -150,7 +150,7 @@ for (const [where, origin] of [
   ["the live site's Pages address", "https://horizonpsychology.pages.dev"],
   ["a local build", undefined],
 ] as const) {
-  test(`on ${where}, the analytics aren't loaded and the privacy policy has no switch, until it describes them`, async ({
+  test(`on ${where}, the analytics aren't loaded, but the privacy policy has its switch, as it describes them`, async ({
     page,
     baseURL,
   }) => {
@@ -160,7 +160,7 @@ for (const [where, origin] of [
     await page.goto(`${origin ?? ""}/privacy-policy/`);
     await page.waitForLoadState("load");
 
-    await expect(page.getByRole("switch")).toHaveCount(0);
+    await expect(page.getByRole("switch")).toBeVisible();
     await expect(umamiScript(page)).toHaveCount(0);
     expect(requests).toEqual([]);
   });
