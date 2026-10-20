@@ -30,6 +30,12 @@ test("the hero photo is Emma's portrait, served from the optimised images", () =
   expect(photo.getAttribute("src")).toMatch(/^\/_astro\//);
 });
 
+test("the hero photo is the square one of Emma at her desk", () => {
+  const photo = document.querySelector("main img")!;
+
+  expect(photo.getAttribute("width")).toBe(photo.getAttribute("height"));
+});
+
 test("What we offer describes the practice and links to more about Emma", () => {
   const section = labelled(
     document,
