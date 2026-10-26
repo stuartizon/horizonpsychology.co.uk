@@ -15,7 +15,7 @@ export const publications: Publication[] = [
     year: 2026,
     title: "“I'm not a wimp, I'm brave”.",
     journal:
-      "Advances in Mental Health and Intellectual Disabilities, advance online publication",
+      "Advances in Mental Health and Intellectual Disabilities, 20(1), 38–50",
     href: "https://doi.org/10.1108/AMHID-10-2025-0048",
   },
   {
@@ -23,15 +23,15 @@ export const publications: Publication[] = [
     year: 2026,
     title:
       "Understanding barriers to receiving psychological intervention for older persons who experience hallucinations.",
-    journal: "BMC Geriatrics, advance online publication",
+    journal: "BMC Geriatrics, 26, Article 240",
     href: "https://doi.org/10.1186/s12877-025-06831-7",
   },
   {
-    authors: "Izon, E., Radez, J., & Knight, M. T.",
-    year: 2023,
+    authors: "Izon, E., Radez, J., & Knight, M. T. D.",
+    year: 2024,
     title:
       "The psychosocial stressors of siblings of people with experiences of psychosis (SOPEP): A systematic narrative review across cultures.",
-    journal: "Clinical Psychology & Psychotherapy",
+    journal: "Clinical Psychology & Psychotherapy, 31(1), e2921",
     href: "https://doi.org/10.1002/cpp.2921",
   },
   {
@@ -55,14 +55,14 @@ export const publications: Publication[] = [
     year: 2022,
     title:
       "Treating anxiety in an older adult using internet-based cognitive behavioural therapy (iCBT): A case study.",
-    journal: "FPOP Bulletin: Psychology of Older People",
+    journal: "FPOP Bulletin: Psychology of Older People, (158), 22–30",
     href: "https://doi.org/10.53841/bpsfpop.2022.1.158.22",
   },
   {
     authors: "Izon, E., Berry, K., Law, H., & French, P.",
     year: 2022,
     title:
-      "‘If he feels better I'll feel better’: relationships with individuals at high-risk of developing psychosis.",
+      "‘If he feels better I'll feel better’ relationships with individuals at high-risk of developing psychosis.",
     journal: "Early Intervention in Psychiatry, 16(3), 231–238",
     href: "https://doi.org/10.1111/eip.13146",
   },
@@ -71,9 +71,18 @@ export const publications: Publication[] = [
       "Izon, E., Berry, K., Wearden, A., Carter, L-A., Law, H., & French, P.",
     year: 2021,
     title:
-      "Investigating Expressed Emotion (EE) in individuals at-risk of developing psychosis and their families over 12 months.",
-    journal: "Clinical Psychology & Psychotherapy",
+      "Investigating expressed emotion in individuals at-risk of developing psychosis and their families over 12 months.",
+    journal: "Clinical Psychology & Psychotherapy, 28(5), 1285–1296",
     href: "https://doi.org/10.1002/cpp.2576",
+  },
+  {
+    authors:
+      "Law, H., Izon, E., Au-Yeung, K., Morrison, A. P., Byrne, R., Notley, C., Yung, A., Norrie, J., & French, P.",
+    year: 2021,
+    title:
+      "Combined individual and family therapy in comparison to treatment as usual for people at-risk of psychosis: A feasibility study (IF CBT): Trial rationale, methodology and baseline characteristics.",
+    journal: "Early Intervention in Psychiatry, 15(1), 140–148",
+    href: "https://doi.org/10.1111/eip.12922",
   },
   {
     authors: "Izon, E., Berry, K., Law, H., Au-Yeung, K., & French, P.",
@@ -87,8 +96,8 @@ export const publications: Publication[] = [
     authors: "Izon, E., Berry, K., Law, H., Shiers, D., & French, P.",
     year: 2020,
     title:
-      "“I don't think I took her fears seriously.” Exploring the experiences of family members of individuals at-risk of developing psychosis over 12 months.",
-    journal: "Clinical Psychology & Psychotherapy",
+      "“I don't think I took her fears seriously”: Exploring the experiences of family members of individuals at-risk of developing psychosis over 12 months.",
+    journal: "Clinical Psychology & Psychotherapy, 27(6), 965–976",
     href: "https://doi.org/10.1002/cpp.2483",
   },
   {
@@ -96,17 +105,8 @@ export const publications: Publication[] = [
     year: 2020,
     title:
       "The challenges of engaging individuals at high-risk of developing psychosis: reflections from research assistants within a randomised control trial.",
-    journal: "Psychosis, 1–9",
+    journal: "Psychosis, 12(4), 339–347",
     href: "https://doi.org/10.1080/17522439.2020.1779795",
-  },
-  {
-    authors:
-      "Law, H., Izon, E., Au-Yeung, K., Morrison, A. P., Byrne, R., Notley, C., … French, P.",
-    year: 2019,
-    title:
-      "Combined individual and family therapy in comparison to treatment as usual for people at-risk of psychosis: A feasibility study (IF CBT).",
-    journal: "Trial rationale, methodology and baseline characteristics",
-    href: "https://doi.org/10.1111/eip.12922",
   },
   {
     authors: "Izon, E., Berry, K., Law, H., & French, P.",
