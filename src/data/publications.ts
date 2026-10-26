@@ -117,3 +117,23 @@ export const publications: Publication[] = [
     href: "https://doi.org/10.1016/j.psychres.2018.10.065",
   },
 ];
+
+/** A paper Dr Izon didn't write, which acknowledges her part in the research. */
+export interface Acknowledgement extends Publication {
+  /** How the paper acknowledges her. */
+  role: string;
+}
+
+/** Newest first. */
+export const acknowledgements: Acknowledgement[] = [
+  {
+    authors:
+      "Freeman, D., Lambe, S., Kabir, T., Petit, A., Rosebrock, L., Yu, L.-M., Dudley, R., Chapman, K., Morrison, A., O'Regan, E., Aynsworth, C., Jones, J., Murphy, E., Powling, R., Galal, U., Grabey, J., Rovira, A., Martin, J., Hollis, C., … Waite, F.",
+    year: 2022,
+    title:
+      "Automated virtual reality therapy to treat agoraphobic avoidance and distress in patients with psychosis (gameChange): A multicentre, parallel-group, single-blind, randomised, controlled trial in England with mediation and moderation analyses.",
+    journal: "The Lancet Psychiatry, 9(5), 375–388",
+    href: "https://doi.org/10.1016/S2215-0366(22)00060-8",
+    role: "Acknowledged as a trial research assistant, Greater Manchester Mental Health NHS Foundation Trust.",
+  },
+];

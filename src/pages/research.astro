@@ -5,7 +5,7 @@ import Container from "@/components/Container.astro";
 import ExternalLink from "@/components/ExternalLink.astro";
 import Publication from "@/components/Publication.astro";
 import SectionHeading from "@/components/SectionHeading.astro";
-import { publications } from "@/data/publications";
+import { acknowledgements, publications } from "@/data/publications";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import thesis from "@/photos/research.jpg";
 ---
@@ -53,11 +53,28 @@ import thesis from "@/photos/research.jpg";
           />
         </div>
       </div>
-      <ul class="research__publications" aria-label="Publications">
-        {publications.map((publication) => (
-          <Publication publication={publication} />
-        ))}
-      </ul>
+      <div class="research__papers">
+        <ul class="research__publications" aria-label="Publications">
+          {publications.map((publication) => (
+            <Publication publication={publication} />
+          ))}
+        </ul>
+        <section
+          class="research__acknowledgements"
+          aria-labelledby="acknowledgements"
+        >
+          <SectionHeading
+            eyebrow="Acknowledged in"
+            title="Dr Izon also contributed to this research"
+            id="acknowledgements"
+          />
+          <ul class="research__publications">
+            {acknowledgements.map(({ role, ...publication }) => (
+              <Publication publication={publication} role={role} />
+            ))}
+          </ul>
+        </section>
+      </div>
     </div>
   </Container>
 </BaseLayout>
@@ -108,6 +125,18 @@ import thesis from "@/photos/research.jpg";
     margin-block: var(--space-2) var(--space-4);
     border-radius: var(--radius-image);
     box-shadow: var(--shadow-rest);
+  }
+
+  .research__papers {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-16);
+  }
+
+  .research__acknowledgements {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
   }
 
   .research__publications {

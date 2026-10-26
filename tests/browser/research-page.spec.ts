@@ -18,8 +18,7 @@ for (const width of [768, 1280]) {
       .getByRole("heading", { level: 1 })
       .boundingBox())!;
     const publications = (await page
-      .getByRole("list")
-      .filter({ has: page.locator(".publication") })
+      .getByRole("list", { name: "Publications", exact: true })
       .boundingBox())!;
 
     expect(publications.x).toBeGreaterThan(heading.x + heading.width);
@@ -37,8 +36,7 @@ for (const width of [768, 1280]) {
       .getByRole("link", { name: "Enquire about research supervision" })
       .boundingBox())!;
     const publications = (await page
-      .getByRole("list")
-      .filter({ has: page.locator(".publication") })
+      .getByRole("list", { name: "Publications", exact: true })
       .boundingBox())!;
 
     expect(button.x + button.width).toBeLessThan(publications.x);
@@ -52,7 +50,7 @@ for (const width of [768, 1280]) {
     await page.setViewportSize({ width, height: 1024 });
     await page.evaluate(() => document.fonts.ready);
 
-    const eyebrow = await baseline(page.locator("main .eyebrow"));
+    const eyebrow = await baseline(page.locator("main .eyebrow").first());
     const authors = await baseline(page.locator(".publication__meta").first());
 
     // Within a pixel, as platforms round the baseline differently.
@@ -60,21 +58,26 @@ for (const width of [768, 1280]) {
   });
 }
 
-test("there's no line above the first publication or below the last", async ({
+test("there's no line above the first paper in each list or below the last", async ({
   page,
 }) => {
-  const borders = await page
-    .locator(".publication")
-    .evaluateAll((items) =>
-      items.map((item) => [
-        getComputedStyle(item).borderTopWidth,
-        getComputedStyle(item).borderBottomWidth,
-      ]),
+  const lists = await page
+    .locator(".research__publications")
+    .evaluateAll((lists) =>
+      lists.map((list) =>
+        [...list.children].map((item) => [
+          getComputedStyle(item).borderTopWidth,
+          getComputedStyle(item).borderBottomWidth,
+        ]),
+      ),
     );
 
-  expect(borders[0]).toEqual(["0px", "0px"]);
-  expect(borders.at(-1)![1]).toBe("0px");
-  expect(borders.slice(1).every(([top]) => top === "1px")).toBe(true);
+  expect(lists).toHaveLength(2);
+  for (const borders of lists) {
+    expect(borders[0]).toEqual(["0px", "0px"]);
+    expect(borders.at(-1)![1]).toBe("0px");
+    expect(borders.slice(1).every(([top]) => top === "1px")).toBe(true);
+  }
 });
 
 test("the Research page has no detectable accessibility violations", async ({
