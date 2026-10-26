@@ -2,6 +2,7 @@
 import { Image } from "astro:assets";
 import Button from "@/components/Button.astro";
 import Container from "@/components/Container.astro";
+import Eyebrow from "@/components/Eyebrow.astro";
 import ExternalLink from "@/components/ExternalLink.astro";
 import Publication from "@/components/Publication.astro";
 import SectionHeading from "@/components/SectionHeading.astro";
@@ -63,11 +64,9 @@ import thesis from "@/photos/research.jpg";
           class="research__acknowledgements"
           aria-labelledby="acknowledgements"
         >
-          <SectionHeading
-            eyebrow="Acknowledged in"
-            title="Dr Izon also contributed to this research"
-            id="acknowledgements"
-          />
+          <h2 id="acknowledgements">
+            <Eyebrow>Acknowledged in</Eyebrow>
+          </h2>
           <ul class="research__publications">
             {acknowledgements.map(({ role, ...publication }) => (
               <Publication publication={publication} role={role} />
@@ -130,13 +129,19 @@ import thesis from "@/photos/research.jpg";
   .research__papers {
     display: flex;
     flex-direction: column;
-    gap: var(--space-16);
+    gap: var(--space-12);
   }
 
   .research__acknowledgements {
     display: flex;
     flex-direction: column;
-    gap: var(--space-8);
+    gap: var(--space-5);
+  }
+
+  /* A label, not a statement, so it takes the eyebrow's style. */
+  .research__acknowledgements h2 {
+    margin: 0;
+    font: inherit;
   }
 
   .research__publications {
