@@ -12,3 +12,11 @@ test("every publication links to its DOI", () => {
     expect(href, title).toMatch(/^https:\/\/doi\.org\/10\.\d+\//);
   }
 });
+
+test("every publication gives its volume or issue, and its pages or article number", () => {
+  for (const { title, journal } of publications) {
+    expect(journal, title).toMatch(
+      /, (\d+(\(\d+\))?|\(\d+\)), (\d+–\d+|Article \d+|e\d+)$/,
+    );
+  }
+});
