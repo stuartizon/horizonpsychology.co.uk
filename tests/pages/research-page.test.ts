@@ -35,8 +35,8 @@ test("each publication reads as a citation, with spaces between its parts", () =
   );
 });
 
-test("the Research page lists the papers that acknowledge Dr Izon, with her role, after her own", () => {
-  const section = labelled(main, "Dr Izon also contributed to this research");
+test('the Research page lists the papers that acknowledge Dr Izon, under a heading of "Acknowledged in", with her role, after her own', () => {
+  const section = labelled(main, "Acknowledged in");
 
   expect(texts(section, "li.publication")).toEqual(
     acknowledgements.map(
