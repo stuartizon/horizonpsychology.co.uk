@@ -101,7 +101,7 @@ Depending on the circumstances, Horizon Psychology may rely on the following law
 
 - **Article 6(1)(b) – Contract:** To take steps before entering into an agreement and to fulfil arrangements for therapy or supervision.
 - **Article 6(1)(c) – Legal obligation:** To comply with applicable legal or regulatory requirements.
-- **Article 6(1)(f) – Legitimate interests:** To manage enquiries, maintain appropriate records, administer the practice and address complaints or legal claims, where these interests do not override your rights.
+- **Article 6(1)(f) – Legitimate interests:** To manage enquiries, maintain appropriate records, administer the practice, understand how the website is used, and address complaints or legal claims, where these interests do not override your rights.
 - **Article 6(1)(d) – Vital interests:** Where necessary to protect someone's life or other vital interests.
 
 For special category personal information, the relevant condition under [Article 9](https://www.legislation.gov.uk/eur/2016/679/article/9) may include:
@@ -131,6 +131,7 @@ Information may also be processed by service providers that support the practice
 The providers currently identified for Horizon Psychology include:
 
 - **Cloudflare:** Website hosting and contact form delivery.
+- **Umami:** Counting visits to the website anonymously, with the information stored in the European Union.
 - **Google:** Email communications.
 - **Zoom:** Online video calls for therapy, clinical supervision and research supervision, where applicable.
 - **Google Meet:** Online video calls for therapy, clinical supervision and research supervision, where applicable.
@@ -198,7 +199,22 @@ You may express preferences about how your information is shared, including afte
 
 ## 11. Cookies and website usage
 
-Horizon Psychology does not currently use cookies or similar technologies to track visitors or analyse website usage.
+Horizon Psychology does not use cookies on its website, and does not store anything on your device to track you.
+
+To understand how the website is used and to improve it, Horizon Psychology counts visits to the website using Umami, a privacy-focused analytics service, with the information stored in the European Union. Umami records:
+
+- the pages visited, and the website or search engine a visitor arrived from
+- the type of browser, operating system and device, and the screen size and language setting
+- an approximate location, such as the country or town, worked out from the connection
+- when an enquiry is sent, or cannot be sent, through the contact form, and when the email address is clicked
+
+Umami does not record anything you write in the contact form, and it does not keep IP addresses or any other information that identifies you. Visits are counted anonymously and cannot be linked to you. The information is used only to understand how the website is used and to improve it, and Umami does not use it for any other purpose. It is kept for six months.
+
+You can stop your visits being counted at any time:
+
+- using the switch below, which keeps a note in your browser not to count your visits, until you clear your browser's data
+- by turning on your browser's Do Not Track or Global Privacy Control setting
+- by using a browser or extension that blocks analytics
 
 ## 12. Changes to this Privacy Policy
 
