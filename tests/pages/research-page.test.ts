@@ -16,6 +16,12 @@ test("the Research page introduces Emma's research", () => {
   );
 });
 
+test("the Research page lists Emma's areas of research", () => {
+  expect(text(main.querySelector(".research__note"))).toBe(
+    "Areas of research: at-risk mental states and psychosis, expressed emotion, family and sibling experience, older adults' access to psychological intervention, service-user measures, and virtual reality therapies.",
+  );
+});
+
 test("the Research page lists each publication, newest first, linking to it in a new tab", () => {
   const items = [...main.querySelectorAll("li.publication")];
 
