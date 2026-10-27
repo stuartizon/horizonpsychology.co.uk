@@ -85,7 +85,7 @@ import bookshelf from "@/photos/about-approach.jpg";
             name="Health and Care Professions Council (HCPC) registered"
           />
           <CredentialLogo
-            href="https://www.babcp.com/"
+            href="https://portal.babcp.com/therapist/register"
             src={babcpAccredited}
             name="British Association for Behavioural and Cognitive Psychotherapies (BABCP) accredited"
           />
@@ -215,7 +215,7 @@ import bookshelf from "@/photos/about-approach.jpg";
   }
 
   .approach__columns {
-    --gap: clamp(28px, 5vw, 72px);
+    --gap: clamp(32px, 5vw, 64px);
     display: flex;
     flex-direction: column;
     gap: var(--space-5);
@@ -239,9 +239,18 @@ import bookshelf from "@/photos/about-approach.jpg";
 
   /* From a tablet up, the text wraps around each photo: the portrait on the
      right and the bookshelf on the left. Each photo's top is level with the
-     top of its eyebrow's capitals, not its line: they start 0.385em down its
-     0.78rem text, below the space the font leaves above them. */
+     top of its heading's capitals: below the eyebrow's line and the gap after
+     it, then 0.236em down the heading's line, below the space the font
+     leaves above them. */
   @media (min-width: 48rem) {
+    .about__intro {
+      --caps: calc(0.78rem * 1.45 + var(--space-3) + var(--text-h1) * 0.236);
+    }
+
+    .approach__columns {
+      --caps: calc(0.78rem * 1.45 + var(--space-3) + var(--text-h2) * 0.236);
+    }
+
     .about__intro,
     .approach__columns {
       display: flow-root;
@@ -250,7 +259,7 @@ import bookshelf from "@/photos/about-approach.jpg";
     .about__portrait {
       float: right;
       width: calc(50% - var(--gap) / 2);
-      margin: calc(0.78rem * 0.385) 0 var(--space-6) var(--gap);
+      margin: var(--caps) 0 var(--space-6) var(--gap);
     }
 
     .about__intro > p,
@@ -261,7 +270,7 @@ import bookshelf from "@/photos/about-approach.jpg";
     .approach__photo {
       float: left;
       width: 45%;
-      margin: calc(0.78rem * 0.385) var(--gap) var(--space-5) 0;
+      margin: var(--caps) var(--gap) var(--space-5) 0;
     }
 
     .approach__columns > p {
@@ -270,8 +279,8 @@ import bookshelf from "@/photos/about-approach.jpg";
   }
 
   /* On a desktop the text keeps to its own column beside each photo, at most
-     a readable measure wide, and the approach's ends in line with the
-     portrait. */
+     a readable measure wide. The approach splits in half, like the
+     introduction, so its text lines up under the portrait. */
   @media (min-width: 64rem) {
     .about__intro > :global(:not(.about__portrait)) {
       max-width: min(var(--measure-prose), calc(50% - var(--gap) / 2));
@@ -279,7 +288,7 @@ import bookshelf from "@/photos/about-approach.jpg";
 
     .approach__columns {
       display: grid;
-      grid-template-columns: minmax(14rem, 1fr) minmax(0, var(--measure-prose));
+      grid-template-columns: 1fr 1fr;
       grid-template-rows: auto auto 1fr;
       gap: var(--space-5) var(--gap);
       align-items: start;
@@ -297,7 +306,7 @@ import bookshelf from "@/photos/about-approach.jpg";
       grid-column: 1;
       grid-row: 1 / span 3;
       width: 100%;
-      margin: calc(0.78rem * 0.385) 0 0;
+      margin: var(--caps) 0 0;
     }
   }
 </style>

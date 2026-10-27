@@ -125,13 +125,23 @@ import thesis from "@/photos/research.jpg";
   }
 
   /* From a tablet up, the publications sit beside the introduction, with the
-     first one's authors on the same baseline as the eyebrow. The introduction
-     takes a third of the width, or more if its button needs it. */
+     capitals of the first one's authors level with the heading's: below the
+     eyebrow's line and the gap after it, then 0.236em down the heading's
+     line, less the 0.477em the authors' capitals start down theirs. The
+     introduction takes a third of the width, or more if its button needs
+     it. */
   @media (min-width: 48rem) {
     .research {
       grid-template-columns: minmax(min-content, 1fr) 2fr;
       gap: clamp(28px, 5vw, 72px);
-      align-items: baseline;
+      align-items: start;
+    }
+
+    .research__publications {
+      margin-top: calc(
+        0.78rem * 1.45 + var(--space-3) + var(--text-h1) * 0.236 -
+          var(--text-caption) * 0.477
+      );
     }
 
     .research__intro > p {

@@ -45,7 +45,7 @@ test("the About page links to Emma's registration and accreditation, with their 
       logo: expect.stringMatching(/^\/_astro\/hcpc-registered\..+\.webp$/),
     },
     {
-      href: "https://www.babcp.com/",
+      href: "https://portal.babcp.com/therapist/register",
       name: "British Association for Behavioural and Cognitive Psychotherapies (BABCP) accredited (opens in a new tab)",
       logo: expect.stringMatching(/^\/_astro\/babcp-accredited\..+\.webp$/),
     },

@@ -80,7 +80,11 @@ describe("the Complaints page", () => {
     expect(link("https://www.hcpc-uk.org/")).toBe(
       "Health and Care Professions Council (HCPC) (opens in a new tab)",
     );
-    expect(link("https://babcp.com/")).toBe(
+    expect(
+      link(
+        "https://babcp.com/about/raising-a-concern/babcp-complaints-declarations-and-disciplinary-procedure/",
+      ),
+    ).toBe(
       "British Association for Behavioural and Cognitive Psychotherapies (BABCP) (opens in a new tab)",
     );
     expect(link("https://ico.org.uk/make-a-complaint/")).toBe(
