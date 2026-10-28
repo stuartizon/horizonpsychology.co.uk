@@ -18,6 +18,36 @@ test("on a phone the footer is a single column", async ({ page, isMobile }) => {
   }
 });
 
+test("on most phones the link groups fit into two columns", async ({
+  page,
+  isMobile,
+}) => {
+  test.skip(!isMobile, "Phone layout only");
+  await page.setViewportSize({ width: 360, height: 800 });
+  await page.goto("/");
+
+  const [services, about, information] = await groups(page).evaluateAll(
+    (navs) => navs.map((nav) => nav.getBoundingClientRect()),
+  );
+  expect(about.top).toBe(services.top);
+  expect(about.left).toBeGreaterThan(services.right);
+  expect(information.top).toBeGreaterThanOrEqual(services.bottom);
+  expect(information.left).toBe(services.left);
+
+  // Information spans both columns, with its links in two columns of its own.
+  const links = await groups(page)
+    .nth(2)
+    .getByRole("link")
+    .evaluateAll((anchors) =>
+      anchors.map((anchor) => anchor.getBoundingClientRect()),
+    );
+  expect(links).toHaveLength(4);
+  expect(links[1].top).toBe(links[0].top);
+  expect(links[1].left).toBe(about.left);
+  expect(links[2].left).toBe(links[0].left);
+  expect(links[2].top).toBeGreaterThan(links[0].bottom);
+});
+
 test("on a tablet the link groups sit side by side, below the logo and email", async ({
   page,
   isMobile,
