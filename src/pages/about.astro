@@ -21,13 +21,32 @@ import bookshelf from "@/photos/about-approach.jpg";
   <Container>
     <div class="about">
       <div class="about__intro">
-        <Image
-          class="about__portrait"
-          src={portrait}
-          alt="Dr Emma Izon"
-          widths={[480, 800, 1200]}
-          sizes="(min-width: 48rem) 50vw, 100vw"
-        />
+        <div class="about__aside">
+          <Image
+            class="about__portrait"
+            src={portrait}
+            alt="Dr Emma Izon"
+            widths={[480, 800, 1200]}
+            sizes="(min-width: 48rem) 50vw, 100vw"
+          />
+          <div class="about__credentials">
+            <CredentialLogo
+              href="https://www.hcpc-uk.org/check-the-register/professional-registration-detail/?query=PYL043541&profession=PYL"
+              src={hcpcRegistered}
+              name="Health and Care Professions Council (HCPC) registered"
+            />
+            <CredentialLogo
+              href="https://portal.babcp.com/therapist/register"
+              src={babcpAccredited}
+              name="British Association for Behavioural and Cognitive Psychotherapies (BABCP) accredited"
+            />
+            <CredentialLogo
+              href="https://www.psychologytoday.com/profile/1297285"
+              src={psychologyTodayVerified}
+              name="Verified by Psychology Today"
+            />
+          </div>
+        </div>
         <SectionHeading
           eyebrow="About Emma"
           title="Dr Emma Izon"
@@ -76,23 +95,6 @@ import bookshelf from "@/photos/about-approach.jpg";
           clinical work, she provides clinical and research supervision, drawing
           on her experience across clinical practice and research.
         </p>
-        <div class="about__credentials">
-          <CredentialLogo
-            href="https://www.hcpc-uk.org/check-the-register/professional-registration-detail/?query=PYL043541&profession=PYL"
-            src={hcpcRegistered}
-            name="Health and Care Professions Council (HCPC) registered"
-          />
-          <CredentialLogo
-            href="https://portal.babcp.com/therapist/register"
-            src={babcpAccredited}
-            name="British Association for Behavioural and Cognitive Psychotherapies (BABCP) accredited"
-          />
-          <CredentialLogo
-            href="https://www.psychologytoday.com/profile/1297285"
-            src={psychologyTodayVerified}
-            name="Verified by Psychology Today"
-          />
-        </div>
       </div>
     </div>
   </Container>
@@ -171,8 +173,9 @@ import bookshelf from "@/photos/about-approach.jpg";
   }
 
   /* Each photo comes first, so it can float beside the text that follows.
-     On a phone it moves down to break up the text: the portrait after the
-     second paragraph, and the bookshelf after the first. */
+     On a phone it moves down to break up the text: the portrait, with the
+     credential logos under it, after the second paragraph, and the bookshelf
+     after the first. */
   .about__intro {
     --gap: clamp(32px, 5vw, 64px);
     display: flex;
@@ -180,8 +183,11 @@ import bookshelf from "@/photos/about-approach.jpg";
     gap: var(--space-6);
   }
 
-  .about__portrait {
+  .about__aside {
     order: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
   }
 
   .about__intro > p:nth-of-type(2) ~ * {
@@ -259,14 +265,13 @@ import bookshelf from "@/photos/about-approach.jpg";
       display: flow-root;
     }
 
-    .about__portrait {
+    .about__aside {
       float: right;
       width: calc(50% - var(--gap) / 2);
       margin: var(--caps) 0 var(--space-6) var(--gap);
     }
 
-    .about__intro > p,
-    .about__credentials {
+    .about__intro > p {
       margin-top: var(--space-6);
     }
 
@@ -285,7 +290,7 @@ import bookshelf from "@/photos/about-approach.jpg";
      a readable measure wide. The approach splits in half, like the
      introduction, so its text lines up under the portrait. */
   @media (min-width: 64rem) {
-    .about__intro > :global(:not(.about__portrait)) {
+    .about__intro > :global(:not(.about__aside)) {
       max-width: min(var(--measure-prose), calc(50% - var(--gap) / 2));
     }
 
