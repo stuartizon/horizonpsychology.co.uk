@@ -1,6 +1,6 @@
 import AxeBuilder from "@axe-core/playwright";
-import { expect, test, type Page } from "@playwright/test";
-import { baseline } from "./baseline";
+import { expect, test } from "@playwright/test";
+import { capTop } from "./baseline";
 
 test("home page has no detectable accessibility violations", async ({
   page,
@@ -80,7 +80,7 @@ for (const [width, columns] of [
 }
 
 for (const width of [768, 1280]) {
-  test(`at ${width}px the photo's top is level with the top of the eyebrow's capitals`, async ({
+  test(`at ${width}px the photo's top is level with the top of the heading's capitals`, async ({
     page,
     isMobile,
   }) => {
@@ -89,53 +89,52 @@ for (const width of [768, 1280]) {
     await page.goto("/");
     await page.evaluate(() => document.fonts.ready);
 
-    // The font's own cap height, which doesn't vary with how each platform
-    // draws the letters.
-    const eyebrow = page.locator(".hero .eyebrow");
-    const capHeight = await eyebrow.evaluate((node) => {
-      const probe = document.createElement("span");
-      probe.style.cssText = "display: inline-block; height: 1cap";
-      node.append(probe);
-      const { height } = probe.getBoundingClientRect();
-      probe.remove();
-      return height;
-    });
-    const capTop = (await baseline(eyebrow)) - capHeight;
+    const heading = await capTop(page.getByRole("heading", { level: 1 }));
     const photo = (await page
       .getByRole("img", { name: "Dr Emma Izon" })
       .boundingBox())!;
 
     // Within a pixel, as platforms round the baseline differently.
-    expect(Math.abs(photo.y - capTop)).toBeLessThanOrEqual(1);
+    expect(Math.abs(photo.y - heading)).toBeLessThanOrEqual(1);
   });
-}
 
-/** How far below the navigation's links the page's photo starts. */
-async function linksToPhoto(page: Page, path: string) {
-  await page.goto(path);
-  await page.evaluate(() => document.fonts.ready);
-  const link = (await page
-    .getByRole("navigation", { name: "Primary" })
-    .getByRole("link", { name: "About Emma" })
-    .boundingBox())!;
-  const photo = (await page
-    .getByRole("img", { name: "Dr Emma Izon" })
-    .boundingBox())!;
-  return photo.y - (link.y + link.height);
-}
-
-for (const width of [1024, 1280]) {
-  test(`at ${width}px the photo starts as far below the navigation as on the About page`, async ({
+  test(`at ${width}px What we offer's text starts level with the top of its heading's capitals`, async ({
     page,
     isMobile,
   }) => {
-    test.skip(isMobile, "On a phone the navigation is behind the menu button");
+    test.skip(isMobile, "On a phone the text follows the heading");
     await page.setViewportSize({ width, height: 1024 });
+    await page.goto("/");
+    await page.evaluate(() => document.fonts.ready);
 
-    const home = await linksToPhoto(page, "/");
-    const about = await linksToPhoto(page, "/about/");
+    const section = page.getByRole("region", {
+      name: "A safe, welcoming and non-judgemental space",
+    });
+    const heading = await capTop(section.getByRole("heading", { level: 2 }));
+    const text = await capTop(section.locator("p", { hasText: /is led by/ }));
 
-    expect(Math.abs(home - about)).toBeLessThanOrEqual(2);
+    expect(Math.abs(text - heading)).toBeLessThanOrEqual(1);
+  });
+}
+
+for (const width of [1024, 1280, 1440]) {
+  test(`at ${width}px What we offer's text starts in line with the hero photo`, async ({
+    page,
+    isMobile,
+  }) => {
+    test.skip(isMobile, "On a phone both run the full width");
+    await page.setViewportSize({ width, height: 1024 });
+    await page.goto("/");
+    await page.evaluate(() => document.fonts.ready);
+
+    const photo = (await page
+      .getByRole("img", { name: "Dr Emma Izon" })
+      .boundingBox())!;
+    const text = (await page
+      .locator("p", { hasText: /is led by/ })
+      .boundingBox())!;
+
+    expect(Math.abs(text.x - photo.x)).toBeLessThanOrEqual(1);
   });
 }
 

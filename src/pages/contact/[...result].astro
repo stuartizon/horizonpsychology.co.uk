@@ -138,7 +138,9 @@ const { title, description, result } = Astro.props;
   }
 
   /* From a tablet up, the form sits beside the introduction, with the help
-     notice below the introduction. */
+     notice below the introduction. The form's top is level with the top of
+     the heading's capitals: below the eyebrow's line and the gap after it,
+     then 0.236em down the heading's line. */
   @media (min-width: 48rem) {
     .contact {
       grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr);
@@ -156,6 +158,9 @@ const { title, description, result } = Astro.props;
 
     .contact__form {
       grid-area: 1 / 2 / 3 / 3;
+      margin-top: calc(
+        0.78rem * 1.45 + var(--space-3) + var(--text-h1) * 0.236
+      );
     }
   }
 </style>
