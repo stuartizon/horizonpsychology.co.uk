@@ -228,15 +228,15 @@ async function atWidth(page: Page, isMobile: boolean, width: number) {
 }
 
 for (const width of [320, 768, 1280]) {
-  test(`at ${width}px the credential logos are on one line, centred under the introduction's text`, async ({
+  test(`at ${width}px the credential logos are on one line, centred under the portrait`, async ({
     page,
     isMobile,
   }) => {
     test.skip(isMobile && width !== 320, "Phones are 320px");
     await atWidth(page, isMobile, width);
 
-    const intro = (await page
-      .locator("p", { hasText: /Emma offers a compassionate/ })
+    const portrait = (await page
+      .getByRole("img", { name: "Dr Emma Izon" })
       .boundingBox())!;
     const logos = await Promise.all(
       (await page.locator(".about__credentials img").all()).map(
@@ -250,14 +250,29 @@ for (const width of [320, 768, 1280]) {
     for (const logo of logos) {
       expect(logo.y).toBeCloseTo(first.y, 0);
       expect(logo.height).toBeCloseTo(first.height, 0);
+      expect(logo.y).toBeGreaterThan(portrait.y + portrait.height);
     }
     expect(
       Math.abs(
-        (first.x + last.x + last.width) / 2 - (intro.x + intro.width / 2),
+        (first.x + last.x + last.width) / 2 - (portrait.x + portrait.width / 2),
       ),
     ).toBeLessThanOrEqual(1);
   });
 }
+
+test("on a phone the credential logos are between the portrait and the third paragraph", async ({
+  page,
+  isMobile,
+}) => {
+  test.skip(!isMobile, "Phones only");
+
+  const logos = (await page.locator(".about__credentials").boundingBox())!;
+  const third = (await page
+    .getByText(/Emma has undertaken additional training/)
+    .boundingBox())!;
+
+  expect(third.y).toBeGreaterThan(logos.y + logos.height);
+});
 
 test("where there's room, the credential logos are full size", async ({
   page,
