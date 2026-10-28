@@ -53,7 +53,7 @@ export const faqs = {
     question: "What are your fees and cancellation policy?",
     answer: [
       "Fees are confirmed at the time of booking, with payment required in advance of each session. A free, no-obligation 15-minute introductory consultation is available for new therapy clients.",
-      "We kindly request at least 48 hours’ notice for cancellations or rescheduling. Cancellations made with less than 48 hours’ notice incur a 50% fee, while cancellations with less than 24 hours’ notice or missed appointments without notice are charged at the full session fee. These arrangements apply to both therapy and supervision appointments. Please see [our policy](/fees-and-cancellations/) for more details",
+      "We kindly request at least 48 hours’ notice for cancellations or rescheduling. Cancellations made with less than 48 hours’ notice incur a 50% fee, while cancellations with less than 24 hours’ notice or missed appointments without notice are charged at the full session fee. These arrangements apply to both therapy and supervision appointments. Please see [our policy](/fees-and-cancellations/) for more details.",
     ],
   },
   howMany: {
