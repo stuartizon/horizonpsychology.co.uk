@@ -29,7 +29,7 @@ test("the About page shows Emma's portrait, optimised by Astro", () => {
   expect(portrait?.getAttribute("srcset")).toBeTruthy();
 });
 
-test("the About page links to Emma's registration and accreditation, with their logos", () => {
+test("the About page links to Emma's registration, accreditation and Psychology Today profile, with their logos", () => {
   const credentials = [...document.querySelectorAll(".about__intro a")].map(
     (link) => ({
       href: link.getAttribute("href"),
@@ -45,9 +45,16 @@ test("the About page links to Emma's registration and accreditation, with their 
       logo: expect.stringMatching(/^\/_astro\/hcpc-registered\..+\.webp$/),
     },
     {
-      href: "https://www.babcp.com/",
+      href: "https://portal.babcp.com/therapist/register",
       name: "British Association for Behavioural and Cognitive Psychotherapies (BABCP) accredited (opens in a new tab)",
       logo: expect.stringMatching(/^\/_astro\/babcp-accredited\..+\.webp$/),
+    },
+    {
+      href: "https://www.psychologytoday.com/profile/1297285",
+      name: "Verified by Psychology Today (opens in a new tab)",
+      logo: expect.stringMatching(
+        /^\/_astro\/psychology-today-verified\..+\.svg$/,
+      ),
     },
   ]);
 });

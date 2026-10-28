@@ -1,6 +1,6 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test, type Locator, type Page } from "@playwright/test";
-import { baseline } from "./baseline";
+import { capTop } from "./baseline";
 
 test.beforeEach(async ({ page }) => {
   await page.goto("/about/");
@@ -129,7 +129,7 @@ for (const width of [1024, 1280]) {
 }
 
 for (const width of [768, 1280]) {
-  test(`at ${width}px the portrait's top is level with the top of the eyebrow's capitals`, async ({
+  test(`at ${width}px the portrait's top is level with the top of the heading's capitals`, async ({
     page,
     isMobile,
   }) => {
@@ -137,24 +137,48 @@ for (const width of [768, 1280]) {
     await page.setViewportSize({ width, height: 1024 });
     await page.evaluate(() => document.fonts.ready);
 
-    // The font's own cap height, which doesn't vary with how each platform
-    // draws the letters.
-    const eyebrow = page.locator(".about .eyebrow");
-    const capHeight = await eyebrow.evaluate((node) => {
-      const probe = document.createElement("span");
-      probe.style.cssText = "display: inline-block; height: 1cap";
-      node.append(probe);
-      const { height } = probe.getBoundingClientRect();
-      probe.remove();
-      return height;
-    });
-    const capTop = (await baseline(eyebrow)) - capHeight;
+    const heading = await capTop(page.getByRole("heading", { level: 1 }));
     const portrait = (await page
       .getByRole("img", { name: "Dr Emma Izon" })
       .boundingBox())!;
 
     // Within a pixel, as platforms round the baseline differently.
-    expect(Math.abs(portrait.y - capTop)).toBeLessThanOrEqual(1);
+    expect(Math.abs(portrait.y - heading)).toBeLessThanOrEqual(1);
+  });
+
+  test(`at ${width}px the bookshelf photo's top is level with the top of its heading's capitals`, async ({
+    page,
+    isMobile,
+  }) => {
+    test.skip(isMobile, "On a phone the photo is between the paragraphs");
+    await page.setViewportSize({ width, height: 1024 });
+    await page.evaluate(() => document.fonts.ready);
+
+    const section = page.getByRole("region", { name: "How Emma works" });
+    const heading = await capTop(section.getByRole("heading", { level: 2 }));
+    const photo = (await section.getByRole("img").boundingBox())!;
+
+    expect(Math.abs(photo.y - heading)).toBeLessThanOrEqual(1);
+  });
+}
+
+for (const width of [1024, 1280, 1440]) {
+  test(`at ${width}px the approach text starts in line with the portrait`, async ({
+    page,
+    isMobile,
+  }) => {
+    test.skip(isMobile, "On a phone both run the full width");
+    await page.setViewportSize({ width, height: 1024 });
+    await page.evaluate(() => document.fonts.ready);
+
+    const portrait = (await page
+      .getByRole("img", { name: "Dr Emma Izon" })
+      .boundingBox())!;
+    const body = (await page
+      .locator("p", { hasText: /Emma believes/ })
+      .boundingBox())!;
+
+    expect(Math.abs(body.x - portrait.x)).toBeLessThanOrEqual(1);
   });
 }
 
@@ -204,7 +228,7 @@ async function atWidth(page: Page, isMobile: boolean, width: number) {
 }
 
 for (const width of [320, 768, 1280]) {
-  test(`at ${width}px the HCPC and BABCP logos are centred under the introduction's text`, async ({
+  test(`at ${width}px the credential logos are on one line, centred under the introduction's text`, async ({
     page,
     isMobile,
   }) => {
@@ -214,21 +238,37 @@ for (const width of [320, 768, 1280]) {
     const intro = (await page
       .locator("p", { hasText: /Emma offers a compassionate/ })
       .boundingBox())!;
-    const hcpc = (await page
-      .getByRole("link", { name: /^Health and Care Professions Council/ })
-      .boundingBox())!;
-    const babcp = (await page
-      .getByRole("link", { name: /^British Association/ })
-      .boundingBox())!;
+    const logos = await Promise.all(
+      (await page.locator(".about__credentials img").all()).map(
+        async (logo) => (await logo.boundingBox())!,
+      ),
+    );
+    const first = logos[0]!;
+    const last = logos.at(-1)!;
 
-    expect(babcp.y).toBeCloseTo(hcpc.y, 0);
+    expect(logos).toHaveLength(3);
+    for (const logo of logos) {
+      expect(logo.y).toBeCloseTo(first.y, 0);
+      expect(logo.height).toBeCloseTo(first.height, 0);
+    }
     expect(
       Math.abs(
-        (hcpc.x + babcp.x + babcp.width) / 2 - (intro.x + intro.width / 2),
+        (first.x + last.x + last.width) / 2 - (intro.x + intro.width / 2),
       ),
     ).toBeLessThanOrEqual(1);
   });
 }
+
+test("where there's room, the credential logos are full size", async ({
+  page,
+  isMobile,
+}) => {
+  test.skip(isMobile, "Phones are too narrow");
+
+  for (const logo of await page.locator(".about__credentials img").all()) {
+    expect((await logo.boundingBox())!.height).toBeCloseTo(88, 0);
+  }
+});
 
 for (const width of [320, 700]) {
   test(`below tablet width, at ${width}px, the text runs the full width of the page`, async ({

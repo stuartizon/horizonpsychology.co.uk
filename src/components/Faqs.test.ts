@@ -61,3 +61,25 @@ test("two lists on one page don't share answer ids", async () => {
   );
   expect(ids[0]).not.toBe(ids[1]);
 });
+
+test("an answer can link a phrase to another page, written as a Markdown link", async () => {
+  const list = await render(Faqs, {
+    faqs: [
+      {
+        question: "Is therapy confidential?",
+        answer: [
+          "Please read our [Privacy Policy](/privacy-policy/), and ask us anything.",
+        ],
+      },
+    ],
+  });
+
+  const paragraph = list.querySelector(".faq__answer p");
+  expect(paragraph?.textContent).toBe(
+    "Please read our Privacy Policy, and ask us anything.",
+  );
+  const links = [...paragraph!.querySelectorAll("a")];
+  expect(links.map((a) => [a.textContent, a.getAttribute("href")])).toEqual([
+    ["Privacy Policy", "/privacy-policy/"],
+  ]);
+});

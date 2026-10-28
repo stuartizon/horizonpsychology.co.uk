@@ -10,6 +10,18 @@ test("the Research page has its title and heading", () => {
   expect(texts(document, "h1")).toEqual(["Published work"]);
 });
 
+test("the Research page introduces Emma's research", () => {
+  expect(text(main.querySelector(".research__intro > p"))).toBe(
+    "Emma is a highly accomplished researcher whose extensive work is widely published in leading, peer-reviewed clinical journals. Her robust academic footprint spans crucial advancements in early intervention for psychosis, family and sibling dynamics, and cutting-edge virtual reality therapies. Renowned for her rigorous approach to clinical science, she seamlessly translates this high-impact evidence directly into her clinical practice. By bridging the gap between world-class research and frontline care, she ensures her clinical interventions are consistently innovative, deeply compassionate, and grounded in the absolute latest empirical advancements.",
+  );
+});
+
+test("the Research page lists Emma's areas of research", () => {
+  expect(text(main.querySelector(".research__note"))).toBe(
+    "Areas of research: at-risk mental states and psychosis, expressed emotion, family and sibling experience, older adults' access to psychological intervention, service-user measures, and virtual reality therapies.",
+  );
+});
+
 test("the Research page lists each publication, newest first, linking to it in a new tab", () => {
   const items = [
     ...main.querySelectorAll('[aria-label="Publications"] li.publication'),

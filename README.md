@@ -6,7 +6,7 @@ It's a static site built with [Astro](https://astro.build), TypeScript and plain
 
 ## Getting started
 
-Requires Node 22.12 or later (see `.nvmrc`).
+Requires Node 22.23.4 or later (see `.nvmrc`).
 
 ```sh
 npm install

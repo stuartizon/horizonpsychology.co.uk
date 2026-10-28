@@ -1,5 +1,6 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test, type Page, type Request } from "@playwright/test";
+import { capTop } from "./baseline";
 
 /**
  * Answers the form's submission with `status`, so no enquiry is sent, and
@@ -274,6 +275,23 @@ test("at tablet width and up the form sits beside the heading", async ({
 
   expect(form.x).toBeGreaterThan(heading.x + heading.width);
 });
+
+for (const width of [768, 1280]) {
+  test(`at ${width}px the form's top is level with the top of the heading's capitals`, async ({
+    page,
+    isMobile,
+  }) => {
+    test.skip(isMobile, "On a phone the form follows the heading");
+    await page.setViewportSize({ width, height: 1024 });
+    await page.evaluate(() => document.fonts.ready);
+
+    const heading = await capTop(page.getByRole("heading", { level: 1 }));
+    const form = (await page.locator(".contact__form").boundingBox())!;
+
+    // Within a pixel, as platforms round the baseline differently.
+    expect(Math.abs(form.y - heading)).toBeLessThanOrEqual(1);
+  });
+}
 
 test("the Contact page has no detectable accessibility violations", async ({
   page,

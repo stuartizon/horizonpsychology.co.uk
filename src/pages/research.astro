@@ -20,8 +20,17 @@ import thesis from "@/photos/research.jpg";
       <div class="research__intro">
         <SectionHeading eyebrow="Research" title="Published work" level="h1" />
         <p>
-          Dr Izon publishes in peer-reviewed journals and brings that evidence
-          directly into clinical practice.
+          Emma is a highly accomplished researcher whose extensive work is
+          widely published in leading, peer-reviewed clinical journals. Her
+          robust academic footprint spans crucial advancements in early
+          intervention for psychosis, family and sibling dynamics, and
+          cutting-edge virtual reality therapies. Renowned for her rigorous
+          approach to clinical science, she seamlessly translates this
+          high-impact evidence directly into her clinical practice. By bridging
+          the gap between world-class research and frontline care, she ensures
+          her clinical interventions are consistently innovative, deeply
+          compassionate, and grounded in the absolute latest empirical
+          advancements.
         </p>
         <Image
           class="research__photo"
@@ -33,7 +42,8 @@ import thesis from "@/photos/research.jpg";
         <p class="research__note">
           Areas of research: at-risk mental states and psychosis, expressed
           emotion, family and sibling experience, older adults' access to
-          psychological intervention, and service-user measures.
+          psychological intervention, service-user measures, and virtual reality
+          therapies.
         </p>
         <p class="research__note">
           <ExternalLink
@@ -150,13 +160,23 @@ import thesis from "@/photos/research.jpg";
   }
 
   /* From a tablet up, the publications sit beside the introduction, with the
-     first one's authors on the same baseline as the eyebrow. The introduction
-     takes a third of the width, or more if its button needs it. */
+     capitals of the first one's authors level with the heading's: below the
+     eyebrow's line and the gap after it, then 0.236em down the heading's
+     line, less the 0.477em the authors' capitals start down theirs. The
+     introduction takes a third of the width, or more if its button needs
+     it. */
   @media (min-width: 48rem) {
     .research {
       grid-template-columns: minmax(min-content, 1fr) 2fr;
       gap: clamp(28px, 5vw, 72px);
-      align-items: baseline;
+      align-items: start;
+    }
+
+    .research__publications {
+      margin-top: calc(
+        0.78rem * 1.45 + var(--space-3) + var(--text-h1) * 0.236 -
+          var(--text-caption) * 0.477
+      );
     }
 
     .research__intro > p {
