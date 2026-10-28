@@ -22,3 +22,9 @@ test("every publication and acknowledgement gives its volume or issue, and its p
     );
   }
 });
+
+test("hyphenated first names are abbreviated as APA writes them, such as L.-A.", () => {
+  for (const { title, authors } of [...publications, ...acknowledgements]) {
+    expect(authors, title).not.toMatch(/\b[A-Z]-[A-Z]\./);
+  }
+});

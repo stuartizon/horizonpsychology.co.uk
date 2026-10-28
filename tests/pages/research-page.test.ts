@@ -47,13 +47,13 @@ test("each publication reads as a citation, with spaces between its parts", () =
   );
 });
 
-test('the Research page lists the papers that acknowledge Dr Izon, under a heading of "Acknowledged in", with her role, after her own', () => {
+test('the Research page lists the papers that acknowledge Dr Izon, under a heading of "Acknowledged in", after her own', () => {
   const section = labelled(main, "Acknowledged in");
 
   expect(texts(section, "li.publication")).toEqual(
     acknowledgements.map(
-      ({ authors, year, title, journal, role }) =>
-        `${authors} · ${year} ${title} (opens in a new tab) ${journal} ${role}`,
+      ({ authors, year, title, journal }) =>
+        `${authors} · ${year} ${title} (opens in a new tab) ${journal}`,
     ),
   );
   expect(
