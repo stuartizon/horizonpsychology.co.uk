@@ -141,11 +141,11 @@ export interface FaqGroup {
 /** The groups on the FAQs page, which together hold every FAQ. */
 export const faqGroups: FaqGroup[] = [
   {
-    title: "Before you begin",
+    title: "Before you begin therapy",
     faqs: ["right", "next", "firstSession", "referral"],
   },
   {
-    title: "How the work runs",
+    title: "How therapy works",
     faqs: ["online", "howMany", "bothAttend", "romantic"],
   },
   {
