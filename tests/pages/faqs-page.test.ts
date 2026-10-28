@@ -42,3 +42,39 @@ for (const group of faqGroups) {
     );
   });
 }
+
+function answer(question: string) {
+  const button = [...document.querySelectorAll("h3 > button")].find(
+    (button) => text(button) === question,
+  );
+  return document.getElementById(button!.getAttribute("aria-controls")!)!;
+}
+
+test.each([
+  [
+    "What are your fees and cancellation policy?",
+    [["our policy", "/fees-and-cancellations/"]],
+  ],
+  ["Will my GP be informed?", [["our policy", "/confidentiality/"]]],
+  [
+    "How does confidentiality work with two people?",
+    [
+      ["Confidentiality", "/confidentiality/"],
+      ["Privacy Policy", "/privacy-policy/"],
+    ],
+  ],
+  [
+    "Is therapy confidential?",
+    [
+      ["Confidentiality", "/confidentiality/"],
+      ["Privacy Policy", "/privacy-policy/"],
+    ],
+  ],
+])("the answer to %s links to the policy pages", (question, links) => {
+  expect(
+    [...answer(question).querySelectorAll("a")].map((a) => [
+      text(a),
+      a.getAttribute("href"),
+    ]),
+  ).toEqual(links);
+});
