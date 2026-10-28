@@ -228,7 +228,7 @@ async function atWidth(page: Page, isMobile: boolean, width: number) {
 }
 
 for (const width of [320, 768, 1280]) {
-  test(`at ${width}px each row of credential logos is centred under the introduction's text`, async ({
+  test(`at ${width}px the credential logos are on one line, centred under the introduction's text`, async ({
     page,
     isMobile,
   }) => {
@@ -239,24 +239,36 @@ for (const width of [320, 768, 1280]) {
       .locator("p", { hasText: /Emma offers a compassionate/ })
       .boundingBox())!;
     const logos = await Promise.all(
-      (await page.locator(".about__credentials a").all()).map(
+      (await page.locator(".about__credentials img").all()).map(
         async (logo) => (await logo.boundingBox())!,
       ),
     );
-    const rows = Map.groupBy(logos, (logo) => Math.round(logo.y));
+    const first = logos[0]!;
+    const last = logos.at(-1)!;
 
     expect(logos).toHaveLength(3);
-    for (const row of rows.values()) {
-      const first = row[0]!;
-      const last = row.at(-1)!;
-      expect(
-        Math.abs(
-          (first.x + last.x + last.width) / 2 - (intro.x + intro.width / 2),
-        ),
-      ).toBeLessThanOrEqual(1);
+    for (const logo of logos) {
+      expect(logo.y).toBeCloseTo(first.y, 0);
+      expect(logo.height).toBeCloseTo(first.height, 0);
     }
+    expect(
+      Math.abs(
+        (first.x + last.x + last.width) / 2 - (intro.x + intro.width / 2),
+      ),
+    ).toBeLessThanOrEqual(1);
   });
 }
+
+test("where there's room, the credential logos are full size", async ({
+  page,
+  isMobile,
+}) => {
+  test.skip(isMobile, "Phones are too narrow");
+
+  for (const logo of await page.locator(".about__credentials img").all()) {
+    expect((await logo.boundingBox())!.height).toBeCloseTo(88, 0);
+  }
+});
 
 for (const width of [320, 700]) {
   test(`below tablet width, at ${width}px, the text runs the full width of the page`, async ({
