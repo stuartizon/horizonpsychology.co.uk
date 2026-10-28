@@ -67,3 +67,21 @@ for (const service of services) {
     });
   });
 }
+
+test("the Research Supervision page links to the publications after its description", () => {
+  const main = page("/research-supervision/").querySelector(".service__main")!;
+
+  expect(
+    link(main.lastElementChild!, "See publications").getAttribute("href"),
+  ).toBe("/research/");
+});
+
+test("the other service pages don't link to the publications", () => {
+  for (const service of services.filter(
+    (service) => service.id !== "research-supervision",
+  )) {
+    expect(
+      texts(page(`/${service.id}/`).querySelector(".service__main")!, "a"),
+    ).not.toContain("See publications");
+  }
+});
