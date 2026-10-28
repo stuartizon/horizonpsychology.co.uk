@@ -18,6 +18,8 @@ export interface Service {
   faqs: FaqId[];
   /** Alt text for the photo on the service's page, `src/photos/<id>.jpg`. */
   photoAlt: string;
+  /** A link shown after the description, such as to the publications. */
+  link?: { href: string; label: string };
 }
 
 export const services: Service[] = [
@@ -114,5 +116,6 @@ export const services: Service[] = [
     ],
     photoAlt:
       "Emma talking with someone in armchairs, notes on the table between them",
+    link: { href: "/research/", label: "See publications" },
   },
 ];

@@ -58,6 +58,15 @@ const photo = photos[`../photos/${service.id}.jpg`].default;
         {service.description.map((paragraph) => (
           <p>{paragraph}</p>
         ))}
+        {service.link && (
+          <div>
+            <Button
+              href={service.link.href}
+              label={service.link.label}
+              variant="secondary"
+            />
+          </div>
+        )}
       </div>
       <div class="service__fees">
         <FeesPanel service={service} />
