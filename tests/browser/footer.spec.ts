@@ -18,9 +18,10 @@ test("on a phone the footer is a single column", async ({ page, isMobile }) => {
   }
 });
 
-// From about 352px up to the tablet breakpoint, the phone footer has two equal columns.
+// From about 352px up to the tablet breakpoint, each link group is stacked across the full
+// width, with its links in two rows of two.
 for (const width of [360, 740]) {
-  test(`on a ${width}px phone the link groups fit into two equal columns`, async ({
+  test(`on a ${width}px phone each link group has its links in two equal columns`, async ({
     page,
     isMobile,
   }) => {
@@ -28,30 +29,34 @@ for (const width of [360, 740]) {
     await page.setViewportSize({ width, height: 800 });
     await page.goto("/");
 
-    const [services, about, information] = await groups(page).evaluateAll(
-      (navs) => navs.map((nav) => nav.getBoundingClientRect()),
+    const boxes = await groups(page).evaluateAll((navs) =>
+      navs.map((nav) => nav.getBoundingClientRect()),
     );
-    expect(about.top).toBe(services.top);
-    expect(about.left).toBeGreaterThan(services.right);
-    expect(about.width).toBeCloseTo(services.width, 0);
-    expect(about.right).toBeCloseTo(information.right, 0);
-    expect(information.top).toBeGreaterThanOrEqual(services.bottom);
-    expect(information.left).toBe(services.left);
+    expect(boxes).toHaveLength(3);
+    for (let i = 1; i < boxes.length; i++) {
+      expect(boxes[i].top).toBeGreaterThanOrEqual(boxes[i - 1].bottom);
+      expect(boxes[i].left).toBe(boxes[0].left);
+      expect(boxes[i].width).toBe(boxes[0].width);
+    }
 
-    // Information spans both columns, with its links in two rows of two.
-    const links = await groups(page)
-      .nth(2)
-      .getByRole("link")
-      .evaluateAll((anchors) =>
-        anchors.map((anchor) => anchor.getBoundingClientRect()),
-      );
-    expect(links).toHaveLength(4);
-    expect(links[1].top).toBe(links[0].top);
-    expect(links[1].left).toBe(about.left);
-    expect(links[2].left).toBe(links[0].left);
-    expect(links[2].top).toBeGreaterThan(links[0].bottom);
-    expect(links[3].top).toBe(links[2].top);
-    expect(links[3].left).toBe(about.left);
+    for (const [i, group] of boxes.entries()) {
+      const links = await groups(page)
+        .nth(i)
+        .getByRole("link")
+        .evaluateAll((anchors) =>
+          anchors.map((anchor) => anchor.getBoundingClientRect()),
+        );
+      const middle = group.left + group.width / 2;
+      expect(links).toHaveLength(4);
+      expect(links[0].left).toBe(group.left);
+      expect(links[1].top).toBe(links[0].top);
+      expect(links[1].left).toBeGreaterThan(middle);
+      expect(links[1].left).toBeLessThan(middle + 20);
+      expect(links[2].left).toBe(links[0].left);
+      expect(links[2].top).toBeGreaterThan(links[0].bottom);
+      expect(links[3].top).toBe(links[2].top);
+      expect(links[3].left).toBe(links[1].left);
+    }
   });
 }
 
