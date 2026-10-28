@@ -69,13 +69,15 @@ export const faqs = {
     ],
   },
   bothAttend: {
-    question: "Do we both need to attend every session?",
+    question:
+      "In couples therapy, do both individuals need to attend every session?",
     answer: [
       "Most sessions are attended together, as the work focuses on what happens between you. Individual sessions may be offered where appropriate and agreed by all parties, and what is discussed in them is handled openly within the agreement you set at the start.",
     ],
   },
   romantic: {
-    question: "Do we need to be in a romantic relationship?",
+    question:
+      "In couples therapy, do we need to be in a romantic relationship?",
     answer: [
       "Couples therapy is available for any two people wishing to work through shared difficulties and improve their relationship, including romantic partners, family members, friends, or colleagues.",
     ],

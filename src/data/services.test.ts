@@ -19,8 +19,8 @@ test("each service page asks the questions Emma chose, in her order", () => {
     ],
     "couples-therapy": [
       "How do I know if this is right for me?",
-      "Do we need to be in a romantic relationship?",
-      "Do we both need to attend every session?",
+      "In couples therapy, do we need to be in a romantic relationship?",
+      "In couples therapy, do both individuals need to attend every session?",
       "How does confidentiality work with two people?",
     ],
     "clinical-supervision": [
