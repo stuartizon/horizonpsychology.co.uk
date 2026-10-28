@@ -59,7 +59,7 @@ const photo = photos[`../photos/${service.id}.jpg`].default;
           <p>{paragraph}</p>
         ))}
         {service.link && (
-          <div>
+          <div class="service__link">
             <Button
               href={service.link.href}
               label={service.link.label}
@@ -170,6 +170,12 @@ const photo = photos[`../photos/${service.id}.jpg`].default;
     box-shadow: var(--shadow-rest);
   }
 
+  /* Centred under the description on a phone, as other buttons are. */
+  .service__link {
+    display: flex;
+    justify-content: center;
+  }
+
   .questions {
     padding-block: var(--section-y);
   }
@@ -201,6 +207,10 @@ const photo = photos[`../photos/${service.id}.jpg`].default;
     .service__main {
       max-width: 34rem;
       flex: 0 1 34rem;
+    }
+
+    .service__link {
+      justify-content: flex-start;
     }
 
     .service__fees {
