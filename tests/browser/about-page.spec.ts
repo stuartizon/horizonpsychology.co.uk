@@ -228,7 +228,7 @@ async function atWidth(page: Page, isMobile: boolean, width: number) {
 }
 
 for (const width of [320, 768, 1280]) {
-  test(`at ${width}px the HCPC and BABCP logos are centred under the introduction's text`, async ({
+  test(`at ${width}px each row of credential logos is centred under the introduction's text`, async ({
     page,
     isMobile,
   }) => {
@@ -238,19 +238,23 @@ for (const width of [320, 768, 1280]) {
     const intro = (await page
       .locator("p", { hasText: /Emma offers a compassionate/ })
       .boundingBox())!;
-    const hcpc = (await page
-      .getByRole("link", { name: /^Health and Care Professions Council/ })
-      .boundingBox())!;
-    const babcp = (await page
-      .getByRole("link", { name: /^British Association/ })
-      .boundingBox())!;
-
-    expect(babcp.y).toBeCloseTo(hcpc.y, 0);
-    expect(
-      Math.abs(
-        (hcpc.x + babcp.x + babcp.width) / 2 - (intro.x + intro.width / 2),
+    const logos = await Promise.all(
+      (await page.locator(".about__credentials a").all()).map(
+        async (logo) => (await logo.boundingBox())!,
       ),
-    ).toBeLessThanOrEqual(1);
+    );
+    const rows = Map.groupBy(logos, (logo) => Math.round(logo.y));
+
+    expect(logos).toHaveLength(3);
+    for (const row of rows.values()) {
+      const first = row[0]!;
+      const last = row.at(-1)!;
+      expect(
+        Math.abs(
+          (first.x + last.x + last.width) / 2 - (intro.x + intro.width / 2),
+        ),
+      ).toBeLessThanOrEqual(1);
+    }
   });
 }
 
