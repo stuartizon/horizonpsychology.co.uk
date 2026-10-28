@@ -15,6 +15,17 @@ const answerId = (question: string) =>
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-|-$/g, "")}`;
+
+// Splits a paragraph into its text and the links written in it as
+// `[phrase](/path/)`.
+const parts = (paragraph: string) =>
+  paragraph
+    .split(/(\[[^\]]+\]\([^)]+\))/)
+    .filter(Boolean)
+    .map((part) => {
+      const link = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
+      return link ? { text: link[1], href: link[2] } : { text: part };
+    });
 ---
 
 <div class="faqs">
@@ -34,7 +45,11 @@ const answerId = (question: string) =>
       <div class="faq__answer" id={answerId(question)}>
         <div class="faq__answer-inner">
           {answer.map((paragraph) => (
-            <p>{paragraph}</p>
+            <p>
+              {parts(paragraph).map(({ text, href }) =>
+                href ? <a href={href}>{text}</a> : text,
+              )}
+            </p>
           ))}
         </div>
       </div>
