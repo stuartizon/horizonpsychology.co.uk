@@ -103,10 +103,9 @@ export const services: Service[] = [
     price: 120,
     minutes: 60,
     practical: [
-      "Master's and Doctoral level",
-      "Proposal, ethics, analysis, write-up",
-      "Online or face-to-face in Buckinghamshire",
+      "From research proposal and ethics to data analysis and publication",
       "One-off or ongoing",
+      "Online or face-to-face in Buckinghamshire",
     ],
     faqs: [
       "researchWho",
