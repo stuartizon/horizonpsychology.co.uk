@@ -41,7 +41,7 @@ export const services: Service[] = [
       "Online or face-to-face sessions in Buckinghamshire",
       "No referral needed to get started",
     ],
-    faqs: ["right", "firstSession", "howMany", "online"],
+    faqs: ["right", "next", "howMany", "confidential"],
     photoAlt:
       "Emma smiling as she goes through some papers with someone at a low table",
   },
@@ -63,7 +63,7 @@ export const services: Service[] = [
       "Online or face-to-face sessions in Buckinghamshire",
       "Sessions for any two people, not just romantic couples",
     ],
-    faqs: ["romantic", "bothAttend", "couplesConfidential", "online"],
+    faqs: ["right", "romantic", "bothAttend", "couplesConfidential"],
     photoAlt: "Emma talking with a couple who are laughing together on a sofa",
   },
   {
@@ -85,9 +85,9 @@ export const services: Service[] = [
     ],
     faqs: [
       "supervisionWho",
-      "accreditation",
-      "groupSupervision",
       "supervisionCadence",
+      "groupSupervision",
+      "accreditation",
     ],
     photoAlt: "Emma and a colleague going through notes together",
   },
