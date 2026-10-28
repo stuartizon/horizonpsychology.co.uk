@@ -29,17 +29,3 @@ test("links the title to the paper, in a new tab", async () => {
   expect(link?.getAttribute("href")).toBe(publication.href);
   expect(link?.getAttribute("target")).toBe("_blank");
 });
-
-test("says how a paper acknowledges Dr Izon, after the journal", async () => {
-  const item = (
-    await render(Publication, {
-      publication,
-      role: "Acknowledged as a trial research assistant.",
-    })
-  ).querySelector("li");
-
-  expect(text(item!.lastElementChild)).toBe(
-    "Acknowledged as a trial research assistant.",
-  );
-  expect(item!.children).toHaveLength(4);
-});

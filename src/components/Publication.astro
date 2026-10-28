@@ -1,17 +1,14 @@
 ---
 // One paper in a list of publications: authors and year, the title linking to
-// the paper, the journal, and how the paper acknowledges Dr Izon if she isn't
-// one of its authors.
+// the paper, and the journal.
 import type { Publication } from "@/data/publications";
 import ExternalLink from "./ExternalLink.astro";
 
 interface Props {
   publication: Publication;
-  /** How the paper acknowledges Dr Izon. */
-  role?: string;
 }
 
-const { publication, role } = Astro.props;
+const { publication } = Astro.props;
 const { authors, year, title, journal, href } = publication;
 ---
 
@@ -23,12 +20,6 @@ const { authors, year, title, journal, href } = publication;
     <ExternalLink href={href} label={title} />
   </span>{" "}
   <span class="publication__meta publication__journal">{journal}</span>
-  {role && (
-    <>
-      {" "}
-      <span class="publication__meta">{role}</span>
-    </>
-  )}
 </li>
 
 <style>

@@ -78,8 +78,8 @@ import thesis from "@/photos/research.jpg";
             <Eyebrow>Acknowledged in</Eyebrow>
           </h2>
           <ul class="research__publications">
-            {acknowledgements.map(({ role, ...publication }) => (
-              <Publication publication={publication} role={role} />
+            {acknowledgements.map((publication) => (
+              <Publication publication={publication} />
             ))}
           </ul>
         </section>
