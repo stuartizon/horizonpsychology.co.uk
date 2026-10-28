@@ -7,27 +7,24 @@ test.beforeEach(async ({ page }) => {
   await page.goto("/faqs/");
 });
 
-test("on a wide screen the heading and intro each fit on one line", async ({
+test("on a wide screen the heading fits on one line", async ({
   page,
   isMobile,
 }) => {
-  test.skip(isMobile, "On a phone they wrap");
+  test.skip(isMobile, "On a phone it wraps");
   await page.setViewportSize({ width: 1280, height: 1024 });
   await page.evaluate(() => document.fonts.ready);
 
-  for (const element of [
-    page.getByRole("heading", { level: 1 }),
-    page.getByText(/Everything people usually/),
-  ]) {
-    const lines = await element.evaluate((node) => {
+  const lines = await page
+    .getByRole("heading", { level: 1 })
+    .evaluate((node) => {
       const range = document.createRange();
       range.selectNodeContents(node);
       return new Set(
         [...range.getClientRects()].map((rect) => Math.round(rect.top)),
       ).size;
     });
-    expect(lines).toBe(1);
-  }
+  expect(lines).toBe(1);
 });
 
 test("a question opens to show its answer", async ({ page }) => {

@@ -7,7 +7,7 @@ draft: false
 
 The first step is to raise your concern directly, either during a session or by emailing [hello@horizonpsychology.co.uk](mailto:hello@horizonpsychology.co.uk). Most concerns can be resolved through an open conversation. You will receive an acknowledgement within ten working days and a full response within 20 working days.
 
-If you would prefer not to raise your concern directly, or you are unhappy with the response, you can contact the relevant professional body. The [Health and Care Professions Council (HCPC)](https://www.hcpc-uk.org/) regulates practising clinical psychologists, and the [British Association for Behavioural and Cognitive Psychotherapies (BABCP)](https://babcp.com/) provides a complaints process for matters within its remit.
+If you would prefer not to raise your concern directly, or you are unhappy with the response, you can contact the relevant professional body. The [Health and Care Professions Council (HCPC)](https://www.hcpc-uk.org/) regulates practising clinical psychologists, and the [British Association for Behavioural and Cognitive Psychotherapies (BABCP)](https://babcp.com/about/raising-a-concern/babcp-complaints-declarations-and-disciplinary-procedure/) provides a complaints process for matters within its remit.
 
 Making a complaint will not affect the care or support you receive.
 

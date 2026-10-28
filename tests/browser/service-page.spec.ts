@@ -1,7 +1,7 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 import { services } from "@/data/services";
-import { baseline } from "./baseline";
+import { baseline, capTop } from "./baseline";
 
 const [service] = services;
 
@@ -108,6 +108,25 @@ test("on a wide screen the fees panel sits beside the description", async ({
   expect(fees.x).toBeGreaterThan(description.x + description.width);
   expect(fees.y).toBeLessThan(description.y);
 });
+
+for (const width of [768, 1280]) {
+  test(`at ${width}px the fees panel's top is level with the top of the title's capitals`, async ({
+    page,
+    isMobile,
+  }) => {
+    test.skip(isMobile, "On a phone the fees panel follows the description");
+    await page.setViewportSize({ width, height: 1024 });
+    await page.evaluate(() => document.fonts.ready);
+
+    const title = await capTop(page.getByRole("heading", { level: 1 }));
+    const fees = (await page
+      .getByRole("complementary", { name: "Fees and practicalities" })
+      .boundingBox())!;
+
+    // Within a pixel, as platforms round the baseline differently.
+    expect(Math.abs(fees.y - title)).toBeLessThanOrEqual(1);
+  });
+}
 
 test("on a phone the fees panel follows the description", async ({
   page,
@@ -222,5 +241,48 @@ for (const width of [320, 740]) {
     const questions = (await section.locator(".faqs").boundingBox())!;
 
     expect(questions.y - (heading.y + heading.height)).toBeLessThanOrEqual(16);
+  });
+}
+
+test("on a phone See publications is centred under the description", async ({
+  page,
+  isMobile,
+}) => {
+  test.skip(!isMobile, "Phones only");
+  await page.goto("/research-supervision/");
+
+  const description = (await page.locator(".service__main").boundingBox())!;
+  const link = (await page
+    .getByRole("link", { name: "See publications" })
+    .boundingBox())!;
+
+  expect(
+    Math.abs(link.x + link.width / 2 - (description.x + description.width / 2)),
+  ).toBeLessThanOrEqual(1);
+});
+
+for (const width of [768, 1280]) {
+  test(`at ${width}px See publications lines up with the description's left edge`, async ({
+    page,
+    isMobile,
+  }) => {
+    test.skip(
+      isMobile,
+      "Sets a tablet or desktop width on the desktop browsers",
+    );
+    await page.setViewportSize({ width, height: 1024 });
+    await page.goto("/research-supervision/");
+
+    const description = (await page
+      .getByText(
+        services.find(({ id }) => id === "research-supervision")!
+          .description[0],
+      )
+      .boundingBox())!;
+    const link = (await page
+      .getByRole("link", { name: "See publications" })
+      .boundingBox())!;
+
+    expect(link.x).toBeCloseTo(description.x, 0);
   });
 }

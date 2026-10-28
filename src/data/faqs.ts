@@ -1,6 +1,9 @@
 export interface Faq {
   question: string;
-  /** The answer, one string per paragraph. */
+  /**
+   * The answer, one string per paragraph. A phrase can link to another page,
+   * written as a Markdown link: `[Privacy Policy](/privacy-policy/)`.
+   */
   answer: string[];
 }
 
@@ -8,15 +11,14 @@ export const faqs = {
   right: {
     question: "How do I know if this is right for me?",
     answer: [
-      "You may not be completely sure whether therapy is right for you — and that's okay. Reaching this point often means something feels difficult, unsettled, or hard to carry on your own. Therapy can offer a supportive space to slow things down, make sense of what you're experiencing, and gently explore what might help.",
-      "I offer a complimentary 15-minute initial consultation where you're welcome to ask questions and share what feels important to you. This is simply a chance to see whether working together feels comfortable and right for you, with no pressure to decide straight away.",
+      "You may not be completely sure whether therapy is right for you, and that's okay. If something feels difficult, unsettled, or hard to manage alone, therapy can provide a supportive space to make sense of your experiences and explore what might help.",
+      "Emma offers a complimentary 15-minute introductory consultation where you can ask questions, share what feels important, and explore whether working together feels right for you. There is no pressure to make a decision straight away.",
     ],
   },
   next: {
     question: "What happens after I get in touch?",
     answer: [
-      "After you get in touch, you will be contacted via email within 5 working days. This will usually include a response to your enquiry and, if helpful, the option to arrange a complimentary 15-minute consultation. This initial conversation is a chance to talk through what you're looking for, ask any questions, and see whether working together feels like a good fit.",
-      "If you decide to go ahead, we will arrange your first appointment at a time that works for you.",
+      "After you get in touch, Emma will respond by email within five working days. Where appropriate, you will be offered a complimentary 15-minute introductory consultation to discuss your needs, ask questions, and explore whether working together feels like the right fit. If you decide to proceed, Emma will arrange your first appointment at a time that works for you.",
     ],
   },
   online: {
@@ -28,15 +30,17 @@ export const faqs = {
   confidential: {
     question: "Is therapy confidential?",
     answer: [
-      "Yes, therapy is confidential. Everything you share is treated with care and respect, and is not discussed outside of sessions. Confidentiality is a key part of creating a safe, trusting space where you can speak freely and at your own pace.",
-      "There are a small number of legal and ethical exceptions to confidentiality. These relate to situations where there may be a serious risk of harm to you or others, or where information is required by law. If anything like this were ever to arise, it would always be discussed with you first wherever possible.",
+      "Confidentiality is central to the therapy process. Everything you share with Emma is treated with care, respect, and sensitivity, creating a safe and trusting space where you can speak openly and at your own pace.",
+      "To support safe and effective practice, Emma regularly discusses her clinical work with a qualified clinical supervisor. These discussions are conducted anonymously, with identifying details removed wherever possible, to protect your privacy while supporting ongoing reflection and high standards of care.",
+      "There are a small number of legal and ethical exceptions to confidentiality, particularly where there are concerns about serious risk of harm to you or others, safeguarding concerns, or where disclosure is required by law. Wherever possible, Emma will discuss these circumstances with you before sharing information.",
+      "For further information about how your information is collected, stored, used, and retained, including data retention periods and your rights, please read the Horizon Psychology [Confidentiality](/confidentiality/) and [Privacy Policy](/privacy-policy/).",
     ],
   },
   gp: {
     question: "Will my GP be informed?",
     answer: [
-      "No, your GP will not be informed automatically. Therapy is confidential, and anything you share remains private unless you choose for it to be shared.",
-      "The exception to this is if there were serious concerns about safety or risk, in which case this would be discussed with you wherever possible beforehand.",
+      "Your GP will not be informed automatically that you are receiving therapy. Therapy is confidential, and information will not be shared with your GP without your consent, unless there is a legal or ethical reason to do so, such as serious concerns about your safety or the safety of others. Wherever possible, this would be discussed with you beforehand.",
+      "Horizon Psychology will ask for your GP's details as part of the initial assessment. You remain in control of whether you consent to information being shared with your GP, subject to the limits of confidentiality outlined in [our policy](/confidentiality/).",
     ],
   },
   referral: {
@@ -48,7 +52,8 @@ export const faqs = {
   fees: {
     question: "What are your fees and cancellation policy?",
     answer: [
-      "Fees are as outlined at the time of booking and are payable in advance of each session. If you need to cancel or reschedule your appointment, I kindly ask for at least 48 hours' notice so that the time can be offered to someone else. Cancellations made with less than 48 hours' notice will be charged at 50% of the session fee. Cancellations made with less than 24 hours' notice, or missed appointments without notice, will be charged at the full session fee.",
+      "Fees are confirmed at the time of booking, with payment required in advance of each session. A free, no-obligation 15-minute introductory consultation is available for new therapy clients.",
+      "We kindly request at least 48 hours’ notice for cancellations or rescheduling. Cancellations made with less than 48 hours’ notice incur a 50% fee, while cancellations with less than 24 hours’ notice or missed appointments without notice are charged at the full session fee. These arrangements apply to both therapy and supervision appointments. Please see [our policy](/fees-and-cancellations/) for more details.",
     ],
   },
   howMany: {
@@ -60,7 +65,7 @@ export const faqs = {
   firstSession: {
     question: "What happens in a first session?",
     answer: [
-      "The first session is an assessment. There is time to describe what has been happening, what you would like to be different, and any history that feels relevant. Emma will explain how she works, answer questions, and together you will agree what to focus on and how often to meet. Nothing has to be decided on the spot.",
+      "The first session is an assessment, providing time to talk through what has been happening, what you would like to change, and any relevant history. Emma will explain her approach, answer your questions, and work collaboratively with you to agree on your goals and the frequency of sessions. There is no pressure to make any decisions straight away.",
     ],
   },
   bothAttend: {
@@ -72,13 +77,17 @@ export const faqs = {
   romantic: {
     question: "Do we need to be in a romantic relationship?",
     answer: [
-      "No. Couples Therapy is available for any two people wishing to work on a shared issue — partners, family members, friends, or colleagues.",
+      "Couples therapy is available for any two people wishing to work through shared difficulties and improve their relationship, including romantic partners, family members, friends, or colleagues.",
     ],
   },
   couplesConfidential: {
     question: "How does confidentiality work with two people?",
     answer: [
-      "Confidentiality covers the work as a whole, and we agree at the outset how information shared in any individual session will be handled. The same legal and ethical exceptions apply: where there may be a serious risk of harm, or where information is required by law, and this would be discussed with you first wherever possible.",
+      "Confidentiality is an important part of creating a safe, respectful space for both people in couples therapy. Emma aims to ensure that each person feels able to share their experiences, thoughts, and feelings openly, while recognising that couples therapy differs from individual therapy.",
+      "Horizon Psychology follows a no-secrets approach to couples therapy. This means Emma will not agree to keep secrets from one partner that are significant to the relationship or directly affect the work being undertaken together. If one person shares important information individually between sessions, Emma will generally encourage them to bring this into the joint sessions in a supported and constructive way. Where necessary, Emma will work with them to consider how best to approach this conversation. Emma will not promise to keep information confidential from the other partner if doing so would compromise the therapeutic process.",
+      "As with all therapy, there are legal and ethical limits to confidentiality, including circumstances involving serious risk of harm, safeguarding concerns, or legal requirements to disclose information.",
+      "Emma also regularly discusses her clinical work with a qualified clinical supervisor to support safe, ethical, and effective practice. These discussions are handled with appropriate care to protect both partners' privacy.",
+      "For further information about how personal information and clinical records are collected, stored, and managed, including your data protection rights, please read the Horizon Psychology [Confidentiality](/confidentiality/) and [Privacy Policy](/privacy-policy/).",
     ],
   },
   accreditation: {
@@ -102,7 +111,7 @@ export const faqs = {
   supervisionWho: {
     question: "Who is clinical supervision for?",
     answer: [
-      "Psychologists, CBT therapists, and other mental health and healthcare professionals, including those in training and those maintaining accreditation.",
+      "Horizon Psychology offers clinical supervision for psychologists, CBT therapists, and other healthcare professionals, including those working towards professional accreditation. Supervision provides a supportive, collaborative space to reflect on clinical practice, navigate challenges, build confidence, and develop skills to support ongoing professional growth.",
     ],
   },
   researchStage: {
@@ -114,7 +123,7 @@ export const faqs = {
   researchWho: {
     question: "Who is research supervision for?",
     answer: [
-      "Master's and Doctoral students, clinicians, trainees, and researchers seeking guidance on a project. Supervision can sit alongside supervision provided by your institution.",
+      "Horizon Psychology offers research supervision and mentoring for clinicians, students, trainees, and researchers across psychology, mental health, and related disciplines, from undergraduate to doctoral level. Supervision can complement support provided by your university or institution, or help you develop a research idea independently.",
     ],
   },
   researchEthics: {
@@ -141,11 +150,11 @@ export interface FaqGroup {
 /** The groups on the FAQs page, which together hold every FAQ. */
 export const faqGroups: FaqGroup[] = [
   {
-    title: "Before you begin",
+    title: "Before you begin therapy",
     faqs: ["right", "next", "firstSession", "referral"],
   },
   {
-    title: "How the work runs",
+    title: "How therapy works",
     faqs: ["online", "howMany", "bothAttend", "romantic"],
   },
   {
