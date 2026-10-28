@@ -58,6 +58,26 @@ for (const width of [768, 1280]) {
   });
 }
 
+for (const width of [768, 1280]) {
+  test(`at ${width}px the first acknowledging paper sits the usual gap below "Acknowledged in"`, async ({
+    page,
+    isMobile,
+  }) => {
+    test.skip(isMobile, "The phone project is 320px wide");
+    await page.setViewportSize({ width, height: 1024 });
+
+    const section = page.getByRole("region", { name: "Acknowledged in" });
+    const heading = (await section.getByRole("heading").boundingBox())!;
+    const paper = (await section.getByRole("listitem").first().boundingBox())!;
+    const gap = await section.evaluate((s) => getComputedStyle(s).rowGap);
+
+    expect(paper.y - (heading.y + heading.height)).toBeCloseTo(
+      parseFloat(gap),
+      0,
+    );
+  });
+}
+
 test("there's no line above the first paper in each list or below the last", async ({
   page,
 }) => {
