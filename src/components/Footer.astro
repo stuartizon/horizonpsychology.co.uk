@@ -19,7 +19,7 @@ const year = new Date().getFullYear();
 const groups = [
   { title: "Work together", links: serviceLinks },
   { title: "About Horizon", links: [about, research, faqs, contact] },
-  { title: "Information", links: informationLinks, wide: true },
+  { title: "Information", links: informationLinks },
 ];
 ---
 
@@ -37,10 +37,7 @@ const groups = [
         </a>
       </div>
       {groups.map((group) => (
-        <nav
-          class:list={["footer__group", { "footer__group--wide": group.wide }]}
-          aria-label={group.title}
-        >
+        <nav class="footer__group" aria-label={group.title}>
           <Eyebrow>{group.title}</Eyebrow>
           <ul>
             {group.links.map((link) => (
@@ -71,27 +68,10 @@ const groups = [
     font-size: var(--text-small);
   }
 
-  /* On a phone the link groups sit in two equal columns once there's room for two 9rem
-     columns, from about 352px, and in one column below that. */
-  .footer__grid,
-  .footer__group--wide ul {
-    --gap: var(--space-6);
-
-    display: grid;
-    grid-template-columns: repeat(
-      auto-fit,
-      minmax(min(100%, max(9rem, (100% - var(--gap)) / 2)), 1fr)
-    );
-    column-gap: var(--gap);
-  }
-
   .footer__grid {
-    row-gap: var(--space-8);
-  }
-
-  .footer__about,
-  .footer__group--wide {
-    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-8);
   }
 
   .footer__about {
@@ -117,10 +97,17 @@ const groups = [
     gap: var(--space-3);
   }
 
+  /* On a phone each group's links sit in two equal columns once there's room for two 9rem
+     columns, from about 352px, and in one column below that. */
   ul {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-3);
+    --gap: var(--space-6);
+
+    display: grid;
+    grid-template-columns: repeat(
+      auto-fit,
+      minmax(min(100%, max(9rem, (100% - var(--gap)) / 2)), 1fr)
+    );
+    gap: var(--space-3) var(--gap);
     margin: 0;
     padding: 0;
     list-style: none;
@@ -149,13 +136,13 @@ const groups = [
       gap: 36px var(--space-8);
     }
 
-    .footer__group--wide {
-      grid-column: auto;
+    .footer__about {
+      grid-column: 1 / -1;
     }
 
-    ul,
-    .footer__group--wide ul {
+    ul {
       display: flex;
+      flex-direction: column;
       gap: 9px;
     }
 
