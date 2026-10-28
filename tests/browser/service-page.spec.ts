@@ -243,3 +243,46 @@ for (const width of [320, 740]) {
     expect(questions.y - (heading.y + heading.height)).toBeLessThanOrEqual(16);
   });
 }
+
+test("on a phone See publications is centred under the description", async ({
+  page,
+  isMobile,
+}) => {
+  test.skip(!isMobile, "Phones only");
+  await page.goto("/research-supervision/");
+
+  const description = (await page.locator(".service__main").boundingBox())!;
+  const link = (await page
+    .getByRole("link", { name: "See publications" })
+    .boundingBox())!;
+
+  expect(
+    Math.abs(link.x + link.width / 2 - (description.x + description.width / 2)),
+  ).toBeLessThanOrEqual(1);
+});
+
+for (const width of [768, 1280]) {
+  test(`at ${width}px See publications lines up with the description's left edge`, async ({
+    page,
+    isMobile,
+  }) => {
+    test.skip(
+      isMobile,
+      "Sets a tablet or desktop width on the desktop browsers",
+    );
+    await page.setViewportSize({ width, height: 1024 });
+    await page.goto("/research-supervision/");
+
+    const description = (await page
+      .getByText(
+        services.find(({ id }) => id === "research-supervision")!
+          .description[0],
+      )
+      .boundingBox())!;
+    const link = (await page
+      .getByRole("link", { name: "See publications" })
+      .boundingBox())!;
+
+    expect(link.x).toBeCloseTo(description.x, 0);
+  });
+}
