@@ -1,6 +1,6 @@
-import { publications } from "@/data/publications";
+import { acknowledgements, publications } from "@/data/publications";
 import { expect, test } from "vitest";
-import { link, page, text, texts } from "./pages";
+import { labelled, link, page, text, texts } from "./pages";
 
 const document = page("/research/");
 const main = document.querySelector("main")!;
@@ -23,7 +23,9 @@ test("the Research page lists Emma's areas of research", () => {
 });
 
 test("the Research page lists each publication, newest first, linking to it in a new tab", () => {
-  const items = [...main.querySelectorAll("li.publication")];
+  const items = [
+    ...main.querySelectorAll('[aria-label="Publications"] li.publication'),
+  ];
 
   expect(items.map((item) => text(item.querySelector("a")))).toEqual(
     publications.map(({ title }) => `${title} (opens in a new tab)`),
@@ -37,12 +39,31 @@ test("the Research page lists each publication, newest first, linking to it in a
 });
 
 test("each publication reads as a citation, with spaces between its parts", () => {
-  expect(texts(main, "li.publication")).toEqual(
+  expect(texts(main, '[aria-label="Publications"] li.publication')).toEqual(
     publications.map(
       ({ authors, year, title, journal }) =>
         `${authors} · ${year} ${title} (opens in a new tab) ${journal}`,
     ),
   );
+});
+
+test('the Research page lists the papers that acknowledge Dr Izon, under a heading of "Acknowledged in", after her own', () => {
+  const section = labelled(main, "Acknowledged in");
+
+  expect(texts(section, "li.publication")).toEqual(
+    acknowledgements.map(
+      ({ authors, year, title, journal }) =>
+        `${authors} · ${year} ${title} (opens in a new tab) ${journal}`,
+    ),
+  );
+  expect(
+    [...section.querySelectorAll("li a")].map((a) => a.getAttribute("href")),
+  ).toEqual(acknowledgements.map(({ href }) => href));
+  expect(
+    main
+      .querySelector('[aria-label="Publications"]')!
+      .compareDocumentPosition(section) & 4,
+  ).toBeTruthy();
 });
 
 test("the Research page links to Emma's ResearchGate and Academia.edu profiles in new tabs", () => {

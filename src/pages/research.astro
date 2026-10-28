@@ -2,10 +2,11 @@
 import { Image } from "astro:assets";
 import Button from "@/components/Button.astro";
 import Container from "@/components/Container.astro";
+import Eyebrow from "@/components/Eyebrow.astro";
 import ExternalLink from "@/components/ExternalLink.astro";
 import Publication from "@/components/Publication.astro";
 import SectionHeading from "@/components/SectionHeading.astro";
-import { publications } from "@/data/publications";
+import { acknowledgements, publications } from "@/data/publications";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import thesis from "@/photos/research.jpg";
 ---
@@ -63,11 +64,26 @@ import thesis from "@/photos/research.jpg";
           />
         </div>
       </div>
-      <ul class="research__publications" aria-label="Publications">
-        {publications.map((publication) => (
-          <Publication publication={publication} />
-        ))}
-      </ul>
+      <div class="research__papers">
+        <ul class="research__publications" aria-label="Publications">
+          {publications.map((publication) => (
+            <Publication publication={publication} />
+          ))}
+        </ul>
+        <section
+          class="research__acknowledgements"
+          aria-labelledby="acknowledgements"
+        >
+          <h2 id="acknowledgements">
+            <Eyebrow>Acknowledged in</Eyebrow>
+          </h2>
+          <ul class="research__publications">
+            {acknowledgements.map((publication) => (
+              <Publication publication={publication} />
+            ))}
+          </ul>
+        </section>
+      </div>
     </div>
   </Container>
 </BaseLayout>
@@ -120,13 +136,32 @@ import thesis from "@/photos/research.jpg";
     box-shadow: var(--shadow-rest);
   }
 
+  .research__papers {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-12);
+  }
+
+  .research__acknowledgements {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+  }
+
+  /* A label, not a statement, so it takes the eyebrow's style. */
+  .research__acknowledgements h2 {
+    margin: 0;
+    font: inherit;
+  }
+
   .research__publications {
     margin: 0;
     padding: 0;
   }
 
   /* From a tablet up, the publications sit beside the introduction, with the
-     capitals of the first one's authors level with the heading's: below the
+     capitals of the first one's authors level with the heading's (not the
+     acknowledgements list, which follows its own heading): below the
      eyebrow's line and the gap after it, then 0.236em down the heading's
      line, less the 0.477em the authors' capitals start down theirs. The
      introduction takes a third of the width, or more if its button needs
@@ -138,7 +173,7 @@ import thesis from "@/photos/research.jpg";
       align-items: start;
     }
 
-    .research__publications {
+    .research__papers > .research__publications {
       margin-top: calc(
         0.78rem * 1.45 + var(--space-3) + var(--text-h1) * 0.236 -
           var(--text-caption) * 0.477

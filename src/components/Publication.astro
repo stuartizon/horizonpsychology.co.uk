@@ -8,7 +8,8 @@ interface Props {
   publication: Publication;
 }
 
-const { authors, year, title, journal, href } = Astro.props.publication;
+const { publication } = Astro.props;
+const { authors, year, title, journal, href } = publication;
 ---
 
 <li class="publication">
