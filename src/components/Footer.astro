@@ -38,7 +38,9 @@ const groups = [
       </div>
       {groups.map((group) => (
         <nav class="footer__group" aria-label={group.title}>
-          <Eyebrow>{group.title}</Eyebrow>
+          <div class="footer__heading">
+            <Eyebrow>{group.title}</Eyebrow>
+          </div>
           <ul>
             {group.links.map((link) => (
               <li>
@@ -68,14 +70,17 @@ const groups = [
     font-size: var(--text-small);
   }
 
+  /* On a phone the link groups run together as one list, without their headings. Each nav
+     keeps its name from aria-label. */
   .footer__grid {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
-    gap: var(--space-8);
+    gap: var(--space-3);
   }
 
   .footer__about {
     display: flex;
+    margin-bottom: var(--space-5);
     max-width: 34ch;
     flex-direction: column;
     align-items: flex-start;
@@ -97,7 +102,11 @@ const groups = [
     gap: var(--space-3);
   }
 
-  /* On a phone each group's links sit in two equal columns once there's room for two 9rem
+  .footer__heading {
+    display: none;
+  }
+
+  /* On a phone the links sit in two equal columns once there's room for two 9rem
      columns, from about 352px, and in one column below that. */
   ul {
     --gap: var(--space-6);
@@ -138,6 +147,12 @@ const groups = [
 
     .footer__about {
       grid-column: 1 / -1;
+      margin-bottom: 0;
+    }
+
+    /* The eyebrow lays out as if the wrapper weren't there. */
+    .footer__heading {
+      display: contents;
     }
 
     ul {
