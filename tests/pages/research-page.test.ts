@@ -16,6 +16,14 @@ test("the Research page introduces Emma's research", () => {
   );
 });
 
+test("the Research page describes Emma's research to search engines", () => {
+  expect(
+    document.querySelector('meta[name="description"]')?.getAttribute("content"),
+  ).toBe(
+    "Dr Emma Izon's peer-reviewed research focuses on early intervention for psychosis, family relationships, and siblings and relatives supporting someone at risk.",
+  );
+});
+
 test("the Research page lists Emma's areas of research", () => {
   expect(text(main.querySelector(".research__note"))).toBe(
     "Areas of research: at-risk mental states and psychosis, expressed emotion, family and sibling experience, older adults' access to psychological intervention, service-user measures, and virtual reality therapies.",
