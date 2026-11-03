@@ -2,6 +2,8 @@
 
 Date: 2026-10-05
 
+Done: as planned below, the snapshot was deleted once the redesign was built, on 2026-11-03 (#156).
+
 ## Context
 
 The site's redesign was made in Claude Design (claude.ai/design). The issues for it referred to an export of the design saved on one machine, so anyone else working on an issue, including cloud sessions of Claude Code, couldn't read the styles and copy the design intended without the export being shared each time.

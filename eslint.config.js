@@ -11,7 +11,6 @@ export default defineConfig(
       "dist/",
       ".astro/",
       ".wrangler/",
-      "docs/design/",
       "playwright-report/",
       "test-results/",
     ],
