@@ -11,16 +11,16 @@ test("the browser test jobs use the Playwright image for the installed version",
   expect(workflow).toContain(`mcr.microsoft.com/playwright:v${version}-noble`);
 });
 
-// Astro refuses to run on a Node version older than its minimum, which can rise in a patch
-// release. CI installs the version in .nvmrc, and package.json states the same minimum.
-test("the Node version in .nvmrc meets Astro's minimum", () => {
-  const minimum = minimumNode("node_modules/astro/package.json");
+// package.json states the Node version CI runs on as the site's minimum, and the Node types
+// match its major version. Dependabot skips major @types/node updates, so they move by hand.
+test("package.json's Node version and types match .nvmrc", () => {
   const nvmrc = readFileSync(".nvmrc", "utf8").trim();
-  expect(nvmrc).toBe(minimum);
-  expect(minimumNode("package.json")).toBe(minimum);
+  const { engines, devDependencies } = JSON.parse(
+    readFileSync("package.json", "utf8"),
+  );
+  expect(engines.node).toBe(`>=${nvmrc}`);
+  const typesMajor = devDependencies["@types/node"]
+    .replace(/^\^/, "")
+    .split(".")[0];
+  expect(typesMajor).toBe(nvmrc.split(".")[0]);
 });
-
-function minimumNode(packageJson: string) {
-  const { engines } = JSON.parse(readFileSync(packageJson, "utf8"));
-  return engines.node.replace(/^>=/, "");
-}
