@@ -20,7 +20,7 @@ One file per decision, numbered in sequence. See [0001](0001-record-architecture
 | [0014](0014-two-site-wide-breakpoints-in-rem.md)                                     | Use two site-wide breakpoints, in rem                                                                                |
 | [0015](0015-host-on-cloudflare-pages-deployed-from-github-actions.md)                | Host on Cloudflare Pages, deployed with Wrangler from GitHub Actions                                                 |
 | [0016](0016-phosphor-icons-from-the-npm-package.md)                                  | Use Phosphor icons from the npm package                                                                              |
-| [0017](0017-keep-a-snapshot-of-the-design-in-the-repo.md)                            | Keep a snapshot of the design in the repo                                                                            |
+| [0017](0017-keep-a-snapshot-of-the-design-in-the-repo.md)                            | Keep a snapshot of the design in the repo (snapshot deleted in #156)                                                 |
 | [0018](0018-unit-page-and-browser-tests.md)                                          | Test with unit, page and browser tests, keeping the browser for what needs one                                       |
 | [0019](0019-lint-with-eslint-and-format-with-prettier.md)                            | Lint with ESLint and format with Prettier                                                                            |
 | [0020](0020-email-enquiries-from-a-worker-with-cloudflare-email-routing.md)          | Email contact form enquiries from a Worker with Cloudflare Email Routing                                             |
