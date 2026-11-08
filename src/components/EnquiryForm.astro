@@ -227,6 +227,7 @@ import Panel from "./Panel.astro";
       showSending(false);
       if (!response.ok) {
         failure.replaceChildren(failureMessage.content.cloneNode(true));
+        track("Enquiry not sent");
         return;
       }
       track("Enquiry sent");

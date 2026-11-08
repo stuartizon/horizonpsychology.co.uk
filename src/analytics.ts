@@ -1,4 +1,4 @@
-// Counts visits and the site's two events with Umami (#168). An event is only
+// Counts visits and the site's three events with Umami (#168). An event is only
 // its name: nothing a visitor writes, or which service they're enquiring
 // about, is sent. A visitor can opt out (#240): the analytics aren't loaded
 // if their browser sends Global Privacy Control or Do Not Track, and the
@@ -6,7 +6,7 @@
 // only previews are counted, not the live site.
 import { ANALYTICS_WEBSITE_ID, COUNTED_HOSTNAMES } from "@/consts";
 
-type Event = "Enquiry sent" | "Email link clicked";
+type Event = "Enquiry sent" | "Enquiry not sent" | "Email link clicked";
 
 declare global {
   interface Window {
