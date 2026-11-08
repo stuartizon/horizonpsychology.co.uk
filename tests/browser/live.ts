@@ -1,16 +1,17 @@
 import type { Page } from "@playwright/test";
 
-/** A made-up preview's address, where visits are counted (see `countsVisits`). */
-export const PREVIEW = "https://analytics-test.horizonpsychology.pages.dev";
+/** The live site's address, where visits are counted (see `countsVisits`). */
+export const LIVE = "https://horizonpsychology.co.uk";
 
 /**
- * Serves the build under test at `origin`, such as a preview's address, and
- * stubs Umami's script, so a test never reaches the real Umami.
+ * Serves the build under test at `origin`, such as the live site's address,
+ * and stubs Umami's script, so a test never reaches the real Umami or counts
+ * a visit.
  */
 export async function serveAt(
   page: Page,
   baseURL: string | undefined,
-  origin = PREVIEW,
+  origin = LIVE,
   umami = "",
 ) {
   await page.route("https://cloud.umami.is/**", (route) =>
