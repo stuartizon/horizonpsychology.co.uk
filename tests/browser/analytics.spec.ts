@@ -1,19 +1,19 @@
 import { expect, test, type Page } from "@playwright/test";
 import { ANALYTICS_WEBSITE_ID } from "@/consts";
-import { PREVIEW, serveAt } from "./preview";
+import { LIVE, serveAt } from "./live";
 
-// Visits are only counted on previews for now, so these tests serve the
-// build at a preview's address, with Umami's script stubbed.
+// Visits are only counted on the live site, so these tests serve the build at
+// its address, with Umami's script stubbed.
 
 /**
- * Serves the build at a preview's address, with a stub of Umami's script that
+ * Serves the build at the live site's address, with a stub of Umami's script that
  * records each event, and returns the events recorded so far.
  */
 async function recordEvents(page: Page, baseURL: string | undefined) {
   await serveAt(
     page,
     baseURL,
-    PREVIEW,
+    LIVE,
     "window.umami = { track: (...args) => window.tracked.push(args) };",
   );
   await page.addInitScript(() => {
@@ -41,10 +41,10 @@ const umamiScript = (page: Page) =>
   page.locator('script[src^="https://cloud.umami.is/"]');
 
 async function sendEnquiry(page: Page, status: number) {
-  await page.route(`${PREVIEW}/api/enquiry`, (route) =>
+  await page.route(`${LIVE}/api/enquiry`, (route) =>
     route.fulfill({ status, json: {} }),
   );
-  await page.goto(`${PREVIEW}/contact/`);
+  await page.goto(`${LIVE}/contact/`);
   await analyticsLoaded(page);
   await page.getByLabel("Your name").fill("Sam");
   await page.getByLabel("Email").fill("sam@example.com");
@@ -85,7 +85,7 @@ test("clicking an email link is counted", async ({ page, baseURL }) => {
   const events = await recordEvents(page, baseURL);
   // Not the home page, whose footer moves as the header shrinks, so a click
   // there can land before the footer has settled.
-  await page.goto(`${PREVIEW}/faqs/`);
+  await page.goto(`${LIVE}/faqs/`);
   await analyticsLoaded(page);
   // Stops the click opening an email app, after the page has seen it.
   await page.evaluate(() =>
@@ -105,7 +105,7 @@ test("loads Umami's analytics with the site's settings, leaving out query string
   baseURL,
 }) => {
   await recordEvents(page, baseURL);
-  await page.goto(`${PREVIEW}/faqs/`);
+  await page.goto(`${LIVE}/faqs/`);
   await analyticsLoaded(page);
 
   await expect(umamiScript(page)).toHaveCount(1);
@@ -137,7 +137,7 @@ for (const [signal, property, value] of [
       [property, value] as const,
     );
 
-    await page.goto(`${PREVIEW}/faqs/`);
+    await page.goto(`${LIVE}/faqs/`);
     await page.waitForLoadState("load");
 
     await expect(umamiScript(page)).toHaveCount(0);
@@ -146,7 +146,7 @@ for (const [signal, property, value] of [
 }
 
 for (const [where, origin] of [
-  ["the live site", "https://horizonpsychology.co.uk"],
+  ["a preview", "https://analytics-test.horizonpsychology.pages.dev"],
   ["the live site's Pages address", "https://horizonpsychology.pages.dev"],
   ["a local build", undefined],
 ] as const) {
