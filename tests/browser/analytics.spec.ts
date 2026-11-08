@@ -69,7 +69,7 @@ test("a sent enquiry is counted, with nothing from the form", async ({
   expect(await events()).toEqual([["Enquiry sent"]]);
 });
 
-test("an enquiry that fails to send isn't counted", async ({
+test("an enquiry that fails to send is counted as not sent, with nothing from the form", async ({
   page,
   baseURL,
 }) => {
@@ -78,7 +78,7 @@ test("an enquiry that fails to send isn't counted", async ({
   await sendEnquiry(page, 502);
 
   await expect(page.getByRole("alert")).not.toBeEmpty();
-  expect(await events()).toEqual([]);
+  expect(await events()).toEqual([["Enquiry not sent"]]);
 });
 
 test("clicking an email link is counted", async ({ page, baseURL }) => {
