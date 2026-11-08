@@ -7,8 +7,7 @@ export const ENQUIRY_ENDPOINT = "/api/enquiry";
 /** The site's Umami Cloud analytics, stored in the EU (#168). */
 export const ANALYTICS_WEBSITE_ID = "69ffc24f-70c2-4d59-b1f4-d826302e3646";
 /**
- * Where visits are counted for now: previews, so the analytics can be tried
- * out, but not the live site until the privacy policy describes them, nor a
- * local build.
+ * Where visits are counted: only the live site, so previews and local builds
+ * don't mix with real visits.
  */
-export const COUNTED_HOSTNAMES = /\.horizonpsychology\.pages\.dev$/;
+export const COUNTED_HOSTNAMES = /^horizonpsychology\.co\.uk$/;

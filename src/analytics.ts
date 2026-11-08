@@ -2,8 +2,8 @@
 // its name: nothing a visitor writes, or which service they're enquiring
 // about, is sent. A visitor can opt out (#240): the analytics aren't loaded
 // if their browser sends Global Privacy Control or Do Not Track, and the
-// privacy policy has a switch that sets Umami's own opt-out marker. For now,
-// only previews are counted, not the live site.
+// privacy policy has a switch that sets Umami's own opt-out marker. Only the
+// live site is counted, not previews.
 import { ANALYTICS_WEBSITE_ID, COUNTED_HOSTNAMES } from "@/consts";
 
 type Event = "Enquiry sent" | "Enquiry not sent" | "Email link clicked";
@@ -27,7 +27,7 @@ export function askedNotToTrack() {
   );
 }
 
-/** Whether visits to the site at `hostname` are counted: only previews, for now. */
+/** Whether visits to the site at `hostname` are counted: only the live site. */
 export function countsVisits(hostname = location.hostname) {
   return COUNTED_HOSTNAMES.test(hostname);
 }
